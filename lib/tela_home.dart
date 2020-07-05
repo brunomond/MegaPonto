@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:megaponto_oficial/main.dart';
 import 'package:intl/intl.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class Home extends StatefulWidget {
   @override
@@ -10,7 +10,24 @@ class Home extends StatefulWidget {
 
 class _HomeState extends State<Home> {
   GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
-  bool iniciado = false;
+
+  bool loading;
+  bool started;
+
+  @override
+  void initState() async {
+    super.initState();
+
+    setState(() {
+      loading = true;
+    });
+
+    SharedPreferences prefs = await _getSharedInstance();
+    setState(() {
+      started = prefs.get('startTime') != null;
+      loading = false;
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -66,22 +83,24 @@ class _HomeState extends State<Home> {
           height: 200,
         ),
         Container(
-          child: RaisedButton(
+          child: loading ?
+          RaisedButton(
+            onPressed: () {},
+            child: CircularProgressIndicator(),
+          ) 
+          : started ? 
+          RaisedButton(
             onPressed: () {
-              setState(() {
-                iniciado = !iniciado;
-              });
-
-              String time =
-                  DateFormat.yMd().add_jm().format(DateTime.now().toUtc());
-              final snackBar = new SnackBar(
-                content: Text(time),
-                duration: Duration(seconds: 5),
-              );
-
-              _scaffoldKey.currentState.showSnackBar(snackBar);
+              
+                _fecharPlantao();
+              },
+            child: Text('Fechar Plantão', style: TextStyle(fontSize: 20)),
+          ) 
+          : RaisedButton(
+            onPressed: () async {
+              _iniciarPlantao();
             },
-            child: Text(iniciado ? 'Fechar Plantão' : 'Iniciar Plantão',
+            child: Text('Iniciar Plantão',
                 style: TextStyle(fontSize: 20)),
           ),
         ),
@@ -127,5 +146,73 @@ class _HomeState extends State<Home> {
         ),
       ],
     );
+  }
+
+  void _iniciarPlantao() async {
+    
+    SharedPreferences prefs = await _getSharedInstance();
+
+    prefs.setInt('startTime', DateTime.now().toUtc().millisecondsSinceEpoch).then((value) {
+      setState(() => started = true);
+      _showSnack(DateFormat.Hm().format(DateTime.now()), true);
+    });
+
+  }
+
+  void _fecharPlantao() async {
+
+    SharedPreferences prefs = await _getSharedInstance();
+
+    int time = prefs.get('startTime');
+    DateTime startTime = DateTime.fromMillisecondsSinceEpoch(time);
+    Duration timeOnline = DateTime.now().toUtc().difference(startTime);
+
+    
+
+    prefs.remove('startTime').then((value) { 
+      setState(() => started = true);
+      _showSnack(DateFormat.Hm().format(DateTime.now()), false);
+      });
+
+  }
+
+  String _formatDuration(Duration duration){
+
+    String twoDigits(int n) => n.toString().padLeft(2, "0");
+    String twoDigitMinutes = twoDigits(duration.inMinutes.remainder(60));
+    String twoDigitSeconds = twoDigits(duration.inSeconds.remainder(60));
+    
+    return "${twoDigits(duration.inHours)}:$twoDigitMinutes:$twoDigitSeconds";
+  }
+
+  Future<SharedPreferences> _getSharedInstance() async {
+
+    setState(() {
+      loading = true;
+    });
+    
+    SharedPreferences prefs = await SharedPreferences.getInstance().then((value){ 
+      setState(() => loading = false);
+      return;
+      });
+
+    return prefs;
+  
+  }
+
+  void _showSnack(String time, bool start){
+
+    SnackBar snackBar;
+
+    snackBar = start ? snackBar = new SnackBar(
+                content: Text('Plantão iniciado às $time'),
+                duration: Duration(seconds: 5),
+              ) 
+              : snackBar = new SnackBar(
+                content: Text('Plantão encerrado às $time'),
+                duration: Duration(seconds: 5),
+              );
+
+    _scaffoldKey.currentState.showSnackBar(snackBar);
   }
 }
