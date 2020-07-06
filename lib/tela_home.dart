@@ -11,22 +11,14 @@ class Home extends StatefulWidget {
 class _HomeState extends State<Home> {
   GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
 
-  bool loading;
-  bool started;
+  bool loading = true;
+  bool started = false;
 
   @override
-  void initState() async {
+  void initState() {
     super.initState();
-
-    setState(() {
-      loading = true;
-    });
-
-    SharedPreferences prefs = await _getSharedInstance();
-    setState(() {
-      started = prefs.get('startTime') != null;
-      loading = false;
-    });
+    _start();
+    
   }
 
   @override
@@ -156,7 +148,6 @@ class _HomeState extends State<Home> {
       setState(() => started = true);
       _showSnack(DateFormat.Hm().format(DateTime.now()), true);
     });
-
   }
 
   void _fecharPlantao() async {
@@ -170,7 +161,7 @@ class _HomeState extends State<Home> {
     
 
     prefs.remove('startTime').then((value) { 
-      setState(() => started = true);
+      setState(() => started = false);
       _showSnack(DateFormat.Hm().format(DateTime.now()), false);
       });
 
@@ -186,16 +177,18 @@ class _HomeState extends State<Home> {
   }
 
   Future<SharedPreferences> _getSharedInstance() async {
-
+    SharedPreferences prefs;
     setState(() {
       loading = true;
     });
     
-    SharedPreferences prefs = await SharedPreferences.getInstance().then((value){ 
-      setState(() => loading = false);
-      return;
+    await SharedPreferences.getInstance().then((value) {
+      prefs = value;
+      setState(() {
+        loading = false;
       });
-
+    });
+    print(prefs);
     return prefs;
   
   }
@@ -206,13 +199,24 @@ class _HomeState extends State<Home> {
 
     snackBar = start ? snackBar = new SnackBar(
                 content: Text('Plantão iniciado às $time'),
-                duration: Duration(seconds: 5),
+                duration: Duration(seconds: 2),
               ) 
               : snackBar = new SnackBar(
                 content: Text('Plantão encerrado às $time'),
-                duration: Duration(seconds: 5),
+                duration: Duration(seconds: 2),
               );
 
     _scaffoldKey.currentState.showSnackBar(snackBar);
+  }
+
+  void _start() async{
+
+    await _getSharedInstance().then((value) {
+      setState(() {
+        started = value.get('startTime') != null;
+        loading = false;
+      });
+    });
+
   }
 }
