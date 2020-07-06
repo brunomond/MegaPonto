@@ -139,6 +139,7 @@ Widget _plantao() {
           ),
           Divider(
             height: 13,
+            color: Colors.transparent,
           ),
           Container(
             width: 200,
@@ -373,7 +374,7 @@ Widget _plantao() {
 
     prefs.remove('startTime').then((value) {
       setState(() => started = false);
-      _showSnack(DateFormat.Hm().format(DateTime.now()), false);
+      _showSnack(_formatDuration(timeOnline), false);
     });
 
   }
@@ -413,7 +414,7 @@ Widget _plantao() {
       duration: Duration(seconds: 2),
     )
         : snackBar = new SnackBar(
-      content: Text('Plantão encerrado às $time'),
+      content: Text('Duração do plantão: $time'),
       duration: Duration(seconds: 2),
     );
 
