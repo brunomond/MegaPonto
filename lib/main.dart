@@ -3,10 +3,12 @@ import 'package:megaponto_oficial/tela_criar_conta.dart';
 import 'package:megaponto_oficial/tela_home.dart';
 import 'package:megaponto_oficial/tela_recuperar_senha.dart';
 import 'package:megaponto_oficial/tela_chave_acesso.dart';
+import 'package:flutter/services.dart';
 
 main(){
   runApp(MaterialApp(
     home: Login(),
+    debugShowCheckedModeBanner: false,
   ));
 }
 
