@@ -12,7 +12,8 @@ class Home extends StatefulWidget {
 
 class _HomeState extends State<Home> {
   GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
-  bool iniciado = false;
+  bool started = false;
+  bool loading = true;
   int numPessoasOnline = 5;
   int horas = 2;
 
@@ -30,9 +31,9 @@ class _HomeState extends State<Home> {
                       begin: Alignment.topLeft,
                       end: Alignment.centerRight,
                       colors: [
-                    Color.fromRGBO(65, 3, 76, 1),
-                    Color.fromRGBO(199, 59, 34, 1)
-                  ])),
+                        Color.fromRGBO(65, 3, 76, 1),
+                        Color.fromRGBO(199, 59, 34, 1)
+                      ])),
               child: Column(children: <Widget>[
                 Container(
                   padding: EdgeInsets.fromLTRB(0, 10, 30, 1),
@@ -48,7 +49,7 @@ class _HomeState extends State<Home> {
                   child: Container(
                     decoration: BoxDecoration(
                       borderRadius:
-                          BorderRadius.only(topLeft: Radius.circular(100.0)),
+                      BorderRadius.only(topLeft: Radius.circular(100.0)),
                       color: Colors.white,
                     ),
                     child: Column(
@@ -89,9 +90,9 @@ class _HomeState extends State<Home> {
                 "Megariano Regular",
                 style: GoogleFonts.salsa(
                     textStyle: TextStyle(
-                  color: Colors.white,
-                  fontSize: 15,
-                )),
+                      color: Colors.white,
+                      fontSize: 15,
+                    )),
               ),
             ],
           ),
@@ -103,10 +104,48 @@ class _HomeState extends State<Home> {
           decoration: BoxDecoration(
             shape: BoxShape.circle,
             image:
-                DecorationImage(image: AssetImage("images/Rubio_Circle.png")),
+            DecorationImage(image: AssetImage("images/Rubio_Circle.png")),
           ),
         )
       ],
+    );
+  }
+
+
+Widget _plantao() {
+    return Center(
+      child: Column(
+        children: [
+          Container(
+            padding: EdgeInsets.only(top: 80),
+            child: Text(
+              "Partiu entregar alguns projetos?!",
+              style: TextStyle(fontSize: 20, fontStyle: FontStyle.italic),
+            ),
+          ),
+          Container(
+            padding: EdgeInsets.only(top: 13),
+            child: Text(
+              "Inicie seu Plantão!",
+              style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+            ),
+          ),
+          Divider(
+            height: 13,
+          ),
+          Container(
+            width: 200,
+            height: 51,
+            decoration: BoxDecoration(
+                color: Color.fromRGBO(143, 38, 56, 1),
+                borderRadius: BorderRadius.all(Radius.circular(24))),
+            child: loading ? FlatButton(child: CircularProgressIndicator(),)
+            : started ?
+            FlatButton(child: Text('Fechar Plantão'), onPressed: () async => _fecharPlantao(),)
+            : FlatButton(child: Text('Iniciar Plantão'), onPressed: () async => _iniciarPlantao(),)
+          ),
+        ],
+      ),
     );
   }
 
@@ -133,7 +172,7 @@ class _HomeState extends State<Home> {
           decoration: BoxDecoration(
             shape: BoxShape.circle,
             image:
-                DecorationImage(image: AssetImage("images/Rubio_Circle.png")),
+            DecorationImage(image: AssetImage("images/Rubio_Circle.png")),
           ),
 
         ),
@@ -144,7 +183,7 @@ class _HomeState extends State<Home> {
           decoration: BoxDecoration(
             shape: BoxShape.circle,
             image:
-                DecorationImage(image: AssetImage("images/Rubio_Circle.png")),
+            DecorationImage(image: AssetImage("images/Rubio_Circle.png")),
           ),
 
         ),
@@ -155,7 +194,7 @@ class _HomeState extends State<Home> {
           decoration: BoxDecoration(
             shape: BoxShape.circle,
             image:
-                DecorationImage(image: AssetImage("images/Rubio_Circle.png")),
+            DecorationImage(image: AssetImage("images/Rubio_Circle.png")),
           ),
         ),
         Container(
@@ -165,7 +204,7 @@ class _HomeState extends State<Home> {
           decoration: BoxDecoration(
             shape: BoxShape.circle,
             image:
-                DecorationImage(image: AssetImage("images/Rubio_Circle.png")),
+            DecorationImage(image: AssetImage("images/Rubio_Circle.png")),
           ),
         ),
         Container(
@@ -175,7 +214,7 @@ class _HomeState extends State<Home> {
           decoration: BoxDecoration(
             shape: BoxShape.circle,
             image:
-                DecorationImage(image: AssetImage("images/Rubio_Circle.png")),
+            DecorationImage(image: AssetImage("images/Rubio_Circle.png")),
           ),
         ),
         Container(
@@ -185,7 +224,7 @@ class _HomeState extends State<Home> {
           decoration: BoxDecoration(
             shape: BoxShape.circle,
             image:
-                DecorationImage(image: AssetImage("images/Rubio_Circle.png")),
+            DecorationImage(image: AssetImage("images/Rubio_Circle.png")),
           ),
         ),
       ],
@@ -230,31 +269,7 @@ class _HomeState extends State<Home> {
         ],
       ),
     );
-  void _iniciarPlantao() async {
-    
-    SharedPreferences prefs = await _getSharedInstance();
-
-    prefs.setInt('startTime', DateTime.now().toUtc().millisecondsSinceEpoch).then((value) {
-      setState(() => started = true);
-      _showSnack(DateFormat.Hm().format(DateTime.now()), true);
-    });
-
   }
-
-  void _fecharPlantao() async {
-
-    SharedPreferences prefs = await _getSharedInstance();
-
-    int time = prefs.get('startTime');
-    DateTime startTime = DateTime.fromMillisecondsSinceEpoch(time);
-    Duration timeOnline = DateTime.now().toUtc().difference(startTime);
-
-    
-
-    prefs.remove('startTime').then((value) { 
-      setState(() => started = true);
-      _showSnack(DateFormat.Hm().format(DateTime.now()), false);
-      });
 
   Widget _membrosOnline() {
     return Container(
@@ -327,67 +342,59 @@ class _HomeState extends State<Home> {
         ),
       ],
     );
+  }
+
+  void _iniciarPlantao() async {
+
+    SharedPreferences prefs = await _getSharedInstance();
+
+    prefs.setInt('startTime', DateTime.now().toUtc().millisecondsSinceEpoch).then((value) {
+      setState(() => started = true);
+      _showSnack(DateFormat.Hm().format(DateTime.now()), true);
+    });
+  }
+
+  void _fecharPlantao() async {
+
+    SharedPreferences prefs = await _getSharedInstance();
+
+    int time = prefs.get('startTime');
+    DateTime startTime = DateTime.fromMillisecondsSinceEpoch(time);
+    Duration timeOnline = DateTime.now().toUtc().difference(startTime);
+
+
+
+    prefs.remove('startTime').then((value) {
+      setState(() => started = false);
+      _showSnack(DateFormat.Hm().format(DateTime.now()), false);
+    });
+
+  }
+
   String _formatDuration(Duration duration){
 
     String twoDigits(int n) => n.toString().padLeft(2, "0");
     String twoDigitMinutes = twoDigits(duration.inMinutes.remainder(60));
     String twoDigitSeconds = twoDigits(duration.inSeconds.remainder(60));
-    
+
     return "${twoDigits(duration.inHours)}:$twoDigitMinutes:$twoDigitSeconds";
   }
 
-  Widget _plantao() {
-    return Center(
-      child: Column(
-        children: [
-          Container(
-            padding: EdgeInsets.only(top: 80),
-            child: Text(
-              "Partiu entregar alguns projetos?!",
-              style: TextStyle(fontSize: 20, fontStyle: FontStyle.italic),
-            ),
-          ),
-          Container(
-            padding: EdgeInsets.only(top: 13),
-            child: Text(
-              "Inicie seu Plantão!",
-              style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
-            ),
-          ),
-          Divider(
-            height: 13,
-            color: Colors.transparent,
-          ),
-          Container(
-            width: 200,
-            height: 51,
-            decoration: BoxDecoration(
-                color: Color.fromRGBO(143, 38, 56, 1),
-                borderRadius: BorderRadius.all(Radius.circular(24))),
-            child: FlatButton(
-              onPressed: () {
-                setState(() {
-                  iniciado = !iniciado;
-                });
-                String time =
-                    DateFormat.yMd().add_jm().format(DateTime.now().toUtc());
-                final snackBar = new SnackBar(
-                  content: Text(time),
-                  duration: Duration(seconds: 5),
-                );
   Future<SharedPreferences> _getSharedInstance() async {
-
+    SharedPreferences prefs;
     setState(() {
       loading = true;
     });
-    
-    SharedPreferences prefs = await SharedPreferences.getInstance().then((value){ 
-      setState(() => loading = false);
-      return;
-      });
 
+    await SharedPreferences.getInstance().then((value) {
+      prefs = value;
+      setState(() {
+        loading = false;
+      });
+    });
+    print(prefs);
     return prefs;
-  
+
   }
 
   void _showSnack(String time, bool start){
@@ -395,14 +402,25 @@ class _HomeState extends State<Home> {
     SnackBar snackBar;
 
     snackBar = start ? snackBar = new SnackBar(
-                content: Text('Plantão iniciado às $time'),
-                duration: Duration(seconds: 5),
-              ) 
-              : snackBar = new SnackBar(
-                content: Text('Plantão encerrado às $time'),
-                duration: Duration(seconds: 5),
-              );
+      content: Text('Plantão iniciado às $time'),
+      duration: Duration(seconds: 2),
+    )
+        : snackBar = new SnackBar(
+      content: Text('Plantão encerrado às $time'),
+      duration: Duration(seconds: 2),
+    );
 
     _scaffoldKey.currentState.showSnackBar(snackBar);
+  }
+
+  void _start() async{
+
+    await _getSharedInstance().then((value) {
+      setState(() {
+        started = value.get('startTime') != null;
+        loading = false;
+      });
+    });
+
   }
 }
