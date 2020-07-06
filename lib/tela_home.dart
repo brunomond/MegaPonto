@@ -18,6 +18,13 @@ class _HomeState extends State<Home> {
   int horas = 2;
 
   @override
+  void initState() {
+    super.initState();
+    _start();
+
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
         resizeToAvoidBottomPadding: false,
