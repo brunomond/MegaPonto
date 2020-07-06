@@ -4,7 +4,7 @@ import 'package:megaponto_oficial/tela_home.dart';
 import 'package:megaponto_oficial/tela_recuperar_senha.dart';
 import 'package:megaponto_oficial/tela_chave_acesso.dart';
 
-main(){
+main() {
   runApp(MaterialApp(
     home: Login(),
   ));
@@ -15,32 +15,48 @@ class Login extends StatefulWidget {
   _LoginState createState() => _LoginState();
 }
 
-class _LoginState extends State<Login> { 
+class _LoginState extends State<Login> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: SafeArea(
-        child: SingleChildScrollView( //Faz com que a tela possa ser rolada, porém acredito que não está da forma certa
+        child: SingleChildScrollView(
+          //Faz com que a tela possa ser rolada, porém acredito que não está da forma certa
           child: Container(
+            decoration: BoxDecoration(
+                gradient: LinearGradient(
+                    begin: Alignment.topLeft,
+                    end: Alignment.centerRight,
+                    colors: [
+                      Color.fromRGBO(65, 3, 76, 1),
+                      Color.fromRGBO(199, 59, 34, 1)
+                    ]
+                )
+            ),
             width: MediaQuery.of(context).size.width,
             height: MediaQuery.of(context).size.height,
             child: Stack(
               children: <Widget>[
-                Image.asset("images/fundo_principal.png"),
+                //Image.asset("images/fundo_principal.png"),
                 Padding(
                     padding: EdgeInsets.only(left: 35, top: 130),
-                    child: Text("<MegaPonto/>", style: TextStyle(color: Colors.white, fontSize: 25, fontFamily: "Futura"))
-                ),
+                    child: Text("<MegaPonto/>",
+                        style: TextStyle(
+                            color: Colors.white,
+                            fontSize: 25,
+                            fontFamily: "Futura"))),
                 Positioned(
                     top: 180,
                     child: Container(
-                      padding: EdgeInsets.symmetric(vertical: 20, horizontal: 40),
+                      padding:
+                          EdgeInsets.symmetric(vertical: 20, horizontal: 40),
                       width: MediaQuery.of(context).size.width,
                       height: MediaQuery.of(context).size.height,
                       decoration: BoxDecoration(
                           color: Colors.white,
-                          borderRadius: BorderRadius.only(topLeft: Radius.circular(90), topRight: Radius.circular(90))
-                      ),
+                          borderRadius: BorderRadius.only(
+                              topLeft: Radius.circular(90),
+                              topRight: Radius.circular(90))),
                       child: ListView(
                         children: <Widget>[
                           SizedBox(
@@ -64,7 +80,7 @@ class _LoginState extends State<Login> {
                                   hintText: 'E-mail',
                                   hintStyle: TextStyle(color: Colors.grey),
                                   contentPadding:
-                                  EdgeInsets.fromLTRB(20, 10, 20, 10),
+                                      EdgeInsets.fromLTRB(20, 10, 20, 10),
                                   border: OutlineInputBorder(
                                       borderRadius: BorderRadius.circular(32)),
                                   prefixIcon: Padding(
@@ -91,7 +107,7 @@ class _LoginState extends State<Login> {
                                   hintText: 'Senha',
                                   hintStyle: TextStyle(color: Colors.grey),
                                   contentPadding:
-                                  EdgeInsets.fromLTRB(20, 10, 20, 10),
+                                      EdgeInsets.fromLTRB(20, 10, 20, 10),
                                   border: OutlineInputBorder(
                                     borderRadius: BorderRadius.circular(32),
                                   ),
@@ -112,7 +128,8 @@ class _LoginState extends State<Login> {
                               child: Text(
                                 "Esqueci minha senha",
                                 textAlign: TextAlign.right,
-                                style: TextStyle(color: Colors.grey, fontSize: 13),
+                                style:
+                                    TextStyle(color: Colors.grey, fontSize: 13),
                               ),
                               onPressed: () {
                                 Navigator.push(
@@ -134,7 +151,7 @@ class _LoginState extends State<Login> {
                               decoration: BoxDecoration(
                                   color: Colors.black87,
                                   borderRadius:
-                                  BorderRadius.all(Radius.circular(32))),
+                                      BorderRadius.all(Radius.circular(32))),
                               child: SizedBox.expand(
                                 child: FlatButton(
                                   onPressed: () {
@@ -168,7 +185,8 @@ class _LoginState extends State<Login> {
                               child: Text(
                                 "Criar uma conta",
                                 textAlign: TextAlign.center,
-                                style: TextStyle(color: Colors.grey, fontSize: 13),
+                                style:
+                                    TextStyle(color: Colors.grey, fontSize: 13),
                               ),
                               onPressed: () {
                                 Navigator.push(
@@ -181,8 +199,7 @@ class _LoginState extends State<Login> {
                           )
                         ],
                       ),
-                    )
-                )
+                    ))
               ],
             ),
           ),
