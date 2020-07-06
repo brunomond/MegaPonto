@@ -18,175 +18,56 @@ class _HomeState extends State<Home> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      resizeToAvoidBottomPadding: false,
-      backgroundColor: Color.fromRGBO(74, 39, 146, 1),
-      bottomNavigationBar: _bottomApp(),
-      key: _scaffoldKey,
-      body: SafeArea(
-        child:Container(
-          decoration: BoxDecoration(
-              gradient: LinearGradient(
-                  begin: Alignment.topLeft,
-                  end: Alignment.centerRight,
-                  colors: [
+        resizeToAvoidBottomPadding: false,
+        backgroundColor: Color.fromRGBO(74, 39, 146, 1),
+        bottomNavigationBar: _bottomApp(),
+        key: _scaffoldKey,
+        body: SafeArea(
+          child: Container(
+              decoration: BoxDecoration(
+                  gradient: LinearGradient(
+                      begin: Alignment.topLeft,
+                      end: Alignment.centerRight,
+                      colors: [
                     Color.fromRGBO(65, 3, 76, 1),
                     Color.fromRGBO(199, 59, 34, 1)
                   ])),
-          child: Stack(
-            children: [
-              //Image.asset(
-                //"images/fundo_principal.png",
-              //),
-              Column(children: <Widget>[
+              child: Column(children: <Widget>[
                 Container(
                   padding: EdgeInsets.fromLTRB(0, 10, 30, 1),
-                  child: Row(
-                    //inicio nome&perfil
-                    mainAxisAlignment: MainAxisAlignment.end,
-                    children: [
-                      Column(
-                        crossAxisAlignment: CrossAxisAlignment.end,
-                        children: [
-                          Text(
-                            "Rick Sanchez",
-                            style: GoogleFonts.salsa(
-                                textStyle:
-                                TextStyle(color: Colors.white, fontSize: 20)),
-                          ),
-                          Text(
-                            "Megariano Regular",
-                            style: GoogleFonts.salsa(
-                                textStyle: TextStyle(
-                                  color: Colors.white,
-                                  fontSize: 15,
-                                )),
-                          ),
-                        ],
-                      ),
-                      Container(
-                        padding: EdgeInsets.only(left: 10),
-                        width: 60,
-                        height: 60,
-                        decoration: BoxDecoration(
-                          shape: BoxShape.circle,
-                          image: DecorationImage(
-                              image: AssetImage("images/Rubio_Circle.png")),
-                        ),
-                      )
-                    ],
-                  ), //fim nome&perfil
+                  child: Container(
+                    padding: EdgeInsets.fromLTRB(0, 20, 25, 0),
+                    child: _infoPessoais(),
+                  ),
                 ),
-                Container(
-                  //inicio listFuncionalidades
-                    padding: EdgeInsets.fromLTRB(0, 40, 20, 1),
-                    height: 70,
-                    child: _listFuncionalidades()), //fim listFuncionalidades
                 Divider(
                   height: 20,
                 ),
-                Container(
-                  color: Colors.white,
-                  height: 400,
-                  padding: EdgeInsets.fromLTRB(0, 5, 16, 1),
-                  child: Column(
-                    children: [
-                      Row(
-                        children: [
-                          Container(
-                            padding: EdgeInsets.fromLTRB(20, 0, 5, 0),
-                            width: 20,
-                            height: 20,
-                            decoration: BoxDecoration(
-                              color: Color.fromRGBO(120, 222, 69, 1),
-                              shape: BoxShape.circle,
-                            ),
-                          ),
-                          Text(
-                            '$numPessoasOnline MegaMembros na sala :)',
-                            style: TextStyle(
-                                fontSize: 20,
-                                color: Colors.black,
-                                fontStyle: FontStyle.italic),
-                          ),
-                        ],
-                      ),
-                      Container(
-                        height: 70,
-                        padding: EdgeInsets.only(top: 10),
-                        child: _listOnline(),
-                      ),
-                      Column(
-                        children: [
-                          InkWell(
-                            child: Row(children: [
-                              Icon(
-                                CustomIcons.do_utilizador,
-                                size: 40,
-                              ),
-                              Text(
-                                'Clima normal de trabalho',
-                                style: TextStyle(
-                                    fontSize: 20, fontStyle: FontStyle.italic),
-                              ),
-                              Icon(
-                                Icons.expand_more,
-                                size: 20,
-                              ),
-                            ]),
-                          ),
-                          InkWell(
-                            child: Row(children: [
-                              Icon(
-                                CustomIcons.coffee_break,
-                                size: 40,
-                              ),
-                              Text(
-                                'Café feito às $horas de hoje',
-                                style: TextStyle(
-                                    fontSize: 20, fontStyle: FontStyle.italic),
-                              ),
-                              Icon(
-                                Icons.expand_more,
-                                size: 20,
-                              ),
-                            ]),
-                          ),
-                        ],
-                      ),
-                      Container(
-                        decoration: BoxDecoration(
-                            color: Color.fromRGBO(143, 38, 56, 1) ,
-                            borderRadius: BorderRadius.all(Radius.circular(32))),
-                        child: FlatButton(
-                          onPressed: () {
-                            setState(() {
-                              iniciado = !iniciado;
-                            });
-                            String time = DateFormat.yMd()
-                                .add_jm()
-                                .format(DateTime.now().toUtc());
-                            final snackBar = new SnackBar(
-                              content: Text(time),
-                              duration: Duration(seconds: 5),
-                            );
-
-                            _scaffoldKey.currentState.showSnackBar(snackBar);
-                          },
-                          child: Text(
-                              iniciado ? 'Fechar Plantão' : 'Iniciar Plantão',
-                              style:
-                              TextStyle(fontSize: 20, color: Colors.white)),
+                Expanded(
+                  child: Container(
+                    decoration: BoxDecoration(
+                      borderRadius:
+                          BorderRadius.only(topLeft: Radius.circular(100.0)),
+                      color: Colors.white,
+                    ),
+                    child: Column(
+                      children: [
+                        _membrosOnline(),
+                        Container(
+                          height: 80,
+                          padding: EdgeInsets.fromLTRB(10, 20, 10, 0),
+                          child: _listOnline(),
                         ),
-                      ),
-                    ],
+                        Container(
+                            padding: EdgeInsets.fromLTRB(50, 50, 0, 0),
+                            child: _clima()),
+                        Expanded(child: _plantao())
+                      ],
+                    ),
                   ),
-                ),
-              ])
-            ],
-          ),
-        ),
-      ),
-    );
+                )
+              ])),
+        ));
   }
 
   Widget _infoPessoais() {
@@ -213,7 +94,6 @@ class _HomeState extends State<Home> {
               ),
             ],
           ),
-          onPressed: () {},
         ),
         Container(
           width: 60,
@@ -377,7 +257,7 @@ class _HomeState extends State<Home> {
           onTap: () {},
           child: Row(children: [
             Icon(
-              Icons.personal_video,
+              CustomIcons.do_utilizador,
               size: 30,
             ),
             Container(
@@ -400,7 +280,7 @@ class _HomeState extends State<Home> {
         InkWell(
           child: Row(children: [
             Icon(
-              Icons.cake,
+              CustomIcons.coffee_break,
               size: 30,
             ),
             Container(
@@ -440,6 +320,7 @@ class _HomeState extends State<Home> {
           ),
           Divider(
             height: 13,
+            color: Colors.transparent,
           ),
           Container(
             width: 200,
@@ -462,7 +343,9 @@ class _HomeState extends State<Home> {
                 _scaffoldKey.currentState.showSnackBar(snackBar);
               },
               child: Text(iniciado ? 'Finalizar' : 'Iniciar',
-                  style: TextStyle(fontSize: 23, color: Colors.white,
+                  style: TextStyle(
+                      fontSize: 23,
+                      color: Colors.white,
                       fontWeight: FontWeight.bold)),
             ),
           ),
