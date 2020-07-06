@@ -2,7 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:megaponto_oficial/main.dart';
 import 'package:intl/intl.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:megaponto_oficial/presentation/custom_icons_icons.dart';
+import 'package:megaponto_oficial/presentation/custom_icons_icons.dart'; 
+import 'package:shared_preferences/shared_preferences.dart';
 
 class Home extends StatefulWidget {
   @override
@@ -95,6 +96,7 @@ class _HomeState extends State<Home> {
             ],
           ),
         ),
+
         Container(
           width: 60,
           height: 60,
@@ -122,6 +124,7 @@ class _HomeState extends State<Home> {
               image: AssetImage("images/Rubio_Circle.png"),
             ),
           ),
+
         ),
         Container(
           padding: EdgeInsets.only(left: 20),
@@ -132,6 +135,7 @@ class _HomeState extends State<Home> {
             image:
                 DecorationImage(image: AssetImage("images/Rubio_Circle.png")),
           ),
+
         ),
         Container(
           padding: EdgeInsets.only(left: 20),
@@ -142,6 +146,7 @@ class _HomeState extends State<Home> {
             image:
                 DecorationImage(image: AssetImage("images/Rubio_Circle.png")),
           ),
+
         ),
         Container(
           padding: EdgeInsets.only(left: 20),
@@ -225,7 +230,31 @@ class _HomeState extends State<Home> {
         ],
       ),
     );
+  void _iniciarPlantao() async {
+    
+    SharedPreferences prefs = await _getSharedInstance();
+
+    prefs.setInt('startTime', DateTime.now().toUtc().millisecondsSinceEpoch).then((value) {
+      setState(() => started = true);
+      _showSnack(DateFormat.Hm().format(DateTime.now()), true);
+    });
+
   }
+
+  void _fecharPlantao() async {
+
+    SharedPreferences prefs = await _getSharedInstance();
+
+    int time = prefs.get('startTime');
+    DateTime startTime = DateTime.fromMillisecondsSinceEpoch(time);
+    Duration timeOnline = DateTime.now().toUtc().difference(startTime);
+
+    
+
+    prefs.remove('startTime').then((value) { 
+      setState(() => started = true);
+      _showSnack(DateFormat.Hm().format(DateTime.now()), false);
+      });
 
   Widget _membrosOnline() {
     return Container(
@@ -298,6 +327,13 @@ class _HomeState extends State<Home> {
         ),
       ],
     );
+  String _formatDuration(Duration duration){
+
+    String twoDigits(int n) => n.toString().padLeft(2, "0");
+    String twoDigitMinutes = twoDigits(duration.inMinutes.remainder(60));
+    String twoDigitSeconds = twoDigits(duration.inSeconds.remainder(60));
+    
+    return "${twoDigits(duration.inHours)}:$twoDigitMinutes:$twoDigitSeconds";
   }
 
   Widget _plantao() {
@@ -339,18 +375,34 @@ class _HomeState extends State<Home> {
                   content: Text(time),
                   duration: Duration(seconds: 5),
                 );
+  Future<SharedPreferences> _getSharedInstance() async {
 
-                _scaffoldKey.currentState.showSnackBar(snackBar);
-              },
-              child: Text(iniciado ? 'Finalizar' : 'Iniciar',
-                  style: TextStyle(
-                      fontSize: 23,
-                      color: Colors.white,
-                      fontWeight: FontWeight.bold)),
-            ),
-          ),
-        ],
-      ),
-    );
+    setState(() {
+      loading = true;
+    });
+    
+    SharedPreferences prefs = await SharedPreferences.getInstance().then((value){ 
+      setState(() => loading = false);
+      return;
+      });
+
+    return prefs;
+  
+  }
+
+  void _showSnack(String time, bool start){
+
+    SnackBar snackBar;
+
+    snackBar = start ? snackBar = new SnackBar(
+                content: Text('Plantão iniciado às $time'),
+                duration: Duration(seconds: 5),
+              ) 
+              : snackBar = new SnackBar(
+                content: Text('Plantão encerrado às $time'),
+                duration: Duration(seconds: 5),
+              );
+
+    _scaffoldKey.currentState.showSnackBar(snackBar);
   }
 }
