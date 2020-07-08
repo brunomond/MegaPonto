@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:megaponto_oficial/main.dart';
 import 'package:intl/intl.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:megaponto_oficial/presentation/custom_icons_icons.dart'; 
+import 'package:megaponto_oficial/presentation/custom_icons_icons.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class Home extends StatefulWidget {
@@ -43,9 +43,9 @@ class _HomeState extends State<Home> {
                       ])),
               child: Column(children: <Widget>[
                 Container(
-                  padding: EdgeInsets.fromLTRB(0, 10, 30, 1),
+                  padding: EdgeInsets.only(right: 15),
                   child: Container(
-                    padding: EdgeInsets.fromLTRB(0, 20, 25, 0),
+                    padding: EdgeInsets.only(top: 20),
                     child: _infoPessoais(),
                   ),
                 ),
@@ -53,7 +53,8 @@ class _HomeState extends State<Home> {
                   height: 20,
                 ),
                 Expanded(
-                  child: Container(
+                  child:
+                  Container(
                     decoration: BoxDecoration(
                       borderRadius:
                       BorderRadius.only(topLeft: Radius.circular(100.0)),
@@ -63,14 +64,14 @@ class _HomeState extends State<Home> {
                       children: [
                         _membrosOnline(),
                         Container(
-                          height: 80,
-                          padding: EdgeInsets.fromLTRB(10, 20, 10, 0),
+                          height: 170,
+                          padding: EdgeInsets.fromLTRB(10, 30, 10, 0),
                           child: _listOnline(),
                         ),
                         Container(
-                            padding: EdgeInsets.fromLTRB(50, 50, 0, 0),
-                            child: _clima()),
-                        Expanded(child: _plantao())
+                            padding: EdgeInsets.only(left: 50),
+                            child: _estadoSala()),
+                        Expanded(child: _infoPlantao())
                       ],
                     ),
                   ),
@@ -119,12 +120,12 @@ class _HomeState extends State<Home> {
   }
 
 
-Widget _plantao() {
+Widget _infoPlantao() {
     return Center(
       child: Column(
         children: [
           Container(
-            padding: EdgeInsets.only(top: 80),
+            padding: EdgeInsets.only(top: 50),
             child: Text(
               "Partiu entregar alguns projetos?!",
               style: TextStyle(fontSize: 20, fontStyle: FontStyle.italic),
@@ -142,7 +143,6 @@ Widget _plantao() {
             color: Colors.transparent,
           ),
           Container(
-            width: 200,
             height: 51,
             decoration: BoxDecoration(
                 color: Color.fromRGBO(143, 38, 56, 1),
@@ -161,82 +161,53 @@ Widget _plantao() {
     return ListView(
       scrollDirection: Axis.horizontal,
       children: [
-        Container(
-          padding: EdgeInsets.only(left: 35),
-          width: 80,
-          height: 80,
-          decoration: BoxDecoration(
-            shape: BoxShape.circle,
-            image: DecorationImage(
-              image: AssetImage("images/Rubio_Circle.png"),
-            ),
-          ),
-
-        ),
-        Container(
-          padding: EdgeInsets.only(left: 20),
-          width: 80,
-          height: 80,
-          decoration: BoxDecoration(
-            shape: BoxShape.circle,
-            image:
-            DecorationImage(image: AssetImage("images/Rubio_Circle.png")),
-          ),
-
-        ),
-        Container(
-          padding: EdgeInsets.only(left: 20),
-          width: 80,
-          height: 80,
-          decoration: BoxDecoration(
-            shape: BoxShape.circle,
-            image:
-            DecorationImage(image: AssetImage("images/Rubio_Circle.png")),
-          ),
-
-        ),
-        Container(
-          padding: EdgeInsets.only(left: 20),
-          width: 80,
-          height: 80,
-          decoration: BoxDecoration(
-            shape: BoxShape.circle,
-            image:
-            DecorationImage(image: AssetImage("images/Rubio_Circle.png")),
-          ),
-        ),
-        Container(
-          padding: EdgeInsets.only(left: 20),
-          width: 80,
-          height: 80,
-          decoration: BoxDecoration(
-            shape: BoxShape.circle,
-            image:
-            DecorationImage(image: AssetImage("images/Rubio_Circle.png")),
-          ),
-        ),
-        Container(
-          padding: EdgeInsets.only(left: 20),
-          width: 80,
-          height: 80,
-          decoration: BoxDecoration(
-            shape: BoxShape.circle,
-            image:
-            DecorationImage(image: AssetImage("images/Rubio_Circle.png")),
-          ),
-        ),
-        Container(
-          padding: EdgeInsets.only(left: 20),
-          width: 80,
-          height: 80,
-          decoration: BoxDecoration(
-            shape: BoxShape.circle,
-            image:
-            DecorationImage(image: AssetImage("images/Rubio_Circle.png")),
-          ),
-        ),
+        _itemListOnline("Kazuo", "https://api.adorable.io/avatars/285/abott@adorable.png"),
+        _itemListOnline("Bruno", "https://api.adorable.io/avatars/283/abott@adorable.pngCopy to Clipboard"),
+        _itemListOnline("Cleber", "https://api.adorable.io/avatars/206/abott@exaust.io"),
+        _itemListOnline("Eduardo", "https://api.adorable.io/avatars/206/abott@strong.io"),
+        _itemListOnline("Jose", "https://api.adorable.io/avatars/206/abott@hungry.io"),
+        _itemListOnline("Enzo", "https://api.adorable.io/avatars/206/abott@fasty.io"),
       ],
     );
+  }
+
+  Widget _itemListOnline(String texto, String imagem){
+      return Container(
+        padding: EdgeInsets.only(left: 30),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            Stack(
+              children: [
+                Container(
+                  width: 70,
+                  height: 70,
+                  decoration: BoxDecoration(
+                    shape: BoxShape.circle,
+                    image: DecorationImage(
+                      image: NetworkImage("$imagem"),
+                    ),
+                  ),
+                ),
+                Positioned(
+                  bottom: 5,
+                  right: 0,
+                  child: Container(
+                    width: 18,
+                    height: 18,
+                    decoration: BoxDecoration(
+                      color: Color.fromRGBO(0, 255, 0, 1),
+                      shape: BoxShape.circle,
+                    ),
+                  ),
+                ),
+              ],
+            ),
+            Text("$texto")
+          ],
+        ),
+      );
   }
 
   Widget _bottomApp() {
@@ -302,7 +273,7 @@ Widget _plantao() {
     );
   }
 
-  Widget _clima() {
+  Widget _estadoSala() {
     return Column(
       children: [
         InkWell(
