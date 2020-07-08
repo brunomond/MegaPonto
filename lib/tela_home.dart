@@ -56,8 +56,6 @@ class _HomeState extends State<Home> {
                   child:
                   Container(
                     decoration: BoxDecoration(
-                      borderRadius:
-                      BorderRadius.only(topLeft: Radius.circular(100.0)),
                       color: Colors.white,
                     ),
                     child: Column(
@@ -119,8 +117,7 @@ class _HomeState extends State<Home> {
     );
   }
 
-
-Widget _infoPlantao() {
+  Widget _infoPlantao() {
     return Center(
       child: Column(
         children: [
@@ -143,15 +140,26 @@ Widget _infoPlantao() {
             color: Colors.transparent,
           ),
           Container(
-            height: 51,
-            decoration: BoxDecoration(
-                color: Color.fromRGBO(143, 38, 56, 1),
-                borderRadius: BorderRadius.all(Radius.circular(24))),
-            child: loading ? FlatButton(child: CircularProgressIndicator(),)
-            : started ?
-            FlatButton(child: Text('Fechar Plantão'), onPressed: () async => _fecharPlantao(),)
-            : FlatButton(child: Text('Iniciar Plantão'), onPressed: () async => _iniciarPlantao(),)
-          ),
+              width: 200,
+              height: 51,
+              decoration: BoxDecoration(
+                  color: Color.fromRGBO(65, 3, 76, 1),
+                  borderRadius: BorderRadius.all(Radius.circular(24))),
+              child: loading
+                  ? FlatButton(
+                      child: CircularProgressIndicator(),
+                    )
+                  : started
+                      ? FlatButton(
+                          child: Text('Fechar Plantão',
+                              style: TextStyle(color: Colors.white)),
+                          onPressed: () async => _fecharPlantao(),
+                        )
+                      : FlatButton(
+                          child: Text('Iniciar Plantão',
+                              style: TextStyle(color: Colors.white)),
+                          onPressed: () async => _iniciarPlantao(),
+                        )),
         ],
       ),
     );
@@ -211,42 +219,33 @@ Widget _infoPlantao() {
   }
 
   Widget _bottomApp() {
-    return BottomAppBar(
-      shape: CircularNotchedRectangle(),
-      color: Color.fromRGBO(74, 39, 146, 1),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceAround,
-        children: <Widget>[
-          IconButton(
-            icon: Icon(
-              Icons.home,
-              color: Colors.white,
-            ),
-            onPressed: () {},
-          ),
-          IconButton(
-            icon: Icon(
-              Icons.search,
-              color: Colors.white,
-            ),
-            onPressed: () {},
-          ),
-          IconButton(
-            icon: Icon(
-              Icons.list,
-              color: Colors.white,
-            ),
-            onPressed: () {},
-          ),
-          IconButton(
-            icon: Icon(
-              Icons.map,
-              color: Colors.white,
-            ),
-            onPressed: () {},
-          ),
-        ],
-      ),
+    return Container(
+      child: BottomNavigationBar(
+          backgroundColor: Colors.grey[90],
+          type: BottomNavigationBarType.fixed,
+          selectedItemColor: Color.fromRGBO(65, 3, 76, 1),
+          unselectedItemColor: Colors.black87,
+          elevation: 16,
+          iconSize: 36,
+          //showUnselectedLabels: false,
+          items: [
+            BottomNavigationBarItem(
+                icon: Icon(CustomIcons.feed), title: Text('Feed')),
+            BottomNavigationBarItem(
+                icon: Icon(
+                  CustomIcons.megaponto,
+                ),
+                title: Text('MegaPonto')),
+            BottomNavigationBarItem(
+                icon: Icon(CustomIcons.leaderboard),
+                title: Text('Leaderboard')),
+            BottomNavigationBarItem(
+                icon: Icon(CustomIcons.plantaoamigo),
+                title: Text('Plantão Amigo'))
+          ]),
+      decoration: BoxDecoration(color: Colors.grey[90], boxShadow: [
+        BoxShadow(spreadRadius: 3, blurRadius: 0, offset: Offset(2, 3))
+      ]),
     );
   }
 
