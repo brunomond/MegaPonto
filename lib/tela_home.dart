@@ -51,11 +51,10 @@ class _HomeState extends State<Home> {
                 Divider(
                   height: 20,
                 ),
-                Expanded(
+                Center(
+                    child: Expanded(
                   child: Container(
                     decoration: BoxDecoration(
-                      borderRadius:
-                          BorderRadius.only(topLeft: Radius.circular(100.0)),
                       color: Colors.white,
                     ),
                     child: Column(
@@ -67,17 +66,27 @@ class _HomeState extends State<Home> {
                           child: _listOnline(),
                         ),
                         Container(
-                            padding: EdgeInsets.fromLTRB(50, 50, 0, 0),
+                            padding: EdgeInsets.fromLTRB(0, 50, 0, 0),
                             decoration: BoxDecoration(
-                              borderRadius: BorderRadius.only(
-                                  topLeft: Radius.circular(100.0)),
+                              color: Colors.white,
                             ),
-                            child: _clima()),
-                        Expanded(child: _plantao())
+                            child: Column(
+                              children: <Widget>[
+                                _clima(),
+                                Container(
+                                  alignment: FractionalOffset.bottomLeft,
+                                  decoration: BoxDecoration(
+                                    color: Colors.white,
+                                  ),
+                                  child: _plantao(),
+                                )
+                              ],
+                            )),
+                        //Expanded(child: _plantao())
                       ],
                     ),
                   ),
-                )
+                ))
               ])),
         ));
   }
@@ -146,7 +155,7 @@ class _HomeState extends State<Home> {
               width: 200,
               height: 51,
               decoration: BoxDecoration(
-                  color: Color.fromRGBO(199, 59, 34, 1),
+                  color: Color.fromRGBO(65, 3, 76, 1),
                   borderRadius: BorderRadius.all(Radius.circular(24))),
               child: loading
                   ? FlatButton(
@@ -248,62 +257,34 @@ class _HomeState extends State<Home> {
   }
 
   Widget _bottomApp() {
-    return BottomNavigationBar(
-        backgroundColor: Color.fromRGBO(199, 59, 34, 1),
-        type: BottomNavigationBarType.fixed,
-        selectedItemColor: Colors.white,
-        unselectedItemColor: Colors.grey,
-        items: [
-          BottomNavigationBarItem(
-              icon: Icon(CustomIcons.feed), title: Text('Feed')),
-          BottomNavigationBarItem(
-              icon: Icon(
-                CustomIcons.megaponto,
-              ),
-              title: Text('MegaPonto')),
-          BottomNavigationBarItem(
-              icon: Icon(CustomIcons.leaderboard), title: Text('Leaderboard')),
-          BottomNavigationBarItem(
-              icon: Icon(CustomIcons.plantaoamigo),
-              title: Text('Plantão Amigo'))
-        ]
-
-        // shape: CircularNotchedRectangle(),
-        // color: Color.fromRGBO(199, 59, 34, 1),
-        // child: Row(
-        //   mainAxisAlignment: MainAxisAlignment.spaceAround,
-        //   children: <Widget>[
-        //     IconButton(
-        //       icon: Icon(
-        //         CustomIcons.feed,
-        //         color: Colors.white,
-        //       ),
-        //       onPressed: () {},
-        //     ),
-        //     IconButton(
-        //       icon: Icon(
-        //         CustomIcons.megaponto,
-        //         color: Colors.white,
-        //       ),
-        //       onPressed: () {},
-        //     ),
-        //     IconButton(
-        //       icon: Icon(
-        //         CustomIcons.leaderboard,
-        //         color: Colors.white,
-        //       ),
-        //       onPressed: () {},
-        //     ),
-        //     IconButton(
-        //       icon: Icon(
-        //         CustomIcons.plantaoamigo,
-        //         color: Colors.white,
-        //       ),
-        //       onPressed: () {},
-        //     ),
-        //   ],
-        // ),
-        );
+    return Container(
+      child: BottomNavigationBar(
+          backgroundColor: Colors.grey[90],
+          type: BottomNavigationBarType.fixed,
+          selectedItemColor: Color.fromRGBO(65, 3, 76, 1),
+          unselectedItemColor: Colors.black87,
+          elevation: 16,
+          iconSize: 36,
+          //showUnselectedLabels: false,
+          items: [
+            BottomNavigationBarItem(
+                icon: Icon(CustomIcons.feed), title: Text('Feed')),
+            BottomNavigationBarItem(
+                icon: Icon(
+                  CustomIcons.megaponto,
+                ),
+                title: Text('MegaPonto')),
+            BottomNavigationBarItem(
+                icon: Icon(CustomIcons.leaderboard),
+                title: Text('Leaderboard')),
+            BottomNavigationBarItem(
+                icon: Icon(CustomIcons.plantaoamigo),
+                title: Text('Plantão Amigo'))
+          ]),
+      decoration: BoxDecoration(color: Colors.grey[90], boxShadow: [
+        BoxShadow(spreadRadius: 3, blurRadius: 0, offset: Offset(2, 3))
+      ]),
+    );
   }
 
   Widget _membrosOnline() {
