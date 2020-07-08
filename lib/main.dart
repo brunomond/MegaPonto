@@ -1,11 +1,14 @@
 import 'package:flutter/material.dart';
-import 'package:megaponto_oficial/tela_criar_conta.dart';
 import 'package:megaponto_oficial/tela_home.dart';
 import 'package:megaponto_oficial/tela_recuperar_senha.dart';
 import 'package:megaponto_oficial/tela_chave_acesso.dart';
 import 'package:flutter/services.dart';
 
 main() {
+  SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
+      statusBarColor: Colors.transparent,
+      statusBarBrightness: Brightness.light));
+
   runApp(MaterialApp(
     home: Login(),
     debugShowCheckedModeBanner: false,
@@ -30,11 +33,9 @@ class _LoginState extends State<Login> {
                     begin: Alignment.topLeft,
                     end: Alignment.centerRight,
                     colors: [
-                      Color.fromRGBO(65, 3, 76, 1),
-                      Color.fromRGBO(199, 59, 34, 1)
-                    ]
-                )
-            ),
+                  Color.fromRGBO(65, 3, 76, 1),
+                  Color.fromRGBO(199, 59, 34, 1)
+                ])),
             width: MediaQuery.of(context).size.width,
             height: MediaQuery.of(context).size.height,
             child: Stack(

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:megaponto_oficial/main.dart';
 import 'package:intl/intl.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:megaponto_oficial/View/Feed.dart';
 import 'package:megaponto_oficial/presentation/custom_icons_icons.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -12,6 +12,7 @@ class Home extends StatefulWidget {
 
 class _HomeState extends State<Home> {
   GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
+  TextStyle _botaoStyle = TextStyle(color: Colors.white, fontSize: 20);
   bool started = false;
   bool loading = true;
   int numPessoasOnline = 5;
@@ -27,68 +28,55 @@ class _HomeState extends State<Home> {
   Widget build(BuildContext context) {
     return Scaffold(
         resizeToAvoidBottomPadding: false,
-        //backgroundColor: Color.fromRGBO(74, 39, 146, 1),
+        backgroundColor: Color.fromRGBO(74, 39, 146, 1),
         bottomNavigationBar: _bottomApp(),
+        backgroundColor: Colors.white,
         key: _scaffoldKey,
-        body: SafeArea(
-          child: Container(
-              decoration: BoxDecoration(
-                  gradient: LinearGradient(
-                      begin: Alignment.topLeft,
-                      end: Alignment.centerRight,
-                      colors: [
-                    Color.fromRGBO(65, 3, 76, 1),
-                    Color.fromRGBO(199, 59, 34, 1)
-                  ])),
-              child: Column(children: <Widget>[
-                Container(
-                  padding: EdgeInsets.fromLTRB(0, 10, 30, 1),
-                  child: Container(
-                    padding: EdgeInsets.fromLTRB(0, 20, 25, 0),
-                    child: _infoPessoais(),
-                  ),
-                ),
-                Divider(
-                  height: 20,
-                ),
-                Center(
-                    child: Expanded(
-                  child: Container(
+        body: Container(
+            width: MediaQuery.of(context).size.width,
+            height: MediaQuery.of(context).size.height,
+            child: Column(
+              mainAxisSize: MainAxisSize.max,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                Stack(overflow: Overflow.visible, children: [
+                  Container(
+                    width: MediaQuery.of(context).size.width,
+                    height: MediaQuery.of(context).size.height * 0.25,
                     decoration: BoxDecoration(
-                      color: Colors.white,
-                    ),
-                    child: Column(
-                      children: [
-                        _membrosOnline(),
-                        Container(
-                          height: 80,
-                          padding: EdgeInsets.fromLTRB(10, 20, 10, 0),
-                          child: _listOnline(),
-                        ),
-                        Container(
-                            padding: EdgeInsets.fromLTRB(0, 50, 0, 0),
-                            decoration: BoxDecoration(
-                              color: Colors.white,
-                            ),
-                            child: Column(
-                              children: <Widget>[
-                                _clima(),
-                                Container(
-                                  alignment: FractionalOffset.bottomLeft,
-                                  decoration: BoxDecoration(
-                                    color: Colors.white,
-                                  ),
-                                  child: _plantao(),
-                                )
-                              ],
-                            )),
-                        //Expanded(child: _plantao())
-                      ],
-                    ),
+                        gradient: LinearGradient(
+                            begin: Alignment.topLeft,
+                            end: Alignment.centerRight,
+                            colors: [
+                          Color.fromRGBO(61, 1, 78, 1),
+                          Color.fromRGBO(199, 59, 35, 1)
+                        ])),
                   ),
-                ))
-              ])),
-        ));
+                  Container(
+                    height: MediaQuery.of(context).size.height * 0.25,
+                    padding: EdgeInsets.fromLTRB(10, 30, 10, 0),
+                    child: _listOnline(),
+                  ),
+                  Positioned(
+                    top: MediaQuery.of(context).size.height * 0.17,
+                    child: Container(
+                      decoration: BoxDecoration(
+                          borderRadius: BorderRadius.only(
+                              topLeft: const Radius.circular(50.0),
+                              topRight: const Radius.circular(50.0)),
+                          color: Colors.white),
+                    ),
+                  )
+                ]),
+                Expanded(
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.spaceAround,
+                    mainAxisSize: MainAxisSize.max,
+                    children: [_textOnline(), _estadoSala(), _infoPlantao()],
+                  ),
+                )
+              ],
+            )));
   }
 
   Widget _infoPessoais() {
@@ -129,12 +117,12 @@ class _HomeState extends State<Home> {
     );
   }
 
-  Widget _plantao() {
+  Widget _infoPlantao() {
     return Center(
       child: Column(
         children: [
           Container(
-            padding: EdgeInsets.only(top: 80),
+            padding: EdgeInsets.only(top: 50),
             child: Text(
               "Partiu entregar alguns projetos?!",
               style: TextStyle(fontSize: 20, fontStyle: FontStyle.italic),
@@ -147,15 +135,11 @@ class _HomeState extends State<Home> {
               style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
             ),
           ),
-          Divider(
-            height: 13,
-            color: Colors.transparent,
-          ),
           Container(
               width: 200,
               height: 51,
               decoration: BoxDecoration(
-                  color: Color.fromRGBO(65, 3, 76, 1),
+                  color: Color.fromRGBO(143, 58, 56, 1),
                   borderRadius: BorderRadius.all(Radius.circular(24))),
               child: loading
                   ? FlatButton(
@@ -163,13 +147,11 @@ class _HomeState extends State<Home> {
                     )
                   : started
                       ? FlatButton(
-                          child: Text('Fechar Plantão',
-                              style: TextStyle(color: Colors.white)),
+                          child: Text('Fechar Plantão', style: _botaoStyle),
                           onPressed: () async => _fecharPlantao(),
                         )
                       : FlatButton(
-                          child: Text('Iniciar Plantão',
-                              style: TextStyle(color: Colors.white)),
+                          child: Text('Iniciar Plantão', style: _botaoStyle),
                           onPressed: () async => _iniciarPlantao(),
                         )),
         ],
@@ -181,91 +163,61 @@ class _HomeState extends State<Home> {
     return ListView(
       scrollDirection: Axis.horizontal,
       children: [
-        Container(
-          padding: EdgeInsets.only(left: 35),
-          width: 80,
-          height: 80,
-          decoration: BoxDecoration(
-            shape: BoxShape.circle,
-            image: DecorationImage(
-              image: AssetImage("images/Rubio_Circle.png"),
-            ),
-          ),
-        ),
-        Container(
-          padding: EdgeInsets.only(left: 20),
-          width: 80,
-          height: 80,
-          decoration: BoxDecoration(
-            shape: BoxShape.circle,
-            image:
-                DecorationImage(image: AssetImage("images/Rubio_Circle.png")),
-          ),
-        ),
-        Container(
-          padding: EdgeInsets.only(left: 20),
-          width: 80,
-          height: 80,
-          decoration: BoxDecoration(
-            shape: BoxShape.circle,
-            image:
-                DecorationImage(image: AssetImage("images/Rubio_Circle.png")),
-          ),
-        ),
-        Container(
-          padding: EdgeInsets.only(left: 20),
-          width: 80,
-          height: 80,
-          decoration: BoxDecoration(
-            shape: BoxShape.circle,
-            image:
-                DecorationImage(image: AssetImage("images/Rubio_Circle.png")),
-          ),
-        ),
-        Container(
-          padding: EdgeInsets.only(left: 20),
-          width: 80,
-          height: 80,
-          decoration: BoxDecoration(
-            shape: BoxShape.circle,
-            image:
-                DecorationImage(image: AssetImage("images/Rubio_Circle.png")),
-          ),
-        ),
-        Container(
-          padding: EdgeInsets.only(left: 20),
-          width: 80,
-          height: 80,
-          decoration: BoxDecoration(
-            shape: BoxShape.circle,
-            image:
-                DecorationImage(image: AssetImage("images/Rubio_Circle.png")),
-          ),
-        ),
-        Container(
-          padding: EdgeInsets.only(left: 20),
-          width: 80,
-          height: 80,
-          decoration: BoxDecoration(
-            shape: BoxShape.circle,
-            image:
-                DecorationImage(image: AssetImage("images/Rubio_Circle.png")),
-          ),
-        ),
+        _itemListOnline(
+            "Kazuo", "https://api.adorable.io/avatars/285/abott@adorable.png"),
+        _itemListOnline("Bruno",
+            "https://api.adorable.io/avatars/283/abott@adorable.pngCopy to Clipboard"),
+        _itemListOnline(
+            "Cleber", "https://api.adorable.io/avatars/206/abott@exaust.io"),
+        _itemListOnline(
+            "Eduardo", "https://api.adorable.io/avatars/206/abott@strong.io"),
+        _itemListOnline(
+            "Jose", "https://api.adorable.io/avatars/206/abott@hungry.io"),
+        _itemListOnline(
+            "Enzo", "https://api.adorable.io/avatars/206/abott@fasty.io"),
       ],
+    );
+  }
+
+  Widget _itemListOnline(String texto, String imagem) {
+    return Container(
+      padding: EdgeInsets.only(left: 30),
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.start,
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          Stack(
+            children: [
+              Container(
+                width: 65,
+                height: 65,
+                decoration: BoxDecoration(
+                  border: new Border.all(color: Colors.lightGreenAccent),
+                  shape: BoxShape.circle,
+                  image: DecorationImage(
+                    image: NetworkImage("$imagem"),
+                  ),
+                ),
+              ),
+            ],
+          ),
+          Text("$texto", style: TextStyle(color: Colors.white))
+        ],
+      ),
     );
   }
 
   Widget _bottomApp() {
     return Container(
       child: BottomNavigationBar(
+          onTap: tapppppp,
           backgroundColor: Colors.grey[90],
           type: BottomNavigationBarType.fixed,
-          selectedItemColor: Color.fromRGBO(65, 3, 76, 1),
+          selectedItemColor: Color.fromRGBO(61, 1, 78, 1),
           unselectedItemColor: Colors.black87,
           elevation: 16,
           iconSize: 36,
-          //showUnselectedLabels: false,
+          showUnselectedLabels: false,
           items: [
             BottomNavigationBarItem(
                 icon: Icon(CustomIcons.feed), title: Text('Feed')),
@@ -279,7 +231,9 @@ class _HomeState extends State<Home> {
                 title: Text('Leaderboard')),
             BottomNavigationBarItem(
                 icon: Icon(CustomIcons.plantaoamigo),
-                title: Text('Plantão Amigo'))
+                title: Text('Plantão Amigo')),
+            BottomNavigationBarItem(
+                icon: Icon(CustomIcons.do_utilizador), title: Text('Perfil')),
           ]),
       decoration: BoxDecoration(color: Colors.grey[90], boxShadow: [
         BoxShadow(spreadRadius: 3, blurRadius: 0, offset: Offset(2, 3))
@@ -287,7 +241,11 @@ class _HomeState extends State<Home> {
     );
   }
 
-  Widget _membrosOnline() {
+  tapppppp(int index) {
+    Navigator.push(context, MaterialPageRoute(builder: (context) => Feed()));
+  }
+
+  Widget _textOnline() {
     return Container(
       padding: EdgeInsets.fromLTRB(53, 25, 0, 0),
       child: Row(
@@ -310,12 +268,13 @@ class _HomeState extends State<Home> {
     );
   }
 
-  Widget _clima() {
+  Widget _estadoSala() {
     return Column(
       children: [
         InkWell(
           onTap: () {},
-          child: Row(children: [
+          child:
+              Row(mainAxisAlignment: MainAxisAlignment.spaceAround, children: [
             Icon(
               CustomIcons.do_utilizador,
               size: 30,
@@ -333,12 +292,9 @@ class _HomeState extends State<Home> {
             ),
           ]),
         ),
-        Divider(
-          height: 13,
-          color: Colors.transparent,
-        ),
         InkWell(
-          child: Row(children: [
+          child:
+              Row(mainAxisAlignment: MainAxisAlignment.spaceAround, children: [
             Icon(
               CustomIcons.coffee_break,
               size: 30,
