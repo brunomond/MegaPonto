@@ -1,5 +1,7 @@
 import 'dart:convert';
 import 'package:flutter/material.dart';
+import 'package:megaponto_oficial/View/tela_feed.dart';
+import 'package:megaponto_oficial/View/tela_plantao_amigo.dart';
 import 'package:http/http.dart' as http;
 import 'package:megaponto_oficial/presentation/custom_icons_icons.dart';
 
@@ -54,6 +56,50 @@ class _PlantaoAmigoState extends State<PlantaoAmigo> {
       ),
     );
   }
+
+  Widget _bottomApp() {
+    return Container(
+      child: BottomNavigationBar(
+          onTap: navegacaoBottomBar,
+          backgroundColor: Colors.grey[90],
+          type: BottomNavigationBarType.fixed,
+          selectedItemColor: Color.fromRGBO(61, 1, 78, 1),
+          unselectedItemColor: Colors.black87,
+          elevation: 16,
+          iconSize: 36,
+          showUnselectedLabels: false,
+          items: [
+            BottomNavigationBarItem(
+                icon: Icon(CustomIcons.jornal), title: Text('Feed')),
+            BottomNavigationBarItem(
+                icon: Icon(
+                  CustomIcons.relogio,
+                ),
+                title: Text('MegaPonto')),
+            BottomNavigationBarItem(
+                icon: Icon(CustomIcons.podio), title: Text('Leaderboard')),
+            BottomNavigationBarItem(
+                icon: Icon(CustomIcons.amigo), title: Text('Plantão Amigo')),
+            BottomNavigationBarItem(
+                icon: Icon(CustomIcons.clima_normal), title: Text('Perfil')),
+          ]),
+      decoration: BoxDecoration(color: Colors.grey[90], boxShadow: [
+        BoxShadow(spreadRadius: 3, blurRadius: 0, offset: Offset(2, 3))
+      ]),
+    );
+  }
+
+  navegacaoBottomBar(int index) {
+    switch(index){
+      case 0:
+        Navigator.push(context, MaterialPageRoute(builder: (context) => Feed()));
+        break;
+      case 3:
+        Navigator.push(context, MaterialPageRoute(builder: (context) => PlantaoAmigo()));
+        break;
+    }
+  }
+
 }
 
 Widget _listMembros(BuildContext context, int index) {
@@ -87,36 +133,6 @@ Widget _listMembros(BuildContext context, int index) {
   );
 }
 
-Widget _bottomApp() {
-  return Container(
-    child: BottomNavigationBar(
-        backgroundColor: Colors.grey[90],
-        type: BottomNavigationBarType.fixed,
-        selectedItemColor: Color.fromRGBO(65, 3, 76, 1),
-        unselectedItemColor: Colors.black87,
-        elevation: 16,
-        iconSize: 36,
-        //showUnselectedLabels: false,
-        items: [
-          BottomNavigationBarItem(
-              icon: Icon(CustomIcons.feed), title: Text('Feed')),
-          BottomNavigationBarItem(
-              icon: Icon(
-                CustomIcons.megaponto,
-              ),
-              title: Text('MegaPonto')),
-          BottomNavigationBarItem(
-              icon: Icon(CustomIcons.leaderboard),
-              title: Text('Leaderboard')),
-          BottomNavigationBarItem(
-              icon: Icon(CustomIcons.plantaoamigo),
-              title: Text('Plantão Amigo'))
-        ]),
-    decoration: BoxDecoration(color: Colors.grey[90], boxShadow: [
-      BoxShadow(spreadRadius: 3, blurRadius: 0, offset: Offset(2, 3))
-    ]),
-  );
-}
 
 /*Future<Map> _obterGifs() async{
   http.Response resposta;
