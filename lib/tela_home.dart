@@ -17,6 +17,7 @@ class _HomeState extends State<Home> {
   bool loading = true;
   int numPessoasOnline = 5;
   int horas = 2;
+  var now = TimeOfDay.now();
 
   @override
   void initState() {
@@ -30,7 +31,6 @@ class _HomeState extends State<Home> {
         resizeToAvoidBottomPadding: false,
         backgroundColor: Color.fromRGBO(74, 39, 146, 1),
         bottomNavigationBar: _bottomApp(),
-        backgroundColor: Colors.white,
         key: _scaffoldKey,
         body: Container(
             width: MediaQuery.of(context).size.width,
@@ -77,44 +77,6 @@ class _HomeState extends State<Home> {
                 )
               ],
             )));
-  }
-
-  Widget _infoPessoais() {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.end,
-      children: [
-        Container(
-          padding: EdgeInsets.only(right: 10),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.end,
-            children: [
-              Text(
-                "Rick Sanchez",
-                style: GoogleFonts.salsa(
-                    textStyle: TextStyle(color: Colors.white, fontSize: 20)),
-              ),
-              Text(
-                "Megariano Regular",
-                style: GoogleFonts.salsa(
-                    textStyle: TextStyle(
-                  color: Colors.white,
-                  fontSize: 15,
-                )),
-              ),
-            ],
-          ),
-        ),
-        Container(
-          width: 60,
-          height: 60,
-          decoration: BoxDecoration(
-            shape: BoxShape.circle,
-            image:
-                DecorationImage(image: AssetImage("images/Rubio_Circle.png")),
-          ),
-        )
-      ],
-    );
   }
 
   Widget _infoPlantao() {
@@ -220,20 +182,18 @@ class _HomeState extends State<Home> {
           showUnselectedLabels: false,
           items: [
             BottomNavigationBarItem(
-                icon: Icon(CustomIcons.feed), title: Text('Feed')),
+                icon: Icon(CustomIcons.jornal), title: Text('Feed')),
             BottomNavigationBarItem(
                 icon: Icon(
-                  CustomIcons.megaponto,
+                  CustomIcons.relogio,
                 ),
                 title: Text('MegaPonto')),
             BottomNavigationBarItem(
-                icon: Icon(CustomIcons.leaderboard),
-                title: Text('Leaderboard')),
+                icon: Icon(CustomIcons.podio), title: Text('Leaderboard')),
             BottomNavigationBarItem(
-                icon: Icon(CustomIcons.plantaoamigo),
-                title: Text('Plantão Amigo')),
+                icon: Icon(CustomIcons.amigo), title: Text('Plantão Amigo')),
             BottomNavigationBarItem(
-                icon: Icon(CustomIcons.do_utilizador), title: Text('Perfil')),
+                icon: Icon(CustomIcons.clima_normal), title: Text('Perfil')),
           ]),
       decoration: BoxDecoration(color: Colors.grey[90], boxShadow: [
         BoxShadow(spreadRadius: 3, blurRadius: 0, offset: Offset(2, 3))
@@ -243,6 +203,91 @@ class _HomeState extends State<Home> {
 
   tapppppp(int index) {
     Navigator.push(context, MaterialPageRoute(builder: (context) => Feed()));
+  }
+
+  createCoffeePopUp(BuildContext coffee) {
+    return showDialog(
+        context: coffee,
+        builder: (coffee) {
+          return AlertDialog(
+              title: Text("Obrigado pelo café! S2"),
+              backgroundColor: Color.fromRGBO(143, 58, 56, 1),
+              elevation: 8,
+              content: Text(
+                  "Desejá mudar o horario do último café para $now de hoje?"),
+              actions: <Widget>[
+                GestureDetector(
+                  child: Text("Cancel"),
+                  onTap: () {},
+                ),
+                GestureDetector(
+                  child: Text("sim"),
+                  onTap: () {},
+                )
+              ]);
+        });
+  }
+
+  createEstadoSalaPopUp(BuildContext estadodasala) {
+    return showDialog(
+        context: estadodasala,
+        builder: (estadodasala) {
+          return Column(
+            children: <Widget>[
+              AlertDialog(
+                  backgroundColor: Color.fromRGBO(143, 58, 56, 1),
+                  actions: <Widget>[
+                    GestureDetector(
+                      child: Column(
+                        children: <Widget>[
+                          Text("Sala Normal"),
+                          Text(
+                            "Clima Normal de Trabalho",
+                            style: TextStyle(
+                                fontSize: 20, fontStyle: FontStyle.italic),
+                          ),
+                        ],
+                      ),
+                      onTap: () {},
+                    ),
+                  ]),
+              AlertDialog(
+                  backgroundColor: Color.fromRGBO(143, 58, 56, 1),
+                  actions: <Widget>[
+                    GestureDetector(
+                      child: Column(
+                        children: <Widget>[
+                          Text("Reunião da Diretoria"),
+                          Text(
+                            "Reunião Interna Acontecendo",
+                            style: TextStyle(
+                                fontSize: 20, fontStyle: FontStyle.italic),
+                          ),
+                        ],
+                      ),
+                      onTap: () {},
+                    ),
+                  ]),
+              AlertDialog(
+                  backgroundColor: Color.fromRGBO(143, 58, 56, 1),
+                  actions: <Widget>[
+                    GestureDetector(
+                      child: Column(
+                        children: <Widget>[
+                          Text("Reunião com cliente"),
+                          Text(
+                            "Reunião Com Cliente Agora",
+                            style: TextStyle(
+                                fontSize: 20, fontStyle: FontStyle.italic),
+                          ),
+                        ],
+                      ),
+                      onTap: () {},
+                    ),
+                  ]),
+            ],
+          );
+        });
   }
 
   Widget _textOnline() {
@@ -272,11 +317,13 @@ class _HomeState extends State<Home> {
     return Column(
       children: [
         InkWell(
-          onTap: () {},
+          onTap: () {
+            createEstadoSalaPopUp(context);
+          },
           child:
               Row(mainAxisAlignment: MainAxisAlignment.spaceAround, children: [
             Icon(
-              CustomIcons.do_utilizador,
+              CustomIcons.clima_normal,
               size: 30,
             ),
             Container(
@@ -296,7 +343,7 @@ class _HomeState extends State<Home> {
           child:
               Row(mainAxisAlignment: MainAxisAlignment.spaceAround, children: [
             Icon(
-              CustomIcons.coffee_break,
+              CustomIcons.cafe,
               size: 30,
             ),
             Container(
@@ -311,6 +358,9 @@ class _HomeState extends State<Home> {
               size: 30,
             ),
           ]),
+          onTap: () {
+            createCoffeePopUp(context);
+          },
         ),
       ],
     );

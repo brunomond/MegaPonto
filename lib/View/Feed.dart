@@ -100,18 +100,16 @@ class _FeedState extends State<Feed> {
           //showUnselectedLabels: false,
           items: [
             BottomNavigationBarItem(
-                icon: Icon(CustomIcons.feed), title: Text('Feed')),
+                icon: Icon(CustomIcons.jornal), title: Text('Feed')),
             BottomNavigationBarItem(
                 icon: Icon(
-                  CustomIcons.megaponto,
+                  CustomIcons.relogio,
                 ),
                 title: Text('MegaPonto')),
             BottomNavigationBarItem(
-                icon: Icon(CustomIcons.leaderboard),
-                title: Text('Leaderboard')),
+                icon: Icon(CustomIcons.podio), title: Text('Leaderboard')),
             BottomNavigationBarItem(
-                icon: Icon(CustomIcons.plantaoamigo),
-                title: Text('Plantão Amigo'))
+                icon: Icon(CustomIcons.amigo), title: Text('Plantão Amigo'))
           ]),
       decoration: BoxDecoration(color: Colors.grey[90], boxShadow: [
         BoxShadow(spreadRadius: 3, blurRadius: 0, offset: Offset(2, 3))
