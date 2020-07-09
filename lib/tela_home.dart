@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:megaponto_oficial/View/Feed.dart';
+import 'package:megaponto_oficial/View/tela_feed.dart';
+import 'package:megaponto_oficial/View/tela_plantao_amigo.dart';
 import 'package:megaponto_oficial/presentation/custom_icons_icons.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -208,7 +209,7 @@ class _HomeState extends State<Home> {
   Widget _bottomApp() {
     return Container(
       child: BottomNavigationBar(
-          onTap: tapppppp,
+          onTap: navegacaoBottomBar,
           backgroundColor: Colors.grey[90],
           type: BottomNavigationBarType.fixed,
           selectedItemColor: Color.fromRGBO(61, 1, 78, 1),
@@ -239,8 +240,16 @@ class _HomeState extends State<Home> {
     );
   }
 
-  tapppppp(int index) {
-    Navigator.push(context, MaterialPageRoute(builder: (context) => Feed()));
+  navegacaoBottomBar(int index) {
+    switch(index){
+      case 0:
+        Navigator.push(context, MaterialPageRoute(builder: (context) => Feed()));
+        break;
+      case 3:
+        Navigator.push(context, MaterialPageRoute(builder: (context) => PlantaoAmigo()));
+        break;
+    }
+
   }
 
   Widget _textOnline() {

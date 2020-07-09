@@ -108,7 +108,6 @@ class _FeedState extends State<Feed> {
                     ),)
                   ],
                 ),
-
               ),
             ),
           )
