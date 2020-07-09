@@ -238,16 +238,19 @@ class _HomeState extends State<Home> {
                   backgroundColor: Color.fromRGBO(143, 58, 56, 1),
                   actions: <Widget>[
                     GestureDetector(
-                      child: Column(
-                        children: <Widget>[
-                          Text("Sala Normal"),
-                          Text(
-                            "Clima Normal de Trabalho",
-                            style: TextStyle(
-                                fontSize: 20, fontStyle: FontStyle.italic),
-                          ),
-                        ],
-                      ),
+                      child: Row(children: [
+                        Icon(CustomIcons.clima_normal),
+                        Column(
+                          children: <Widget>[
+                            Text("Sala Normal"),
+                            Text(
+                              "Clima Normal de Trabalho",
+                              style: TextStyle(
+                                  fontSize: 20, fontStyle: FontStyle.italic),
+                            ),
+                          ],
+                        ),
+                      ]),
                       onTap: () {},
                     ),
                   ]),
@@ -255,16 +258,19 @@ class _HomeState extends State<Home> {
                   backgroundColor: Color.fromRGBO(143, 58, 56, 1),
                   actions: <Widget>[
                     GestureDetector(
-                      child: Column(
-                        children: <Widget>[
-                          Text("Reunião da Diretoria"),
-                          Text(
-                            "Reunião Interna Acontecendo",
-                            style: TextStyle(
-                                fontSize: 20, fontStyle: FontStyle.italic),
-                          ),
-                        ],
-                      ),
+                      child: Row(children: [
+                        Icon(CustomIcons.clima_normal),
+                        Column(
+                          children: <Widget>[
+                            Text("Reunião da Diretoria"),
+                            Text(
+                              "Reunião Interna Acontecendo",
+                              style: TextStyle(
+                                  fontSize: 20, fontStyle: FontStyle.italic),
+                            ),
+                          ],
+                        ),
+                      ]),
                       onTap: () {},
                     ),
                   ]),
@@ -272,16 +278,19 @@ class _HomeState extends State<Home> {
                   backgroundColor: Color.fromRGBO(143, 58, 56, 1),
                   actions: <Widget>[
                     GestureDetector(
-                      child: Column(
-                        children: <Widget>[
-                          Text("Reunião com cliente"),
-                          Text(
-                            "Reunião Com Cliente Agora",
-                            style: TextStyle(
-                                fontSize: 20, fontStyle: FontStyle.italic),
-                          ),
-                        ],
-                      ),
+                      child: Row(children: [
+                        Icon(CustomIcons.clima_normal),
+                        Column(
+                          children: <Widget>[
+                            Text("Reunião com cliente"),
+                            Text(
+                              "Reunião Com Cliente Agora",
+                              style: TextStyle(
+                                  fontSize: 20, fontStyle: FontStyle.italic),
+                            ),
+                          ],
+                        ),
+                      ]),
                       onTap: () {},
                     ),
                   ]),
