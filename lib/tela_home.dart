@@ -93,7 +93,6 @@ class _HomeState extends State<Home> {
       child: Column(
         children: [
           Container(
-            padding: EdgeInsets.only(top: 50),
             child: Text(
               "Partiu entregar alguns projetos?!",
               style: TextStyle(fontSize: 20, fontStyle: FontStyle.italic),
@@ -246,7 +245,9 @@ class _HomeState extends State<Home> {
                     "Cancel",
                     style: TextStyle(color: Colors.white),
                   ),
-                  onPressed: () {},
+                  onPressed: () {
+                    Navigator.of(context).pop();
+                  },
                 ),
                 FlatButton(
                   child: Text(
@@ -265,35 +266,98 @@ class _HomeState extends State<Home> {
         builder: (estadodasala) {
           return Column(
             mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.center,
             children: <Widget>[
               AlertDialog(
+                backgroundColor: Color.fromRGBO(143, 58, 56, 1),
+                shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.all(Radius.circular(24))),
+                actions: <Widget>[
+                  InkWell(
+                    child: Container(
+                      width: MediaQuery.of(context).size.width * 0.8,
+                      height: MediaQuery.of(context).size.height * 0.08,
+                      child: Row(
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        mainAxisSize: MainAxisSize.max,
+                        children: <Widget>[
+                          Expanded(
+                            flex: 1,
+                            child: Icon(
+                              CustomIcons.clima_normal,
+                              color: Colors.white,
+                            ),
+                          ),
+                          Expanded(
+                            flex: 5,
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.spaceAround,
+                              children: <Widget>[
+                                Text(
+                                  "Sala Normal",
+                                  style: TextStyle(
+                                      fontSize: 20, color: Colors.white),
+                                ),
+                                Text(
+                                  "Clima Normal de Trabalho",
+                                  style: TextStyle(
+                                      color: Colors.white,
+                                      fontStyle: FontStyle.italic),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                    onTap: () {},
+                  ),
+                ],
+              ),
+              AlertDialog(
                   backgroundColor: Color.fromRGBO(143, 58, 56, 1),
                   shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.all(Radius.circular(24))),
                   actions: <Widget>[
-                    GestureDetector(
-                      child: Row(
-                        children: <Widget>[
-                          Icon(
-                            CustomIcons.clima_normal,
-                            color: Colors.white,
-                          ),
-                          Column(
-                            children: <Widget>[
-                              Text(
-                                "Sala Normal",
-                                style: TextStyle(color: Colors.white),
+                    InkWell(
+                      child: Container(
+                        width: MediaQuery.of(context).size.width * 0.8,
+                        height: MediaQuery.of(context).size.height * 0.08,
+                        child: Row(
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          mainAxisSize: MainAxisSize.max,
+                          children: <Widget>[
+                            Expanded(
+                              flex: 1,
+                              child: Icon(
+                                CustomIcons.clima_normal,
+                                color: Colors.white,
                               ),
-                              Text(
-                                "Clima Normal de Trabalho",
-                                style: TextStyle(
-                                    color: Colors.white,
-                                    fontStyle: FontStyle.italic),
+                            ),
+                            Expanded(
+                              flex: 5,
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.center,
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceAround,
+                                children: <Widget>[
+                                  Text(
+                                    "Reunião da Diretoria",
+                                    style: TextStyle(
+                                        fontSize: 20, color: Colors.white),
+                                  ),
+                                  Text(
+                                    "Reunião Interna em Andamento",
+                                    style: TextStyle(
+                                        color: Colors.white,
+                                        fontStyle: FontStyle.italic),
+                                  ),
+                                ],
                               ),
-                            ],
-                          ),
-                        ],
+                            ),
+                          ],
+                        ),
                       ),
                       onTap: () {},
                     ),
@@ -303,60 +367,45 @@ class _HomeState extends State<Home> {
                   shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.all(Radius.circular(24))),
                   actions: <Widget>[
-                    GestureDetector(
-                      child: Row(
-                        children: <Widget>[
-                          Icon(
-                            CustomIcons.clima_normal,
-                            color: Colors.white,
-                          ),
-                          Column(
+                    InkWell(
+                      child: Container(
+                          width: MediaQuery.of(context).size.width * 0.8,
+                          height: MediaQuery.of(context).size.height * 0.08,
+                          child: Row(
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            mainAxisSize: MainAxisSize.max,
                             children: <Widget>[
-                              Text(
-                                "Reunião da Diretoria",
-                                style: TextStyle(color: Colors.white),
+                              Expanded(
+                                flex: 1,
+                                child: Icon(
+                                  CustomIcons.clima_normal,
+                                  color: Colors.white,
+                                ),
                               ),
-                              Text(
-                                "Reunião Interna em Andamento",
-                                style: TextStyle(
-                                    color: Colors.white,
-                                    fontStyle: FontStyle.italic),
+                              Expanded(
+                                flex: 5,
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.center,
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceAround,
+                                  children: <Widget>[
+                                    Text(
+                                      "Reunião com Cliente",
+                                      style: TextStyle(
+                                          fontSize: 20, color: Colors.white),
+                                    ),
+                                    Text(
+                                      "Reunião com o cliente em andamento",
+                                      style: TextStyle(
+                                          color: Colors.white,
+                                          fontStyle: FontStyle.italic),
+                                    ),
+                                  ],
+                                ),
                               ),
                             ],
-                          ),
-                        ],
-                      ),
-                      onTap: () {},
-                    ),
-                  ]),
-              AlertDialog(
-                  backgroundColor: Color.fromRGBO(143, 58, 56, 1),
-                  shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.all(Radius.circular(24))),
-                  actions: <Widget>[
-                    GestureDetector(
-                      child: Row(
-                        children: <Widget>[
-                          Icon(
-                            CustomIcons.clima_normal,
-                            color: Colors.white,
-                          ),
-                          Column(
-                            children: <Widget>[
-                              Text(
-                                "Reunião com Cliente",
-                                style: TextStyle(color: Colors.white),
-                              ),
-                              Text(
-                                "Reunião com o cliente em andamento",
-                                style: TextStyle(
-                                    color: Colors.white,
-                                    fontStyle: FontStyle.italic),
-                              ),
-                            ],
-                          ),
-                        ],
-                      ),
+                          )),
                       onTap: () {},
                     ),
                   ]),
