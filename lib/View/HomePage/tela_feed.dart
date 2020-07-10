@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:megaponto_oficial/presentation/custom_icons_icons.dart';
+import 'package:megaponto_oficial/presets/custom_icons_icons.dart';
 
 class Feed extends StatefulWidget {
   @override
@@ -9,35 +9,31 @@ class Feed extends StatefulWidget {
 class _FeedState extends State<Feed> {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      bottomNavigationBar: _bottomApp(),
-      backgroundColor: Colors.red,
-      body: Column(
-        children: [
-          Container(
-            padding: EdgeInsets.fromLTRB(0, 40, 15, 0),
-            height: 140,
-            child: _listOnline(),
-          ),
-          Expanded(
-              child: Container(
+    return Column(
+      children: [
+        Container(
+          padding: EdgeInsets.fromLTRB(0, 40, 15, 0),
+          height: 140,
+          child: _listOnline(),
+        ),
+        Expanded(
+            child: Container(
               decoration: BoxDecoration(
-                color: Colors.white,
-                borderRadius: BorderRadius.only(
-                    topLeft: const Radius.circular(50.0),
-                    topRight: const Radius.circular(50.0))),
-                child: Padding(
-                  padding: EdgeInsets.only(top: 6),
-                  child: ListView.builder(
-                    itemBuilder: (context, index){
-                      return _feedCard(context, index);
-                    },
-                    itemCount: 5,
-                  ),
+                  color: Colors.white,
+                  borderRadius: BorderRadius.only(
+                      topLeft: const Radius.circular(50.0),
+                      topRight: const Radius.circular(50.0))),
+              child: Padding(
+                padding: EdgeInsets.only(top: 6),
+                child: ListView.builder(
+                  itemBuilder: (context, index){
+                    return _feedCard(context, index);
+                  },
+                  itemCount: 5,
                 ),
-          )),
-        ],
-      ),
+              ),
+            )),
+      ],
     );
   }
 
@@ -170,35 +166,6 @@ class _FeedState extends State<Feed> {
           )
         ],
       ),
-    );
-  }
-
-  Widget _bottomApp() {
-    return Container(
-      child: BottomNavigationBar(
-          backgroundColor: Colors.grey[90],
-          type: BottomNavigationBarType.fixed,
-          selectedItemColor: Color.fromRGBO(65, 3, 76, 1),
-          unselectedItemColor: Colors.black87,
-          elevation: 16,
-          iconSize: 36,
-          //showUnselectedLabels: false,
-          items: [
-            BottomNavigationBarItem(
-                icon: Icon(CustomIcons.jornal), title: Text('Feed')),
-            BottomNavigationBarItem(
-                icon: Icon(
-                  CustomIcons.relogio,
-                ),
-                title: Text('MegaPonto')),
-            BottomNavigationBarItem(
-                icon: Icon(CustomIcons.podio), title: Text('Leaderboard')),
-            BottomNavigationBarItem(
-                icon: Icon(CustomIcons.amigo), title: Text('Plantão Amigo'))
-          ]),
-      decoration: BoxDecoration(color: Colors.grey[90], boxShadow: [
-        BoxShadow(spreadRadius: 3, blurRadius: 0, offset: Offset(2, 3))
-      ]),
     );
   }
 }

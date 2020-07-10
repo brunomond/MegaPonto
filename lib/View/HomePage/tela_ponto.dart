@@ -1,17 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
-import 'package:google_fonts/google_fonts.dart';
-import 'package:megaponto_oficial/View/tela_feed.dart';
-import 'package:megaponto_oficial/View/tela_plantao_amigo.dart';
-import 'package:megaponto_oficial/presentation/custom_icons_icons.dart';
+import 'package:megaponto_oficial/presets/custom_icons_icons.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-class Home extends StatefulWidget {
+class Ponto extends StatefulWidget {
   @override
-  _HomeState createState() => _HomeState();
+  _PontoState createState() => _PontoState();
 }
 
-class _HomeState extends State<Home> {
+class _PontoState extends State<Ponto> {
   GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
   TextStyle _botaoStyle = TextStyle(color: Colors.white, fontSize: 20);
   bool started = false;
@@ -29,56 +26,51 @@ class _HomeState extends State<Home> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-        resizeToAvoidBottomPadding: false,
-        backgroundColor: Color.fromRGBO(74, 39, 146, 1),
-        bottomNavigationBar: _bottomApp(),
-        key: _scaffoldKey,
-        body: Container(
-            width: MediaQuery.of(context).size.width,
-            height: MediaQuery.of(context).size.height,
-            child: Column(
-              mainAxisSize: MainAxisSize.max,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                Stack(overflow: Overflow.visible, children: [
-                  Container(
-                    width: MediaQuery.of(context).size.width,
-                    height: MediaQuery.of(context).size.height * 0.25,
-                    decoration: BoxDecoration(
-                        gradient: LinearGradient(
-                            begin: Alignment.topLeft,
-                            end: Alignment.centerRight,
-                            colors: [
+    return  Container(
+        width: MediaQuery.of(context).size.width,
+        height: MediaQuery.of(context).size.height,
+        child: Column(
+          mainAxisSize: MainAxisSize.max,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            Stack(overflow: Overflow.visible, children: [
+              Container(
+                width: MediaQuery.of(context).size.width,
+                height: MediaQuery.of(context).size.height * 0.25,
+                decoration: BoxDecoration(
+                    gradient: LinearGradient(
+                        begin: Alignment.topLeft,
+                        end: Alignment.centerRight,
+                        colors: [
                           Color.fromRGBO(61, 1, 78, 1),
                           Color.fromRGBO(199, 59, 35, 1)
                         ])),
-                  ),
-                  Container(
-                    height: MediaQuery.of(context).size.height * 0.25,
-                    padding: EdgeInsets.fromLTRB(10, 30, 10, 0),
-                    child: _listOnline(),
-                  ),
-                  Positioned(
-                    top: MediaQuery.of(context).size.height * 0.17,
-                    child: Container(
-                      decoration: BoxDecoration(
-                          borderRadius: BorderRadius.only(
-                              topLeft: const Radius.circular(50.0),
-                              topRight: const Radius.circular(50.0)),
-                          color: Colors.white),
-                    ),
-                  )
-                ]),
-                Expanded(
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.spaceAround,
-                    mainAxisSize: MainAxisSize.max,
-                    children: [_textOnline(), _estadoSala(), _infoPlantao()],
-                  ),
-                )
-              ],
-            )));
+              ),
+              Container(
+                height: MediaQuery.of(context).size.height * 0.25,
+                padding: EdgeInsets.fromLTRB(10, 30, 10, 0),
+                child: _listOnline(),
+              ),
+              Positioned(
+                top: MediaQuery.of(context).size.height * 0.17,
+                child: Container(
+                  decoration: BoxDecoration(
+                      borderRadius: BorderRadius.only(
+                          topLeft: const Radius.circular(50.0),
+                          topRight: const Radius.circular(50.0)),
+                      color: Colors.white),
+                ),
+              )
+            ]),
+            Expanded(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                mainAxisSize: MainAxisSize.max,
+                children: [_textOnline(), _estadoSala(), _infoPlantao()],
+              ),
+            )
+          ],
+        ));
   }
 
   Widget _infoPlantao() {
@@ -169,50 +161,6 @@ class _HomeState extends State<Home> {
         ],
       ),
     );
-  }
-
-  Widget _bottomApp() {
-    return Container(
-      child: BottomNavigationBar(
-          onTap: navegacaoBottomBar,
-          backgroundColor: Colors.grey[90],
-          type: BottomNavigationBarType.fixed,
-          selectedItemColor: Color.fromRGBO(61, 1, 78, 1),
-          unselectedItemColor: Colors.black87,
-          elevation: 16,
-          iconSize: 36,
-          showUnselectedLabels: false,
-          items: [
-            BottomNavigationBarItem(
-                icon: Icon(CustomIcons.jornal), title: Text('Feed')),
-            BottomNavigationBarItem(
-                icon: Icon(
-                  CustomIcons.relogio,
-                ),
-                title: Text('MegaPonto')),
-            BottomNavigationBarItem(
-                icon: Icon(CustomIcons.podio), title: Text('Leaderboard')),
-            BottomNavigationBarItem(
-                icon: Icon(CustomIcons.amigo), title: Text('Plantão Amigo')),
-            BottomNavigationBarItem(
-                icon: Icon(CustomIcons.clima_normal), title: Text('Perfil')),
-          ]),
-      decoration: BoxDecoration(color: Colors.grey[90], boxShadow: [
-        BoxShadow(spreadRadius: 3, blurRadius: 0, offset: Offset(2, 3))
-      ]),
-    );
-  }
-
-  navegacaoBottomBar(int index) {
-    switch(index){
-      case 0:
-        Navigator.push(context, MaterialPageRoute(builder: (context) => Feed()));
-        break;
-      case 3:
-        Navigator.push(context, MaterialPageRoute(builder: (context) => PlantaoAmigo()));
-        break;
-    }
-
   }
 
   createCoffeePopUp(BuildContext coffee) {
@@ -414,12 +362,11 @@ class _HomeState extends State<Home> {
       loading = true;
     });
     
-    SharedPreferences prefs = await SharedPreferences.getInstance().then((value){ 
+    await SharedPreferences.getInstance().then((value){ 
       setState(() => loading = false);
-      return;
+      prefs = value;
       });
-    });
-    print(prefs);
+
     return prefs;
   }
 

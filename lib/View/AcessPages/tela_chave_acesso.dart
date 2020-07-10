@@ -1,7 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:megaponto_oficial/main.dart';
 
-class EsqueceuSenha extends StatelessWidget {
+class ChaveAcesso extends StatefulWidget {
+  @override
+  _ChaveAcessoState createState() => _ChaveAcessoState();
+}
+
+class _ChaveAcessoState extends State<ChaveAcesso> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -10,7 +14,6 @@ class EsqueceuSenha extends StatelessWidget {
           child: Container(
             width: MediaQuery.of(context).size.width,
             height: MediaQuery.of(context).size.height,
-            color: Colors.white,
             child: Stack(
               children: <Widget>[
                 Image.asset("images/fundo_principal.png"),
@@ -21,49 +24,38 @@ class EsqueceuSenha extends StatelessWidget {
                     width: MediaQuery.of(context).size.width,
                     height: MediaQuery.of(context).size.height,
                     decoration: BoxDecoration(
-                      color: Colors.white,
-                      borderRadius: BorderRadius.only(
-                        topLeft: Radius.circular(90),
-                        topRight: Radius.circular(90)
-                      )
+                        color: Colors.white,
+                        borderRadius: BorderRadius.only(
+                            topLeft: Radius.circular(90),
+                            topRight: Radius.circular(90)
+                        )
                     ),
                     child: Column(
                       children: <Widget>[
                         SizedBox(
-                          height: 50,
-                        ),
-                        SizedBox(
-                          width: 120,
-                          height: 120,
-                          child: Image.asset("images/esqueceu_senha.png"),
-                        ),
-                        SizedBox(
                           height: 30,
                         ),
-                        Text(
-                          "Esqueceu sua senha?",
-                          textAlign: TextAlign.center,
-                          style: TextStyle(
-                              color: Colors.black87,
-                              fontSize: 28
-                          ),
+                        SizedBox(
+                          width: 200,
+                          height: 200,
+                          child: Image.asset("images/pato_projeto.png"),
                         ),
                         SizedBox(
                           height: 10,
                         ),
                         SizedBox(
-                          width: 300,
+                          height: 60,
                           child: Text(
-                            "Por favor, informe o E-mail associado à sua conta que inviaremos um link para restauração de sua senha.",
+                            "Qual a sua chave de acesso?",
                             textAlign: TextAlign.center,
                             style: TextStyle(
-                                color: Colors.grey,
-                                fontSize: 12
+                              color: Colors.black87,
+                              fontSize: 26,
                             ),
                           ),
                         ),
                         SizedBox(
-                          height: 30,
+                            height: 10
                         ),
                         Padding(
                           padding: EdgeInsets.only(left: 30,right: 30),
@@ -72,9 +64,9 @@ class EsqueceuSenha extends StatelessWidget {
                             shadowColor: Colors.grey,
                             borderRadius: BorderRadius.circular(32),
                             child: TextFormField(
-                              keyboardType: TextInputType.emailAddress,
+                              keyboardType: TextInputType.number,
                               decoration: InputDecoration(
-                                  hintText: 'E-mail',
+                                  hintText: 'Chave de Acesso',
                                   hintStyle: TextStyle(color: Colors.grey),
                                   contentPadding:
                                   EdgeInsets.fromLTRB(20, 10, 20, 10),
@@ -83,7 +75,7 @@ class EsqueceuSenha extends StatelessWidget {
                                   prefixIcon: Padding(
                                     padding: EdgeInsets.all(0),
                                     child: Icon(
-                                      Icons.email,
+                                      Icons.check_circle,
                                       color: Colors.grey,
                                     ),
                                   )),
@@ -92,10 +84,10 @@ class EsqueceuSenha extends StatelessWidget {
                           ),
                         ),
                         SizedBox(
-                          height: 40,
+                          height: 30,
                         ),
                         Padding(
-                          padding: EdgeInsets.only(right: 80, left: 80),
+                          padding: EdgeInsets.only(right: 90, left: 90),
                           child: Container(
                             height: 60,
                             alignment: Alignment.centerLeft,
@@ -105,12 +97,12 @@ class EsqueceuSenha extends StatelessWidget {
                                 BorderRadius.all(Radius.circular(32))),
                             child: SizedBox.expand(
                               child: FlatButton(
-                                onPressed: () {},
+                                onPressed: () => Navigator.pushNamed(context, 'chave_acesso'),
                                 child: Row(
                                   mainAxisAlignment: MainAxisAlignment.center,
                                   children: <Widget>[
                                     Text(
-                                      "Enviar",
+                                      "Confirmar",
                                       style: TextStyle(
                                           color: Colors.white, fontSize: 20),
                                     ),
@@ -132,15 +124,10 @@ class EsqueceuSenha extends StatelessWidget {
                                   fontSize: 13
                               ),
                             ),
-                            onPressed:() {
-                              Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (BuildContext context) =>
-                                          Login()));
-                            },
+                            onPressed:() => Navigator.pushNamed(context, '/login'),
                           ),
-                        )
+                        ),
+
                       ],
                     ),
                   ),
@@ -149,7 +136,7 @@ class EsqueceuSenha extends StatelessWidget {
             ),
           ),
         ),
-      )
+      ),
     );
   }
 }

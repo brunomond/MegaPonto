@@ -1,13 +1,6 @@
 import 'package:flutter/material.dart';
-import 'main.dart';
-import 'package:megaponto_oficial/tela_criar_conta.dart';
 
-class ChaveAcesso extends StatefulWidget {
-  @override
-  _ChaveAcessoState createState() => _ChaveAcessoState();
-}
-
-class _ChaveAcessoState extends State<ChaveAcesso> {
+class EsqueceuSenha extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -16,6 +9,7 @@ class _ChaveAcessoState extends State<ChaveAcesso> {
           child: Container(
             width: MediaQuery.of(context).size.width,
             height: MediaQuery.of(context).size.height,
+            color: Colors.white,
             child: Stack(
               children: <Widget>[
                 Image.asset("images/fundo_principal.png"),
@@ -26,38 +20,49 @@ class _ChaveAcessoState extends State<ChaveAcesso> {
                     width: MediaQuery.of(context).size.width,
                     height: MediaQuery.of(context).size.height,
                     decoration: BoxDecoration(
-                        color: Colors.white,
-                        borderRadius: BorderRadius.only(
-                            topLeft: Radius.circular(90),
-                            topRight: Radius.circular(90)
-                        )
+                      color: Colors.white,
+                      borderRadius: BorderRadius.only(
+                        topLeft: Radius.circular(90),
+                        topRight: Radius.circular(90)
+                      )
                     ),
                     child: Column(
                       children: <Widget>[
                         SizedBox(
-                          height: 30,
+                          height: 50,
                         ),
                         SizedBox(
-                          width: 200,
-                          height: 200,
-                          child: Image.asset("images/pato_projeto.png"),
+                          width: 120,
+                          height: 120,
+                          child: Image.asset("images/esqueceu_senha.png"),
+                        ),
+                        SizedBox(
+                          height: 30,
+                        ),
+                        Text(
+                          "Esqueceu sua senha?",
+                          textAlign: TextAlign.center,
+                          style: TextStyle(
+                              color: Colors.black87,
+                              fontSize: 28
+                          ),
                         ),
                         SizedBox(
                           height: 10,
                         ),
                         SizedBox(
-                          height: 60,
+                          width: 300,
                           child: Text(
-                            "Qual a sua chave de acesso?",
+                            "Por favor, informe o E-mail associado à sua conta que inviaremos um link para restauração de sua senha.",
                             textAlign: TextAlign.center,
                             style: TextStyle(
-                              color: Colors.black87,
-                              fontSize: 26,
+                                color: Colors.grey,
+                                fontSize: 12
                             ),
                           ),
                         ),
                         SizedBox(
-                            height: 10
+                          height: 30,
                         ),
                         Padding(
                           padding: EdgeInsets.only(left: 30,right: 30),
@@ -66,9 +71,9 @@ class _ChaveAcessoState extends State<ChaveAcesso> {
                             shadowColor: Colors.grey,
                             borderRadius: BorderRadius.circular(32),
                             child: TextFormField(
-                              keyboardType: TextInputType.number,
+                              keyboardType: TextInputType.emailAddress,
                               decoration: InputDecoration(
-                                  hintText: 'Chave de Acesso',
+                                  hintText: 'E-mail',
                                   hintStyle: TextStyle(color: Colors.grey),
                                   contentPadding:
                                   EdgeInsets.fromLTRB(20, 10, 20, 10),
@@ -77,7 +82,7 @@ class _ChaveAcessoState extends State<ChaveAcesso> {
                                   prefixIcon: Padding(
                                     padding: EdgeInsets.all(0),
                                     child: Icon(
-                                      Icons.check_circle,
+                                      Icons.email,
                                       color: Colors.grey,
                                     ),
                                   )),
@@ -86,10 +91,10 @@ class _ChaveAcessoState extends State<ChaveAcesso> {
                           ),
                         ),
                         SizedBox(
-                          height: 30,
+                          height: 40,
                         ),
                         Padding(
-                          padding: EdgeInsets.only(right: 90, left: 90),
+                          padding: EdgeInsets.only(right: 80, left: 80),
                           child: Container(
                             height: 60,
                             alignment: Alignment.centerLeft,
@@ -99,18 +104,12 @@ class _ChaveAcessoState extends State<ChaveAcesso> {
                                 BorderRadius.all(Radius.circular(32))),
                             child: SizedBox.expand(
                               child: FlatButton(
-                                onPressed: () {
-                                  Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                          builder: (BuildContext context) =>
-                                              CriarConta()));
-                                },
+                                onPressed: () {},
                                 child: Row(
                                   mainAxisAlignment: MainAxisAlignment.center,
                                   children: <Widget>[
                                     Text(
-                                      "Confirmar",
+                                      "Enviar",
                                       style: TextStyle(
                                           color: Colors.white, fontSize: 20),
                                     ),
@@ -132,16 +131,9 @@ class _ChaveAcessoState extends State<ChaveAcesso> {
                                   fontSize: 13
                               ),
                             ),
-                            onPressed:() {
-                              Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (BuildContext context) =>
-                                          Login()));
-                            },
+                            onPressed:() => Navigator.pushNamed(context, 'login'),
                           ),
-                        ),
-
+                        )
                       ],
                     ),
                   ),
@@ -150,7 +142,7 @@ class _ChaveAcessoState extends State<ChaveAcesso> {
             ),
           ),
         ),
-      ),
+      )
     );
   }
 }
