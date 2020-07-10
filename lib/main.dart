@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
-
 //Telas
+import 'View/tela_checksession.dart';
 import 'View/HomePage/tela_feed.dart';
 import 'View/HomePage/tela_home.dart';
 import 'View/HomePage/tela_ponto.dart';
@@ -27,7 +27,8 @@ class MegaPonto extends StatelessWidget {
       title: 'Mega Ponto',
       initialRoute: '/',
       routes: {
-        '/': (context) => Home(),
+        '/': (context) => CheckSession(),
+        '/home': (context) => Home(),
         '/home_ponto': (context) => Ponto(),
         '/home_feed': (context) => Feed(),
         '/home_plantao_amigo': (context) => PlantaoAmigo(),

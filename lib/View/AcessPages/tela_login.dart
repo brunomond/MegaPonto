@@ -18,9 +18,9 @@ class _LoginState extends State<Login> {
                     begin: Alignment.topLeft,
                     end: Alignment.centerRight,
                     colors: [
-                      Color.fromRGBO(65, 3, 76, 1),
-                      Color.fromRGBO(199, 59, 34, 1)
-                    ])),
+                  Color.fromRGBO(65, 3, 76, 1),
+                  Color.fromRGBO(199, 59, 34, 1)
+                ])),
             width: MediaQuery.of(context).size.width,
             height: MediaQuery.of(context).size.height,
             child: Stack(
@@ -37,7 +37,7 @@ class _LoginState extends State<Login> {
                     top: 180,
                     child: Container(
                       padding:
-                      EdgeInsets.symmetric(vertical: 20, horizontal: 40),
+                          EdgeInsets.symmetric(vertical: 20, horizontal: 40),
                       width: MediaQuery.of(context).size.width,
                       height: MediaQuery.of(context).size.height,
                       decoration: BoxDecoration(
@@ -68,7 +68,7 @@ class _LoginState extends State<Login> {
                                   hintText: 'E-mail',
                                   hintStyle: TextStyle(color: Colors.grey),
                                   contentPadding:
-                                  EdgeInsets.fromLTRB(20, 10, 20, 10),
+                                      EdgeInsets.fromLTRB(20, 10, 20, 10),
                                   border: OutlineInputBorder(
                                       borderRadius: BorderRadius.circular(32)),
                                   prefixIcon: Padding(
@@ -95,7 +95,7 @@ class _LoginState extends State<Login> {
                                   hintText: 'Senha',
                                   hintStyle: TextStyle(color: Colors.grey),
                                   contentPadding:
-                                  EdgeInsets.fromLTRB(20, 10, 20, 10),
+                                      EdgeInsets.fromLTRB(20, 10, 20, 10),
                                   border: OutlineInputBorder(
                                     borderRadius: BorderRadius.circular(32),
                                   ),
@@ -117,9 +117,10 @@ class _LoginState extends State<Login> {
                                 "Esqueci minha senha",
                                 textAlign: TextAlign.right,
                                 style:
-                                TextStyle(color: Colors.grey, fontSize: 13),
+                                    TextStyle(color: Colors.grey, fontSize: 13),
                               ),
-                              onPressed: () => Navigator.pushNamed(context, 'esqueceu_senha'),
+                              onPressed: () => Navigator.of(context)
+                                  .pushNamed('/esqueceu_senha'),
                             ),
                           ),
                           SizedBox(
@@ -133,10 +134,11 @@ class _LoginState extends State<Login> {
                               decoration: BoxDecoration(
                                   color: Colors.black87,
                                   borderRadius:
-                                  BorderRadius.all(Radius.circular(32))),
+                                      BorderRadius.all(Radius.circular(32))),
                               child: SizedBox.expand(
                                 child: FlatButton(
-                                  onPressed: () => Navigator.pushNamed(context, '/'),
+                                  onPressed: () =>
+                                      Navigator.pushNamed(context, '/home'),
                                   child: Row(
                                     mainAxisAlignment: MainAxisAlignment.center,
                                     children: <Widget>[
@@ -162,9 +164,10 @@ class _LoginState extends State<Login> {
                                 "Criar uma conta",
                                 textAlign: TextAlign.center,
                                 style:
-                                TextStyle(color: Colors.grey, fontSize: 13),
+                                    TextStyle(color: Colors.grey, fontSize: 13),
                               ),
-                              onPressed: () => Navigator.pushNamed(context, 'chave_acesso'),
+                              onPressed: () =>
+                                  Navigator.pushNamed(context, '/chave_acesso'),
                             ),
                           )
                         ],
