@@ -10,7 +10,7 @@ class Home extends StatefulWidget {
 
 class _HomeState extends State<Home> {
   int _selectedItem;
-  List<Widget> _telas = [Feed(), Ponto(), PlantaoAmigo()];
+  List<Widget> _telas = [Feed(), Ponto(), PlantaoAmigo];
 
   @override
   void initState() {
