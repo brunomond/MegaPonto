@@ -21,7 +21,6 @@ class _PontoState extends State<Ponto> {
   void initState() {
     super.initState();
     _start();
-    
   }
 
   @override
@@ -166,7 +165,7 @@ class _PontoState extends State<Ponto> {
   Widget _bottomApp() {
     return Container(
       child: BottomNavigationBar(
-          onTap: tapppppp,
+          onTap: navegacaoBottomBar,
           backgroundColor: Colors.grey[90],
           type: BottomNavigationBarType.fixed,
           selectedItemColor: Color.fromRGBO(61, 1, 78, 1),
@@ -195,8 +194,17 @@ class _PontoState extends State<Ponto> {
     );
   }
 
-  tapppppp(int index) {
-    Navigator.push(context, MaterialPageRoute(builder: (context) => Feed()));
+  navegacaoBottomBar(int index) {
+    switch (index) {
+      case 0:
+        Navigator.push(
+            context, MaterialPageRoute(builder: (context) => Feed()));
+        break;
+      case 3:
+        Navigator.push(
+            context, MaterialPageRoute(builder: (context) => PlantaoAmigo()));
+        break;
+    }
   }
 
   createCoffeePopUp(BuildContext coffee) {
@@ -227,12 +235,17 @@ class _PontoState extends State<Ponto> {
         context: estadodasala,
         builder: (estadodasala) {
           return Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.center,
             children: <Widget>[
               AlertDialog(
                   backgroundColor: Color.fromRGBO(143, 58, 56, 1),
                   actions: <Widget>[
                     GestureDetector(
-                      child: Column(
+                      child: Row(
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        mainAxisSize: MainAxisSize.max,
                         children: <Widget>[
                           Text("Sala Normal"),
                           Text(
@@ -247,6 +260,8 @@ class _PontoState extends State<Ponto> {
                   ]),
               AlertDialog(
                   backgroundColor: Color.fromRGBO(143, 58, 56, 1),
+                  shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.all(Radius.circular(24))),
                   actions: <Widget>[
                     GestureDetector(
                       child: Column(
@@ -264,6 +279,8 @@ class _PontoState extends State<Ponto> {
                   ]),
               AlertDialog(
                   backgroundColor: Color.fromRGBO(143, 58, 56, 1),
+                  shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.all(Radius.circular(24))),
                   actions: <Widget>[
                     GestureDetector(
                       child: Column(
