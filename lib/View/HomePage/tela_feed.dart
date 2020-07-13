@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:megaponto_oficial/presentation/custom_icons_icons.dart';
 
 class Feed extends StatefulWidget {
   @override

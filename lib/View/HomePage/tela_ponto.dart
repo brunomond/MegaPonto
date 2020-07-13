@@ -98,6 +98,7 @@ class _PontoState extends State<Ponto> {
                   borderRadius: BorderRadius.all(Radius.circular(24))),
               child: loading
                   ? FlatButton(
+                    onPressed: () {},
                       child: CircularProgressIndicator(),
                     )
                   : started
@@ -160,51 +161,6 @@ class _PontoState extends State<Ponto> {
         ],
       ),
     );
-  }
-
-  Widget _bottomApp() {
-    return Container(
-      child: BottomNavigationBar(
-          onTap: navegacaoBottomBar,
-          backgroundColor: Colors.grey[90],
-          type: BottomNavigationBarType.fixed,
-          selectedItemColor: Color.fromRGBO(61, 1, 78, 1),
-          unselectedItemColor: Colors.black87,
-          elevation: 16,
-          iconSize: 36,
-          showUnselectedLabels: false,
-          items: [
-            BottomNavigationBarItem(
-                icon: Icon(CustomIcons.jornal), title: Text('Feed')),
-            BottomNavigationBarItem(
-                icon: Icon(
-                  CustomIcons.relogio,
-                ),
-                title: Text('MegaPonto')),
-            BottomNavigationBarItem(
-                icon: Icon(CustomIcons.podio), title: Text('Leaderboard')),
-            BottomNavigationBarItem(
-                icon: Icon(CustomIcons.amigo), title: Text('Plantão Amigo')),
-            BottomNavigationBarItem(
-                icon: Icon(CustomIcons.clima_normal), title: Text('Perfil')),
-          ]),
-      decoration: BoxDecoration(color: Colors.grey[90], boxShadow: [
-        BoxShadow(spreadRadius: 3, blurRadius: 0, offset: Offset(2, 3))
-      ]),
-    );
-  }
-
-  navegacaoBottomBar(int index) {
-    switch (index) {
-      case 0:
-        Navigator.push(
-            context, MaterialPageRoute(builder: (context) => Feed()));
-        break;
-      case 3:
-        Navigator.push(
-            context, MaterialPageRoute(builder: (context) => PlantaoAmigo()));
-        break;
-    }
   }
 
   createCoffeePopUp(BuildContext coffee) {

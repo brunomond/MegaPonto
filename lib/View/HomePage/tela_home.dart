@@ -2,6 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:megaponto_oficial/View/Utils/BottomApp.dart';
 
 //Fragmentos BottomBar
+import 'tela_feed.dart';
+import 'tela_ponto.dart';
+import 'tela_plantao_amigo.dart';
 
 class Home extends StatefulWidget {
   @override
@@ -10,7 +13,7 @@ class Home extends StatefulWidget {
 
 class _HomeState extends State<Home> {
   int _selectedItem;
-  List<Widget> _telas = [Feed(), Ponto(), PlantaoAmigo];
+  List<Widget> _telas = [Feed(), Ponto(), PlantaoAmigo()];
 
   @override
   void initState() {
