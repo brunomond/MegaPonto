@@ -12,8 +12,9 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
+  static GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
   int _selectedItem;
-  List<Widget> _telas = [Feed(), Ponto(), PlantaoAmigo()];
+  List<Widget> _telas = [Feed(), Ponto(scaffold: _scaffoldKey), PlantaoAmigo()];
 
   @override
   void initState() {
@@ -24,6 +25,7 @@ class _HomeState extends State<Home> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      key: _scaffoldKey,
       bottomNavigationBar: BottomApp(
         index: _selectedItem,
         onTap: tapBottomBar,
@@ -41,12 +43,13 @@ class _HomeState extends State<Home> {
                 Color.fromRGBO(199, 59, 35, 1)
               ])),
           child: Padding(
-            padding: EdgeInsets.only(top: 55),
+            padding: EdgeInsets.only(
+                top: MediaQuery.of(context).size.height * 0.065),
             child: _listOnline(),
           ),
         ),
         Positioned(
-            top: MediaQuery.of(context).size.height * 0.20,
+            top: MediaQuery.of(context).size.height * 0.22,
             bottom: 0,
             left: 0,
             right: 0,
