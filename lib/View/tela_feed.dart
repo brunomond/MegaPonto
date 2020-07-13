@@ -11,33 +11,45 @@ class _FeedState extends State<Feed> {
   Widget build(BuildContext context) {
     return Scaffold(
       bottomNavigationBar: _bottomApp(),
-      backgroundColor: Colors.red,
-      body: Column(
-        children: [
-          Container(
-            padding: EdgeInsets.fromLTRB(0, 40, 15, 0),
-            height: 140,
-            child: _listOnline(),
-          ),
-          Expanded(
-              child: Container(
-              decoration: BoxDecoration(
-                color: Colors.white,
-                borderRadius: BorderRadius.only(
-                    topLeft: const Radius.circular(50.0),
-                    topRight: const Radius.circular(50.0))),
-                child: Padding(
-                  padding: EdgeInsets.only(top: 6),
-                  child: ListView.builder(
-                    itemBuilder: (context, index){
-                      return _feedCard(context, index);
-                    },
-                    itemCount: 5,
+      backgroundColor: Colors.pink,
+      body: Container(
+        decoration: BoxDecoration(
+            gradient: LinearGradient(
+                begin: Alignment.topLeft,
+                end: Alignment.centerRight,
+                colors: [
+                  Color.fromRGBO(65, 3, 76, 1),
+                  Color.fromRGBO(199, 59, 34, 1)
+                ])),
+        child: Column(
+          children: [
+            Container(
+              padding: EdgeInsets.fromLTRB(0, 40, 15, 0),
+              height: 140,
+              child: Text("Pessoas Online", style: TextStyle(
+                  color: Colors.white
+              )),
+            ),
+            Expanded(
+                child: Container(
+                  decoration: BoxDecoration(
+                      color: Colors.white,
+                      borderRadius: BorderRadius.only(
+                          topLeft: const Radius.circular(50.0),
+                          topRight: const Radius.circular(50.0))),
+                  child: Padding(
+                    padding: EdgeInsets.only(top: 6),
+                    child: ListView.builder(
+                      itemBuilder: (context, index){
+                        return _feedCard(context, index);
+                      },
+                      itemCount: 5,
+                    ),
                   ),
-                ),
-          )),
-        ],
-      ),
+                )),
+          ],
+        ),
+      )
     );
   }
 
@@ -112,65 +124,6 @@ class _FeedState extends State<Feed> {
             ),
           )
       );
-  }
-
-
-
-
-  Widget _listOnline() {
-    return ListView(
-      scrollDirection: Axis.horizontal,
-      children: [
-        _itemListOnline(
-            "Kazuo", "https://api.adorable.io/avatars/285/abott@adorable.png"),
-        _itemListOnline("Bruno",
-            "https://api.adorable.io/avatars/283/abott@adorable.pngCopy to Clipboard"),
-        _itemListOnline(
-            "Cleber", "https://api.adorable.io/avatars/206/abott@exaust.io"),
-        _itemListOnline(
-            "Eduardo", "https://api.adorable.io/avatars/206/abott@strong.io"),
-        _itemListOnline(
-            "Jose", "https://api.adorable.io/avatars/206/abott@hungry.io"),
-        _itemListOnline(
-            "Enzo", "https://api.adorable.io/avatars/206/abott@fasty.io"),
-      ],
-    );
-  }
-
-  Widget _itemListOnline(String texto, String imagem) {
-    return Container(
-      padding: EdgeInsets.only(left: 30),
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.start,
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: [
-          Stack(
-            children: [
-              Container(
-                width: 60,
-                height: 60,
-                decoration: BoxDecoration(
-                  shape: BoxShape.circle,
-                  border: new Border.all(
-                    color: Color.fromRGBO(106, 210, 53, 1),
-                  ),
-                  image: DecorationImage(
-                    image: NetworkImage("$imagem"),
-                  ),
-                ),
-              ),
-            ],
-          ),
-          Divider(
-            height: 5,
-          ),
-          Text(
-            "$texto",
-            style: TextStyle(color: Colors.white),
-          )
-        ],
-      ),
-    );
   }
 
   Widget _bottomApp() {

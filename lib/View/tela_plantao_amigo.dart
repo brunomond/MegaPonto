@@ -1,10 +1,6 @@
-import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:megaponto_oficial/View/tela_feed.dart';
-import 'package:megaponto_oficial/View/tela_plantao_amigo.dart';
-import 'package:http/http.dart' as http;
 import 'package:megaponto_oficial/presentation/custom_icons_icons.dart';
-
 
 class PlantaoAmigo extends StatefulWidget {
   @override
@@ -15,11 +11,20 @@ class _PlantaoAmigoState extends State<PlantaoAmigo> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.red,
-      bottomNavigationBar: BottomAppBar(child: _bottomApp(),),
+      bottomNavigationBar: BottomAppBar(
+        child: _bottomApp(),
+      ),
       body: Container(
         width: MediaQuery.of(context).size.width,
         height: MediaQuery.of(context).size.height,
+        decoration: BoxDecoration(
+            gradient: LinearGradient(
+                begin: Alignment.topLeft,
+                end: Alignment.centerRight,
+                colors: [
+              Color.fromRGBO(65, 3, 76, 1),
+              Color.fromRGBO(199, 59, 34, 1)
+            ])),
         child: Column(
           children: [
             Container(
@@ -38,8 +43,16 @@ class _PlantaoAmigoState extends State<PlantaoAmigo> {
                         topLeft: const Radius.circular(50.0),
                         topRight: const Radius.circular(50.0))),
                 child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text("Quem está na sala?"),
+                    Padding(
+                      padding: EdgeInsets.fromLTRB(40, 20, 20, 10),
+                      child: Text(
+                        "Quem está na sala?",
+                        style: TextStyle(
+                            fontSize: 20, fontWeight: FontWeight.bold),
+                      ),
+                    ),
                     Expanded(
                         child: ListView.builder(
                       itemBuilder: (context, index) {
@@ -90,49 +103,69 @@ class _PlantaoAmigoState extends State<PlantaoAmigo> {
   }
 
   navegacaoBottomBar(int index) {
-    switch(index){
+    switch (index) {
       case 0:
-        Navigator.push(context, MaterialPageRoute(builder: (context) => Feed()));
+        Navigator.push(
+            context, MaterialPageRoute(builder: (context) => Feed()));
         break;
       case 3:
-        Navigator.push(context, MaterialPageRoute(builder: (context) => PlantaoAmigo()));
+        Navigator.push(
+            context, MaterialPageRoute(builder: (context) => PlantaoAmigo()));
         break;
     }
   }
-
 }
 
 Widget _listMembros(BuildContext context, int index) {
-  return Padding(
-    padding: EdgeInsets.fromLTRB(20, 5, 20, 30),
-    child: Row(
-      children: [
-        Container(
-          width: 60,
-          height: 60,
-          decoration: BoxDecoration(
-            shape: BoxShape.circle,
-            image: DecorationImage(
-              image: NetworkImage(
-                  "https://api.adorable.io/avatars/283/abott@adorable.pngCopy to Clipboard"),
-            ),
+  return Container(
+      padding: EdgeInsets.fromLTRB(20, 0, 20, 30),
+      child: Column(
+        children: [
+          Row(
+            children: [
+              Container(
+                width: 60,
+                height: 60,
+                decoration: BoxDecoration(
+                  shape: BoxShape.circle,
+                  image: DecorationImage(
+                    image: NetworkImage(
+                        "https://api.adorable.io/avatars/283/abott@adorable.pngCopy to Clipboard"),
+                  ),
+                ),
+              ),
+              Padding(
+                padding: EdgeInsets.only(left: 20),
+                child: Text(
+                  "Rick Sanchez",
+                  style: TextStyle(
+                      fontSize: 20,
+                      fontWeight: FontWeight.bold,
+                      fontStyle: FontStyle.italic),
+                ),
+              ),
+              Padding(
+                padding: EdgeInsets.fromLTRB(20, 0, 40, 0),
+                child: Text(
+                  "IOS",
+                  style: TextStyle(fontSize: 15, fontStyle: FontStyle.italic),
+                ),
+              ),
+              Container(
+                padding: EdgeInsets.only(left: 20),
+                width: 20,
+                height: 20,
+                decoration: BoxDecoration(
+                  color: Color.fromRGBO(0, 255, 0, 1),
+                  shape: BoxShape.circle,
+                ),
+              ),
+            ],
           ),
-        ),
-        Text("Rick Sanchez"),
-        Text("IOS"),
-        Container(
-          width: 20,
-          height: 20,
-          decoration: BoxDecoration(
-            color: Color.fromRGBO(0, 255, 0, 1),
-            shape: BoxShape.circle,
-          ),
-        ),
-      ],
-    ),
-  );
+          Divider(),
+        ],
+      ));
 }
-
 
 /*Future<Map> _obterGifs() async{
   http.Response resposta;

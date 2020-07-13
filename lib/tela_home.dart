@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:megaponto_oficial/View/tela_feed.dart';
 import 'package:megaponto_oficial/View/tela_plantao_amigo.dart';
 import 'package:megaponto_oficial/presentation/custom_icons_icons.dart';
@@ -30,7 +29,6 @@ class _HomeState extends State<Home> {
   Widget build(BuildContext context) {
     return Scaffold(
         resizeToAvoidBottomPadding: false,
-        backgroundColor: Color.fromRGBO(74, 39, 146, 1),
         bottomNavigationBar: _bottomApp(),
         key: _scaffoldKey,
         body: Container(
@@ -203,15 +201,16 @@ class _HomeState extends State<Home> {
   }
 
   navegacaoBottomBar(int index) {
-    switch(index){
+    switch (index) {
       case 0:
-        Navigator.push(context, MaterialPageRoute(builder: (context) => Feed()));
+        Navigator.push(
+            context, MaterialPageRoute(builder: (context) => Feed()));
         break;
       case 3:
-        Navigator.push(context, MaterialPageRoute(builder: (context) => PlantaoAmigo()));
+        Navigator.push(
+            context, MaterialPageRoute(builder: (context) => PlantaoAmigo()));
         break;
     }
-
   }
 
   createCoffeePopUp(BuildContext coffee) {
