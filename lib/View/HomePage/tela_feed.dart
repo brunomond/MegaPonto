@@ -9,14 +9,6 @@ class _FeedState extends State<Feed> {
   @override
   Widget build(BuildContext context) {
     return Container(
-        decoration: BoxDecoration(
-            gradient: LinearGradient(
-                begin: Alignment.topLeft,
-                end: Alignment.centerRight,
-                colors: [
-                  Color.fromRGBO(65, 3, 76, 1),
-                  Color.fromRGBO(199, 59, 34, 1)
-                ])),
         child: Column(
           children: [
             Container(
