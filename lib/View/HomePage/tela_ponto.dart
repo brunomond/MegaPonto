@@ -21,7 +21,6 @@ class _PontoState extends State<Ponto> {
   void initState() {
     super.initState();
     _start();
-    
   }
 
   @override
@@ -99,6 +98,7 @@ class _PontoState extends State<Ponto> {
                   borderRadius: BorderRadius.all(Radius.circular(24))),
               child: loading
                   ? FlatButton(
+                    onPressed: () {},
                       child: CircularProgressIndicator(),
                     )
                   : started
@@ -163,51 +163,6 @@ class _PontoState extends State<Ponto> {
     );
   }
 
-  Widget _bottomApp() {
-    return Container(
-      child: BottomNavigationBar(
-          onTap: navegacaoBottomBar,
-          backgroundColor: Colors.grey[90],
-          type: BottomNavigationBarType.fixed,
-          selectedItemColor: Color.fromRGBO(61, 1, 78, 1),
-          unselectedItemColor: Colors.black87,
-          elevation: 16,
-          iconSize: 36,
-          showUnselectedLabels: false,
-          items: [
-            BottomNavigationBarItem(
-                icon: Icon(CustomIcons.jornal), title: Text('Feed')),
-            BottomNavigationBarItem(
-                icon: Icon(
-                  CustomIcons.relogio,
-                ),
-                title: Text('MegaPonto')),
-            BottomNavigationBarItem(
-                icon: Icon(CustomIcons.podio), title: Text('Leaderboard')),
-            BottomNavigationBarItem(
-                icon: Icon(CustomIcons.amigo), title: Text('Plantão Amigo')),
-            BottomNavigationBarItem(
-                icon: Icon(CustomIcons.clima_normal), title: Text('Perfil')),
-          ]),
-      decoration: BoxDecoration(color: Colors.grey[90], boxShadow: [
-        BoxShadow(spreadRadius: 3, blurRadius: 0, offset: Offset(2, 3))
-      ]),
-    );
-  }
-
-  navegacaoBottomBar(int index) {
-    switch (index) {
-      case 0:
-        Navigator.push(
-            context, MaterialPageRoute(builder: (context) => Feed()));
-        break;
-      case 3:
-        Navigator.push(
-            context, MaterialPageRoute(builder: (context) => PlantaoAmigo()));
-        break;
-    }
-  }
-
   createCoffeePopUp(BuildContext coffee) {
     return showDialog(
         context: coffee,
@@ -236,12 +191,17 @@ class _PontoState extends State<Ponto> {
         context: estadodasala,
         builder: (estadodasala) {
           return Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.center,
             children: <Widget>[
               AlertDialog(
                   backgroundColor: Color.fromRGBO(143, 58, 56, 1),
                   actions: <Widget>[
                     GestureDetector(
-                      child: Column(
+                      child: Row(
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        mainAxisSize: MainAxisSize.max,
                         children: <Widget>[
                           Text("Sala Normal"),
                           Text(
@@ -256,6 +216,8 @@ class _PontoState extends State<Ponto> {
                   ]),
               AlertDialog(
                   backgroundColor: Color.fromRGBO(143, 58, 56, 1),
+                  shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.all(Radius.circular(24))),
                   actions: <Widget>[
                     GestureDetector(
                       child: Column(
@@ -273,6 +235,8 @@ class _PontoState extends State<Ponto> {
                   ]),
               AlertDialog(
                   backgroundColor: Color.fromRGBO(143, 58, 56, 1),
+                  shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.all(Radius.circular(24))),
                   actions: <Widget>[
                     GestureDetector(
                       child: Column(
@@ -342,6 +306,9 @@ class _PontoState extends State<Ponto> {
             ),
           ]),
         ),
+        SizedBox(
+          height: MediaQuery.of(context).size.height * 0.04,
+        ),
         InkWell(
           child:
               Row(mainAxisAlignment: MainAxisAlignment.spaceAround, children: [
@@ -410,8 +377,11 @@ class _PontoState extends State<Ponto> {
     await SharedPreferences.getInstance().then((value){ 
       setState(() => loading = false);
       prefs = value;
+      setState(() {
+        loading = false;
       });
-
+    });
+    print(prefs);
     return prefs;
   }
 
