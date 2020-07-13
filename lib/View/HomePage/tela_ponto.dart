@@ -40,14 +40,14 @@ class _PontoState extends State<Ponto> {
           Container(
             child: Text(
               "Partiu entregar alguns projetos?!",
-              style: TextStyle(fontSize: 20, fontStyle: FontStyle.italic),
+              style: TextStyle(fontSize: 23, fontStyle: FontStyle.italic),
             ),
           ),
           Container(
             padding: EdgeInsets.only(top: 10),
             child: Text(
               "Inicie seu Plantão!",
-              style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+              style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
             ),
           ),
           Divider(
@@ -55,10 +55,10 @@ class _PontoState extends State<Ponto> {
           ),
           Container(
               width: 200,
-              height: 51,
+              height: 55,
               decoration: BoxDecoration(
                   color: Color.fromRGBO(143, 58, 56, 1),
-                  borderRadius: BorderRadius.all(Radius.circular(24))),
+                  borderRadius: BorderRadius.all(Radius.circular(26))),
               child: loading
                   ? FlatButton(
                       onPressed: () {},
@@ -177,8 +177,8 @@ class _PontoState extends State<Ponto> {
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
         Container(
-          width: 16,
-          height: 16,
+          width: 20,
+          height: 20,
           decoration: BoxDecoration(
             color: Color.fromRGBO(0, 255, 0, 1),
             shape: BoxShape.circle,
@@ -187,7 +187,7 @@ class _PontoState extends State<Ponto> {
         Text(
           ' $numPessoasOnline' + ' MegaMembros na sala :)',
           style: TextStyle(
-              fontSize: 20, color: Colors.black, fontStyle: FontStyle.italic),
+              fontSize: 23, color: Colors.black, fontStyle: FontStyle.italic),
         ),
       ],
     );
@@ -205,7 +205,7 @@ class _PontoState extends State<Ponto> {
               padding: EdgeInsets.only(left: 10),
               child: Icon(
                 CustomIcons.clima_normal,
-                size: 30,
+                size: 35,
               ),
             ),
             Padding(
@@ -214,15 +214,15 @@ class _PontoState extends State<Ponto> {
                 padding: EdgeInsets.fromLTRB(10, 0, 8, 0),
                 child: Text(
                   'Clima normal de trabalho',
-                  style: TextStyle(fontSize: 20, fontStyle: FontStyle.italic),
+                  style: TextStyle(fontSize: 23, fontStyle: FontStyle.italic),
                 ),
               ),
             ),
             Padding(
-              padding: EdgeInsets.only(left: 10),
+              padding: EdgeInsets.fromLTRB(5, 0, 10, 0),
               child: Icon(
                 Icons.expand_more,
-                size: 30,
+                size: 32,
               ),
             ),
           ]),
@@ -239,7 +239,7 @@ class _PontoState extends State<Ponto> {
               padding: EdgeInsets.only(left: 10),
               child: Icon(
                 CustomIcons.cafe,
-                size: 30,
+                size: 35,
               ),
             ),
             Padding(
@@ -248,15 +248,15 @@ class _PontoState extends State<Ponto> {
                 padding: EdgeInsets.fromLTRB(10, 0, 8, 0),
                 child: Text(
                   'Café feito às $horas de hoje',
-                  style: TextStyle(fontSize: 20, fontStyle: FontStyle.italic),
+                  style: TextStyle(fontSize: 23, fontStyle: FontStyle.italic),
                 ),
               ),
             ),
             Padding(
-              padding: EdgeInsets.only(left: 10),
+              padding: EdgeInsets.fromLTRB(5, 0, 10, 0),
               child: Icon(
                 Icons.expand_more,
-                size: 30,
+                size: 32,
               ),
             ),
           ]),

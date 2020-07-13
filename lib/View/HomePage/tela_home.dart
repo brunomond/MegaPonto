@@ -41,7 +41,7 @@ class _HomeState extends State<Home> {
                 Color.fromRGBO(199, 59, 35, 1)
               ])),
           child: Padding(
-            padding: EdgeInsets.only(top: 35),
+            padding: EdgeInsets.only(top: 55),
             child: _listOnline(),
           ),
         ),
