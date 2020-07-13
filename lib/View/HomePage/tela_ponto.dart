@@ -1,21 +1,23 @@
 import 'package:flutter/material.dart';
+import 'package:megaponto_oficial/View/Utils/Loading.dart';
 import 'package:intl/intl.dart';
 import 'package:megaponto_oficial/presets/custom_icons_icons.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class Ponto extends StatefulWidget {
+  final GlobalKey<ScaffoldState> scaffold;
+
+  Ponto({this.scaffold});
+
   @override
   _PontoState createState() => _PontoState();
 }
 
 class _PontoState extends State<Ponto> {
-  GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
   TextStyle _botaoStyle = TextStyle(color: Colors.white, fontSize: 20);
   bool started = false;
   bool loading = true;
   int numPessoasOnline = 5;
-  int horas = 2;
-  var now = TimeOfDay.now();
 
   @override
   void initState() {
@@ -25,29 +27,45 @@ class _PontoState extends State<Ponto> {
 
   @override
   Widget build(BuildContext context) {
-    return Expanded(
-        child: Column(
+    return Column(
       mainAxisAlignment: MainAxisAlignment.spaceAround,
       mainAxisSize: MainAxisSize.max,
-      children: [_textOnline(), _estadoSala(), _infoPlantao()],
-    ));
+      children: [
+        _textOnline(),
+        _estadoSala(),
+        loading
+            ? Loading()
+            : started
+                ? _infoPlantao('Muito bom, assim que eu gosto de ver!',
+                    'Finalize seu Plantão!', 'Fechar Plantão', _fecharPlantao)
+                : _infoPlantao('Partiu entregar alguns projetos?!',
+                    'Iniciar seu Plantão!', 'Iniciar Plantão', _iniciarPlantao)
+      ],
+    );
   }
 
-  Widget _infoPlantao() {
+  /* ---------------------------------------------------------------------------------------------------------------
+   * --------------------------------------------- WIDGETS --------------------------------------------------------- 
+   * ---------------------------------------------------------------------------------------------------------------
+   */
+
+  //Iniciar / Fechar Plantão
+  Widget _infoPlantao(String textLabel, String textTitle, String textButton,
+      Function onPressed) {
     return Center(
       child: Column(
         children: [
           Container(
             child: Text(
-              "Partiu entregar alguns projetos?!",
+              textLabel,
               style: TextStyle(fontSize: 20, fontStyle: FontStyle.italic),
             ),
           ),
           Container(
             padding: EdgeInsets.only(top: 10),
             child: Text(
-              "Inicie seu Plantão!",
-              style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+              textTitle,
+              style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
             ),
           ),
           Divider(
@@ -55,29 +73,20 @@ class _PontoState extends State<Ponto> {
           ),
           Container(
               width: 200,
-              height: 51,
+              height: 55,
               decoration: BoxDecoration(
                   color: Color.fromRGBO(143, 58, 56, 1),
-                  borderRadius: BorderRadius.all(Radius.circular(24))),
-              child: loading
-                  ? FlatButton(
-                      onPressed: () {},
-                      child: CircularProgressIndicator(),
-                    )
-                  : started
-                      ? FlatButton(
-                          child: Text('Fechar Plantão', style: _botaoStyle),
-                          onPressed: () async => _fecharPlantao(),
-                        )
-                      : FlatButton(
-                          child: Text('Iniciar Plantão', style: _botaoStyle),
-                          onPressed: () async => _iniciarPlantao(),
-                        )),
+                  borderRadius: BorderRadius.all(Radius.circular(26))),
+              child: FlatButton(
+                child: Text(textButton, style: _botaoStyle),
+                onPressed: () async => onPressed(),
+              )),
         ],
       ),
     );
   }
 
+  //Pop-Ups
   createCoffeePopUp(BuildContext coffee) {
     return showDialog(
         context: coffee,
@@ -87,7 +96,7 @@ class _PontoState extends State<Ponto> {
               backgroundColor: Color.fromRGBO(143, 58, 56, 1),
               elevation: 8,
               content: Text(
-                  "Desejá mudar o horario do último café para $now de hoje?"),
+                  "Desejá mudar o horario do último café para ${DateTime.now()} de hoje?"),
               actions: <Widget>[
                 GestureDetector(
                   child: Text("Cancel"),
@@ -177,8 +186,8 @@ class _PontoState extends State<Ponto> {
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
         Container(
-          width: 16,
-          height: 16,
+          width: 20,
+          height: 20,
           decoration: BoxDecoration(
             color: Color.fromRGBO(0, 255, 0, 1),
             shape: BoxShape.circle,
@@ -187,7 +196,7 @@ class _PontoState extends State<Ponto> {
         Text(
           ' $numPessoasOnline' + ' MegaMembros na sala :)',
           style: TextStyle(
-              fontSize: 20, color: Colors.black, fontStyle: FontStyle.italic),
+              fontSize: 23, color: Colors.black, fontStyle: FontStyle.italic),
         ),
       ],
     );
@@ -205,7 +214,7 @@ class _PontoState extends State<Ponto> {
               padding: EdgeInsets.only(left: 10),
               child: Icon(
                 CustomIcons.clima_normal,
-                size: 30,
+                size: 35,
               ),
             ),
             Padding(
@@ -214,15 +223,15 @@ class _PontoState extends State<Ponto> {
                 padding: EdgeInsets.fromLTRB(10, 0, 8, 0),
                 child: Text(
                   'Clima normal de trabalho',
-                  style: TextStyle(fontSize: 20, fontStyle: FontStyle.italic),
+                  style: TextStyle(fontSize: 23, fontStyle: FontStyle.italic),
                 ),
               ),
             ),
             Padding(
-              padding: EdgeInsets.only(left: 10),
+              padding: EdgeInsets.fromLTRB(5, 0, 10, 0),
               child: Icon(
                 Icons.expand_more,
-                size: 30,
+                size: 32,
               ),
             ),
           ]),
@@ -239,7 +248,7 @@ class _PontoState extends State<Ponto> {
               padding: EdgeInsets.only(left: 10),
               child: Icon(
                 CustomIcons.cafe,
-                size: 30,
+                size: 35,
               ),
             ),
             Padding(
@@ -247,16 +256,16 @@ class _PontoState extends State<Ponto> {
               child: Container(
                 padding: EdgeInsets.fromLTRB(10, 0, 8, 0),
                 child: Text(
-                  'Café feito às $horas de hoje',
-                  style: TextStyle(fontSize: 20, fontStyle: FontStyle.italic),
+                  'Café feito às 14:00 de hoje',
+                  style: TextStyle(fontSize: 23, fontStyle: FontStyle.italic),
                 ),
               ),
             ),
             Padding(
-              padding: EdgeInsets.only(left: 10),
+              padding: EdgeInsets.fromLTRB(5, 0, 10, 0),
               child: Icon(
                 Icons.expand_more,
-                size: 30,
+                size: 32,
               ),
             ),
           ]),
@@ -265,6 +274,22 @@ class _PontoState extends State<Ponto> {
     );
   }
 
+  /* ---------------------------------------------------------------------------------------------------------------
+   * --------------------------------------------- FUNCTIONS ------------------------------------------------------- 
+   * ---------------------------------------------------------------------------------------------------------------
+   */
+
+  //Carregar dados da SharedPreferences
+  void _start() async {
+    await _getSharedInstance().then((value) {
+      setState(() {
+        started = value.get('startTime') != null;
+        loading = false;
+      });
+    });
+  }
+
+  //Iniciar / Fechar Plantão
   void _iniciarPlantao() async {
     SharedPreferences prefs = await _getSharedInstance();
 
@@ -289,14 +314,7 @@ class _PontoState extends State<Ponto> {
     });
   }
 
-  String _formatDuration(Duration duration) {
-    String twoDigits(int n) => n.toString().padLeft(2, "0");
-    String twoDigitMinutes = twoDigits(duration.inMinutes.remainder(60));
-    String twoDigitSeconds = twoDigits(duration.inSeconds.remainder(60));
-
-    return "${twoDigits(duration.inHours)}:$twoDigitMinutes:$twoDigitSeconds";
-  }
-
+  //Inicializa a Instância da SharedPreferences
   Future<SharedPreferences> _getSharedInstance() async {
     SharedPreferences prefs;
     setState(() {
@@ -306,14 +324,12 @@ class _PontoState extends State<Ponto> {
     await SharedPreferences.getInstance().then((value) {
       setState(() => loading = false);
       prefs = value;
-      setState(() {
-        loading = false;
-      });
     });
-    print(prefs);
+
     return prefs;
   }
 
+//Mostra a snackBar
   void _showSnack(String time, bool start) {
     SnackBar snackBar;
 
@@ -327,15 +343,15 @@ class _PontoState extends State<Ponto> {
             duration: Duration(seconds: 2),
           );
 
-    _scaffoldKey.currentState.showSnackBar(snackBar);
+    widget.scaffold.currentState.showSnackBar(snackBar);
   }
 
-  void _start() async {
-    await _getSharedInstance().then((value) {
-      setState(() {
-        started = value.get('startTime') != null;
-        loading = false;
-      });
-    });
+//Formata a duração para mostrar
+  String _formatDuration(Duration duration) {
+    String twoDigits(int n) => n.toString().padLeft(2, "0");
+    String twoDigitMinutes = twoDigits(duration.inMinutes.remainder(60));
+    String twoDigitSeconds = twoDigits(duration.inSeconds.remainder(60));
+
+    return "${twoDigits(duration.inHours)}:$twoDigitMinutes:$twoDigitSeconds";
   }
 }
