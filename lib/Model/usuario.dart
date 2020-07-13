@@ -48,6 +48,7 @@ class Usuario{
       'token_id' : this.tokenId
     };
 
+    return map;
   }
 
 }
