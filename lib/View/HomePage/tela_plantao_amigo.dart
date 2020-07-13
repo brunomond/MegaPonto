@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:megaponto_oficial/presets/custom_icons_icons.dart';
 
 
 class PlantaoAmigo extends StatefulWidget {

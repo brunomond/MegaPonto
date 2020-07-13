@@ -2,9 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:megaponto_oficial/View/Utils/BottomApp.dart';
 
 //Fragmentos BottomBar
-import 'tela_feed.dart';
-import 'tela_plantao_amigo.dart';
-import 'tela_ponto.dart';
 
 class Home extends StatefulWidget {
   @override

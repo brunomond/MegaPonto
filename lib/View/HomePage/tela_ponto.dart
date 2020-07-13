@@ -163,6 +163,7 @@ class _PontoState extends State<Ponto> {
     );
   }
 
+
   createCoffeePopUp(BuildContext coffee) {
     return showDialog(
         context: coffee,
@@ -365,8 +366,11 @@ class _PontoState extends State<Ponto> {
     await SharedPreferences.getInstance().then((value){ 
       setState(() => loading = false);
       prefs = value;
+      setState(() {
+        loading = false;
       });
-
+    });
+    print(prefs);
     return prefs;
   }
 
