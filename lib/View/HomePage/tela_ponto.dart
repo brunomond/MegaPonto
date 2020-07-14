@@ -263,7 +263,7 @@ class _PontoState extends State<Ponto> {
                             Expanded(
                               flex: 1,
                               child: Icon(
-                                CustomIcons.clima_normal,
+                                CustomIcons.diretoria,
                                 color: Colors.white,
                               ),
                             ),
@@ -311,7 +311,7 @@ class _PontoState extends State<Ponto> {
                             Expanded(
                               flex: 1,
                               child: Icon(
-                                CustomIcons.clima_normal,
+                                CustomIcons.cliente,
                                 color: Colors.white,
                               ),
                             ),
