@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:megaponto_oficial/Controller/LoginController.dart';
-import 'package:megaponto_oficial/Model/usuario.dart';
+import 'package:megaponto_oficial/Model/Usuario.dart';
 
 class Login extends StatefulWidget {
   @override
