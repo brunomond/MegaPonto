@@ -8,36 +8,12 @@ class Feed extends StatefulWidget {
 class _FeedState extends State<Feed> {
   @override
   Widget build(BuildContext context) {
-    return Container(
-        child: Column(
-          children: [
-            Container(
-              padding: EdgeInsets.fromLTRB(0, 40, 15, 0),
-              height: 140,
-              child: Text("Pessoas Online", style: TextStyle(
-                  color: Colors.white
-              )),
-            ),
-            Expanded(
-                child: Container(
-                  decoration: BoxDecoration(
-                      color: Colors.white,
-                      borderRadius: BorderRadius.only(
-                          topLeft: const Radius.circular(50.0),
-                          topRight: const Radius.circular(50.0))),
-                  child: Padding(
-                    padding: EdgeInsets.only(top: 6),
-                    child: ListView.builder(
+    return ListView.builder(
                       itemBuilder: (context, index){
                         return _feedCard(context, index);
                       },
                       itemCount: 5,
-                    ),
-                  ),
-                )),
-          ],
-        ),
-    );
+                    );
   }
 
   Widget _feedCard(BuildContext context, int index){

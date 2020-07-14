@@ -5,8 +5,8 @@ import 'package:megaponto_oficial/presets/custom_icons_icons.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class Ponto extends StatefulWidget {
+  
   final GlobalKey<ScaffoldState> scaffold;
-
   Ponto({this.scaffold});
 
   @override
