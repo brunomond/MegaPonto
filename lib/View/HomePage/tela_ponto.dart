@@ -16,7 +16,9 @@ class _PontoState extends State<Ponto> {
   TextStyle _botaoStyle = TextStyle(color: Colors.white, fontSize: 20);
   bool started = false;
   bool loading = true;
-  int numPessoasOnline = 5;
+  String estadoSala = "Clima normal de trabalho";
+  IconData icon = CustomIcons.clima_normal;
+  String horas = "14:00";
 
   var now = TimeOfDay.now();
 
@@ -29,10 +31,14 @@ class _PontoState extends State<Ponto> {
   @override
   Widget build(BuildContext context) {
     return Column(
-      mainAxisAlignment: MainAxisAlignment.spaceAround,
-      mainAxisSize: MainAxisSize.max,
+      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+      mainAxisSize: MainAxisSize.min,
       children: [
         _textOnline(),
+        Divider(
+          height: MediaQuery.of(context).size.height * 0.05,
+          color: Colors.transparent,
+        ),
         _estadoSala(),
         loading
             ? Loading()
@@ -94,23 +100,34 @@ class _PontoState extends State<Ponto> {
         context: coffee,
         builder: (coffee) {
           return AlertDialog(
+              shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.all(Radius.circular(24))),
               title: Text("Obrigado pelo café! S2",
                   style: TextStyle(color: Colors.white)),
               backgroundColor: Color.fromRGBO(143, 58, 56, 1),
               elevation: 8,
               content: Text(
-                  "Desejá mudar o horario do último café para $now de hoje?",
+                  'Desejá mudar o horario do último café para ' +
+                      DateFormat.Hm().format(DateTime.now()) +
+                      ' de hoje?',
                   style: TextStyle(color: Colors.white)),
               actions: <Widget>[
                 FlatButton(
-                  child: Text("Cancel", style: TextStyle(color: Colors.white)),
+                  child: Text("Cancelar",
+                      style: TextStyle(color: Colors.white, fontSize: 18)),
                   onPressed: () {
                     Navigator.of(context).pop();
                   },
                 ),
                 FlatButton(
-                  child: Text("Sim", style: TextStyle(color: Colors.white)),
-                  onPressed: () {},
+                  child: Text("Sim",
+                      style: TextStyle(color: Colors.white, fontSize: 18)),
+                  onPressed: () {
+                    setState(() {
+                      horas = DateFormat.Hm().format(DateTime.now());
+                    });
+                    Navigator.of(context).pop();
+                  },
                 )
               ]);
         });
@@ -169,7 +186,10 @@ class _PontoState extends State<Ponto> {
                           ],
                         ),
                       ),
-                      onTap: () {},
+                      onTap: () {
+                        alterarSala(1);
+                        Navigator.pop(context);
+                      },
                     ),
                   ]),
               AlertDialog(
@@ -217,7 +237,10 @@ class _PontoState extends State<Ponto> {
                           ],
                         ),
                       ),
-                      onTap: () {},
+                      onTap: () {
+                        alterarSala(2);
+                        Navigator.pop(context);
+                      },
                     ),
                   ]),
               AlertDialog(
@@ -265,7 +288,10 @@ class _PontoState extends State<Ponto> {
                           ],
                         ),
                       ),
-                      onTap: () {},
+                      onTap: () {
+                        alterarSala(3);
+                        Navigator.pop(context);
+                      },
                     ),
                   ]),
             ],
@@ -286,9 +312,9 @@ class _PontoState extends State<Ponto> {
           ),
         ),
         Text(
-          ' $numPessoasOnline' + ' MegaMembros na sala :)',
+          ' 5 MegaMembros na sala :)',
           style: TextStyle(
-              fontSize: 23, color: Colors.black, fontStyle: FontStyle.italic),
+              fontSize: 21, color: Colors.black, fontStyle: FontStyle.italic),
         ),
       ],
     );
@@ -303,13 +329,13 @@ class _PontoState extends State<Ponto> {
           },
           child: Row(
               crossAxisAlignment: CrossAxisAlignment.center,
-              mainAxisAlignment: MainAxisAlignment.start,
+              mainAxisAlignment: MainAxisAlignment.center,
               mainAxisSize: MainAxisSize.max,
               children: [
                 Expanded(
                   flex: 1,
                   child: Icon(
-                    CustomIcons.clima_normal,
+                    icon,
                     size: 30,
                   ),
                 ),
@@ -318,9 +344,9 @@ class _PontoState extends State<Ponto> {
                   child: Container(
                     padding: EdgeInsets.fromLTRB(10, 0, 8, 0),
                     child: Text(
-                      'Clima normal de trabalho',
+                      estadoSala,
                       style:
-                          TextStyle(fontSize: 23, fontStyle: FontStyle.italic),
+                          TextStyle(fontSize: 22, fontStyle: FontStyle.italic),
                     ),
                   ),
                 ),
@@ -353,9 +379,9 @@ class _PontoState extends State<Ponto> {
                     flex: 4,
                     child: Container(
                       child: Text(
-                        'Café feito às 14:00 de hoje',
+                        'Café feito às $horas de hoje',
                         style: TextStyle(
-                            fontSize: 20, fontStyle: FontStyle.italic),
+                            fontSize: 21, fontStyle: FontStyle.italic),
                       ),
                       padding: EdgeInsets.fromLTRB(10, 0, 8, 0),
                     )),
@@ -379,6 +405,26 @@ class _PontoState extends State<Ponto> {
    * --------------------------------------------- FUNCTIONS ------------------------------------------------------- 
    * ---------------------------------------------------------------------------------------------------------------
    */
+
+  //APegar estado da sala
+  void alterarSala(int value) {
+    setState(() {
+      switch (value) {
+        case 1:
+          estadoSala = "Clima normal de trabalho";
+          icon = CustomIcons.clima_normal;
+          break;
+        case 2:
+          estadoSala = "Reunião da Diretoria";
+          icon = CustomIcons.diretoria;
+          break;
+        case 3:
+          estadoSala = "Reunião com Cliente";
+          icon = CustomIcons.cliente;
+          break;
+      }
+    });
+  }
 
   //Carregar dados da SharedPreferences
   void _start() async {
