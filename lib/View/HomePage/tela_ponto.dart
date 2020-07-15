@@ -25,12 +25,51 @@ class _PontoState extends State<Ponto> {
 
   @override
   Widget build(BuildContext context) {
-    return Expanded(
+    return Container(
+        width: MediaQuery.of(context).size.width,
+        height: MediaQuery.of(context).size.height,
         child: Column(
-      mainAxisAlignment: MainAxisAlignment.spaceAround,
-      mainAxisSize: MainAxisSize.max,
-      children: [_textOnline(), _estadoSala(), _infoPlantao()],
-    ));
+          mainAxisSize: MainAxisSize.max,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            Stack(overflow: Overflow.visible, children: [
+              Container(
+                width: MediaQuery.of(context).size.width,
+                height: MediaQuery.of(context).size.height * 0.25,
+                decoration: BoxDecoration(
+                    gradient: LinearGradient(
+                        begin: Alignment.topLeft,
+                        end: Alignment.centerRight,
+                        colors: [
+                      Color.fromRGBO(61, 1, 78, 1),
+                      Color.fromRGBO(199, 59, 35, 1)
+                    ])),
+              ),
+              Container(
+                height: MediaQuery.of(context).size.height * 0.25,
+                padding: EdgeInsets.fromLTRB(10, 30, 10, 0),
+                child: _listOnline(),
+              ),
+              Positioned(
+                top: MediaQuery.of(context).size.height * 0.17,
+                child: Container(
+                  decoration: BoxDecoration(
+                      borderRadius: BorderRadius.only(
+                          topLeft: const Radius.circular(50.0),
+                          topRight: const Radius.circular(50.0)),
+                      color: Colors.white),
+                ),
+              )
+            ]),
+            Expanded(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                mainAxisSize: MainAxisSize.max,
+                children: [_textOnline(), _estadoSala(), _infoPlantao()],
+              ),
+            )
+          ],
+        ));
   }
 
   Widget _infoPlantao() {
@@ -38,20 +77,18 @@ class _PontoState extends State<Ponto> {
       child: Column(
         children: [
           Container(
+            padding: EdgeInsets.only(top: 50),
             child: Text(
               "Partiu entregar alguns projetos?!",
               style: TextStyle(fontSize: 20, fontStyle: FontStyle.italic),
             ),
           ),
           Container(
-            padding: EdgeInsets.only(top: 10),
+            padding: EdgeInsets.only(top: 13),
             child: Text(
               "Inicie seu Plantão!",
               style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
             ),
-          ),
-          Divider(
-            color: Colors.transparent,
           ),
           Container(
               width: 200,
@@ -78,53 +115,133 @@ class _PontoState extends State<Ponto> {
     );
   }
 
+  Widget _listOnline() {
+    return ListView(
+      scrollDirection: Axis.horizontal,
+      children: [
+        _itemListOnline(
+            "Kazuo", "https://api.adorable.io/avatars/285/abott@adorable.png"),
+        _itemListOnline("Bruno",
+            "https://api.adorable.io/avatars/283/abott@adorable.pngCopy to Clipboard"),
+        _itemListOnline(
+            "Cleber", "https://api.adorable.io/avatars/206/abott@exaust.io"),
+        _itemListOnline(
+            "Eduardo", "https://api.adorable.io/avatars/206/abott@strong.io"),
+        _itemListOnline(
+            "Jose", "https://api.adorable.io/avatars/206/abott@hungry.io"),
+        _itemListOnline(
+            "Enzo", "https://api.adorable.io/avatars/206/abott@fasty.io"),
+      ],
+    );
+  }
+
+  Widget _itemListOnline(String texto, String imagem) {
+    return Container(
+      padding: EdgeInsets.only(left: 30),
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.start,
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          Stack(
+            children: [
+              Container(
+                width: 65,
+                height: 65,
+                decoration: BoxDecoration(
+                  border: new Border.all(color: Colors.lightGreenAccent),
+                  shape: BoxShape.circle,
+                  image: DecorationImage(
+                    image: NetworkImage("$imagem"),
+                  ),
+                ),
+              ),
+            ],
+          ),
+          Text("$texto", style: TextStyle(color: Colors.white))
+        ],
+      ),
+    );
+  }
+
   createCoffeePopUp(BuildContext coffee) {
     return showDialog(
         context: coffee,
         builder: (coffee) {
           return AlertDialog(
-              title: Text("Obrigado pelo café! S2"),
+              title: Text("Obrigado pelo café! S2",
+                  style: TextStyle(color: Colors.white)),
               backgroundColor: Color.fromRGBO(143, 58, 56, 1),
               elevation: 8,
               content: Text(
-                  "Desejá mudar o horario do último café para $now de hoje?"),
+                  "Desejá mudar o horario do último café para $now de hoje?",
+                  style: TextStyle(color: Colors.white)),
               actions: <Widget>[
-                GestureDetector(
-                  child: Text("Cancel"),
-                  onTap: () {},
+                FlatButton(
+                  child: Text("Cancel", style: TextStyle(color: Colors.white)),
+                  onPressed: () {
+                    Navigator.of(context).pop();
+                  },
                 ),
-                GestureDetector(
-                  child: Text("sim"),
-                  onTap: () {},
+                FlatButton(
+                  child: Text("Sim", style: TextStyle(color: Colors.white)),
+                  onPressed: () {},
                 )
               ]);
         });
   }
 
-  createEstadoSalaPopUp(BuildContext estadodasala) {
+  createEstadoSalaPopUp(BuildContext context) {
     return showDialog(
-        context: estadodasala,
-        builder: (estadodasala) {
+        context: context,
+        builder: (context) {
           return Column(
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: <Widget>[
               AlertDialog(
                   backgroundColor: Color.fromRGBO(143, 58, 56, 1),
+                  shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.all(Radius.circular(24))),
                   actions: <Widget>[
-                    GestureDetector(
-                      child: Row(
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        mainAxisSize: MainAxisSize.max,
-                        children: <Widget>[
-                          Text("Sala Normal"),
-                          Text(
-                            "Clima Normal de Trabalho",
-                            style: TextStyle(
-                                fontSize: 20, fontStyle: FontStyle.italic),
-                          ),
-                        ],
+                    InkWell(
+                      child: Container(
+                        width: MediaQuery.of(context).size.width * 0.8,
+                        height: MediaQuery.of(context).size.height * 0.08,
+                        child: Row(
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          mainAxisSize: MainAxisSize.max,
+                          children: <Widget>[
+                            Expanded(
+                              flex: 1,
+                              child: Icon(
+                                CustomIcons.clima_normal,
+                                color: Colors.white,
+                              ),
+                            ),
+                            Expanded(
+                              flex: 5,
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.center,
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceAround,
+                                children: <Widget>[
+                                  Text(
+                                    "Sala Normal",
+                                    style: TextStyle(
+                                        fontSize: 20, color: Colors.white),
+                                  ),
+                                  Text(
+                                    "Clima Normal de Trabalho",
+                                    style: TextStyle(
+                                        color: Colors.white,
+                                        fontStyle: FontStyle.italic),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ],
+                        ),
                       ),
                       onTap: () {},
                     ),
@@ -134,16 +251,45 @@ class _PontoState extends State<Ponto> {
                   shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.all(Radius.circular(24))),
                   actions: <Widget>[
-                    GestureDetector(
-                      child: Column(
-                        children: <Widget>[
-                          Text("Reunião da Diretoria"),
-                          Text(
-                            "Reunião Interna Acontecendo",
-                            style: TextStyle(
-                                fontSize: 20, fontStyle: FontStyle.italic),
-                          ),
-                        ],
+                    InkWell(
+                      child: Container(
+                        width: MediaQuery.of(context).size.width * 0.8,
+                        height: MediaQuery.of(context).size.height * 0.08,
+                        child: Row(
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          mainAxisSize: MainAxisSize.max,
+                          children: <Widget>[
+                            Expanded(
+                              flex: 1,
+                              child: Icon(
+                                CustomIcons.clima_normal,
+                                color: Colors.white,
+                              ),
+                            ),
+                            Expanded(
+                              flex: 5,
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.center,
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceAround,
+                                children: <Widget>[
+                                  Text(
+                                    "Reunião da Diretoria",
+                                    style: TextStyle(
+                                        fontSize: 20, color: Colors.white),
+                                  ),
+                                  Text(
+                                    "Reunião Interna em Andamento",
+                                    style: TextStyle(
+                                        color: Colors.white,
+                                        fontStyle: FontStyle.italic),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ],
+                        ),
                       ),
                       onTap: () {},
                     ),
@@ -153,16 +299,45 @@ class _PontoState extends State<Ponto> {
                   shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.all(Radius.circular(24))),
                   actions: <Widget>[
-                    GestureDetector(
-                      child: Column(
-                        children: <Widget>[
-                          Text("Reunião com cliente"),
-                          Text(
-                            "Reunião Com Cliente Agora",
-                            style: TextStyle(
-                                fontSize: 20, fontStyle: FontStyle.italic),
-                          ),
-                        ],
+                    InkWell(
+                      child: Container(
+                        width: MediaQuery.of(context).size.width * 0.8,
+                        height: MediaQuery.of(context).size.height * 0.08,
+                        child: Row(
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          mainAxisSize: MainAxisSize.max,
+                          children: <Widget>[
+                            Expanded(
+                              flex: 1,
+                              child: Icon(
+                                CustomIcons.clima_normal,
+                                color: Colors.white,
+                              ),
+                            ),
+                            Expanded(
+                              flex: 5,
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.center,
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceAround,
+                                children: <Widget>[
+                                  Text(
+                                    "Reunião com Cliente",
+                                    style: TextStyle(
+                                        fontSize: 20, color: Colors.white),
+                                  ),
+                                  Text(
+                                    "Reunião com Cliente em Andamento",
+                                    style: TextStyle(
+                                        color: Colors.white,
+                                        fontStyle: FontStyle.italic),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ],
+                        ),
                       ),
                       onTap: () {},
                     ),
@@ -173,43 +348,51 @@ class _PontoState extends State<Ponto> {
   }
 
   Widget _textOnline() {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: [
-        Container(
-          width: 16,
-          height: 16,
-          decoration: BoxDecoration(
-            color: Color.fromRGBO(0, 255, 0, 1),
-            shape: BoxShape.circle,
+    return Container(
+      padding: EdgeInsets.fromLTRB(53, 25, 0, 0),
+      child: Row(
+        children: [
+          Container(
+            width: 20,
+            height: 20,
+            decoration: BoxDecoration(
+              color: Color.fromRGBO(0, 255, 0, 1),
+              shape: BoxShape.circle,
+            ),
           ),
-        ),
-        Text(
-          ' $numPessoasOnline' + ' MegaMembros na sala :)',
-          style: TextStyle(
-              fontSize: 20, color: Colors.black, fontStyle: FontStyle.italic),
-        ),
-      ],
+          Text(
+            ' $numPessoasOnline' + ' MegaMembros na sala :)',
+            style: TextStyle(
+                fontSize: 20, color: Colors.black, fontStyle: FontStyle.italic),
+          ),
+        ],
+      ),
     );
   }
 
   Widget _estadoSala() {
     return Column(
+      mainAxisAlignment: MainAxisAlignment.center,
       children: [
         InkWell(
           onTap: () {
             createEstadoSalaPopUp(context);
           },
-          child: Row(mainAxisAlignment: MainAxisAlignment.center, children: [
-            Padding(
-              padding: EdgeInsets.only(left: 10),
-              child: Icon(
-                CustomIcons.clima_normal,
-                size: 30,
-              ),
+          child:
+          Row(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            mainAxisAlignment: MainAxisAlignment.start,
+            mainAxisSize: MainAxisSize.max,
+            children: [
+              Expanded(
+                flex: 1,
+                child: Icon(
+                  CustomIcons.clima_normal,
+                  size: 30,
+                ),
             ),
-            Padding(
-              padding: EdgeInsets.only(left: 10),
+            Expanded(
+              flex: 4,
               child: Container(
                 padding: EdgeInsets.fromLTRB(10, 0, 8, 0),
                 child: Text(
@@ -218,8 +401,8 @@ class _PontoState extends State<Ponto> {
                 ),
               ),
             ),
-            Padding(
-              padding: EdgeInsets.only(left: 10),
+            Expanded(
+              flex: 1,
               child: Icon(
                 Icons.expand_more,
                 size: 30,
@@ -231,35 +414,40 @@ class _PontoState extends State<Ponto> {
           height: MediaQuery.of(context).size.height * 0.04,
         ),
         InkWell(
-          onTap: () {
-            createCoffeePopUp(context);
-          },
-          child: Row(mainAxisAlignment: MainAxisAlignment.center, children: [
-            Padding(
-              padding: EdgeInsets.only(left: 10),
-              child: Icon(
-                CustomIcons.cafe,
-                size: 30,
-              ),
-            ),
-            Padding(
-              padding: EdgeInsets.only(left: 10),
-              child: Container(
-                padding: EdgeInsets.fromLTRB(10, 0, 8, 0),
-                child: Text(
-                  'Café feito às $horas de hoje',
-                  style: TextStyle(fontSize: 20, fontStyle: FontStyle.italic),
+          child:
+          Row(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              mainAxisAlignment: MainAxisAlignment.start,
+              mainAxisSize: MainAxisSize.max,
+              children: [
+                Expanded(
+                  flex: 1,
+                  child: Icon(
+                    CustomIcons.cafe,
+                    size: 30,
+                  ),
                 ),
-              ),
-            ),
-            Padding(
-              padding: EdgeInsets.only(left: 10),
+            Expanded(
+                flex: 4,
+                child: Container(
+                  child: Text(
+                    'Café feito às $horas de hoje',
+                    style: TextStyle(fontSize: 20, fontStyle: FontStyle.italic),
+                  ),
+                  padding: EdgeInsets.fromLTRB(10, 0, 8, 0),
+                )),
+            Expanded(
+              flex: 1,
               child: Icon(
                 Icons.expand_more,
                 size: 30,
               ),
+
             ),
           ]),
+          onTap: () {
+            createCoffeePopUp(context);
+          },
         ),
       ],
     );
