@@ -22,14 +22,12 @@ class BottomApp extends StatelessWidget {
             BottomNavigationBarItem(
                 icon: Icon(CustomIcons.jornal), title: Text('Feed')),
             BottomNavigationBarItem(
-                icon: Icon(
-                  CustomIcons.relogio,
-                ),
-                title: Text('MegaPonto')),
+                icon: Icon(CustomIcons.amigo), title: Text('Plantão Amigo')),
+            BottomNavigationBarItem(
+                icon: Icon(CustomIcons.relogio), title: Text('MegaPonto')),
             BottomNavigationBarItem(
                 icon: Icon(CustomIcons.podio), title: Text('Leaderboard')),
-            BottomNavigationBarItem(
-                icon: Icon(CustomIcons.amigo), title: Text('Plantão Amigo')),
+
             BottomNavigationBarItem(
                 icon: Icon(CustomIcons.clima_normal), title: Text('Perfil')),
           ]),

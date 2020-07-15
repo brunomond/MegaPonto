@@ -1,66 +1,28 @@
 import 'package:flutter/material.dart';
-import 'package:megaponto_oficial/View/Utils/BottomApp.dart';
-import 'package:megaponto_oficial/View/Utils/ListOnline.dart';
-
-//Fragmentos BottomBar
-import 'tela_feed.dart';
-import 'tela_ponto.dart';
-import 'tela_plantao_amigo.dart';
-
-class Home extends StatefulWidget {
-  @override
-  _HomeState createState() => _HomeState();
-}
-
-class _HomeState extends State<Home> {
-  
-  //Variáveis de estado
-  static GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
-  int _selectedItem;
-  List<Widget> _telas = [
-    Feed(),
-    Ponto(scaffoldKey: _scaffoldKey),
-    PlantaoAmigo()
-  ];
-
-  @override
-  void initState() {
-    super.initState();
-    setState(() => _selectedItem = 1);
-  }
+class ListOnline extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      key: _scaffoldKey,
-      bottomNavigationBar: BottomApp(
-        index: _selectedItem,
-        onTap: tapBottomBar,
-      ),
-      body: Stack(children: [
-        ListOnline(),
-        Positioned.fill(
-            top: MediaQuery.of(context).size.height * 0.22,
-          //  bottom: 0,
-          //  left: 0,
-          //  right: 0,
-            child: Container(
-              decoration: BoxDecoration(
-                  borderRadius: BorderRadius.only(
-                      topLeft: const Radius.circular(50.0),
-                      topRight: const Radius.circular(50.0)),
-                  color: Colors.white),
-              child: _telas[_selectedItem],
-            ))
-      ]),
-    );
+    return Container(
+          width: MediaQuery.of(context).size.width,
+          height: MediaQuery.of(context).size.height,
+          decoration: BoxDecoration(
+              gradient: LinearGradient(
+                  begin: Alignment.topLeft,
+                  end: Alignment.centerRight,
+                  colors: [
+                Color.fromRGBO(61, 1, 78, 1),
+                Color.fromRGBO(199, 59, 35, 1)
+              ])),
+          child: Padding(
+            padding: EdgeInsets.only(
+                top: MediaQuery.of(context).size.height * 0.065),
+            child: _listOnline(),
+          ),
+        );
   }
 
-  void tapBottomBar(int index) {
-    setState(() => _selectedItem = index);
-  }
-
-  Widget _listOnline() {
+Widget _listOnline() {
     return ListView(
       scrollDirection: Axis.horizontal,
       children: [

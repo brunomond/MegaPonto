@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:megaponto_oficial/Controller/LoginController.dart';
+import 'package:megaponto_oficial/Model/Usuario.dart';
 
 class Login extends StatefulWidget {
   @override
@@ -6,6 +8,10 @@ class Login extends StatefulWidget {
 }
 
 class _LoginState extends State<Login> {
+
+  LoginController controller = new LoginController();
+  Usuario usuario = new Usuario();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -45,7 +51,9 @@ class _LoginState extends State<Login> {
                           borderRadius: BorderRadius.only(
                               topLeft: Radius.circular(90),
                               topRight: Radius.circular(90))),
-                      child: ListView(
+                      child: Form(
+                        key: controller.formKey,
+                        child:ListView(
                         children: <Widget>[
                           SizedBox(
                             height: 20,
@@ -64,6 +72,7 @@ class _LoginState extends State<Login> {
                             borderRadius: BorderRadius.circular(32),
                             child: TextFormField(
                               keyboardType: TextInputType.emailAddress,
+                              onSaved: (value) => usuario.email = value,
                               decoration: InputDecoration(
                                   hintText: 'E-mail',
                                   hintStyle: TextStyle(color: Colors.grey),
@@ -89,6 +98,7 @@ class _LoginState extends State<Login> {
                             shadowColor: Colors.grey,
                             borderRadius: BorderRadius.circular(32),
                             child: TextFormField(
+                              onSaved: (value) => controller.senha = value,
                               keyboardType: TextInputType.text,
                               obscureText: true,
                               decoration: InputDecoration(
@@ -137,8 +147,9 @@ class _LoginState extends State<Login> {
                                       BorderRadius.all(Radius.circular(32))),
                               child: SizedBox.expand(
                                 child: FlatButton(
-                                  onPressed: () =>
-                                      Navigator.pushNamed(context, '/home'),
+                                  onPressed: () async =>
+                                      await controller.doLogin(usuario) ? 
+                                      Navigator.of(context).popAndPushNamed('/home') : print('Login Falhou'),
                                   child: Row(
                                     mainAxisAlignment: MainAxisAlignment.center,
                                     children: <Widget>[
@@ -173,7 +184,7 @@ class _LoginState extends State<Login> {
                         ],
                       ),
                     ))
-              ],
+                )],
             ),
           ),
         ),
