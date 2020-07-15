@@ -14,7 +14,11 @@ class Home extends StatefulWidget {
 class _HomeState extends State<Home> {
   static GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
   int _selectedItem;
-  List<Widget> _telas = [Feed(), Ponto(scaffold: _scaffoldKey), PlantaoAmigo()];
+  List<Widget> _telas = [
+    Feed(),
+    Ponto(scaffoldKey: _scaffoldKey),
+    PlantaoAmigo()
+  ];
 
   @override
   void initState() {
