@@ -16,8 +16,12 @@ class _HomeState extends State<Home> {
   
   //Variáveis de estado
   static GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
-  List<Widget> _telas = [Feed(), PlantaoAmigo(), Ponto(scaffold: _scaffoldKey)];
   int _selectedItem;
+  List<Widget> _telas = [
+    Feed(),
+    Ponto(scaffoldKey: _scaffoldKey),
+    PlantaoAmigo()
+  ];
 
   @override
   void initState() {
@@ -56,4 +60,53 @@ class _HomeState extends State<Home> {
     setState(() => _selectedItem = index);
   }
 
+  Widget _listOnline() {
+    return ListView(
+      scrollDirection: Axis.horizontal,
+      children: [
+        _itemListOnline(
+            "Kazuo", "https://api.adorable.io/avatars/285/abott@adorable.png"),
+        _itemListOnline("Bruno",
+            "https://api.adorable.io/avatars/283/abott@adorable.pngCopy to Clipboard"),
+        _itemListOnline(
+            "Cleber", "https://api.adorable.io/avatars/206/abott@exaust.io"),
+        _itemListOnline(
+            "Eduardo", "https://api.adorable.io/avatars/206/abott@strong.io"),
+        _itemListOnline(
+            "Jose", "https://api.adorable.io/avatars/206/abott@hungry.io"),
+        _itemListOnline(
+            "Enzo", "https://api.adorable.io/avatars/206/abott@fasty.io"),
+      ],
+    );
+  }
+
+  Widget _itemListOnline(String texto, String imagem) {
+    return Container(
+      padding: EdgeInsets.only(left: 30),
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.start,
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          Stack(
+            children: [
+              Container(
+                width: 65,
+                height: 65,
+                decoration: BoxDecoration(
+                  shape: BoxShape.circle,
+                  image: DecorationImage(
+                    image: NetworkImage("$imagem"),
+                  ),
+                ),
+              ),
+            ],
+          ),
+          Padding(
+            padding: EdgeInsets.only(top: 5),
+            child: Text("$texto", style: TextStyle(color: Colors.white)),
+          )
+        ],
+      ),
+    );
+  }
 }

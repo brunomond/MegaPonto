@@ -7,6 +7,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 class Ponto extends StatefulWidget {
   
   final GlobalKey<ScaffoldState> scaffold;
+
   Ponto({this.scaffold});
 
   @override
@@ -17,7 +18,11 @@ class _PontoState extends State<Ponto> {
   TextStyle _botaoStyle = TextStyle(color: Colors.white, fontSize: 20);
   bool started = false;
   bool loading = true;
-  int numPessoasOnline = 5;
+  String estadoSala = "Clima normal de trabalho";
+  IconData icon = CustomIcons.clima_normal;
+  String horas = "14:00";
+
+  var now = TimeOfDay.now();
 
   @override
   void initState() {
@@ -32,6 +37,10 @@ class _PontoState extends State<Ponto> {
       mainAxisSize: MainAxisSize.max,
       children: [
         _textOnline(),
+        Divider(
+          height: MediaQuery.of(context).size.height * 0.05,
+          color: Colors.transparent,
+        ),
         _estadoSala(),
         loading
             ? Loading()
@@ -56,6 +65,7 @@ class _PontoState extends State<Ponto> {
       child: Column(
         children: [
           Container(
+            padding: EdgeInsets.only(top: 50),
             child: Text(
               textLabel,
               style: TextStyle(fontSize: 20, fontStyle: FontStyle.italic),
@@ -92,50 +102,96 @@ class _PontoState extends State<Ponto> {
         context: coffee,
         builder: (coffee) {
           return AlertDialog(
-              title: Text("Obrigado pelo café! S2"),
+              shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.all(Radius.circular(24))),
+              title: Text("Obrigado pelo café! S2",
+                  style: TextStyle(color: Colors.white)),
               backgroundColor: Color.fromRGBO(143, 58, 56, 1),
               elevation: 8,
               content: Text(
-                  "Desejá mudar o horario do último café para ${DateTime.now()} de hoje?"),
+                  'Desejá mudar o horario do último café para ' +
+                      DateFormat.Hm().format(DateTime.now()) +
+                      ' de hoje?',
+                  style: TextStyle(color: Colors.white)),
               actions: <Widget>[
-                GestureDetector(
-                  child: Text("Cancel"),
-                  onTap: () {},
+                FlatButton(
+                  child: Text("Cancelar",
+                      style: TextStyle(color: Colors.white, fontSize: 18)),
+                  onPressed: () {
+                    Navigator.of(context).pop();
+                  },
                 ),
-                GestureDetector(
-                  child: Text("sim"),
-                  onTap: () {},
+                FlatButton(
+                  child: Text("Sim",
+                      style: TextStyle(color: Colors.white, fontSize: 18)),
+                  onPressed: () {
+                    setState(() {
+                      horas = DateFormat.Hm().format(DateTime.now());
+                    });
+                    Navigator.of(context).pop();
+                  },
                 )
               ]);
         });
   }
 
-  createEstadoSalaPopUp(BuildContext estadodasala) {
+  createEstadoSalaPopUp(BuildContext context) {
     return showDialog(
-        context: estadodasala,
-        builder: (estadodasala) {
+        context: context,
+        builder: (context) {
           return Column(
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: <Widget>[
               AlertDialog(
                   backgroundColor: Color.fromRGBO(143, 58, 56, 1),
+                  shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.all(Radius.circular(24))),
                   actions: <Widget>[
-                    GestureDetector(
-                      child: Row(
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        mainAxisSize: MainAxisSize.max,
-                        children: <Widget>[
-                          Text("Sala Normal"),
-                          Text(
-                            "Clima Normal de Trabalho",
-                            style: TextStyle(
-                                fontSize: 20, fontStyle: FontStyle.italic),
-                          ),
-                        ],
+                    InkWell(
+                      child: Container(
+                        width: MediaQuery.of(context).size.width * 0.8,
+                        height: MediaQuery.of(context).size.height * 0.08,
+                        child: Row(
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          mainAxisSize: MainAxisSize.max,
+                          children: <Widget>[
+                            Expanded(
+                              flex: 1,
+                              child: Icon(
+                                CustomIcons.clima_normal,
+                                color: Colors.white,
+                              ),
+                            ),
+                            Expanded(
+                              flex: 5,
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.center,
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceAround,
+                                children: <Widget>[
+                                  Text(
+                                    "Sala Normal",
+                                    style: TextStyle(
+                                        fontSize: 20, color: Colors.white),
+                                  ),
+                                  Text(
+                                    "Clima Normal de Trabalho",
+                                    style: TextStyle(
+                                        color: Colors.white,
+                                        fontStyle: FontStyle.italic),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ],
+                        ),
                       ),
-                      onTap: () {},
+                      onTap: () {
+                        alterarSala(1);
+                        Navigator.pop(context);
+                      },
                     ),
                   ]),
               AlertDialog(
@@ -143,18 +199,50 @@ class _PontoState extends State<Ponto> {
                   shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.all(Radius.circular(24))),
                   actions: <Widget>[
-                    GestureDetector(
-                      child: Column(
-                        children: <Widget>[
-                          Text("Reunião da Diretoria"),
-                          Text(
-                            "Reunião Interna Acontecendo",
-                            style: TextStyle(
-                                fontSize: 20, fontStyle: FontStyle.italic),
-                          ),
-                        ],
+                    InkWell(
+                      child: Container(
+                        width: MediaQuery.of(context).size.width * 0.8,
+                        height: MediaQuery.of(context).size.height * 0.08,
+                        child: Row(
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          mainAxisSize: MainAxisSize.max,
+                          children: <Widget>[
+                            Expanded(
+                              flex: 1,
+                              child: Icon(
+                                CustomIcons.diretoria,
+                                color: Colors.white,
+                              ),
+                            ),
+                            Expanded(
+                              flex: 5,
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.center,
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceAround,
+                                children: <Widget>[
+                                  Text(
+                                    "Reunião da Diretoria",
+                                    style: TextStyle(
+                                        fontSize: 20, color: Colors.white),
+                                  ),
+                                  Text(
+                                    "Reunião Interna em Andamento",
+                                    style: TextStyle(
+                                        color: Colors.white,
+                                        fontStyle: FontStyle.italic),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ],
+                        ),
                       ),
-                      onTap: () {},
+                      onTap: () {
+                        alterarSala(2);
+                        Navigator.pop(context);
+                      },
                     ),
                   ]),
               AlertDialog(
@@ -162,18 +250,50 @@ class _PontoState extends State<Ponto> {
                   shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.all(Radius.circular(24))),
                   actions: <Widget>[
-                    GestureDetector(
-                      child: Column(
-                        children: <Widget>[
-                          Text("Reunião com cliente"),
-                          Text(
-                            "Reunião Com Cliente Agora",
-                            style: TextStyle(
-                                fontSize: 20, fontStyle: FontStyle.italic),
-                          ),
-                        ],
+                    InkWell(
+                      child: Container(
+                        width: MediaQuery.of(context).size.width * 0.8,
+                        height: MediaQuery.of(context).size.height * 0.08,
+                        child: Row(
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          mainAxisSize: MainAxisSize.max,
+                          children: <Widget>[
+                            Expanded(
+                              flex: 1,
+                              child: Icon(
+                                CustomIcons.cliente,
+                                color: Colors.white,
+                              ),
+                            ),
+                            Expanded(
+                              flex: 5,
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.center,
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceAround,
+                                children: <Widget>[
+                                  Text(
+                                    "Reunião com Cliente",
+                                    style: TextStyle(
+                                        fontSize: 20, color: Colors.white),
+                                  ),
+                                  Text(
+                                    "Reunião com Cliente em Andamento",
+                                    style: TextStyle(
+                                        color: Colors.white,
+                                        fontStyle: FontStyle.italic),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ],
+                        ),
                       ),
-                      onTap: () {},
+                      onTap: () {
+                        alterarSala(3);
+                        Navigator.pop(context);
+                      },
                     ),
                   ]),
             ],
@@ -194,9 +314,9 @@ class _PontoState extends State<Ponto> {
           ),
         ),
         Text(
-          ' $numPessoasOnline' + ' MegaMembros na sala :)',
+          ' 5 MegaMembros na sala :)',
           style: TextStyle(
-              fontSize: 23, color: Colors.black, fontStyle: FontStyle.italic),
+              fontSize: 21, color: Colors.black, fontStyle: FontStyle.italic),
         ),
       ],
     );
@@ -209,66 +329,76 @@ class _PontoState extends State<Ponto> {
           onTap: () {
             createEstadoSalaPopUp(context);
           },
-          child: Row(mainAxisAlignment: MainAxisAlignment.center, children: [
-            Padding(
-              padding: EdgeInsets.only(left: 10),
-              child: Icon(
-                CustomIcons.clima_normal,
-                size: 35,
-              ),
-            ),
-            Padding(
-              padding: EdgeInsets.only(left: 10),
-              child: Container(
-                padding: EdgeInsets.fromLTRB(10, 0, 8, 0),
-                child: Text(
-                  'Clima normal de trabalho',
-                  style: TextStyle(fontSize: 23, fontStyle: FontStyle.italic),
+          child: Row(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              mainAxisAlignment: MainAxisAlignment.center,
+              mainAxisSize: MainAxisSize.max,
+              children: [
+                Expanded(
+                  flex: 1,
+                  child: Icon(
+                    icon,
+                    size: 30,
+                  ),
                 ),
-              ),
-            ),
-            Padding(
-              padding: EdgeInsets.fromLTRB(5, 0, 10, 0),
-              child: Icon(
-                Icons.expand_more,
-                size: 32,
-              ),
-            ),
-          ]),
+                Expanded(
+                  flex: 4,
+                  child: Container(
+                    padding: EdgeInsets.fromLTRB(10, 0, 8, 0),
+                    child: Text(
+                      estadoSala,
+                      style:
+                          TextStyle(fontSize: 22, fontStyle: FontStyle.italic),
+                    ),
+                  ),
+                ),
+                Expanded(
+                  flex: 1,
+                  child: Icon(
+                    Icons.expand_more,
+                    size: 32,
+                  ),
+                ),
+              ]),
         ),
         SizedBox(
           height: MediaQuery.of(context).size.height * 0.04,
         ),
         InkWell(
+          child: Row(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              mainAxisAlignment: MainAxisAlignment.start,
+              mainAxisSize: MainAxisSize.max,
+              children: [
+                Expanded(
+                  flex: 1,
+                  child: Icon(
+                    CustomIcons.cafe,
+                    size: 30,
+                  ),
+                ),
+                Expanded(
+                    flex: 4,
+                    child: Container(
+                      child: Text(
+                        'Café feito às $horas de hoje',
+                        style: TextStyle(
+                            fontSize: 21, fontStyle: FontStyle.italic),
+                      ),
+                      padding: EdgeInsets.fromLTRB(10, 0, 8, 0),
+                    )),
+                Expanded(
+                  flex: 1,
+                  child: Icon(
+                    Icons.expand_more,
+                    size: 32,
+                  ),
+                ),
+              ]),
           onTap: () {
             createCoffeePopUp(context);
           },
-          child: Row(mainAxisAlignment: MainAxisAlignment.center, children: [
-            Padding(
-              padding: EdgeInsets.only(left: 10),
-              child: Icon(
-                CustomIcons.cafe,
-                size: 35,
-              ),
-            ),
-            Padding(
-              padding: EdgeInsets.only(left: 10),
-              child: Container(
-                padding: EdgeInsets.fromLTRB(10, 0, 8, 0),
-                child: Text(
-                  'Café feito às 14:00 de hoje',
-                  style: TextStyle(fontSize: 23, fontStyle: FontStyle.italic),
-                ),
-              ),
-            ),
-            Padding(
-              padding: EdgeInsets.fromLTRB(5, 0, 10, 0),
-              child: Icon(
-                Icons.expand_more,
-                size: 32,
-              ),
-            ),
-          ]),
+
         ),
       ],
     );
@@ -278,6 +408,26 @@ class _PontoState extends State<Ponto> {
    * --------------------------------------------- FUNCTIONS ------------------------------------------------------- 
    * ---------------------------------------------------------------------------------------------------------------
    */
+
+  //APegar estado da sala
+  void alterarSala(int value) {
+    setState(() {
+      switch (value) {
+        case 1:
+          estadoSala = "Clima normal de trabalho";
+          icon = CustomIcons.clima_normal;
+          break;
+        case 2:
+          estadoSala = "Reunião da Diretoria";
+          icon = CustomIcons.diretoria;
+          break;
+        case 3:
+          estadoSala = "Reunião com Cliente";
+          icon = CustomIcons.cliente;
+          break;
+      }
+    });
+  }
 
   //Carregar dados da SharedPreferences
   void _start() async {
