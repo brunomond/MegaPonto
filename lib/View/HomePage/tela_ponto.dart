@@ -442,7 +442,11 @@ class _PontoState extends State<Ponto> {
                 Icons.expand_more,
                 size: 30,
               ),
-
+              padding: EdgeInsets.fromLTRB(10, 0, 8, 0),
+            ),
+            Icon(
+              Icons.expand_more,
+              size: 30,
             ),
           ]),
           onTap: () {
@@ -490,8 +494,7 @@ class _PontoState extends State<Ponto> {
     setState(() {
       loading = true;
     });
-
-    await SharedPreferences.getInstance().then((value) {
+    await SharedPreferences.getInstance().then((value){ 
       setState(() => loading = false);
       prefs = value;
       setState(() {
