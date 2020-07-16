@@ -15,21 +15,34 @@ class BottomApp extends StatelessWidget {
           selectedItemColor: Color.fromRGBO(61, 1, 78, 1),
           unselectedItemColor: Colors.black87,
           elevation: 16,
-          iconSize: 36,
+          iconSize: 32,
           showUnselectedLabels: false,
           currentIndex: index,
           items: [
             BottomNavigationBarItem(
-                icon: Icon(CustomIcons.jornal), title: Text('Feed')),
+                icon: Icon(CustomIcons.jornalvazio),
+              title: Text('Feed', style: TextStyle(fontSize: 10),),
+              activeIcon: Icon(CustomIcons.jornal),
+            ),
             BottomNavigationBarItem(
-                icon: Icon(CustomIcons.amigo), title: Text('Plantão Amigo')),
+                icon: Icon(CustomIcons.amigovazio),
+                title: Text('Plantão Amigo', style: TextStyle(fontSize: 10),),
+                activeIcon: Icon(CustomIcons.amigo),
+            ),
             BottomNavigationBarItem(
-                icon: Icon(CustomIcons.relogio), title: Text('MegaPonto')),
+                icon: Icon(CustomIcons.relogiovazio),
+                title: Text('MegaPonto', style: TextStyle(fontSize: 10),),
+              activeIcon: Icon(CustomIcons.relogio),
+            ),
             BottomNavigationBarItem(
-                icon: Icon(CustomIcons.podio), title: Text('Leaderboard')),
+                icon: Icon(CustomIcons.podiovazio),
+                title: Text('Leaderboard', style: TextStyle(fontSize: 10),),
+              activeIcon: Icon(CustomIcons.podio)
+            ),
 
             BottomNavigationBarItem(
-                icon: Icon(CustomIcons.clima_normal), title: Text('Perfil')),
+                icon: Image.asset('images/abott@adorable.png', width: 32, height: 32,),
+                title: Text('Perfil')),
           ]),
       decoration: BoxDecoration(color: Colors.grey[90], boxShadow: [
         BoxShadow(spreadRadius: 3, blurRadius: 0, offset: Offset(2, 3))
