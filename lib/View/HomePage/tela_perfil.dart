@@ -24,17 +24,7 @@ class _PerfilState extends State<Perfil> {
             ),
             Expanded(
               flex: 2,
-              child: Container(
-                width: 206,
-                height: 206,
-                decoration: BoxDecoration(
-                  shape: BoxShape.circle,
-                  image: DecorationImage(
-                    image: NetworkImage(
-                        "https://api.adorable.io/avatars/283/abott@adorable.pngCopy to Clipboard"),
-                  ),
-                ),
-              ),
+              child: Image.asset('images/abott@adorable.png',),
             ),
             Expanded(
               flex: 1,
