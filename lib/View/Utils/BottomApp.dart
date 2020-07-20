@@ -4,7 +4,9 @@ import 'package:megaponto_oficial/presets/custom_icons_icons.dart';
 class BottomApp extends StatelessWidget {
   final int index;
   final Function onTap;
+
   BottomApp({Key key, this.index, this.onTap}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -20,28 +22,41 @@ class BottomApp extends StatelessWidget {
           currentIndex: index,
           items: [
             BottomNavigationBarItem(
-                icon: Icon(CustomIcons.jornalvazio),
-              title: Text('Feed', style: TextStyle(fontSize: 10),),
+              icon: Icon(CustomIcons.jornalvazio),
+              title: Text(
+                'Feed',
+                style: TextStyle(fontSize: 10),
+              ),
               activeIcon: Icon(CustomIcons.jornal),
             ),
             BottomNavigationBarItem(
-                icon: Icon(CustomIcons.amigovazio),
-                title: Text('Plantão Amigo', style: TextStyle(fontSize: 10),),
-                activeIcon: Icon(CustomIcons.amigo),
+              icon: Icon(CustomIcons.amigovazio),
+              title: Text(
+                'Plantão Amigo',
+                style: TextStyle(fontSize: 10),
+              ),
+              activeIcon: Icon(CustomIcons.amigo),
             ),
             BottomNavigationBarItem(
-                icon: Icon(CustomIcons.relogiovazio),
-                title: Text('MegaPonto', style: TextStyle(fontSize: 10),),
+              icon: Icon(CustomIcons.relogiovazio),
+              title: Text(
+                'MegaPonto',
+                style: TextStyle(fontSize: 10),
+              ),
               activeIcon: Icon(CustomIcons.relogio),
             ),
             BottomNavigationBarItem(
                 icon: Icon(CustomIcons.podiovazio),
-                title: Text('Leaderboard', style: TextStyle(fontSize: 10),),
-              activeIcon: Icon(CustomIcons.podio)
-            ),
-
+                title: Text(
+                  'Leaderboard',
+                  style: TextStyle(fontSize: 10),
+                ),
+                activeIcon: Icon(CustomIcons.podio)),
             BottomNavigationBarItem(
-                icon: Image.asset('images/abott@adorable.png', width: 32, height: 32,),
+                icon: CircleAvatar(
+                  radius: 16,
+                  backgroundImage: AssetImage('images/abott@adorable.png'),
+                ),
                 title: Text('Perfil')),
           ]),
       decoration: BoxDecoration(color: Colors.grey[90], boxShadow: [

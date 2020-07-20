@@ -8,7 +8,6 @@ import 'tela_ponto.dart';
 import 'tela_plantao_amigo.dart';
 import 'tela_perfil.dart';
 import 'tela_leaderboard.dart';
-//import 'tela_editar_perfil.dart';
 
 class Home extends StatefulWidget {
   @override
