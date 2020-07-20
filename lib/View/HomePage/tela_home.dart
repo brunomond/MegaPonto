@@ -16,6 +16,7 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
+  
   //Variáveis de estado
   static GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
   int _selectedItem;
@@ -63,4 +64,6 @@ class _HomeState extends State<Home> {
   void tapBottomBar(int index) {
     setState(() => _selectedItem = index);
   }
+
+
 }
