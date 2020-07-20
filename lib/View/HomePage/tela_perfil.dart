@@ -1,6 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
+import 'tela_editar_perfil.dart';
+
 class Perfil extends StatefulWidget {
   @override
   _PerfilState createState() => _PerfilState();
@@ -29,7 +31,12 @@ class _PerfilState extends State<Perfil> {
             Expanded(
               flex: 1,
               child: FlatButton(
-                onPressed: () {},
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => EditarPerfil()
+                    ));
+                  },
                 child: Icon(Icons.edit),
               ),
             )
