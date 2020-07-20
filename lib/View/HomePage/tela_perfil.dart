@@ -24,10 +24,14 @@ class _PerfilState extends State<Perfil> {
               flex: 1,
               child: SizedBox(),
             ),
-            Expanded(
-              flex: 2,
-              child: Image.asset('images/abott@adorable.png',),
-            ),
+              SizedBox(
+                height: 124,
+                width: 124,
+                child: CircleAvatar(
+                radius: 50,
+                backgroundImage: AssetImage('images/abott@adorable.png'),
+              ),
+              ),
             Expanded(
               flex: 1,
               child: FlatButton(

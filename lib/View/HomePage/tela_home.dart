@@ -25,7 +25,6 @@ class _HomeState extends State<Home> {
     Ponto(scaffold: _scaffoldKey),
     Leaderboard(),
     Perfil(),
-    //EditarPerfil(),
   ];
 
   @override

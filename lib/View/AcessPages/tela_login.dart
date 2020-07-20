@@ -148,8 +148,8 @@ class _LoginState extends State<Login> {
                               child: SizedBox.expand(
                                 child: FlatButton(
                                   onPressed: () async =>
-                                      await controller.doLogin(usuario) ? 
-                                      Navigator.of(context).popAndPushNamed('/home') : print('Login Falhou'),
+                                      //await controller.doLogin(usuario) ?
+                                      Navigator.of(context).popAndPushNamed('/home'), //: print('Login Falhou'),
                                   child: Row(
                                     mainAxisAlignment: MainAxisAlignment.center,
                                     children: <Widget>[
