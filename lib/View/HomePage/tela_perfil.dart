@@ -25,8 +25,8 @@ class _PerfilState extends State<Perfil> {
               child: SizedBox(),
             ),
               SizedBox(
-                height: 124,
-                width: 124,
+                height: 128,
+                width: 128,
                 child: CircleAvatar(
                 radius: 50,
                 backgroundImage: AssetImage('images/abott@adorable.png'),
