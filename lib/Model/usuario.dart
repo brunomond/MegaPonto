@@ -12,6 +12,7 @@ class Usuario {
   String imgUrl;
   String token;
   int tokenId;
+  bool online; //Apenas para teste
 
   Usuario();
 
