@@ -15,7 +15,7 @@ import 'View/AcessPages/tela_esqueceu_senha.dart';
 
 void main() {
   SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
-      statusBarColor: Colors.transparent,
+      statusBarColor: Color.fromRGBO(143, 58, 56, 1),
       statusBarBrightness: Brightness.light));
 
   runApp(MegaPonto());
