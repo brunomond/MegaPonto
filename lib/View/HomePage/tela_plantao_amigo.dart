@@ -1,8 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:megaponto_oficial/Model/usuario.dart';
 import 'package:megaponto_oficial/View/Utils/online.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import 'package:intl/intl.dart';
 
 class PlantaoAmigo extends StatefulWidget {
+  final GlobalKey<ScaffoldState> scaffold;
+  PlantaoAmigo({this.scaffold});
+
   @override
   _PlantaoAmigoState createState() => _PlantaoAmigoState();
 }
@@ -91,28 +96,89 @@ class _PlantaoAmigoState extends State<PlantaoAmigo> {
   }
 
   void _alterarStatusFun(Usuario user) {
-    setState(() {
-      user.online = !user.online;
+    if (user.online)
+      _fecharPlantao(user);
+    else
+      _iniciarPlantao(user);
+  }
+
+  void _iniciarPlantao(Usuario user) async {
+    SharedPreferences prefs = await _getSharedInstance();
+
+    prefs
+        .setInt('startTime', DateTime.now().toUtc().millisecondsSinceEpoch)
+        .then((value) {
+      setState(() => user.online = true);
+      _showSnack(DateFormat.Hm().format(DateTime.now()), true, user.nome);
     });
+  }
+
+  void _fecharPlantao(Usuario user) async {
+    SharedPreferences prefs = await _getSharedInstance();
+
+    int time = prefs.get('startTime');
+    DateTime startTime = DateTime.fromMillisecondsSinceEpoch(time);
+    Duration timeOnline = DateTime.now().toUtc().difference(startTime);
+
+    prefs.remove('startTime').then((value) {
+      setState(() => user.online = false);
+      _showSnack(_formatDuration(timeOnline), false, user.nome);
+    });
+  }
+
+  //Mostra a snackBar
+  void _showSnack(String time, bool start, String nome) {
+    SnackBar snackBar;
+
+    snackBar = start
+        ? snackBar = new SnackBar(
+            content: Text('Plantão do(a) $nome iniciado às $time'),
+            duration: Duration(seconds: 2),
+          )
+        : snackBar = new SnackBar(
+            content: Text('Duração do plantão do(a) $nome: $time'),
+            duration: Duration(seconds: 2),
+          );
+
+    widget.scaffold.currentState.showSnackBar(snackBar);
+  }
+
+  Future<SharedPreferences> _getSharedInstance() async {
+    SharedPreferences prefs;
+
+    await SharedPreferences.getInstance().then((value) {
+      prefs = value;
+    });
+
+    return prefs;
+  }
+
+  //Formata a duração para mostrar
+  String _formatDuration(Duration duration) {
+    String twoDigits(int n) => n.toString().padLeft(2, "0");
+    String twoDigitMinutes = twoDigits(duration.inMinutes.remainder(60));
+    String twoDigitSeconds = twoDigits(duration.inSeconds.remainder(60));
+
+    return "${twoDigits(duration.inHours)}:$twoDigitMinutes:$twoDigitSeconds";
   }
 
   void _inserirFuncionariosOnline() {
     Usuario fun1 = Usuario();
     fun1.nome = "Bruno Monteiro";
-    fun1.online = true;
+    fun1.online = false;
     fun1.imgUrl = "https://api.adorable.io/avatars/206/abott@exaust.io";
     listFuncionarios.add(fun1);
 
     Usuario fun2 = Usuario();
     fun2.nome = "Jefferson Henrique";
-    fun2.online = true;
+    fun2.online = false;
     fun2.imgUrl =
         "https://api.adorable.io/avatars/283/abott@adorable.pngCopy to Clipboard";
     listFuncionarios.add(fun2);
 
     Usuario fun3 = Usuario();
     fun3.nome = "José Kazuo";
-    fun3.online = true;
+    fun3.online = false;
     fun3.imgUrl = "https://api.adorable.io/avatars/285/abott@adorable.png";
     listFuncionarios.add(fun3);
 

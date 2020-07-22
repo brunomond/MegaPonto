@@ -16,7 +16,11 @@ class _HomeState extends State<Home> {
   //Variáveis de estado
   static GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
   int _selectedItem;
-  List<Widget> _telas = [Feed(), PlantaoAmigo(), Ponto(scaffold: _scaffoldKey)];
+  List<Widget> _telas = [
+    Feed(),
+    PlantaoAmigo(scaffold: _scaffoldKey),
+    Ponto(scaffold: _scaffoldKey)
+  ];
 
   @override
   void initState() {
