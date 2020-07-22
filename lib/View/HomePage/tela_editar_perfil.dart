@@ -12,124 +12,125 @@ class _EditarPerfilState extends State<EditarPerfil> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        title: Text("Editar Perfil"),
+        centerTitle: true,
+        backgroundColor: Color.fromRGBO(143, 58, 56, 1),
+      ),
       backgroundColor: Colors.white,
-      body: Column(
-        mainAxisSize: MainAxisSize.max,
-        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-        children: <Widget>[
-          Row(
-              crossAxisAlignment: CrossAxisAlignment.start,
+      body: LayoutBuilder(
+          builder: (BuildContext context, BoxConstraints viewportConstraints) {
+        return SingleChildScrollView(
+          child: ConstrainedBox(
+            constraints: BoxConstraints(
+              minHeight: viewportConstraints.maxHeight,
+            ),
+            child: Column(
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: <Widget>[
-                FlatButton(
-                  onPressed: () => Navigator.pushNamed(context, '/home'),
-                  child: Icon(
-                    Icons.arrow_back,
-                    size: 30,
-                    color: Colors.black,
-                  ),
-                ),
-                Column(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: <Widget>[
-                    SizedBox(
-                      width: 128,
-                      height: 128,
-                      child:CircleAvatar(
+                SizedBox(
+                    width: 128,
+                    height: 128,
+                    child: CircleAvatar(
                       radius: 50,
                       backgroundImage: AssetImage('images/abott@adorable.png'),
                     )),
-                    SizedBox(height: 10,),
-                    InkWell(
-                      onTap: () {
-                        AlterarFotoPopUp(context);
-                      },
-                      child: Text(
-                        "Alterar foto de perfil",
-                        style: TextStyle(
-                          color: Color.fromRGBO(199, 59, 35, 1),
-                          fontSize: 20
-                        ),
+                InkWell(
+                  onTap: () {
+                    AlterarFotoPopUp(context);
+                  },
+                  child: Text(
+                    "Alterar foto de perfil",
+                    style: TextStyle(
+                        color: Color.fromRGBO(199, 59, 35, 1), fontSize: 20),
+                  ),
+                ),
+                Row(
+                  children: <Widget>[
+                    SizedBox(
+                      width: 15,
+                    ),
+                    Container(
+                      width: MediaQuery.of(context).size.width * 0.8,
+                      child: TextField(
+                        decoration: InputDecoration(labelText: "Nome"),
                       ),
                     ),
                   ],
                 ),
-                SizedBox(width: 90,),
-              ]),
-          Row(
-            children: <Widget>[
-              SizedBox(
-                width: 15,
-              ),
-              Container(
-                width: MediaQuery.of(context).size.width * 0.8,
-                child: TextField(
-                  decoration: InputDecoration(labelText: "Nome"),
+                Row(
+                  children: <Widget>[
+                    SizedBox(
+                      width: 15,
+                    ),
+                    Container(
+                      width: MediaQuery.of(context).size.width * 0.8,
+                      child: TextField(
+                        decoration: InputDecoration(labelText: "Apelido"),
+                      ),
+                    ),
+                    SizedBox(
+                      width: 15,
+                    ),
+                  ],
                 ),
-              ),
-            ],
-          ),
-          Row(
-            children: <Widget>[
-              SizedBox(
-                width: 15,
-              ),
-              Container(
-                width: MediaQuery.of(context).size.width * 0.8,
-                child: TextField(
-                  decoration: InputDecoration(labelText: "Apelido"),
+                Divider(),
+                Text(
+                  "Informações do perfil",
+                  style: TextStyle(
+                    fontSize: 20,
+                  ),
                 ),
-              ),
-              SizedBox(
-                width: 15,
-              ),
-            ],
-          ),
-          Row(
-            children: <Widget>[
-              SizedBox(
-                width: 15,
-              ),
-              Container(
-                width: MediaQuery.of(context).size.width * 0.8,
-                child: TextField(
-                  decoration: InputDecoration(labelText: "Endereço de Email"),
+                Row(
+                  children: <Widget>[
+                    SizedBox(
+                      width: 15,
+                    ),
+                    Container(
+                      width: MediaQuery.of(context).size.width * 0.8,
+                      child: TextField(
+                        decoration:
+                            InputDecoration(labelText: "Endereço de Email"),
+                      ),
+                    ),
+                    InkWell(
+                      child: Icon(Icons.edit),
+                    )
+                  ],
                 ),
-              ),
-              InkWell(
-                child: Icon(Icons.edit),
-              )
-            ],
-          ),
-          Row(
-            children: <Widget>[
-              SizedBox(
-                width: 15,
-              ),
-              Container(
-                width: MediaQuery.of(context).size.width * 0.8,
-                child: TextField(
-                  decoration: InputDecoration(labelText: "Senha"),
+                Row(
+                  children: <Widget>[
+                    SizedBox(
+                      width: 15,
+                    ),
+                    Container(
+                      width: MediaQuery.of(context).size.width * 0.8,
+                      child: TextField(
+                        decoration: InputDecoration(labelText: "Senha"),
+                      ),
+                    ),
+                    InkWell(
+                      child: Icon(Icons.edit),
+                    )
+                  ],
                 ),
-              ),
-              InkWell(
-                child: Icon(Icons.edit),
-              )
-            ],
+                SizedBox(height: 16),
+                Container(
+                    width: 200,
+                    height: 55,
+                    decoration: BoxDecoration(
+                        color: Color.fromRGBO(143, 58, 56, 1),
+                        borderRadius: BorderRadius.all(Radius.circular(26))),
+                    child: FlatButton(
+                      child: Text("Concluir",
+                          style: TextStyle(color: Colors.white, fontSize: 20)),
+                      onPressed: () {},
+                    )),
+              ],
+            ),
           ),
-          Container(
-              width: 200,
-              height: 55,
-              decoration: BoxDecoration(
-                  color: Color.fromRGBO(143, 58, 56, 1),
-                  borderRadius: BorderRadius.all(Radius.circular(26))),
-              child: FlatButton(
-                child: Text("Concluir",
-                    style: TextStyle(color: Colors.white, fontSize: 20)),
-                onPressed: () {},
-              )),
-        ],
-      ),
+        );
+      }),
     );
   }
 
