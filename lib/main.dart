@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
 //Telas
+import 'View/AcessPages/tela_acesso.dart';
 import 'View/tela_checksession.dart';
 import 'View/HomePage/tela_feed.dart';
 import 'View/HomePage/tela_home.dart';
@@ -33,6 +34,7 @@ class MegaPonto extends StatelessWidget {
         '/home_ponto': (context) => Ponto(),
         '/home_feed': (context) => Feed(),
         '/home_plantao_amigo': (context) => PlantaoAmigo(),
+        '/acesso': (context) => Access(),
         '/login': (context) => Login(),
         '/criar_conta': (context) => CriarConta(),
         '/chave_acesso': (context) => ChaveAcesso(),
