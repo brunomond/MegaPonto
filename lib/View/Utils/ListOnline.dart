@@ -1,19 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:megaponto_oficial/View/Utils/Gradient.dart';
 class ListOnline extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-          width: MediaQuery.of(context).size.width,
-          height: MediaQuery.of(context).size.height,
-          decoration: BoxDecoration(
-              gradient: LinearGradient(
-                  begin: Alignment.topLeft,
-                  end: Alignment.centerRight,
-                  colors: [
-                Color.fromRGBO(61, 1, 78, 1),
-                Color.fromRGBO(199, 59, 35, 1)
-              ])),
+    return GradientBackground(
           child: Padding(
             padding: EdgeInsets.only(
                 top: MediaQuery.of(context).size.height * 0.065),

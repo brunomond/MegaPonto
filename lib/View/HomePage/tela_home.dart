@@ -6,6 +6,8 @@ import 'package:megaponto_oficial/View/Utils/ListOnline.dart';
 import 'tela_feed.dart';
 import 'tela_ponto.dart';
 import 'tela_plantao_amigo.dart';
+import 'tela_perfil.dart';
+import 'tela_leaderboard.dart';
 
 class Home extends StatefulWidget {
   @override
@@ -13,13 +15,16 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
+  
   //Variáveis de estado
   static GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
   int _selectedItem;
   List<Widget> _telas = [
     Feed(),
-    PlantaoAmigo(scaffold: _scaffoldKey),
-    Ponto(scaffold: _scaffoldKey)
+    PlantaoAmigo(),
+    Ponto(scaffold: _scaffoldKey),
+    Leaderboard(),
+    Perfil(),
   ];
 
   @override
@@ -40,6 +45,7 @@ class _HomeState extends State<Home> {
         ListOnline(),
         Positioned.fill(
             top: MediaQuery.of(context).size.height * 0.22,
+
             child: Container(
               decoration: BoxDecoration(
                   borderRadius: BorderRadius.only(
@@ -54,5 +60,6 @@ class _HomeState extends State<Home> {
 
   void tapBottomBar(int index) {
     setState(() => _selectedItem = index);
+
   }
 }
