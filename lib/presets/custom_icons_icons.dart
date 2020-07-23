@@ -23,6 +23,7 @@ class CustomIcons {
 
   static const IconData amigo = IconData(0xe800, fontFamily: _kFontFam, fontPackage: _kFontPkg);
   static const IconData cafe = IconData(0xe801, fontFamily: _kFontFam, fontPackage: _kFontPkg);
+  static const IconData amigovazio = IconData(0xe802, fontFamily: _kFontFam, fontPackage: _kFontPkg);
   static const IconData jornal = IconData(0xe803, fontFamily: _kFontFam, fontPackage: _kFontPkg);
   static const IconData podio = IconData(0xe804, fontFamily: _kFontFam, fontPackage: _kFontPkg);
   static const IconData relogio = IconData(0xe805, fontFamily: _kFontFam, fontPackage: _kFontPkg);
@@ -32,4 +33,7 @@ class CustomIcons {
   static const IconData primeiro = IconData(0xe809, fontFamily: _kFontFam, fontPackage: _kFontPkg);
   static const IconData segundo = IconData(0xe80a, fontFamily: _kFontFam, fontPackage: _kFontPkg);
   static const IconData terceiro = IconData(0xe80b, fontFamily: _kFontFam, fontPackage: _kFontPkg);
+  static const IconData relogiovazio = IconData(0xe80c, fontFamily: _kFontFam, fontPackage: _kFontPkg);
+  static const IconData jornalvazio = IconData(0xe80d, fontFamily: _kFontFam, fontPackage: _kFontPkg);
+  static const IconData podiovazio = IconData(0xe80e, fontFamily: _kFontFam, fontPackage: _kFontPkg);
 }
