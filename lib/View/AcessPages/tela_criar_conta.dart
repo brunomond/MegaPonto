@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:megaponto_oficial/View/AcessPages/tela_acesso.dart';
 
 class CriarConta extends StatefulWidget {
   @override
@@ -170,7 +171,7 @@ class _CriarContaState extends State<CriarConta> {
                     BorderRadius.all(Radius.circular(32))),
                 child: SizedBox.expand(
                   child: FlatButton(
-                    onPressed: () => Navigator.pushNamed(context, '/'),
+                    onPressed: () => Access.navega(0, context),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: <Widget>[
@@ -196,7 +197,7 @@ class _CriarContaState extends State<CriarConta> {
                         fontSize: 13
                     ),
                   ),
-                  onPressed:() => Navigator.pushNamed(context, '/login'),
+                  onPressed:() => Access.navega(0, context),
                 ),
               )
             ],
