@@ -46,10 +46,8 @@ class _EditarPerfilState extends State<EditarPerfil> {
                   ),
                 ),
                 Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
                   children: <Widget>[
-                    SizedBox(
-                      width: 15,
-                    ),
                     Container(
                       width: MediaQuery.of(context).size.width * 0.8,
                       child: TextField(
@@ -59,18 +57,13 @@ class _EditarPerfilState extends State<EditarPerfil> {
                   ],
                 ),
                 Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
                   children: <Widget>[
-                    SizedBox(
-                      width: 15,
-                    ),
                     Container(
                       width: MediaQuery.of(context).size.width * 0.8,
                       child: TextField(
                         decoration: InputDecoration(labelText: "Apelido"),
                       ),
-                    ),
-                    SizedBox(
-                      width: 15,
                     ),
                   ],
                 ),
@@ -82,6 +75,7 @@ class _EditarPerfilState extends State<EditarPerfil> {
                   ),
                 ),
                 Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
                   children: <Widget>[
                     SizedBox(
                       width: 15,
@@ -99,6 +93,7 @@ class _EditarPerfilState extends State<EditarPerfil> {
                   ],
                 ),
                 Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
                   children: <Widget>[
                     SizedBox(
                       width: 15,
