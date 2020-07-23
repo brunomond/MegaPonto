@@ -105,8 +105,10 @@ class _PlantaoAmigoState extends State<PlantaoAmigo> {
   void _iniciarPlantao(Usuario user) async {
     SharedPreferences prefs = await _getSharedInstance();
 
+    String id = user.id.toString();
+
     prefs
-        .setInt('startTime', DateTime.now().toUtc().millisecondsSinceEpoch)
+        .setInt(id, DateTime.now().toUtc().millisecondsSinceEpoch)
         .then((value) {
       setState(() => user.online = true);
       _showSnack(DateFormat.Hm().format(DateTime.now()), true, user.nome);
@@ -116,11 +118,12 @@ class _PlantaoAmigoState extends State<PlantaoAmigo> {
   void _fecharPlantao(Usuario user) async {
     SharedPreferences prefs = await _getSharedInstance();
 
-    int time = prefs.get('startTime');
+    String id = user.id.toString();
+    int time = prefs.get(id);
     DateTime startTime = DateTime.fromMillisecondsSinceEpoch(time);
     Duration timeOnline = DateTime.now().toUtc().difference(startTime);
 
-    prefs.remove('startTime').then((value) {
+    prefs.remove('$user.nome').then((value) {
       setState(() => user.online = false);
       _showSnack(_formatDuration(timeOnline), false, user.nome);
     });
@@ -164,6 +167,7 @@ class _PlantaoAmigoState extends State<PlantaoAmigo> {
 
   void _inserirFuncionariosOnline() {
     Usuario fun1 = Usuario();
+    fun1.id = 1;
     fun1.nome = "Bruno Monteiro";
     fun1.online = false;
     fun1.imgUrl = "https://api.adorable.io/avatars/206/abott@exaust.io";
@@ -171,24 +175,29 @@ class _PlantaoAmigoState extends State<PlantaoAmigo> {
 
     Usuario fun2 = Usuario();
     fun2.nome = "Jefferson Henrique";
+    fun2.id = 2;
     fun2.online = false;
     fun2.imgUrl =
         "https://api.adorable.io/avatars/283/abott@adorable.pngCopy to Clipboard";
     listFuncionarios.add(fun2);
 
     Usuario fun3 = Usuario();
+    fun3.id = 3;
     fun3.nome = "José Kazuo";
     fun3.online = false;
     fun3.imgUrl = "https://api.adorable.io/avatars/285/abott@adorable.png";
     listFuncionarios.add(fun3);
 
     Usuario fun4 = Usuario();
+    fun4.id = 4;
     fun4.nome = "Bruno Monteiro";
     fun4.online = false;
     fun4.imgUrl = "https://api.adorable.io/avatars/206/abott@exaust.io";
     listFuncionarios.add(fun4);
 
     Usuario fun5 = Usuario();
+    fun5.id = 5;
+
     fun5.nome = "Jefferson Henrique";
     fun5.online = false;
     fun5.imgUrl =
@@ -196,6 +205,7 @@ class _PlantaoAmigoState extends State<PlantaoAmigo> {
     listFuncionarios.add(fun5);
 
     Usuario fun6 = Usuario();
+    fun6.id = 6;
     fun6.nome = "José Kazuo";
     fun6.online = false;
     fun6.imgUrl = "https://api.adorable.io/avatars/285/abott@adorable.png";
