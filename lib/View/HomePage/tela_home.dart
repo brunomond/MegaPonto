@@ -45,6 +45,7 @@ class _HomeState extends State<Home> {
         ListOnline(),
         Positioned.fill(
             top: MediaQuery.of(context).size.height * 0.22,
+
             child: Container(
               decoration: BoxDecoration(
                   borderRadius: BorderRadius.only(
@@ -59,5 +60,6 @@ class _HomeState extends State<Home> {
 
   void tapBottomBar(int index) {
     setState(() => _selectedItem = index);
+
   }
 }
