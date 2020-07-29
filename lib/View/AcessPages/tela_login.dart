@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:megaponto_oficial/Controller/LoginController.dart';
 import 'package:megaponto_oficial/Model/Usuario.dart';
+import 'package:megaponto_oficial/Resources/Globals.dart';
 import 'package:megaponto_oficial/View/AcessPages/tela_acesso.dart';
+import 'package:megaponto_oficial/View/Utils/StdButton.dart';
+import 'package:megaponto_oficial/View/Utils/StdPrefixIcon.dart';
 
 class Login extends StatefulWidget {
   @override
@@ -12,6 +15,13 @@ class _LoginState extends State<Login> {
 
   LoginController controller = new LoginController();
   Usuario usuario = new Usuario();
+  bool isPasswordVisible;
+
+  @override
+  void initState() {
+    isPasswordVisible = false;
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -29,102 +39,62 @@ class _LoginState extends State<Login> {
             TextFormField(
               keyboardType: TextInputType.emailAddress,
               onSaved: (value) => usuario.email = value,
+              validator: (value) => value != null ? null : 'Insira um email!',
               decoration: InputDecoration(
                   hintText: 'E-mail',
-                  hintStyle: TextStyle(color: Colors.grey),
-                  contentPadding:
-                      EdgeInsets.fromLTRB(20, 10, 20, 10),
-                  border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(32)),
-                  prefixIcon: Padding(
-                    padding: EdgeInsets.all(0),
-                    child: Icon(
-                      Icons.email,
-                      color: Colors.grey,
-                      ),
-                  )),
-              style: TextStyle(fontSize: 15),
+                  prefixIcon: StdPrefixIcon(iconData: Icons.email,)
+                  ).applyDefaults(Globals.inputTheme)
             ),
             Padding(
               padding: const EdgeInsets.only(top: 16.0),
               child: TextFormField(
-                keyboardType: TextInputType.visiblePassword,
-                obscureText: true,
+                keyboardType: TextInputType.text,
+                obscureText: !isPasswordVisible,
                 onSaved: (value) => controller.senha = value,
+                validator: (value) => value != null ? null : 'Insira uma senha!',
                 decoration: InputDecoration(
                     hintText: 'Senha',
-                    hintStyle: TextStyle(color: Colors.grey),
-                    contentPadding:
-                        EdgeInsets.fromLTRB(20, 10, 20, 10),
-                    border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(32)),
-                    prefixIcon: Padding(
-                      padding: EdgeInsets.all(0),
-                      child: Icon(
-                        Icons.vpn_key,
-                        color: Colors.grey,
+                   suffixIcon: IconButton(
+                      icon: Icon(isPasswordVisible ? Icons.visibility : Icons.visibility_off
                       ),
-                    )),
+                      onPressed: _trocarVisibilidadeSenha,
+                    ),
+                    prefixIcon: StdPrefixIcon(iconData: Icons.vpn_key,)
+                    ).applyDefaults(Globals.inputTheme),
                 style: TextStyle(fontSize: 15),
               ),
             ),
-            Container(
-              height: 40,
-              alignment: Alignment.centerRight,
-              child: FlatButton(
+            Center(
+              child: GestureDetector(
                 child: Text(
                   "Esqueci minha senha",
                   textAlign: TextAlign.right,
-                  style:
-                      TextStyle(color: Colors.grey, fontSize: 13),
+                  style: Globals.textTheme.overline
                 ),
-                onPressed: () => Access.navega(2, context),
+                onTap: () => Access.navega(2, context), 
               ),
             ),
-            Padding(
-              padding: const EdgeInsets.only(top: 24.0),
-              child: Container(
-                height: 60,
-                width: MediaQuery.of(context).size.width * 0.5,
-                alignment: Alignment.centerLeft,
-                decoration: BoxDecoration(
-                    color: Colors.black87,
-                    borderRadius:
-                        BorderRadius.all(Radius.circular(32))),
-                child: SizedBox.expand(
-                  child: FlatButton(
-                    onPressed: () async =>
+            StdButton(padding: EdgeInsets.only(top: 24),
+                      label: 'Entrar', 
+                      onPressed: () async =>
                         await controller.doLogin(usuario) ?
-                        Navigator.of(context).popAndPushNamed('/home') : print('Login Falhou'),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: <Widget>[
-                        Text(
-                          "Entrar",
-                          style: TextStyle(
-                              color: Colors.white, fontSize: 20),
-                        )
-                      ],
-                    ),
-                  ),
-                ),
-              ),
-            ),
-            Container(
-              height: 40,
-              alignment: Alignment.center,
-              child: FlatButton(
+                        Navigator.of(context).popAndPushNamed('/home') : print('Login Falhou'),),
+            Center(
+              child: GestureDetector(
                 child: Text(
                   "Criar uma conta",
                   textAlign: TextAlign.center,
-                  style:
-                      TextStyle(color: Colors.grey, fontSize: 13),
+                  style: Globals.textTheme.overline,
                 ),
-                onPressed: () => Access.navega(1, context),
+                onTap: () => Access.navega(1, context),
               ),
             )
           ],
         )
       );
+  }
+
+    void _trocarVisibilidadeSenha(){
+      setState(() => isPasswordVisible = !isPasswordVisible);
   }
 }

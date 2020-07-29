@@ -1,7 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
-import 'package:megaponto_oficial/View/AcessPages/tela_criar_conta.dart';
 
 class EditarPerfil extends StatefulWidget {
   @override

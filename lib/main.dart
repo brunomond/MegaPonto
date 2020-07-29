@@ -1,47 +1,65 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'Resources/Globals.dart';
 
 //Telas
 import 'View/AcessPages/tela_acesso.dart';
 import 'View/tela_checksession.dart';
-import 'View/HomePage/tela_feed.dart';
 import 'View/HomePage/tela_home.dart';
-import 'View/HomePage/tela_ponto.dart';
-import 'View/HomePage/tela_plantao_amigo.dart';
-import 'View/HomePage/tela_perfil.dart';
-import 'View/AcessPages/tela_chave_acesso.dart';
 import 'View/AcessPages/tela_criar_conta.dart';
 import 'View/AcessPages/tela_login.dart';
-import 'View/AcessPages/tela_esqueceu_senha.dart';
 
 void main() {
-  SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
-      statusBarColor: Color.fromRGBO(143, 58, 56, 1),
+      SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
+      statusBarColor: Globals.theme.accentColor,
       statusBarBrightness: Brightness.light));
 
   runApp(MegaPonto());
 }
 
 class MegaPonto extends StatelessWidget {
+  static final GlobalKey<NavigatorState> mainState = new  GlobalKey<NavigatorState>();
   @override
   Widget build(BuildContext context) {
+
     return MaterialApp(
+      navigatorKey: mainState,
       debugShowCheckedModeBanner: false,
       title: 'Mega Ponto',
       initialRoute: '/',
       routes: {
         '/': (context) => CheckSession(),
         '/home': (context) => Home(),
-        '/home_ponto': (context) => Ponto(),
-        '/home_feed': (context) => Feed(),
-        '/home_plantao_amigo': (context) => PlantaoAmigo(),
         '/acesso': (context) => Access(),
-        '/home_perfil': (contex) => Perfil(),
         '/login': (context) => Login(),
         '/criar_conta': (context) => CriarConta(),
-        '/chave_acesso': (context) => ChaveAcesso(),
-        '/esqueceu_senha': (context) => EsqueceuSenha(),
       },
+      theme: ThemeData(
+        primaryColor: Color.fromRGBO(230, 19, 0, 1),
+        accentColor: Color.fromRGBO(61, 1, 78, 1),
+        inputDecorationTheme: InputDecorationTheme(
+                  hintStyle: TextStyle(color: Colors.grey),
+                  contentPadding:
+                  EdgeInsets.fromLTRB(20, 10, 20, 10),
+                  border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(32)),
+        ),
+        textTheme: TextTheme(
+                  button: TextStyle(
+                        color: Colors.white, fontSize: 20, fontFamily: 'Roboto'
+                  ),
+                  bodyText1: TextStyle(
+                          color: Colors.black87, fontSize: 28, fontFamily: 'Roboto'
+                  ),
+                  bodyText2: TextStyle(
+                          color: Colors.black87, fontSize: 16, fontFamily: 'Roboto'
+                  ),
+                  overline: TextStyle(
+                          color: Colors.grey, fontSize: 13
+                  ),
+                
+        )
+      ),
     );
   }
 }

@@ -28,7 +28,7 @@ class _CheckSessionState extends State<CheckSession> {
   void _checkSession() async {
     await SharedPreferences.getInstance().then((value) {
       setState(() {
-        logged = value.getBool('logged');
+        logged = value.getString('loginAuth') != null;
       });
       _navega();
     });

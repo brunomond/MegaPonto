@@ -1,5 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:megaponto_oficial/View/AcessPages/tela_acesso.dart';
+import 'package:megaponto_oficial/Resources/Globals.dart';
+import 'package:megaponto_oficial/View/Utils/StdButton.dart';
+import 'package:megaponto_oficial/View/Utils/StdPrefixIcon.dart';
+import 'package:mask_text_input_formatter/mask_text_input_formatter.dart';
 
 class CriarConta extends StatefulWidget {
   @override
@@ -10,7 +14,7 @@ class _CriarContaState extends State<CriarConta> {
 
   bool isPasswordVisible = false;
   bool isConfirmPasswordVisible = false;
-  int sistem = 1;
+  var phoneMask = new MaskTextInputFormatter(mask:'(##) #####-####', filter: {'#': RegExp(r'[0-9]')});
 
   @override
   void initState() {
@@ -35,10 +39,7 @@ class _CriarContaState extends State<CriarConta> {
            alignment: Alignment.centerLeft,
            child: Text(
              "Registre-se",
-             style: TextStyle(
-                 fontSize: 28,
-                 color: Colors.black87
-             ),
+             style: Globals.textTheme.bodyText1,
            ),
          ),
         ),
@@ -46,13 +47,9 @@ class _CriarContaState extends State<CriarConta> {
           padding: EdgeInsets.only(left: 5),
           child: Container(
             alignment: Alignment.centerLeft,
-            width: 300,
             child: Text(
               "Você está próximo de possuir uma MegaConta e se juntar à galera.",
-              style: TextStyle(
-                  fontSize: 13,
-                  color: Colors.grey
-              ),
+              style: Globals.textTheme.bodyText2,
             ),
           ),
         ),
@@ -66,20 +63,9 @@ class _CriarContaState extends State<CriarConta> {
                   FocusScope.of(context).requestFocus();
                 },
                 decoration: InputDecoration(
-                    labelText: 'Nome',
-                    //prefixIcon: Icon(Icons.email),
-                    ),
-              ),
-              TextFormField(
-                keyboardType: TextInputType.text,
-                textInputAction: TextInputAction.next,
-                onFieldSubmitted: (String value) {
-                  FocusScope.of(context).requestFocus();
-                },
-                decoration: InputDecoration(
-                    labelText: 'Sobrenome',
-                    //prefixIcon: Icon(Icons.email),
-                    ),
+                    hintText: 'Nome Completo',
+                    prefixIcon: StdPrefixIcon(iconData: Icons.person),
+                    ).applyDefaults(Globals.inputTheme),
               ),
               TextFormField(
                 keyboardType: TextInputType.emailAddress,
@@ -88,9 +74,9 @@ class _CriarContaState extends State<CriarConta> {
                   FocusScope.of(context).requestFocus();
                 },
                 decoration: InputDecoration(
-                  labelText: 'E-mail',
-                  //prefixIcon: Icon(Icons.email),
-                ),
+                  hintText: 'E-mail',
+                  prefixIcon: StdPrefixIcon(iconData: Icons.email,),
+                ).applyDefaults(Globals.inputTheme),
               ),
               TextFormField(
                 keyboardType: TextInputType.text,
@@ -100,20 +86,14 @@ class _CriarContaState extends State<CriarConta> {
                 },
                 obscureText: !isPasswordVisible,
                 decoration: InputDecoration(
-                    labelText: 'Senha',
+                    hintText: 'Senha',
                     suffixIcon: IconButton(
-                      icon: Icon(isPasswordVisible
-                          ? Icons.visibility
-                          : Icons.visibility_off
+                      icon: Icon(isPasswordVisible ? Icons.visibility : Icons.visibility_off
                       ),
-                      onPressed: (){
-                        setState(() {
-                          isPasswordVisible = !isPasswordVisible;
-                        });
-                      },
-                    )
-                  //prefixIcon: Icon(Icons.email),
-                ),
+                      onPressed: _trocarVisibilidadeSenha,
+                    ),
+                  prefixIcon: StdPrefixIcon(iconData: Icons.vpn_key,),
+                ).applyDefaults(Globals.inputTheme),
               ),
               TextFormField(
                 keyboardType: TextInputType.text,
@@ -123,20 +103,14 @@ class _CriarContaState extends State<CriarConta> {
                 },
                 obscureText: !isPasswordVisible,
                 decoration: InputDecoration(
-                    labelText: 'Confirmar Senha',
+                    hintText: 'Confirmar Senha',
                     suffixIcon: IconButton(
-                      icon: Icon(isPasswordVisible
-                          ? Icons.visibility
-                          : Icons.visibility_off
+                      icon: Icon( isPasswordVisible ? Icons.visibility : Icons.visibility_off
                       ),
-                      onPressed: (){
-                        setState(() {
-                          isPasswordVisible = !isPasswordVisible;
-                        });
-                      },
-                    )
-                  //prefixIcon: Icon(Icons.email),
-                ),
+                      onPressed: _trocarVisibilidadeSenha,
+                    ),
+                  prefixIcon: StdPrefixIcon(iconData: Icons.vpn_key,),
+                ).applyDefaults(Globals.inputTheme),
               ),
               TextFormField(
                 keyboardType: TextInputType.text,
@@ -146,8 +120,8 @@ class _CriarContaState extends State<CriarConta> {
                 },
                 decoration: InputDecoration(
                   labelText: 'Apelido',
-                  //prefixIcon: Icon(Icons.email),
-                ),
+                  prefixIcon: StdPrefixIcon(iconData: Icons.person_pin,),
+                ).applyDefaults(Globals.inputTheme),
               ),
               TextFormField(
                 keyboardType: TextInputType.phone,
@@ -156,52 +130,28 @@ class _CriarContaState extends State<CriarConta> {
                   FocusScope.of(context).requestFocus();
                 },
                 decoration: InputDecoration(
-                  labelText: 'Telefone',
                   hintText: "(xx) xxxxx-xxxx",
-                  hintStyle: TextStyle(color: Colors.grey)
-                  //prefixIcon: Icon(Icons.email),
-                ),
+                  prefixIcon: StdPrefixIcon(iconData: Icons.phone,),
+                ).applyDefaults(Globals.inputTheme),
+                inputFormatters: [phoneMask],
               ),
-              Container(
-                height: 50,
-                width: 120,
-                decoration: BoxDecoration(
-                    color: Colors.black87,
-                    borderRadius:
-                    BorderRadius.all(Radius.circular(32))),
-                child: SizedBox.expand(
-                  child: FlatButton(
-                    onPressed: () => Access.navega(0, context),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: <Widget>[
-                        Text(
-                          "Criar",
-                          style: TextStyle(
-                              color: Colors.white, fontSize: 20),
-                        )
-                      ],
-                    ),
-                  ),
-                )
-              ),
-              Container(
-                height: 50,
-                alignment: Alignment.center,
-                child: FlatButton(
+              StdButton(padding: EdgeInsets.only(top: 24), label: 'Cadastrar', onPressed: Access.navega(0, context)),
+              Center(
+                child: GestureDetector(
                   child: Text(
                     "Já possui uma conta? Faça seu Login!",
                     textAlign: TextAlign.center,
-                    style: TextStyle(
-                        color: Colors.grey,
-                        fontSize: 13
-                    ),
+                    style: Globals.textTheme.overline,
                   ),
-                  onPressed:() => Access.navega(0, context),
+                  onTap:() => Access.navega(0, context),
                 ),
               )
             ],
           ))
       ]);
+  }
+
+  void _trocarVisibilidadeSenha(){
+      setState(() => isPasswordVisible = !isPasswordVisible);
   }
 }

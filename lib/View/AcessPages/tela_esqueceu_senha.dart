@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:megaponto_oficial/View/AcessPages/tela_acesso.dart';
+import 'package:megaponto_oficial/Resources/Globals.dart';
+import 'package:megaponto_oficial/View/Utils/StdButton.dart';
+import 'package:megaponto_oficial/View/Utils/StdPrefixIcon.dart';
 
 class EsqueceuSenha extends StatelessWidget {
   @override
@@ -12,8 +15,8 @@ class EsqueceuSenha extends StatelessWidget {
           mainAxisSize: MainAxisSize.max,
           children: <Widget>[
             SizedBox(
-              width: MediaQuery.of(context).size.width * 0.5,
-              height: MediaQuery.of(context).size.width * 0.5,
+              width: MediaQuery.of(context).size.width * 0.45,
+              height: MediaQuery.of(context).size.width * 0.45,
               child: Image.asset("images/esqueceu_senha.png"),
             ),
             Padding(
@@ -21,10 +24,7 @@ class EsqueceuSenha extends StatelessWidget {
               child: Text(
                 "Esqueceu sua senha?",
                 textAlign: TextAlign.center,
-                style: TextStyle(
-                    color: Colors.black87,
-                    fontSize: 28
-                ),
+                style: Globals.textTheme.bodyText1,
               ),
             ),
             Padding(
@@ -34,10 +34,7 @@ class EsqueceuSenha extends StatelessWidget {
                 child: Text(
                   "Por favor, informe o E-mail associado à sua conta que inviaremos um link para restauração de sua senha.",
                   textAlign: TextAlign.justify,
-                  style: TextStyle(
-                      color: Colors.grey,
-                      fontSize: 12
-                  ),
+                  style: Globals.textTheme.bodyText2,
                 ),
               ),
             ),
@@ -47,61 +44,19 @@ class EsqueceuSenha extends StatelessWidget {
                 keyboardType: TextInputType.emailAddress,
                 decoration: InputDecoration(
                     hintText: 'E-mail',
-                    hintStyle: TextStyle(color: Colors.grey),
-                    contentPadding:
-                    EdgeInsets.fromLTRB(20, 10, 20, 10),
-                    border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(32)),
-                    prefixIcon: Padding(
-                      padding: EdgeInsets.all(0),
-                      child: Icon(
-                        Icons.email,
-                        color: Colors.grey,
-                      ),
-                    )),
-                style: TextStyle(fontSize: 15),
+                    prefixIcon: StdPrefixIcon(iconData: Icons.email)
+                ).applyDefaults(Globals.inputTheme),
               ),
             ),
-            Padding(
-              padding: EdgeInsets.only(top: 16),
-              child: Container(
-                width: MediaQuery.of(context).size.width * 0.5,
-                height: 60,
-                alignment: Alignment.centerLeft,
-                decoration: BoxDecoration(
-                    color: Colors.black87,
-                    borderRadius:
-                    BorderRadius.all(Radius.circular(32))),
-                child: SizedBox.expand(
-                  child: FlatButton(
-                    onPressed: () {},
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: <Widget>[
-                        Text(
-                          "Enviar",
-                          style: TextStyle(
-                              color: Colors.white, fontSize: 20),
-                        ),
-                      ],
-                    ),
-                  ),
-                ),
-              ),
-            ),
-            Container(
-              height: 50,
-              alignment: Alignment.center,
-              child: FlatButton(
+            StdButton(padding: EdgeInsets.only(top: 24), label: 'Enviar', onPressed: () {},),
+            Center(
+              child: GestureDetector(
                 child: Text(
                   "cancelar",
                   textAlign: TextAlign.center,
-                  style: TextStyle(
-                      color: Colors.grey,
-                      fontSize: 13
-                  ),
+                  style: Globals.textTheme.overline
                 ),
-                onPressed:() => Access.navega(0, context),
+                onTap:() => Access.navega(0, context),
               ),
             )
           ],

@@ -14,54 +14,41 @@ class BottomApp extends StatelessWidget {
           onTap: onTap,
           backgroundColor: Colors.grey[90],
           type: BottomNavigationBarType.fixed,
-          selectedItemColor: Color.fromRGBO(61, 1, 78, 1),
+          selectedItemColor: Theme.of(context).accentColor,
           unselectedItemColor: Colors.black87,
           elevation: 16,
           iconSize: 32,
           showUnselectedLabels: false,
           currentIndex: index,
           items: [
-            BottomNavigationBarItem(
-              icon: Icon(CustomIcons.jornalvazio),
-              title: Text(
-                'Feed',
-                style: TextStyle(fontSize: 10),
-              ),
-              activeIcon: Icon(CustomIcons.jornal),
-            ),
-            BottomNavigationBarItem(
-              icon: Icon(CustomIcons.amigovazio),
-              title: Text(
-                'Plantão Amigo',
-                style: TextStyle(fontSize: 10),
-              ),
-              activeIcon: Icon(CustomIcons.amigo),
-            ),
-            BottomNavigationBarItem(
-              icon: Icon(CustomIcons.relogiovazio),
-              title: Text(
-                'MegaPonto',
-                style: TextStyle(fontSize: 10),
-              ),
-              activeIcon: Icon(CustomIcons.relogio),
-            ),
-            BottomNavigationBarItem(
-                icon: Icon(CustomIcons.podiovazio),
-                title: Text(
-                  'Leaderboard',
-                  style: TextStyle(fontSize: 10),
-                ),
-                activeIcon: Icon(CustomIcons.podio)),
-            BottomNavigationBarItem(
-                icon: CircleAvatar(
-                  radius: 16,
-                  backgroundImage: AssetImage('images/abott@adorable.png'),
-                ),
-                title: Text('Perfil')),
+            itemBottomApp(inactiveIcon: CustomIcons.jornalvazio, iconLabel: 'Feed', activeIcon: CustomIcons.jornal),
+            itemBottomApp(inactiveIcon: CustomIcons.amigovazio, iconLabel: 'Plantão Amigo', activeIcon: CustomIcons.amigo),
+            itemBottomApp(inactiveIcon: CustomIcons.relogiovazio, iconLabel: 'MegaPonto', activeIcon: CustomIcons.relogio),
+            itemBottomApp(inactiveIcon: CustomIcons.podiovazio, iconLabel: 'Leaderboard', activeIcon: CustomIcons.podio),
+            profileItemBottomApp(assetPath: 'images/abott@adorable.png', label: 'Perfil'),      
           ]),
       decoration: BoxDecoration(color: Colors.grey[90], boxShadow: [
         BoxShadow(spreadRadius: 3, blurRadius: 0, offset: Offset(2, 3))
       ]),
     );
+  }
+
+  BottomNavigationBarItem itemBottomApp({IconData inactiveIcon, String iconLabel, IconData activeIcon}){
+    return BottomNavigationBarItem(
+                icon: Icon(inactiveIcon),
+                title: Text(
+                  iconLabel,
+                  style: TextStyle(fontSize: 10),
+                ),
+                activeIcon: Icon(activeIcon));
+  }
+
+  BottomNavigationBarItem profileItemBottomApp({String imageUrl, String label, String assetPath}){
+    return BottomNavigationBarItem(
+                    icon: CircleAvatar(
+                      radius: 16,
+                      backgroundImage: imageUrl != null ? Image.network(imageUrl) : AssetImage(assetPath),
+                    ),
+                    title: Text('Perfil'));
   }
 }

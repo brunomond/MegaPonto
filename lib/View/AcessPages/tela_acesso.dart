@@ -32,7 +32,11 @@ class _AccessState extends State<Access> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return Access.selectedItem == 3 ? 
+    Scaffold(
+      body: CriarConta(),
+    )
+    : Scaffold(
         body: Stack(
       children: <Widget>[
         GradientBackground(),

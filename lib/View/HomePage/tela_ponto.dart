@@ -36,11 +36,6 @@ class _PontoState extends State<Ponto> {
       mainAxisAlignment: MainAxisAlignment.spaceAround,
       mainAxisSize: MainAxisSize.max,
       children: [
-        _textOnline(),
-        Divider(
-          height: MediaQuery.of(context).size.height * 0.05,
-          color: Colors.transparent,
-        ),
         _estadoSala(),
         loading
             ? Loading()
@@ -301,26 +296,7 @@ class _PontoState extends State<Ponto> {
         });
   }
 
-  Widget _textOnline() {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: [
-        Container(
-          width: 20,
-          height: 20,
-          decoration: BoxDecoration(
-            color: Color.fromRGBO(0, 255, 0, 1),
-            shape: BoxShape.circle,
-          ),
-        ),
-        Text(
-          ' 5 MegaMembros na sala :)',
-          style: TextStyle(
-              fontSize: 21, color: Colors.black, fontStyle: FontStyle.italic),
-        ),
-      ],
-    );
-  }
+
 
   Widget _estadoSala() {
     return Column(

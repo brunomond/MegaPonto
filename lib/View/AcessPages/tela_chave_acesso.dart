@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:megaponto_oficial/View/AcessPages/tela_acesso.dart';
+import 'package:megaponto_oficial/Resources/Globals.dart';
+import 'package:megaponto_oficial/View/Utils/StdButton.dart';
+import 'package:megaponto_oficial/View/Utils/StdPrefixIcon.dart';
 
 class ChaveAcesso extends StatefulWidget {
   @override
@@ -22,10 +25,7 @@ class _ChaveAcessoState extends State<ChaveAcesso> {
             child: Text(
               "Qual a sua chave de acesso?",
               textAlign: TextAlign.center,
-              style: TextStyle(
-                color: Colors.black87,
-                fontSize: 26,
-              ),
+              style: Globals.textTheme.bodyText1
             ),
           ),
           Padding(
@@ -34,61 +34,20 @@ class _ChaveAcessoState extends State<ChaveAcesso> {
               keyboardType: TextInputType.number,
               decoration: InputDecoration(
                   hintText: 'Chave de Acesso',
-                  hintStyle: TextStyle(color: Colors.grey),
-                  contentPadding:
-                  EdgeInsets.fromLTRB(20, 10, 20, 10),
-                  border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(32)),
-                  prefixIcon: Padding(
-                    padding: EdgeInsets.all(0),
-                    child: Icon(
-                      Icons.check_circle,
-                      color: Colors.grey,
-                    ),
-                  )),
+                  prefixIcon: StdPrefixIcon(iconData: Icons.check_circle)
+                  ).applyDefaults(Globals.inputTheme),
               style: TextStyle(fontSize: 15),
             ),
           ),
-          Padding(
-            padding: const EdgeInsets.only(top: 16),
-            child: Container(
-              height: 60,
-              width: MediaQuery.of(context).size.width * 0.5,
-              alignment: Alignment.centerLeft,
-              decoration: BoxDecoration(
-                  color: Colors.black87,
-                  borderRadius:
-                  BorderRadius.all(Radius.circular(32))),
-              child: SizedBox.expand(
-                child: FlatButton(
-                  onPressed: () => Access.navega(3, context),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: <Widget>[
-                      Text(
-                        "Confirmar",
-                        style: TextStyle(
-                            color: Colors.white, fontSize: 20),
-                      ),
-                    ],
-                  ),
-                ),
-              ),
-            ),
-          ),
-          Container(
-            height: 50,
-            alignment: Alignment.center,
-            child: FlatButton(
+          StdButton(label: 'Confirmar', onPressed: Access.navega(3, context), padding: EdgeInsets.only(top: 16),),
+          Center(
+            child: GestureDetector(
               child: Text(
-                "cancelar",
+                "Cancelar",
                 textAlign: TextAlign.center,
-                style: TextStyle(
-                    color: Colors.grey,
-                    fontSize: 13
-                ),
+                style: Globals.textTheme.overline
               ),
-              onPressed:() => Access.navega(0, context),
+              onTap:() => Access.navega(0, context),
             ),
           ),
         ],

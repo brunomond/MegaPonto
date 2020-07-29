@@ -8,7 +8,13 @@ class ListOnline extends StatelessWidget {
           child: Padding(
             padding: EdgeInsets.only(
                 top: MediaQuery.of(context).size.height * 0.065),
-            child: _listOnline(),
+            child: Column(
+              children: [
+                _listOnline(),
+                _textOnline()
+              ]
+            )
+            
           ),
         );
   }
@@ -60,6 +66,27 @@ Widget _listOnline() {
           )
         ],
       ),
+    );
+  }
+
+    Widget _textOnline() {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        Container(
+          width: 20,
+          height: 20,
+          decoration: BoxDecoration(
+            color: Color.fromRGBO(0, 255, 0, 1),
+            shape: BoxShape.circle,
+          ),
+        ),
+        Text(
+          ' 5 MegaMembros na sala :)',
+          style: TextStyle(
+              fontSize: 21, color: Colors.black, fontStyle: FontStyle.italic),
+        ),
+      ],
     );
   }
 }
