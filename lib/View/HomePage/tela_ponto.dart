@@ -5,7 +5,6 @@ import 'package:megaponto_oficial/presets/custom_icons_icons.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class Ponto extends StatefulWidget {
-  
   final GlobalKey<ScaffoldState> scaffold;
 
   Ponto({this.scaffold});
@@ -39,9 +38,7 @@ class _PontoState extends State<Ponto> {
           height: MediaQuery.of(context).size.height * 0.06,
           color: Colors.transparent,
         ),
-        Expanded(
-          child: _estadoSala(),
-        ),
+        _estadoSala(),
         loading
             ? Loading()
             : started
@@ -310,8 +307,6 @@ class _PontoState extends State<Ponto> {
           );
         });
   }
-
-
 
   Widget _estadoSala() {
     return Column(

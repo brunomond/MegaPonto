@@ -1,25 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:megaponto_oficial/View/Utils/Gradient.dart';
-class ListOnline extends StatelessWidget {
 
+class ListOnline extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GradientBackground(
-          child: Padding(
-            padding: EdgeInsets.only(
-                top: MediaQuery.of(context).size.height * 0.065),
-            child: Column(
-              children: [
-                _listOnline(),
-                _textOnline()
-              ]
-            )
-            
-          ),
-        );
+      child: Padding(
+        padding:
+            EdgeInsets.only(top: MediaQuery.of(context).size.height * 0.065),
+        child: _listOnline(),
+        //_textOnline()
+      ),
+    );
   }
 
-Widget _listOnline() {
+  Widget _listOnline() {
     return ListView(
       scrollDirection: Axis.horizontal,
       children: [
@@ -69,7 +64,7 @@ Widget _listOnline() {
     );
   }
 
-    Widget _textOnline() {
+  Widget _textOnline() {
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
