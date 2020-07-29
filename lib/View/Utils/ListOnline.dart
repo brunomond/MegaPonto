@@ -5,16 +5,22 @@ class ListOnline extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GradientBackground(
-          child: Padding(
-            padding: EdgeInsets.only(
-                top: MediaQuery.of(context).size.height * 0.065),
-            child: _listOnline(),
-                //_textOnline()
-    ),
-        );
+      child: Padding(
+          padding:
+              EdgeInsets.only(top: MediaQuery.of(context).size.height * 0.065),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: [
+              SizedBox(
+                  height: MediaQuery.of(context).size.height * 0.14,
+                  child: _listOnline()),
+              Padding(padding: EdgeInsets.only(top: 8), child: _textOnline())
+            ],
+          )),
+    );
   }
 
-Widget _listOnline() {
+  Widget _listOnline() {
     return ListView(
       scrollDirection: Axis.horizontal,
       children: [
@@ -64,7 +70,7 @@ Widget _listOnline() {
     );
   }
 
-    Widget _textOnline() {
+  Widget _textOnline() {
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
@@ -79,7 +85,7 @@ Widget _listOnline() {
         Text(
           ' 5 MegaMembros na sala :)',
           style: TextStyle(
-              fontSize: 21, color: Colors.black, fontStyle: FontStyle.italic),
+              fontSize: 21, color: Colors.white, fontStyle: FontStyle.italic),
         ),
       ],
     );

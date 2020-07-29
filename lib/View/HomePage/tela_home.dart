@@ -43,7 +43,7 @@ class _HomeState extends State<Home> {
       body: Stack(children: [
         ListOnline(),
         Positioned.fill(
-            top: MediaQuery.of(context).size.height * 0.22,
+            top: MediaQuery.of(context).size.height * 0.27,
             child: Container(
               decoration: BoxDecoration(
                   borderRadius: BorderRadius.only(

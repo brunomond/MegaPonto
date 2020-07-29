@@ -53,6 +53,10 @@ class _PerfilState extends State<Perfil> {
           color: Colors.transparent,
         ),
         _TempoPonto(),
+        Divider(
+          height: MediaQuery.of(context).size.height * 0.02,
+          color: Colors.transparent,
+        )
       ],
     );
   }
@@ -76,32 +80,18 @@ class _PerfilState extends State<Perfil> {
           height: MediaQuery.of(context).size.height * 0.05,
           color: Colors.transparent,
         ),
-        Row(
-          children: <Widget>[
-            Expanded(
-              flex: 1,
-              child: SizedBox(),
-            ),
-            Container(
-              decoration: BoxDecoration(
-                shape: BoxShape.rectangle,
-                border: Border.all(),
-                borderRadius: BorderRadius.circular(10),
-              ),
-              child: Text(
-                estadoPatente,
-                style: TextStyle(fontSize: 16, fontStyle: FontStyle.italic),
-              ),
-            ),
-            Expanded(
-                flex: 1,
-                child: FlatButton(
-                  onPressed: () {
-                    PatentePopUp(context);
-                  },
-                  child: Icon(Icons.edit),
-                )),
-          ],
+        Container(
+          width: MediaQuery.of(context).size.width * 0.4,
+          decoration: BoxDecoration(
+            shape: BoxShape.rectangle,
+            border: Border.all(),
+            borderRadius: BorderRadius.circular(8),
+          ),
+          child: Text(
+            estadoPatente,
+            style: TextStyle(fontSize: 16, fontStyle: FontStyle.italic),
+            textAlign: TextAlign.center,
+          ),
         ),
       ],
     );
@@ -142,88 +132,5 @@ class _PerfilState extends State<Perfil> {
         ),
       ],
     );
-  }
-
-  PatentePopUp(BuildContext context) {
-    return showDialog(
-        context: context,
-        builder: (context) {
-          return AlertDialog(
-            shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.all(Radius.circular(24))),
-            title: Text("Ateração de Patente",
-                style: TextStyle(color: Colors.white)),
-            backgroundColor: Color.fromRGBO(143, 58, 56, 1),
-            elevation: 8,
-            content: Column(
-              mainAxisSize: MainAxisSize.min,
-              children: <Widget>[
-                FlatButton(
-                  child: Text("Megariano Bronze", style: TextStyle(color: Colors.white)),
-                  onPressed: (){
-                    alterarPatente(1);
-                    Navigator.pop(context);},
-                ),
-                FlatButton(
-                  child: Text("Megariano Prata", style: TextStyle(color: Colors.white)),
-                  onPressed: (){
-                    alterarPatente(2);
-                    Navigator.pop(context);},
-                ),
-                FlatButton(
-                  child: Text("Megariano Ouro", style: TextStyle(color: Colors.white)),
-                  onPressed: (){
-                    alterarPatente(3);
-                    Navigator.pop(context);},
-                ),
-                FlatButton(
-                  child: Text("Megariano Platina", style: TextStyle(color: Colors.white)),
-                  onPressed: (){
-                    alterarPatente(4);
-                    Navigator.pop(context);},
-                ),
-                FlatButton(
-                  child: Text("Megariano Diamante", style: TextStyle(color: Colors.white)),
-                  onPressed: (){
-                    alterarPatente(5);
-                    Navigator.pop(context);
-                  },
-                ),
-                FlatButton(
-                  child: Text("Megariano Mega", style: TextStyle(color: Colors.white)),
-                  onPressed: (){
-                    alterarPatente(6);
-                    Navigator.pop(context);
-                  },
-                ),
-              ],
-            ),
-          );
-        });
-  }
-
-  void alterarPatente(int value){
-    setState(() {
-      switch (value){
-        case 1:
-          estadoPatente = "Megariano Bronze";
-          break;
-        case 2:
-          estadoPatente = "Megariano Prata";
-          break;
-        case 3:
-          estadoPatente = "Megariano Ouro";
-          break;
-        case 4:
-          estadoPatente = "Megariano Platina";
-          break;
-        case 5:
-          estadoPatente = "Megariano Diamante";
-          break;
-        case 6:
-          estadoPatente = "Megariano Mega";
-          break;
-      }
-    });
   }
 }

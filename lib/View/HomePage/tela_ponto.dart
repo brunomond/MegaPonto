@@ -1,11 +1,13 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:megaponto_oficial/Controller/EstadoSalaController.dart';
+import 'package:megaponto_oficial/Resources/EstadoSalaEnum.dart';
 import 'package:megaponto_oficial/View/Utils/Loading.dart';
 import 'package:intl/intl.dart';
 import 'package:megaponto_oficial/presets/custom_icons_icons.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class Ponto extends StatefulWidget {
-  
   final GlobalKey<ScaffoldState> scaffold;
 
   Ponto({this.scaffold});
@@ -15,10 +17,12 @@ class Ponto extends StatefulWidget {
 }
 
 class _PontoState extends State<Ponto> {
+  EstadoSalaController estadoSalaController = EstadoSalaController();
+
   TextStyle _botaoStyle = TextStyle(color: Colors.white, fontSize: 20);
   bool started = false;
   bool loading = true;
-  String estadoSala = "Clima normal de trabalho";
+  EstadoSalaEnum estadoSala = EstadoSalaEnum.NORMAL;
   IconData icon = CustomIcons.clima_normal;
   String horas = "14:00";
 
@@ -33,14 +37,15 @@ class _PontoState extends State<Ponto> {
   @override
   Widget build(BuildContext context) {
     return Column(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
         Divider(
           height: MediaQuery.of(context).size.height * 0.06,
           color: Colors.transparent,
         ),
-        Expanded(
-          child: _estadoSala(),
+        _estadoSala(),
+        Divider(
+          height: MediaQuery.of(context).size.height * 0.06,
+          color: Colors.transparent,
         ),
         loading
             ? Loading()
@@ -199,7 +204,8 @@ class _PontoState extends State<Ponto> {
                         ),
                       ),
                       onTap: () {
-                        alterarSala(1);
+                        estadoSalaController
+                            .alterarEstadoSala(EstadoSalaEnum.NORMAL);
                         Navigator.pop(context);
                       },
                     ),
@@ -250,7 +256,8 @@ class _PontoState extends State<Ponto> {
                         ),
                       ),
                       onTap: () {
-                        alterarSala(2);
+                        estadoSalaController
+                            .alterarEstadoSala(EstadoSalaEnum.REUNIAODIRETORIA);
                         Navigator.pop(context);
                       },
                     ),
@@ -300,8 +307,12 @@ class _PontoState extends State<Ponto> {
                           ],
                         ),
                       ),
-                      onTap: () {
-                        alterarSala(3);
+                      onTap: () async {
+                        EstadoSalaEnum estadoSalaEnum =
+                            await estadoSalaController.alterarEstadoSala(
+                                EstadoSalaEnum.REUNIAOCLIENTE);
+
+                        setState(() {});
                         Navigator.pop(context);
                       },
                     ),
@@ -310,8 +321,6 @@ class _PontoState extends State<Ponto> {
           );
         });
   }
-
-
 
   Widget _estadoSala() {
     return Column(
@@ -347,7 +356,7 @@ class _PontoState extends State<Ponto> {
                   Expanded(
                     flex: 4,
                     child: Text(
-                      estadoSala,
+                      estadoSala.valueString,
                       style: TextStyle(
                           fontSize: 21,
                           fontStyle: FontStyle.italic,
@@ -410,26 +419,6 @@ class _PontoState extends State<Ponto> {
    * --------------------------------------------- FUNCTIONS ------------------------------------------------------- 
    * ---------------------------------------------------------------------------------------------------------------
    */
-
-  //APegar estado da sala
-  void alterarSala(int value) {
-    setState(() {
-      switch (value) {
-        case 1:
-          estadoSala = "Clima normal de trabalho";
-          icon = CustomIcons.clima_normal;
-          break;
-        case 2:
-          estadoSala = "Reunião da Diretoria";
-          icon = CustomIcons.diretoria;
-          break;
-        case 3:
-          estadoSala = "Reunião com Cliente";
-          icon = CustomIcons.cliente;
-          break;
-      }
-    });
-  }
 
   //Carregar dados da SharedPreferences
   void _start() async {

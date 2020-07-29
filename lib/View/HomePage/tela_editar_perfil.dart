@@ -20,108 +20,105 @@ class _EditarPerfilState extends State<EditarPerfil> {
       body: LayoutBuilder(
           builder: (BuildContext context, BoxConstraints viewportConstraints) {
         return SingleChildScrollView(
-          child: ConstrainedBox(
-            constraints: BoxConstraints(
-              minHeight: viewportConstraints.maxHeight,
-            ),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
-              children: <Widget>[
-                SizedBox(
-                    width: 128,
-                    height: 128,
-                    child: CircleAvatar(
-                      radius: 50,
-                      backgroundImage: AssetImage('images/abott@adorable.png'),
-                    )),
-                InkWell(
-                  onTap: () {
-                    AlterarFotoPopUp(context);
-                  },
-                  child: Text(
-                    "Alterar foto de perfil",
-                    style: TextStyle(
-                        color: Color.fromRGBO(199, 59, 35, 1), fontSize: 20),
-                  ),
-                ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: <Widget>[
-                    Container(
-                      width: MediaQuery.of(context).size.width * 0.8,
-                      child: TextField(
-                        decoration: InputDecoration(labelText: "Nome"),
-                      ),
-                    ),
-                  ],
-                ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: <Widget>[
-                    Container(
-                      width: MediaQuery.of(context).size.width * 0.8,
-                      child: TextField(
-                        decoration: InputDecoration(labelText: "Apelido"),
-                      ),
-                    ),
-                  ],
-                ),
-                Divider(),
-                Text(
-                  "Informações do perfil",
+          child: Column(
+            children: <Widget>[
+              _Espacamento(),
+              SizedBox(
+                  width: 128,
+                  height: 128,
+                  child: CircleAvatar(
+                    radius: 50,
+                    backgroundImage: AssetImage('images/abott@adorable.png'),
+                  )),
+              InkWell(
+                onTap: () {
+                  AlterarFotoPopUp(context);
+                },
+                child: Text(
+                  "Alterar foto de perfil",
                   style: TextStyle(
-                    fontSize: 20,
-                  ),
+                      color: Color.fromRGBO(199, 59, 35, 1), fontSize: 20),
                 ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: <Widget>[
-                    SizedBox(
-                      width: 15,
+              ),
+              _Espacamento(),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: <Widget>[
+                  Container(
+                    width: MediaQuery.of(context).size.width * 0.8,
+                    child: TextField(
+                      decoration: InputDecoration(labelText: "Nome"),
                     ),
-                    Container(
+                  ),
+                ],
+              ),
+              _Espacamento(),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: <Widget>[
+                  Container(
+                    width: MediaQuery.of(context).size.width * 0.8,
+                    child: TextField(
+                      decoration: InputDecoration(labelText: "Apelido"),
+                    ),
+                  ),
+                ],
+              ),
+              Divider(
+                height: MediaQuery.of(context).size.height * 0.08,
+              ),
+              Text(
+                "Informações do perfil",
+                style: TextStyle(
+                  fontSize: 20,
+                ),
+              ),
+              _Espacamento(),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: <Widget>[
+                  SizedBox(
+                    width: 15,
+                  ),
+                  GestureDetector(
+                    child: Container(
                       width: MediaQuery.of(context).size.width * 0.8,
                       child: TextField(
                         decoration:
                             InputDecoration(labelText: "Endereço de Email"),
                       ),
                     ),
-                    InkWell(
-                      child: Icon(Icons.edit),
-                    )
-                  ],
-                ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: <Widget>[
-                    SizedBox(
-                      width: 15,
+                  ),
+                ],
+              ),
+              _Espacamento(),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: <Widget>[
+                  SizedBox(
+                    width: 15,
+                  ),
+                  Container(
+                    width: MediaQuery.of(context).size.width * 0.8,
+                    child: TextField(
+                      decoration: InputDecoration(labelText: "Senha"),
                     ),
-                    Container(
-                      width: MediaQuery.of(context).size.width * 0.8,
-                      child: TextField(
-                        decoration: InputDecoration(labelText: "Senha"),
-                      ),
-                    ),
-                    InkWell(
-                      child: Icon(Icons.edit),
-                    )
-                  ],
-                ),
-                SizedBox(height: 16),
-                Container(
-                    width: 200,
-                    height: 55,
-                    decoration: BoxDecoration(
-                        color: Color.fromRGBO(143, 58, 56, 1),
-                        borderRadius: BorderRadius.all(Radius.circular(26))),
-                    child: FlatButton(
-                      child: Text("Concluir",
-                          style: TextStyle(color: Colors.white, fontSize: 20)),
-                      onPressed: () {},
-                    )),
-              ],
-            ),
+                  ),
+                ],
+              ),
+              _Espacamento(),
+              Container(
+                  width: 200,
+                  height: 55,
+                  decoration: BoxDecoration(
+                      color: Color.fromRGBO(143, 58, 56, 1),
+                      borderRadius: BorderRadius.all(Radius.circular(26))),
+                  child: FlatButton(
+                    child: Text("Concluir",
+                        style: TextStyle(color: Colors.white, fontSize: 20)),
+                    onPressed: () {},
+                  )),
+            ],
           ),
         );
       }),
@@ -158,5 +155,11 @@ class _EditarPerfilState extends State<EditarPerfil> {
                 ],
               ));
         });
+  }
+
+  Widget _Espacamento() {
+    return SizedBox(
+      height: MediaQuery.of(context).size.height * 0.04,
+    );
   }
 }
