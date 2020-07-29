@@ -12,7 +12,6 @@ class Login extends StatefulWidget {
 }
 
 class _LoginState extends State<Login> {
-
   LoginController controller = new LoginController();
   Usuario usuario = new Usuario();
   bool isPasswordVisible;
@@ -37,48 +36,51 @@ class _LoginState extends State<Login> {
                 height: MediaQuery.of(context).size.width * 0.5,
                 child: Image.asset("images/logo_mega_simbolo.png")),
             TextFormField(
-              keyboardType: TextInputType.emailAddress,
-              onSaved: (value) => usuario.email = value,
-              validator: (value) => value != null ? null : 'Insira um email!',
-              decoration: InputDecoration(
-                  hintText: 'E-mail',
-                  prefixIcon: StdPrefixIcon(iconData: Icons.email,)
-                  ).applyDefaults(Globals.inputTheme)
-            ),
+                keyboardType: TextInputType.emailAddress,
+                onSaved: (value) => usuario.email = value,
+                validator: (value) => value != null ? null : 'Insira um email!',
+                decoration: InputDecoration(
+                    hintText: 'E-mail',
+                    prefixIcon: StdPrefixIcon(
+                      iconData: Icons.email,
+                    )).applyDefaults(Globals.inputTheme)),
             Padding(
               padding: const EdgeInsets.only(top: 16.0),
               child: TextFormField(
                 keyboardType: TextInputType.text,
                 obscureText: !isPasswordVisible,
                 onSaved: (value) => controller.senha = value,
-                validator: (value) => value != null ? null : 'Insira uma senha!',
+                validator: (value) =>
+                    value != null ? null : 'Insira uma senha!',
                 decoration: InputDecoration(
                     hintText: 'Senha',
-                   suffixIcon: IconButton(
-                      icon: Icon(isPasswordVisible ? Icons.visibility : Icons.visibility_off
-                      ),
+                    suffixIcon: IconButton(
+                      icon: Icon(isPasswordVisible
+                          ? Icons.visibility
+                          : Icons.visibility_off),
                       onPressed: _trocarVisibilidadeSenha,
                     ),
-                    prefixIcon: StdPrefixIcon(iconData: Icons.vpn_key,)
-                    ).applyDefaults(Globals.inputTheme),
+                    prefixIcon: StdPrefixIcon(
+                      iconData: Icons.vpn_key,
+                    )).applyDefaults(Globals.inputTheme),
                 style: TextStyle(fontSize: 15),
               ),
             ),
             Center(
               child: GestureDetector(
-                child: Text(
-                  "Esqueci minha senha",
-                  textAlign: TextAlign.right,
-                  style: Globals.textTheme.overline
-                ),
-                onTap: () => Access.navega(2, context), 
+                child: Text("Esqueci minha senha",
+                    textAlign: TextAlign.right,
+                    style: Globals.textTheme.overline),
+                onTap: () => Access.navega(2, context),
               ),
             ),
-            StdButton(padding: EdgeInsets.only(top: 24),
-                      label: 'Entrar', 
-                      onPressed: () async =>
-                        await controller.doLogin(usuario) ?
-                        Navigator.of(context).popAndPushNamed('/home') : print('Login Falhou'),),
+            StdButton(
+              padding: EdgeInsets.only(top: 24),
+              label: 'Entrar',
+              onPressed: () async => await controller.doLogin(usuario)
+                  ? Navigator.of(context).popAndPushNamed('/home')
+                  : print('Login Falhou'),
+            ),
             Center(
               child: GestureDetector(
                 child: Text(
@@ -90,11 +92,10 @@ class _LoginState extends State<Login> {
               ),
             )
           ],
-        )
-      );
+        ));
   }
 
-    void _trocarVisibilidadeSenha(){
-      setState(() => isPasswordVisible = !isPasswordVisible);
+  void _trocarVisibilidadeSenha() {
+    setState(() => isPasswordVisible = !isPasswordVisible);
   }
 }

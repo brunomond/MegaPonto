@@ -47,7 +47,7 @@ class _PerfilState extends State<Perfil> {
             )
           ],
         ),
-        _Identificacao(),
+        _identificacao(),
         Divider(
           height: MediaQuery.of(context).size.height * 0.05,
           color: Colors.transparent,
@@ -57,7 +57,7 @@ class _PerfilState extends State<Perfil> {
     );
   }
 
-  Widget _Identificacao() {
+  Widget _identificacao() {
     return Column(
       children: <Widget>[
         Text(
@@ -159,39 +159,49 @@ class _PerfilState extends State<Perfil> {
               mainAxisSize: MainAxisSize.min,
               children: <Widget>[
                 FlatButton(
-                  child: Text("Megariano Bronze", style: TextStyle(color: Colors.white)),
-                  onPressed: (){
+                  child: Text("Megariano Bronze",
+                      style: TextStyle(color: Colors.white)),
+                  onPressed: () {
                     alterarPatente(1);
-                    Navigator.pop(context);},
+                    Navigator.pop(context);
+                  },
                 ),
                 FlatButton(
-                  child: Text("Megariano Prata", style: TextStyle(color: Colors.white)),
-                  onPressed: (){
+                  child: Text("Megariano Prata",
+                      style: TextStyle(color: Colors.white)),
+                  onPressed: () {
                     alterarPatente(2);
-                    Navigator.pop(context);},
+                    Navigator.pop(context);
+                  },
                 ),
                 FlatButton(
-                  child: Text("Megariano Ouro", style: TextStyle(color: Colors.white)),
-                  onPressed: (){
+                  child: Text("Megariano Ouro",
+                      style: TextStyle(color: Colors.white)),
+                  onPressed: () {
                     alterarPatente(3);
-                    Navigator.pop(context);},
+                    Navigator.pop(context);
+                  },
                 ),
                 FlatButton(
-                  child: Text("Megariano Platina", style: TextStyle(color: Colors.white)),
-                  onPressed: (){
+                  child: Text("Megariano Platina",
+                      style: TextStyle(color: Colors.white)),
+                  onPressed: () {
                     alterarPatente(4);
-                    Navigator.pop(context);},
+                    Navigator.pop(context);
+                  },
                 ),
                 FlatButton(
-                  child: Text("Megariano Diamante", style: TextStyle(color: Colors.white)),
-                  onPressed: (){
+                  child: Text("Megariano Diamante",
+                      style: TextStyle(color: Colors.white)),
+                  onPressed: () {
                     alterarPatente(5);
                     Navigator.pop(context);
                   },
                 ),
                 FlatButton(
-                  child: Text("Megariano Mega", style: TextStyle(color: Colors.white)),
-                  onPressed: (){
+                  child: Text("Megariano Mega",
+                      style: TextStyle(color: Colors.white)),
+                  onPressed: () {
                     alterarPatente(6);
                     Navigator.pop(context);
                   },
@@ -202,9 +212,9 @@ class _PerfilState extends State<Perfil> {
         });
   }
 
-  void alterarPatente(int value){
+  void alterarPatente(int value) {
     setState(() {
-      switch (value){
+      switch (value) {
         case 1:
           estadoPatente = "Megariano Bronze";
           break;

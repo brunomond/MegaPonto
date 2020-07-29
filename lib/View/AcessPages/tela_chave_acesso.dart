@@ -22,32 +22,32 @@ class _ChaveAcessoState extends State<ChaveAcesso> {
           ),
           Padding(
             padding: const EdgeInsets.only(top: 16.0),
-            child: Text(
-              "Qual a sua chave de acesso?",
-              textAlign: TextAlign.center,
-              style: Globals.textTheme.bodyText1
-            ),
+            child: Text("Qual a sua chave de acesso?",
+                textAlign: TextAlign.center,
+                style: Globals.textTheme.bodyText1),
           ),
           Padding(
             padding: const EdgeInsets.only(top: 24.0),
             child: TextFormField(
               keyboardType: TextInputType.number,
               decoration: InputDecoration(
-                  hintText: 'Chave de Acesso',
-                  prefixIcon: StdPrefixIcon(iconData: Icons.check_circle)
-                  ).applyDefaults(Globals.inputTheme),
+                      hintText: 'Chave de Acesso',
+                      prefixIcon: StdPrefixIcon(iconData: Icons.check_circle))
+                  .applyDefaults(Globals.inputTheme),
               style: TextStyle(fontSize: 15),
             ),
           ),
-          StdButton(label: 'Confirmar', onPressed: Access.navega(3, context), padding: EdgeInsets.only(top: 16),),
+          StdButton(
+            label: 'Confirmar',
+            onPressed: () => Access.navega(3, context),
+            padding: EdgeInsets.only(top: 16),
+          ),
           Center(
             child: GestureDetector(
-              child: Text(
-                "Cancelar",
-                textAlign: TextAlign.center,
-                style: Globals.textTheme.overline
-              ),
-              onTap:() => Access.navega(0, context),
+              child: Text("Cancelar",
+                  textAlign: TextAlign.center,
+                  style: Globals.textTheme.overline),
+              onTap: () => Access.navega(0, context),
             ),
           ),
         ],

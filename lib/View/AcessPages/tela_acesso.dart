@@ -32,30 +32,30 @@ class _AccessState extends State<Access> {
 
   @override
   Widget build(BuildContext context) {
-    return Access.selectedItem == 3 ? 
-    Scaffold(
-      body: CriarConta(),
-    )
-    : Scaffold(
-        body: Stack(
-      children: <Widget>[
-        GradientBackground(),
-        Positioned.fill(
-            top: MediaQuery.of(context).size.height * 0.15,
-            child: Container(
-              decoration: BoxDecoration(
-                  borderRadius: BorderRadius.only(
-                      topLeft: const Radius.circular(60.0),
-                      topRight: const Radius.circular(60.0)),
-                  color: Colors.white),
-              child: SingleChildScrollView(
-                padding: EdgeInsets.fromLTRB(16, 32, 16, 0),
-                scrollDirection: Axis.vertical,
-                child: _telas[Access.selectedItem ?? 0],
-              ),
-            )),
-      ],
-    ));
+    return Access.selectedItem == 3
+        ? Scaffold(
+            body: _telas[Access.selectedItem],
+          )
+        : Scaffold(
+            body: Stack(
+            children: <Widget>[
+              GradientBackground(),
+              Positioned.fill(
+                  top: MediaQuery.of(context).size.height * 0.15,
+                  child: Container(
+                    decoration: BoxDecoration(
+                        borderRadius: BorderRadius.only(
+                            topLeft: const Radius.circular(60.0),
+                            topRight: const Radius.circular(60.0)),
+                        color: Colors.white),
+                    child: SingleChildScrollView(
+                      padding: EdgeInsets.fromLTRB(16, 32, 16, 0),
+                      scrollDirection: Axis.vertical,
+                      child: _telas[Access.selectedItem ?? 0],
+                    ),
+                  )),
+            ],
+          ));
   }
 
   void trocarTelaAcesso(int index) {
