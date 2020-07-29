@@ -8,14 +8,9 @@ class ListOnline extends StatelessWidget {
           child: Padding(
             padding: EdgeInsets.only(
                 top: MediaQuery.of(context).size.height * 0.065),
-            child: Column(
-              children: [
-                _listOnline(),
-                _textOnline()
-              ]
-            )
-            
-          ),
+            child: _listOnline(),
+                //_textOnline()
+    ),
         );
   }
 
