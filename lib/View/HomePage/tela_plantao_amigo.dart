@@ -19,7 +19,7 @@ class _PlantaoAmigoState extends State<PlantaoAmigo> {
   void initState() {
     super.initState();
     setState(() {
-      _inserirFuncionariosOnline();
+      inserirFuncionarios();
     });
   }
 
@@ -51,9 +51,43 @@ class _PlantaoAmigoState extends State<PlantaoAmigo> {
     );
   }
 
+  //Pop-Ups
+  confirmPopUp(Usuario user, BuildContext context) {
+    return showDialog(
+        context: context,
+        builder: (context) {
+          return AlertDialog(
+              shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.all(Radius.circular(24))),
+              backgroundColor: Color.fromRGBO(143, 58, 56, 1),
+              content: user.online
+                  ? Text('Deseja finalizar o plantão do(a) ' + user.nome + ' ?',
+                      style: TextStyle(color: Colors.white))
+                  : Text('Deseja iniciar o plantão do(a) ' + user.nome + ' ?',
+                      style: TextStyle(color: Colors.white)),
+              actions: <Widget>[
+                FlatButton(
+                  child: Text("Cancelar",
+                      style: TextStyle(color: Colors.white, fontSize: 18)),
+                  onPressed: () {
+                    Navigator.of(context).pop();
+                  },
+                ),
+                FlatButton(
+                  child: Text("Sim",
+                      style: TextStyle(color: Colors.white, fontSize: 18)),
+                  onPressed: () {
+                    _alterarStatusFun(user);
+                    Navigator.of(context).pop();
+                  },
+                )
+              ]);
+        });
+  }
+
   Widget _listMembros(BuildContext context, int index, List lista) {
     return Padding(
-        padding: EdgeInsets.fromLTRB(25, 5, 25, 10),
+        padding: EdgeInsets.fromLTRB(25, 5, 25, 0),
         child: Card(
             shape: RoundedRectangleBorder(
               side: BorderSide(color: Colors.grey[300], width: 1.5),
@@ -85,10 +119,14 @@ class _PlantaoAmigoState extends State<PlantaoAmigo> {
                     ],
                   ),
                   GestureDetector(
-                      child: Online(
-                          online: lista[index].online, width: 20, heigth: 20),
+                      behavior: HitTestBehavior.opaque,
+                      child: Padding(
+                        padding: EdgeInsets.fromLTRB(15, 15, 15, 15),
+                        child: Online(
+                            online: lista[index].online, width: 20, heigth: 20),
+                      ),
                       onTap: () {
-                        _alterarStatusFun(lista[index]);
+                        confirmPopUp(lista[index], context);
                       }),
                 ],
               ),
@@ -165,7 +203,7 @@ class _PlantaoAmigoState extends State<PlantaoAmigo> {
     return "${twoDigits(duration.inHours)}:$twoDigitMinutes:$twoDigitSeconds";
   }
 
-  void _inserirFuncionariosOnline() {
+  void inserirFuncionarios() {
     Usuario fun1 = Usuario();
     fun1.id = 1;
     fun1.nome = "Bruno Monteiro";
@@ -190,25 +228,25 @@ class _PlantaoAmigoState extends State<PlantaoAmigo> {
 
     Usuario fun4 = Usuario();
     fun4.id = 4;
-    fun4.nome = "Bruno Monteiro";
+    fun4.nome = "Kamylla Nogueira";
     fun4.online = false;
-    fun4.imgUrl = "https://api.adorable.io/avatars/206/abott@exaust.io";
+    fun4.imgUrl = "https://api.adorable.io/avatars/206/abott@woman.io";
     listFuncionarios.add(fun4);
 
     Usuario fun5 = Usuario();
     fun5.id = 5;
 
-    fun5.nome = "Jefferson Henrique";
+    fun5.nome = "Gabriel Martinez";
     fun5.online = false;
     fun5.imgUrl =
-        "https://api.adorable.io/avatars/283/abott@adorable.pngCopy to Clipboard";
+        "https://api.adorable.io/avatars/283/abott@power.pngCopy to Clipboard";
     listFuncionarios.add(fun5);
 
     Usuario fun6 = Usuario();
     fun6.id = 6;
-    fun6.nome = "José Kazuo";
+    fun6.nome = "João Victor";
     fun6.online = false;
-    fun6.imgUrl = "https://api.adorable.io/avatars/285/abott@adorable.png";
+    fun6.imgUrl = "https://api.adorable.io/avatars/285/abott@ocuped.png";
     listFuncionarios.add(fun6);
   }
 }
