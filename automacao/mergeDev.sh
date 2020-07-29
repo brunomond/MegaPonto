@@ -18,3 +18,5 @@ git merge origin/bruno
 git mergetool
 git add .
 git commit -m'merge dev 3/3'
+echo '------------------ FIM DO MERGE ----------------------'
+git push origin dev
