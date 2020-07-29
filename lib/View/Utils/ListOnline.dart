@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:megaponto_oficial/View/Utils/Gradient.dart';
-
 class ListOnline extends StatelessWidget {
+
   @override
   Widget build(BuildContext context) {
     return GradientBackground(
