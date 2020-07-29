@@ -26,8 +26,8 @@ class LoginController {
     if (parsedJson['error'] != null) return false;
 
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    prefs.setString(parsedJson['token'], response.body);
-    prefs.setString('loginAuth', parsedJson['token']);
+    prefs.setString(parsedJson['user']['token'], response.body);
+    prefs.setString('loginAuth', parsedJson['user']['token']);
 
     return prefs.get('loginAuth') != null;
   }
