@@ -81,6 +81,13 @@ flutter:
      - family: CustomIcons
        fonts:
          - asset: icons/CustomIcons.ttf
+
+     - family: Segoe UI
+       fonts:
+         - asset: fonts/Segoe UI.ttf
+         - asset: fonts/Segoe UI Bold.ttf
+         - asset: fonts/Segoe UI Bold Italic.ttf
+         - asset: fonts/Segoe UI Italic.ttf
   #
   # For details regarding fonts from package dependencies,
   # see https://flutter.dev/custom-fonts/#from-packages

@@ -5,7 +5,6 @@ import 'package:megaponto_oficial/presets/custom_icons_icons.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class Ponto extends StatefulWidget {
-  
   final GlobalKey<ScaffoldState> scaffold;
 
   Ponto({this.scaffold});
@@ -33,15 +32,15 @@ class _PontoState extends State<Ponto> {
   @override
   Widget build(BuildContext context) {
     return Column(
-      mainAxisAlignment: MainAxisAlignment.spaceAround,
-      mainAxisSize: MainAxisSize.max,
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
-        _textOnline(),
         Divider(
-          height: MediaQuery.of(context).size.height * 0.05,
+          height: MediaQuery.of(context).size.height * 0.06,
           color: Colors.transparent,
         ),
-        _estadoSala(),
+        Expanded(
+          child: _estadoSala(),
+        ),
         loading
             ? Loading()
             : started
@@ -61,37 +60,47 @@ class _PontoState extends State<Ponto> {
   //Iniciar / Fechar Plantão
   Widget _infoPlantao(String textLabel, String textTitle, String textButton,
       Function onPressed) {
-    return Center(
-      child: Column(
-        children: [
-          Container(
-            padding: EdgeInsets.only(top: 50),
-            child: Text(
-              textLabel,
-              style: TextStyle(fontSize: 20, fontStyle: FontStyle.italic),
+    return Expanded(
+      child: Center(
+        child: Column(
+          children: [
+            Container(
+              padding: EdgeInsets.only(top: 20),
+              child: Text(
+                textLabel,
+                style: TextStyle(
+                    fontSize: 21,
+                    fontStyle: FontStyle.italic,
+                    fontWeight: FontWeight.w400,
+                    fontFamily: 'Segoe UI'),
+              ),
             ),
-          ),
-          Container(
-            padding: EdgeInsets.only(top: 10),
-            child: Text(
-              textTitle,
-              style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
+            Container(
+              padding: EdgeInsets.only(top: 15),
+              child: Text(
+                textTitle,
+                style: TextStyle(
+                    fontSize: 24,
+                    fontWeight: FontWeight.bold,
+                    fontFamily: 'Segoe UI'),
+              ),
             ),
-          ),
-          Divider(
-            color: Colors.transparent,
-          ),
-          Container(
-              width: 200,
-              height: 55,
-              decoration: BoxDecoration(
-                  color: Color.fromRGBO(143, 58, 56, 1),
-                  borderRadius: BorderRadius.all(Radius.circular(26))),
-              child: FlatButton(
-                child: Text(textButton, style: _botaoStyle),
-                onPressed: () async => onPressed(),
-              )),
-        ],
+            Divider(
+              color: Colors.transparent,
+              height: 20,
+            ),
+            Container(
+                width: 200,
+                height: 55,
+                decoration: BoxDecoration(
+                    color: Color.fromRGBO(143, 58, 56, 1),
+                    borderRadius: BorderRadius.all(Radius.circular(26))),
+                child: FlatButton(
+                  child: Text(textButton, style: _botaoStyle),
+                  onPressed: () async => onPressed(),
+                )),
+          ],
+        ),
       ),
     );
   }
@@ -324,82 +333,93 @@ class _PontoState extends State<Ponto> {
 
   Widget _estadoSala() {
     return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        InkWell(
-          onTap: () {
-            createEstadoSalaPopUp(context);
-          },
-          child: Row(
-              crossAxisAlignment: CrossAxisAlignment.center,
-              mainAxisAlignment: MainAxisAlignment.center,
-              mainAxisSize: MainAxisSize.max,
-              children: [
-                Expanded(
-                  flex: 1,
-                  child: Icon(
-                    icon,
-                    size: 30,
-                  ),
-                ),
-                Expanded(
-                  flex: 4,
-                  child: Container(
-                    padding: EdgeInsets.fromLTRB(10, 0, 8, 0),
-                    child: Text(
-                      estadoSala,
-                      style:
-                          TextStyle(fontSize: 22, fontStyle: FontStyle.italic),
+        Padding(
+          padding: EdgeInsets.only(left: 25),
+          child: Text(
+            "Condições de trabalho:",
+            style: TextStyle(
+                fontSize: 20,
+                fontStyle: FontStyle.italic,
+                fontWeight: FontWeight.w400,
+                fontFamily: 'Segoe UI'),
+          ),
+        ),
+        Padding(
+          padding: EdgeInsets.fromLTRB(20, 40, 20, 10),
+          child: InkWell(
+            onTap: () {
+              createEstadoSalaPopUp(context);
+            },
+            child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Expanded(
+                    flex: 1,
+                    child: Icon(
+                      icon,
+                      size: 30,
                     ),
                   ),
-                ),
-                Expanded(
-                  flex: 1,
-                  child: Icon(
-                    Icons.expand_more,
-                    size: 32,
-                  ),
-                ),
-              ]),
-        ),
-        SizedBox(
-          height: MediaQuery.of(context).size.height * 0.04,
-        ),
-        InkWell(
-          child: Row(
-              crossAxisAlignment: CrossAxisAlignment.center,
-              mainAxisAlignment: MainAxisAlignment.start,
-              mainAxisSize: MainAxisSize.max,
-              children: [
-                Expanded(
-                  flex: 1,
-                  child: Icon(
-                    CustomIcons.cafe,
-                    size: 30,
-                  ),
-                ),
-                Expanded(
+                  Expanded(
                     flex: 4,
-                    child: Container(
-                      child: Text(
-                        'Café feito às $horas de hoje',
-                        style: TextStyle(
-                            fontSize: 21, fontStyle: FontStyle.italic),
-                      ),
-                      padding: EdgeInsets.fromLTRB(10, 0, 8, 0),
-                    )),
-                Expanded(
-                  flex: 1,
-                  child: Icon(
-                    Icons.expand_more,
-                    size: 32,
+                    child: Text(
+                      estadoSala,
+                      style: TextStyle(
+                          fontSize: 21,
+                          fontStyle: FontStyle.italic,
+                          fontWeight: FontWeight.w400,
+                          fontFamily: 'Segoe UI'),
+                    ),
                   ),
-                ),
-              ]),
-          onTap: () {
-            createCoffeePopUp(context);
-          },
-
+                  Expanded(
+                    flex: 1,
+                    child: Icon(
+                      Icons.expand_more,
+                      size: 32,
+                    ),
+                  )
+                ]),
+          ),
         ),
+        Padding(
+          padding: EdgeInsets.fromLTRB(20, 20, 20, 0),
+          child: InkWell(
+            child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Expanded(
+                    flex: 1,
+                    child: Icon(
+                      CustomIcons.cafe,
+                      size: 30,
+                    ),
+                  ),
+                  Expanded(
+                    flex: 4,
+                    child: Text(
+                      'Café feito às $horas de hoje',
+                      style: TextStyle(
+                          fontSize: 21,
+                          fontStyle: FontStyle.italic,
+                          fontWeight: FontWeight.w400,
+                          fontFamily: 'Segoe UI'),
+                    ),
+                  ),
+                  Expanded(
+                    flex: 1,
+                    child: Icon(
+                      Icons.expand_more,
+                      size: 32,
+                    ),
+                  )
+                ]),
+            onTap: () {
+              createCoffeePopUp(context);
+            },
+          ),
+        )
       ],
     );
   }

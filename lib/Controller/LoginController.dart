@@ -5,7 +5,7 @@ import 'package:megaponto_oficial/Model/Usuario.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 //Constantes
-const String URL_LOGIN = 'https://paineljunior.com.br/api/login';
+const String URL_LOGIN = 'https://paineljunior.com.br/api/login.json';
 
 class LoginController {
   String senha;
@@ -23,11 +23,11 @@ class LoginController {
 
     Map parsedJson = json.decode(response.body);
 
-    if (parsedJson['error'] != null) return false;
+    if (response.statusCode == 401) return false;
 
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    prefs.setString(parsedJson['token'], response.body);
-    prefs.setString('loginAuth', parsedJson['token']);
+    prefs.setString(parsedJson['user']['token'], response.body);
+    prefs.setString('loginAuth', parsedJson['user']['token']);
 
     return prefs.get('loginAuth') != null;
   }
