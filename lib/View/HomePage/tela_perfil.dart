@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 import 'tela_editar_perfil.dart';
@@ -14,14 +13,11 @@ class _PerfilState extends State<Perfil> {
   @override
   Widget build(BuildContext context) {
     return Column(
-      mainAxisAlignment: MainAxisAlignment.spaceAround,
-      crossAxisAlignment: CrossAxisAlignment.center,
+      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
       mainAxisSize: MainAxisSize.max,
       children: <Widget>[
         Row(
           crossAxisAlignment: CrossAxisAlignment.start,
-          mainAxisAlignment: MainAxisAlignment.spaceAround,
-          mainAxisSize: MainAxisSize.max,
           children: <Widget>[
             Expanded(
               flex: 1,
@@ -47,39 +43,8 @@ class _PerfilState extends State<Perfil> {
             )
           ],
         ),
-        _Identificacao(),
-        Divider(
-          height: MediaQuery.of(context).size.height * 0.05,
-          color: Colors.transparent,
-        ),
-        _TempoPonto(),
-        Divider(
-          height: MediaQuery.of(context).size.height * 0.02,
-          color: Colors.transparent,
-        )
-      ],
-    );
-  }
-
-  Widget _Identificacao() {
-    return Column(
-      children: <Widget>[
-        Text(
-          "Nome Completo",
-          style: TextStyle(fontSize: 28),
-        ),
-        Divider(
-          height: MediaQuery.of(context).size.height * 0.05,
-          color: Colors.transparent,
-        ),
-        Text(
-          "(Apelido)",
-          style: TextStyle(fontSize: 16, fontStyle: FontStyle.italic),
-        ),
-        Divider(
-          height: MediaQuery.of(context).size.height * 0.05,
-          color: Colors.transparent,
-        ),
+        _identificacao(),
+        _espacamento(),
         Container(
           width: MediaQuery.of(context).size.width * 0.4,
           decoration: BoxDecoration(
@@ -93,11 +58,29 @@ class _PerfilState extends State<Perfil> {
             textAlign: TextAlign.center,
           ),
         ),
+        _espacamento(),
+        _tempoPonto(),
+        _espacamento(),
       ],
     );
   }
 
-  Widget _TempoPonto() {
+  Widget _identificacao() {
+    return Column(
+      children: <Widget>[
+        Text(
+          "Nome Completo",
+          style: TextStyle(fontSize: 28),
+        ),
+        Text(
+          "(Apelido)",
+          style: TextStyle(fontSize: 16, fontStyle: FontStyle.italic),
+        ),
+      ],
+    );
+  }
+
+  Widget _tempoPonto() {
     return Row(
       crossAxisAlignment: CrossAxisAlignment.center,
       mainAxisAlignment: MainAxisAlignment.spaceAround,
@@ -131,6 +114,12 @@ class _PerfilState extends State<Perfil> {
           style: TextStyle(fontSize: 16),
         ),
       ],
+    );
+  }
+
+  Widget _espacamento() {
+    return SizedBox(
+      height: MediaQuery.of(context).size.height * 0.04,
     );
   }
 }
