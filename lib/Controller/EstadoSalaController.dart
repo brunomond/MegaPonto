@@ -11,10 +11,11 @@ class EstadoSalaController {
       EstadoSalaEnum estadoSalaEnum) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
 
-    Map<String, dynamic> body = {'status': estadoSalaEnum.value};
+    Map<String, dynamic> body = {'status': estadoSalaEnum.value.toString()};
 
-    http.Response response =
-        await http.put('$URL_LOGIN${prefs.getString('loginAuth')}', body: body);
+    String urlToken = URL_LOGIN + prefs.getString('loginAuth');
+
+    http.Response response = await http.put(urlToken, body: body);
 
     if (response.statusCode == 400) return EstadoSalaEnum.ERRO;
 
@@ -22,4 +23,6 @@ class EstadoSalaController {
 
     return EstadoSalaEnumExtension.responseData(parsedJson['status']);
   }
+
+  //Future<DateTime> alterarHorarioCafe(DateTime date) async {}
 }

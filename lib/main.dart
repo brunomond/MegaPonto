@@ -34,7 +34,7 @@ class MegaPonto extends StatelessWidget {
         '/criar_conta': (context) => CriarConta(),
       },
       theme: ThemeData(
-          primaryColor: Color.fromRGBO(230, 19, 0, 1),
+          primaryColor: Color.fromRGBO(140, 32, 55, 1),
           accentColor: Color.fromRGBO(61, 1, 78, 1),
           inputDecorationTheme: InputDecorationTheme(
             hintStyle: TextStyle(color: Colors.grey),
@@ -43,11 +43,11 @@ class MegaPonto extends StatelessWidget {
           ),
           textTheme: TextTheme(
             button: TextStyle(
-                color: Colors.white, fontSize: 20, fontFamily: 'Roboto'),
+                color: Colors.white, fontSize: 20, fontFamily: 'Segoe UI'),
             bodyText1: TextStyle(
-                color: Colors.black87, fontSize: 28, fontFamily: 'Roboto'),
+                color: Colors.black87, fontSize: 28, fontFamily: 'Segoe UI'),
             bodyText2: TextStyle(
-                color: Colors.black87, fontSize: 16, fontFamily: 'Roboto'),
+                color: Colors.black87, fontSize: 16, fontFamily: 'Segoe UI'),
             overline: TextStyle(color: Colors.grey, fontSize: 13),
           )),
     );

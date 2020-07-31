@@ -4,11 +4,11 @@ extension EstadoSalaEnumExtension on EstadoSalaEnum {
   int get value {
     switch (this) {
       case EstadoSalaEnum.NORMAL:
-        return 0;
-      case EstadoSalaEnum.REUNIAODIRETORIA:
         return 1;
-      case EstadoSalaEnum.REUNIAOCLIENTE:
+      case EstadoSalaEnum.REUNIAODIRETORIA:
         return 2;
+      case EstadoSalaEnum.REUNIAOCLIENTE:
+        return 3;
       case EstadoSalaEnum.ERRO:
       default:
         return 83;
@@ -29,15 +29,15 @@ extension EstadoSalaEnumExtension on EstadoSalaEnum {
     }
   }
 
-  static EstadoSalaEnum responseData(int response) {
+  static EstadoSalaEnum responseData(String response) {
     switch (response) {
-      case 0:
+      case "1":
         return EstadoSalaEnum.NORMAL;
-      case 1:
+      case "2":
         return EstadoSalaEnum.REUNIAODIRETORIA;
-      case 2:
+      case "3":
         return EstadoSalaEnum.REUNIAOCLIENTE;
-      case 83:
+      case "83":
         return EstadoSalaEnum.ERRO;
       default:
         return EstadoSalaEnum.ERRO;

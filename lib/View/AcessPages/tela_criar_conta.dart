@@ -11,10 +11,10 @@ class CriarConta extends StatefulWidget {
 }
 
 class _CriarContaState extends State<CriarConta> {
-
   bool isPasswordVisible = false;
   bool isConfirmPasswordVisible = false;
-  var phoneMask = new MaskTextInputFormatter(mask:'(##) #####-####', filter: {'#': RegExp(r'[0-9]')});
+  var phoneMask = new MaskTextInputFormatter(
+      mask: '(##) #####-####', filter: {'#': RegExp(r'[0-9]')});
 
   @override
   void initState() {
@@ -23,135 +23,148 @@ class _CriarContaState extends State<CriarConta> {
     super.initState();
   }
 
-
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: <Widget>[
-        SizedBox(
-          height: 100,
-          width: 100,
-          child: Image.asset("images/logo_mega_simbolo.png"),
-        ),
-        Padding(
-         padding: EdgeInsets.only(left: 10),
-         child: Container(
-           alignment: Alignment.centerLeft,
-           child: Text(
-             "Registre-se",
-             style: Globals.textTheme.bodyText1,
-           ),
-         ),
-        ),
-        Padding(
-          padding: EdgeInsets.only(left: 5),
-          child: Container(
-            alignment: Alignment.centerLeft,
-            child: Text(
-              "Você está próximo de possuir uma MegaConta e se juntar à galera.",
-              style: Globals.textTheme.bodyText2,
-            ),
+    return Column(children: <Widget>[
+      SizedBox(
+        height: 100,
+        width: 100,
+        child: Image.asset("images/logo_mega_simbolo.png"),
+      ),
+      Padding(
+        padding: EdgeInsets.only(left: 10),
+        child: Container(
+          alignment: Alignment.centerLeft,
+          child: Text(
+            "Registre-se",
+            style: Globals.textTheme.bodyText1,
           ),
         ),
-        Form(
+      ),
+      Padding(
+        padding: EdgeInsets.only(left: 5),
+        child: Container(
+          alignment: Alignment.centerLeft,
+          child: Text(
+            "Você está próximo de possuir uma MegaConta e se juntar à galera.",
+            style: Globals.textTheme.bodyText2,
+          ),
+        ),
+      ),
+      Form(
           child: Column(
-            children: <Widget>[
-              TextFormField(
-                keyboardType: TextInputType.text,
-                textInputAction: TextInputAction.next,
-                onFieldSubmitted: (String value) {
-                  FocusScope.of(context).requestFocus();
-                },
-                decoration: InputDecoration(
-                    hintText: 'Nome Completo',
-                    prefixIcon: StdPrefixIcon(iconData: Icons.person),
-                    ).applyDefaults(Globals.inputTheme),
+        children: <Widget>[
+          TextFormField(
+            keyboardType: TextInputType.text,
+            textInputAction: TextInputAction.next,
+            onFieldSubmitted: (String value) {
+              FocusScope.of(context).requestFocus();
+            },
+            decoration: InputDecoration(
+              hintText: 'Nome Completo',
+              prefixIcon: StdPrefixIcon(iconData: Icons.person),
+            ).applyDefaults(Globals.inputTheme),
+          ),
+          TextFormField(
+            keyboardType: TextInputType.emailAddress,
+            textInputAction: TextInputAction.next,
+            onFieldSubmitted: (String value) {
+              FocusScope.of(context).requestFocus();
+            },
+            decoration: InputDecoration(
+              hintText: 'E-mail',
+              prefixIcon: StdPrefixIcon(
+                iconData: Icons.email,
               ),
-              TextFormField(
-                keyboardType: TextInputType.emailAddress,
-                textInputAction: TextInputAction.next,
-                onFieldSubmitted: (String value) {
-                  FocusScope.of(context).requestFocus();
-                },
-                decoration: InputDecoration(
-                  hintText: 'E-mail',
-                  prefixIcon: StdPrefixIcon(iconData: Icons.email,),
-                ).applyDefaults(Globals.inputTheme),
+            ).applyDefaults(Globals.inputTheme),
+          ),
+          TextFormField(
+            keyboardType: TextInputType.text,
+            textInputAction: TextInputAction.next,
+            onFieldSubmitted: (String value) {
+              FocusScope.of(context).requestFocus();
+            },
+            obscureText: !isPasswordVisible,
+            decoration: InputDecoration(
+              hintText: 'Senha',
+              suffixIcon: IconButton(
+                icon: Icon(isPasswordVisible
+                    ? Icons.visibility
+                    : Icons.visibility_off),
+                onPressed: _trocarVisibilidadeSenha,
               ),
-              TextFormField(
-                keyboardType: TextInputType.text,
-                textInputAction: TextInputAction.next,
-                onFieldSubmitted: (String value) {
-                  FocusScope.of(context).requestFocus();
-                },
-                obscureText: !isPasswordVisible,
-                decoration: InputDecoration(
-                    hintText: 'Senha',
-                    suffixIcon: IconButton(
-                      icon: Icon(isPasswordVisible ? Icons.visibility : Icons.visibility_off
-                      ),
-                      onPressed: _trocarVisibilidadeSenha,
-                    ),
-                  prefixIcon: StdPrefixIcon(iconData: Icons.vpn_key,),
-                ).applyDefaults(Globals.inputTheme),
+              prefixIcon: StdPrefixIcon(
+                iconData: Icons.vpn_key,
               ),
-              TextFormField(
-                keyboardType: TextInputType.text,
-                textInputAction: TextInputAction.next,
-                onFieldSubmitted: (String value) {
-                  FocusScope.of(context).requestFocus();
-                },
-                obscureText: !isPasswordVisible,
-                decoration: InputDecoration(
-                    hintText: 'Confirmar Senha',
-                    suffixIcon: IconButton(
-                      icon: Icon( isPasswordVisible ? Icons.visibility : Icons.visibility_off
-                      ),
-                      onPressed: _trocarVisibilidadeSenha,
-                    ),
-                  prefixIcon: StdPrefixIcon(iconData: Icons.vpn_key,),
-                ).applyDefaults(Globals.inputTheme),
+            ).applyDefaults(Globals.inputTheme),
+          ),
+          TextFormField(
+            keyboardType: TextInputType.text,
+            textInputAction: TextInputAction.next,
+            onFieldSubmitted: (String value) {
+              FocusScope.of(context).requestFocus();
+            },
+            obscureText: !isPasswordVisible,
+            decoration: InputDecoration(
+              hintText: 'Confirmar Senha',
+              suffixIcon: IconButton(
+                icon: Icon(isPasswordVisible
+                    ? Icons.visibility
+                    : Icons.visibility_off),
+                onPressed: _trocarVisibilidadeSenha,
               ),
-              TextFormField(
-                keyboardType: TextInputType.text,
-                textInputAction: TextInputAction.next,
-                onFieldSubmitted: (String value) {
-                  FocusScope.of(context).requestFocus();
-                },
-                decoration: InputDecoration(
-                  labelText: 'Apelido',
-                  prefixIcon: StdPrefixIcon(iconData: Icons.person_pin,),
-                ).applyDefaults(Globals.inputTheme),
+              prefixIcon: StdPrefixIcon(
+                iconData: Icons.vpn_key,
               ),
-              TextFormField(
-                keyboardType: TextInputType.phone,
-                textInputAction: TextInputAction.next,
-                onFieldSubmitted: (String value) {
-                  FocusScope.of(context).requestFocus();
-                },
-                decoration: InputDecoration(
-                  hintText: "(xx) xxxxx-xxxx",
-                  prefixIcon: StdPrefixIcon(iconData: Icons.phone,),
-                ).applyDefaults(Globals.inputTheme),
-                inputFormatters: [phoneMask],
+            ).applyDefaults(Globals.inputTheme),
+          ),
+          TextFormField(
+            keyboardType: TextInputType.text,
+            textInputAction: TextInputAction.next,
+            onFieldSubmitted: (String value) {
+              FocusScope.of(context).requestFocus();
+            },
+            decoration: InputDecoration(
+              labelText: 'Apelido',
+              prefixIcon: StdPrefixIcon(
+                iconData: Icons.person_pin,
               ),
-              StdButton(padding: EdgeInsets.only(top: 24), label: 'Cadastrar', onPressed: Access.navega(0, context)),
-              Center(
-                child: GestureDetector(
-                  child: Text(
-                    "Já possui uma conta? Faça seu Login!",
-                    textAlign: TextAlign.center,
-                    style: Globals.textTheme.overline,
-                  ),
-                  onTap:() => Access.navega(0, context),
-                ),
-              )
-            ],
-          ))
-      ]);
+            ).applyDefaults(Globals.inputTheme),
+          ),
+          TextFormField(
+            keyboardType: TextInputType.phone,
+            textInputAction: TextInputAction.next,
+            onFieldSubmitted: (String value) {
+              FocusScope.of(context).requestFocus();
+            },
+            decoration: InputDecoration(
+              hintText: "(xx) xxxxx-xxxx",
+              prefixIcon: StdPrefixIcon(
+                iconData: Icons.phone,
+              ),
+            ).applyDefaults(Globals.inputTheme),
+            inputFormatters: [phoneMask],
+          ),
+          StdButton(
+              padding: EdgeInsets.only(top: 24),
+              label: 'Cadastrar',
+              onPressed: Access.navega(0, context)),
+          Center(
+            child: GestureDetector(
+              child: Text(
+                "Já possui uma conta? Faça seu Login!",
+                textAlign: TextAlign.center,
+                style: Globals.textTheme.overline,
+              ),
+              onTap: () => Access.navega(0, context),
+            ),
+          )
+        ],
+      ))
+    ]);
   }
 
-  void _trocarVisibilidadeSenha(){
-      setState(() => isPasswordVisible = !isPasswordVisible);
+  void _trocarVisibilidadeSenha() {
+    setState(() => isPasswordVisible = !isPasswordVisible);
   }
 }
