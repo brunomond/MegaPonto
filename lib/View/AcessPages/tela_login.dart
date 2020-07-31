@@ -75,12 +75,12 @@ class _LoginState extends State<Login> {
               ),
             ),
             StdButton(
-              padding: EdgeInsets.only(top: 24),
-              label: 'Entrar',
-              onPressed: () async => await controller.doLogin(usuario)
-                  ? Navigator.of(context).popAndPushNamed('/home')
-                  : print('Login Falhou'),
-            ),
+                padding: EdgeInsets.only(top: 24),
+                label: 'Entrar',
+                onPressed: () async => //await controller.doLogin(usuario)?
+                    Navigator.of(context).popAndPushNamed('/home')
+                //: print('Login Falhou'),
+                ),
             Center(
               child: GestureDetector(
                 child: Text(

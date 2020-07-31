@@ -17,8 +17,6 @@ class EstadoSalaController {
 
     http.Response response = await http.put(urlToken, body: body);
 
-    //response =   http.put(urlToken, body: <String, int>{'status': estadoSalaEnum.value});
-
     if (response.statusCode == 400) return EstadoSalaEnum.ERRO;
 
     Map parsedJson = json.decode(response.body);

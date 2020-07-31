@@ -204,6 +204,9 @@ class _PontoState extends State<Ponto> {
                         ),
                       ),
                       onTap: () {
+                        setState(() {
+                          estadoSala = EstadoSalaEnum.NORMAL;
+                        });
                         estadoSalaController
                             .alterarEstadoSala(EstadoSalaEnum.NORMAL);
                         Navigator.pop(context);
@@ -256,6 +259,9 @@ class _PontoState extends State<Ponto> {
                         ),
                       ),
                       onTap: () {
+                        setState(() {
+                          estadoSala = EstadoSalaEnum.REUNIAODIRETORIA;
+                        });
                         estadoSalaController
                             .alterarEstadoSala(EstadoSalaEnum.REUNIAODIRETORIA);
                         Navigator.pop(context);
@@ -308,9 +314,11 @@ class _PontoState extends State<Ponto> {
                         ),
                       ),
                       onTap: () async {
-                        EstadoSalaEnum estadoSalaEnum =
-                            await estadoSalaController.alterarEstadoSala(
-                                EstadoSalaEnum.REUNIAOCLIENTE);
+                        setState(() {
+                          estadoSala = EstadoSalaEnum.REUNIAOCLIENTE;
+                        });
+                        await estadoSalaController
+                            .alterarEstadoSala(EstadoSalaEnum.REUNIAOCLIENTE);
 
                         setState(() {});
                         Navigator.pop(context);
