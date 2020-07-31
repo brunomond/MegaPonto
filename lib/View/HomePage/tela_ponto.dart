@@ -1,7 +1,7 @@
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:megaponto_oficial/Controller/EstadoSalaController.dart';
 import 'package:megaponto_oficial/Resources/EstadoSalaEnum.dart';
+import 'package:megaponto_oficial/Resources/Globals.dart';
 import 'package:megaponto_oficial/View/Utils/Loading.dart';
 import 'package:intl/intl.dart';
 import 'package:megaponto_oficial/presets/custom_icons_icons.dart';
@@ -39,12 +39,12 @@ class _PontoState extends State<Ponto> {
     return Column(
       children: [
         Divider(
-          height: MediaQuery.of(context).size.height * 0.06,
+          height: Globals.windowSize.height * 0.06,
           color: Colors.transparent,
         ),
         _estadoSala(),
         Divider(
-          height: MediaQuery.of(context).size.height * 0.06,
+          height: Globals.windowSize.height * 0.06,
           color: Colors.transparent,
         ),
         loading
@@ -165,8 +165,8 @@ class _PontoState extends State<Ponto> {
                   actions: <Widget>[
                     InkWell(
                       child: Container(
-                        width: MediaQuery.of(context).size.width * 0.8,
-                        height: MediaQuery.of(context).size.height * 0.08,
+                        width: Globals.windowSize.width * 0.8,
+                        height: Globals.windowSize.height * 0.08,
                         child: Row(
                           crossAxisAlignment: CrossAxisAlignment.center,
                           mainAxisAlignment: MainAxisAlignment.start,
@@ -217,8 +217,8 @@ class _PontoState extends State<Ponto> {
                   actions: <Widget>[
                     InkWell(
                       child: Container(
-                        width: MediaQuery.of(context).size.width * 0.8,
-                        height: MediaQuery.of(context).size.height * 0.08,
+                        width: Globals.windowSize.width * 0.8,
+                        height: Globals.windowSize.height * 0.08,
                         child: Row(
                           crossAxisAlignment: CrossAxisAlignment.center,
                           mainAxisAlignment: MainAxisAlignment.start,
@@ -269,8 +269,8 @@ class _PontoState extends State<Ponto> {
                   actions: <Widget>[
                     InkWell(
                       child: Container(
-                        width: MediaQuery.of(context).size.width * 0.8,
-                        height: MediaQuery.of(context).size.height * 0.08,
+                        width: Globals.windowSize.width * 0.8,
+                        height: Globals.windowSize.height * 0.08,
                         child: Row(
                           crossAxisAlignment: CrossAxisAlignment.center,
                           mainAxisAlignment: MainAxisAlignment.start,

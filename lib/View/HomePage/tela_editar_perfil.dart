@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
+import 'package:megaponto_oficial/Resources/Globals.dart';
 
 class EditarPerfil extends StatefulWidget {
   @override
@@ -45,7 +46,7 @@ class _EditarPerfilState extends State<EditarPerfil> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: <Widget>[
                   Container(
-                    width: MediaQuery.of(context).size.width * 0.8,
+                    width: Globals.windowSize.width * 0.8,
                     child: TextField(
                       decoration: InputDecoration(labelText: "Nome"),
                     ),
@@ -57,7 +58,7 @@ class _EditarPerfilState extends State<EditarPerfil> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: <Widget>[
                   Container(
-                    width: MediaQuery.of(context).size.width * 0.8,
+                    width: Globals.windowSize.width * 0.8,
                     child: TextField(
                       decoration: InputDecoration(labelText: "Apelido"),
                     ),
@@ -65,7 +66,7 @@ class _EditarPerfilState extends State<EditarPerfil> {
                 ],
               ),
               Divider(
-                height: MediaQuery.of(context).size.height * 0.08,
+                height: Globals.windowSize.height * 0.08,
               ),
               Text(
                 "Informações do perfil",
@@ -82,7 +83,7 @@ class _EditarPerfilState extends State<EditarPerfil> {
                   ),
                   GestureDetector(
                     child: Container(
-                      width: MediaQuery.of(context).size.width * 0.8,
+                      width: Globals.windowSize.width * 0.8,
                       child: TextField(
                         decoration:
                             InputDecoration(labelText: "Endereço de Email"),
@@ -99,7 +100,7 @@ class _EditarPerfilState extends State<EditarPerfil> {
                     width: 15,
                   ),
                   Container(
-                    width: MediaQuery.of(context).size.width * 0.8,
+                    width: Globals.windowSize.width * 0.8,
                     child: TextField(
                       decoration: InputDecoration(labelText: "Senha"),
                     ),
@@ -159,7 +160,7 @@ class _EditarPerfilState extends State<EditarPerfil> {
 
   Widget _Espacamento() {
     return SizedBox(
-      height: MediaQuery.of(context).size.height * 0.04,
+      height: Globals.windowSize.height * 0.04,
     );
   }
 }

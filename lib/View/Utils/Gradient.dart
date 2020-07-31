@@ -1,5 +1,6 @@
 
 import 'package:flutter/cupertino.dart';
+import 'package:megaponto_oficial/Resources/Globals.dart';
 
 class GradientBackground extends StatelessWidget {
  
@@ -9,8 +10,8 @@ class GradientBackground extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-          width: MediaQuery.of(context).size.width,
-          height: MediaQuery.of(context).size.height,
+          width: Globals.windowSize.width,
+          height: Globals.windowSize.height,
           decoration: BoxDecoration(
               gradient: LinearGradient(
                   begin: Alignment.topLeft,

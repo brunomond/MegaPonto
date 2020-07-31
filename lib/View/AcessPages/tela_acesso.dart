@@ -1,15 +1,18 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:megaponto_oficial/Resources/Globals.dart';
 import 'package:megaponto_oficial/View/AcessPages/tela_chave_acesso.dart';
-import 'package:megaponto_oficial/View/AcessPages/tela_criar_conta.dart';
 import 'package:megaponto_oficial/View/AcessPages/tela_esqueceu_senha.dart';
 import 'package:megaponto_oficial/View/AcessPages/tela_login.dart';
 import 'package:megaponto_oficial/View/Utils/Gradient.dart';
 
 class Access extends StatefulWidget {
   Access({Key key}) : super(key: key);
-  static int selectedItem = 0;
+  static int selectedItem;
 
+  Access.withItem({int itemIndex = 0}){
+    Access.selectedItem = itemIndex;
+  }
   @override
   _AccessState createState() => _AccessState();
 
@@ -20,28 +23,21 @@ class Access extends StatefulWidget {
 }
 
 class _AccessState extends State<Access> {
-  List<Widget> _telas = [Login(), ChaveAcesso(), EsqueceuSenha(), CriarConta()];
+  List<Widget> _telas = [Login(), ChaveAcesso(), EsqueceuSenha()];
 
   @override
   void initState() {
     super.initState();
-    setState(() {
-      Access.selectedItem = 0;
-    });
   }
 
   @override
   Widget build(BuildContext context) {
-    return Access.selectedItem == 3
-        ? Scaffold(
-            body: _telas[Access.selectedItem],
-          )
-        : Scaffold(
+    return Scaffold(
             body: Stack(
             children: <Widget>[
               GradientBackground(),
               Positioned.fill(
-                  top: MediaQuery.of(context).size.height * 0.15,
+                  top: Globals.windowSize.height * 0.15,
                   child: Container(
                     decoration: BoxDecoration(
                         borderRadius: BorderRadius.only(

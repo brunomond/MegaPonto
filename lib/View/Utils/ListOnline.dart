@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:megaponto_oficial/Resources/Globals.dart';
 import 'package:megaponto_oficial/View/Utils/Gradient.dart';
 class ListOnline extends StatelessWidget {
 
@@ -7,12 +8,12 @@ class ListOnline extends StatelessWidget {
     return GradientBackground(
       child: Padding(
           padding:
-              EdgeInsets.only(top: MediaQuery.of(context).size.height * 0.065),
+              EdgeInsets.only(top: Globals.windowSize.height * 0.065),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
               SizedBox(
-                  height: MediaQuery.of(context).size.height * 0.14,
+                  height: Globals.windowSize.height * 0.14,
                   child: _listOnline()),
               Padding(padding: EdgeInsets.only(top: 8), child: _textOnline())
             ],

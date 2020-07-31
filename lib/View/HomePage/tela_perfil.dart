@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:megaponto_oficial/Resources/Globals.dart';
 
 import 'tela_editar_perfil.dart';
 
@@ -49,12 +50,12 @@ class _PerfilState extends State<Perfil> {
         ),
         _Identificacao(),
         Divider(
-          height: MediaQuery.of(context).size.height * 0.05,
+          height: Globals.windowSize.height * 0.05,
           color: Colors.transparent,
         ),
         _TempoPonto(),
         Divider(
-          height: MediaQuery.of(context).size.height * 0.02,
+          height: Globals.windowSize.height * 0.02,
           color: Colors.transparent,
         )
       ],
@@ -69,7 +70,7 @@ class _PerfilState extends State<Perfil> {
           style: TextStyle(fontSize: 28),
         ),
         Divider(
-          height: MediaQuery.of(context).size.height * 0.05,
+          height: Globals.windowSize.height * 0.05,
           color: Colors.transparent,
         ),
         Text(
@@ -77,11 +78,11 @@ class _PerfilState extends State<Perfil> {
           style: TextStyle(fontSize: 16, fontStyle: FontStyle.italic),
         ),
         Divider(
-          height: MediaQuery.of(context).size.height * 0.05,
+          height: Globals.windowSize.height * 0.05,
           color: Colors.transparent,
         ),
         Container(
-          width: MediaQuery.of(context).size.width * 0.4,
+          width: Globals.windowSize.width * 0.4,
           decoration: BoxDecoration(
             shape: BoxShape.rectangle,
             border: Border.all(),
