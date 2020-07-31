@@ -1,4 +1,3 @@
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:megaponto_oficial/Controller/EstadoSalaController.dart';
 import 'package:megaponto_oficial/Resources/EstadoSalaEnum.dart';

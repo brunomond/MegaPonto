@@ -36,7 +36,7 @@ class _EditarPerfilState extends State<EditarPerfil> {
                   )),
               InkWell(
                 onTap: () {
-                  AlterarFotoPopUp(context);
+                  alterarFotoPopUp(context);
                 },
                 child: Text(
                   "Alterar foto de perfil",
@@ -116,8 +116,7 @@ class _EditarPerfilState extends State<EditarPerfil> {
       }),
     );
   }
-
-  AlterarFotoPopUp(BuildContext context) {
+  alterarFotoPopUp(BuildContext context) {
     return showDialog(
         context: context,
         builder: (context) {

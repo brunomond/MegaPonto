@@ -87,30 +87,30 @@ class _PerfilState extends State<Perfil> {
       children: <Widget>[
         Expanded(
           flex: 1,
-          child: _TempoSMA('S h', 'Essa Semana'),
+          child: _tempoSMA('S h', 'Essa Semana'),
         ),
         Expanded(
           flex: 1,
-          child: _TempoSMA('M h', 'Esse Mês'),
+          child: _tempoSMA('M h', 'Esse Mês'),
         ),
         Expanded(
           flex: 1,
-          child: _TempoSMA('A h', 'Esse Ano'),
+          child: _tempoSMA('A h', 'Esse Ano'),
         ),
       ],
     );
   }
 
-  Widget _TempoSMA(String HorasAcumuladas, String SMA) {
+  Widget _tempoSMA(String horasAcumuladas, String sma) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.center,
       children: <Widget>[
         Text(
-          HorasAcumuladas,
+          horasAcumuladas,
           style: TextStyle(fontSize: 22),
         ),
         Text(
-          SMA,
+          sma,
           style: TextStyle(fontSize: 16),
         ),
       ],
