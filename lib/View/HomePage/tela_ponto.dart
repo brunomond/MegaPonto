@@ -1,6 +1,7 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:megaponto_oficial/Controller/EstadoSalaController.dart';
+import 'package:megaponto_oficial/Controller/PontoController.dart';
 import 'package:megaponto_oficial/Resources/EstadoSalaEnum.dart';
 import 'package:megaponto_oficial/View/Utils/Loading.dart';
 import 'package:intl/intl.dart';
@@ -9,7 +10,6 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 class Ponto extends StatefulWidget {
   final GlobalKey<ScaffoldState> scaffold;
-
   Ponto({this.scaffold});
 
   @override
@@ -18,6 +18,7 @@ class Ponto extends StatefulWidget {
 
 class _PontoState extends State<Ponto> {
   EstadoSalaController estadoSalaController = EstadoSalaController();
+  PontoController pontoController = PontoController();
 
   TextStyle _botaoStyle = TextStyle(color: Colors.white, fontSize: 20);
   bool started = false;
@@ -448,6 +449,8 @@ class _PontoState extends State<Ponto> {
       setState(() => started = true);
       _showSnack(DateFormat.Hm().format(DateTime.now()), true);
     });
+
+    pontoController.iniciarPlantao();
   }
 
   void _fecharPlantao() async {
@@ -461,6 +464,8 @@ class _PontoState extends State<Ponto> {
       setState(() => started = false);
       _showSnack(_formatDuration(timeOnline), false);
     });
+
+    pontoController.fecharPlantao();
   }
 
   //Inicializa a Instância da SharedPreferences

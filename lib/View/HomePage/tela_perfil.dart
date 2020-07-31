@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:megaponto_oficial/Controller/PerfilController.dart';
 
 import 'tela_editar_perfil.dart';
 
@@ -10,6 +11,21 @@ class Perfil extends StatefulWidget {
 
 class _PerfilState extends State<Perfil> {
   String estadoPatente = "Megariano Bronze";
+  PerfilController perfilController = PerfilController();
+  int totalSemana = 0;
+
+  @override
+  void initState() {
+    super.initState();
+    teste();
+  }
+
+  void teste() async {
+    int teste = await perfilController.pegarInfoPlantaoSemana();
+    setState(() {
+      totalSemana = teste;
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -104,7 +120,7 @@ class _PerfilState extends State<Perfil> {
       children: <Widget>[
         Expanded(
           flex: 1,
-          child: _TempoSMA('S h', 'Essa Semana'),
+          child: _TempoSMA('$totalSemana', 'Essa Semana'),
         ),
         Expanded(
           flex: 1,
@@ -132,10 +148,5 @@ class _PerfilState extends State<Perfil> {
         ),
       ],
     );
-
-
-
-
-
   }
 }

@@ -23,4 +23,6 @@ class EstadoSalaController {
 
     return EstadoSalaEnumExtension.responseData(parsedJson['status']);
   }
+
+  //Future<DateTime> alterarHorarioCafe(DateTime date) async {}
 }
