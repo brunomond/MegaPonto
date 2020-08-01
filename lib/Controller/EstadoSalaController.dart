@@ -1,5 +1,5 @@
 import 'dart:convert';
-
+import 'dart:io';
 import 'package:http/http.dart' as http;
 import 'package:megaponto_oficial/Resources/EstadoSalaEnum.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -7,15 +7,19 @@ import 'package:shared_preferences/shared_preferences.dart';
 const String URL_LOGIN = 'https://paineljunior.com.br/api/home/put.json?token=';
 
 class EstadoSalaController {
+
+
   Future<EstadoSalaEnum> alterarEstadoSala(
       EstadoSalaEnum estadoSalaEnum) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
 
-    Map<String, dynamic> body = {'status': estadoSalaEnum.value.toString()};
-
+    Map<String, dynamic> body = {'status': estadoSalaEnum.value};
+    Map<String, String> headers = {
+      HttpHeaders.contentTypeHeader: 'application/json'
+    };
     String urlToken = URL_LOGIN + prefs.getString('loginAuth');
 
-    http.Response response = await http.put(urlToken, body: body);
+    http.Response response = await http.put(urlToken, body: jsonEncode(body), headers: headers);
 
     if (response.statusCode == 400) return EstadoSalaEnum.ERRO;
 
@@ -23,6 +27,4 @@ class EstadoSalaController {
 
     return EstadoSalaEnumExtension.responseData(parsedJson['status']);
   }
-
-  //Future<DateTime> alterarHorarioCafe(DateTime date) async {}
 }

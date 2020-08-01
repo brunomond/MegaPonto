@@ -1,15 +1,17 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:megaponto_oficial/Controller/EstadoSalaController.dart';
 import 'package:megaponto_oficial/Controller/PontoController.dart';
-import 'package:megaponto_oficial/Resources/EstadoSalaEnum.dart';
 import 'package:megaponto_oficial/Resources/Globals.dart';
+import 'Widgets/EstadoSala.dart';
+import 'Widgets/InfoPlantao.dart';
+import 'package:megaponto_oficial/View/Utils/ListOnline.dart';
 import 'package:megaponto_oficial/View/Utils/Loading.dart';
 import 'package:intl/intl.dart';
-import 'package:megaponto_oficial/presets/custom_icons_icons.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class Ponto extends StatefulWidget {
   final GlobalKey<ScaffoldState> scaffold;
+
   Ponto({this.scaffold});
 
   @override
@@ -17,15 +19,13 @@ class Ponto extends StatefulWidget {
 }
 
 class _PontoState extends State<Ponto> {
-  EstadoSalaController estadoSalaController = EstadoSalaController();
+
   PontoController pontoController = PontoController();
 
   TextStyle _botaoStyle = TextStyle(color: Colors.white, fontSize: 20);
   bool started = false;
   bool loading = true;
-  EstadoSalaEnum estadoSala = EstadoSalaEnum.NORMAL;
-  IconData icon = CustomIcons.clima_normal;
-  String horas = "14:00";
+
 
   var now = TimeOfDay.now();
 
@@ -37,397 +37,38 @@ class _PontoState extends State<Ponto> {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        Divider(
-          height: Globals.windowSize.height * 0.06,
-          color: Colors.transparent,
-        ),
-        _estadoSala(),
-        Divider(
-          height: Globals.windowSize.height * 0.06,
-          color: Colors.transparent,
-        ),
-        loading
-            ? Loading()
-            : started
-                ? _infoPlantao('Muito bom, assim que eu gosto de ver!',
-                    'Finalize seu Plantão!', 'Fechar Plantão', _fecharPlantao)
-                : _infoPlantao('Partiu entregar alguns projetos?!',
-                    'Iniciar seu Plantão!', 'Iniciar Plantão', _iniciarPlantao)
-      ],
-    );
-  }
-
-  /* ---------------------------------------------------------------------------------------------------------------
-   * --------------------------------------------- WIDGETS --------------------------------------------------------- 
-   * ---------------------------------------------------------------------------------------------------------------
-   */
-
-  //Iniciar / Fechar Plantão
-  Widget _infoPlantao(String textLabel, String textTitle, String textButton,
-      Function onPressed) {
-    return Expanded(
-      child: Center(
-        child: Column(
-          children: [
-            Container(
-              padding: EdgeInsets.only(top: 20),
-              child: Text(
-                textLabel,
-                style: TextStyle(
-                    fontSize: 21,
-                    fontStyle: FontStyle.italic,
-                    fontWeight: FontWeight.w400,
-                    fontFamily: 'Segoe UI'),
-              ),
-            ),
-            Container(
-              padding: EdgeInsets.only(top: 15),
-              child: Text(
-                textTitle,
-                style: TextStyle(
-                    fontSize: 24,
-                    fontWeight: FontWeight.bold,
-                    fontFamily: 'Segoe UI'),
-              ),
-            ),
-            Divider(
-              color: Colors.transparent,
-              height: 20,
-            ),
-            Container(
-                width: 200,
-                height: 55,
-                decoration: BoxDecoration(
-                    color: Color.fromRGBO(143, 58, 56, 1),
-                    borderRadius: BorderRadius.all(Radius.circular(26))),
-                child: FlatButton(
-                  child: Text(textButton, style: _botaoStyle),
-                  onPressed: () async => onPressed(),
-                )),
-          ],
-        ),
-      ),
-    );
-  }
-
-  //Pop-Ups
-  createCoffeePopUp(BuildContext coffee) {
-    return showDialog(
-        context: coffee,
-        builder: (coffee) {
-          return AlertDialog(
-              shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.all(Radius.circular(24))),
-              title: Text("Obrigado pelo café! S2",
-                  style: TextStyle(color: Colors.white)),
-              backgroundColor: Color.fromRGBO(143, 58, 56, 1),
-              elevation: 8,
-              content: Text(
-                  'Desejá mudar o horario do último café para ' +
-                      DateFormat.Hm().format(DateTime.now()) +
-                      ' de hoje?',
-                  style: TextStyle(color: Colors.white)),
-              actions: <Widget>[
-                FlatButton(
-                  child: Text("Cancelar",
-                      style: TextStyle(color: Colors.white, fontSize: 18)),
-                  onPressed: () {
-                    Navigator.of(context).pop();
-                  },
-                ),
-                FlatButton(
-                  child: Text("Sim",
-                      style: TextStyle(color: Colors.white, fontSize: 18)),
-                  onPressed: () {
-                    setState(() {
-                      horas = DateFormat.Hm().format(DateTime.now());
-                    });
-                    Navigator.of(context).pop();
-                  },
-                )
-              ]);
-        });
-  }
-
-  createEstadoSalaPopUp(BuildContext context) {
-    return showDialog(
-        context: context,
-        builder: (context) {
-          return Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: <Widget>[
-              AlertDialog(
-                  backgroundColor: Color.fromRGBO(143, 58, 56, 1),
-                  shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.all(Radius.circular(24))),
-                  actions: <Widget>[
-                    InkWell(
-                      child: Container(
-                        width: Globals.windowSize.width * 0.8,
-                        height: Globals.windowSize.height * 0.08,
-                        child: Row(
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          mainAxisSize: MainAxisSize.max,
-                          children: <Widget>[
-                            Expanded(
-                              flex: 1,
-                              child: Icon(
-                                CustomIcons.clima_normal,
-                                color: Colors.white,
-                              ),
-                            ),
-                            Expanded(
-                              flex: 5,
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.center,
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceAround,
-                                children: <Widget>[
-                                  Text(
-                                    "Sala Normal",
-                                    style: TextStyle(
-                                        fontSize: 20, color: Colors.white),
-                                  ),
-                                  Text(
-                                    "Clima Normal de Trabalho",
-                                    style: TextStyle(
-                                        color: Colors.white,
-                                        fontStyle: FontStyle.italic),
-                                  ),
-                                ],
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                      onTap: () {
-                        setState(() {
-                          estadoSala = EstadoSalaEnum.NORMAL;
-                        });
-                        estadoSalaController
-                            .alterarEstadoSala(EstadoSalaEnum.NORMAL);
-                        Navigator.pop(context);
-                      },
-                    ),
-                  ]),
-              AlertDialog(
-                  backgroundColor: Color.fromRGBO(143, 58, 56, 1),
-                  shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.all(Radius.circular(24))),
-                  actions: <Widget>[
-                    InkWell(
-                      child: Container(
-                        width: Globals.windowSize.width * 0.8,
-                        height: Globals.windowSize.height * 0.08,
-                        child: Row(
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          mainAxisSize: MainAxisSize.max,
-                          children: <Widget>[
-                            Expanded(
-                              flex: 1,
-                              child: Icon(
-                                CustomIcons.diretoria,
-                                color: Colors.white,
-                              ),
-                            ),
-                            Expanded(
-                              flex: 5,
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.center,
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceAround,
-                                children: <Widget>[
-                                  Text(
-                                    "Reunião da Diretoria",
-                                    style: TextStyle(
-                                        fontSize: 20, color: Colors.white),
-                                  ),
-                                  Text(
-                                    "Reunião Interna em Andamento",
-                                    style: TextStyle(
-                                        color: Colors.white,
-                                        fontStyle: FontStyle.italic),
-                                  ),
-                                ],
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                      onTap: () {
-                        setState(() {
-                          estadoSala = EstadoSalaEnum.REUNIAODIRETORIA;
-                        });
-                        estadoSalaController
-                            .alterarEstadoSala(EstadoSalaEnum.REUNIAODIRETORIA);
-                        Navigator.pop(context);
-                      },
-                    ),
-                  ]),
-              AlertDialog(
-                  backgroundColor: Color.fromRGBO(143, 58, 56, 1),
-                  shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.all(Radius.circular(24))),
-                  actions: <Widget>[
-                    InkWell(
-                      child: Container(
-                        width: Globals.windowSize.width * 0.8,
-                        height: Globals.windowSize.height * 0.08,
-                        child: Row(
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          mainAxisSize: MainAxisSize.max,
-                          children: <Widget>[
-                            Expanded(
-                              flex: 1,
-                              child: Icon(
-                                CustomIcons.cliente,
-                                color: Colors.white,
-                              ),
-                            ),
-                            Expanded(
-                              flex: 5,
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.center,
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceAround,
-                                children: <Widget>[
-                                  Text(
-                                    "Reunião com Cliente",
-                                    style: TextStyle(
-                                        fontSize: 20, color: Colors.white),
-                                  ),
-                                  Text(
-                                    "Reunião com Cliente em Andamento",
-                                    style: TextStyle(
-                                        color: Colors.white,
-                                        fontStyle: FontStyle.italic),
-                                  ),
-                                ],
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                      onTap: () async {
-                        setState(() {
-                          estadoSala = EstadoSalaEnum.REUNIAOCLIENTE;
-                        });
-                        await estadoSalaController
-                            .alterarEstadoSala(EstadoSalaEnum.REUNIAOCLIENTE);
-
-                        setState(() {});
-                        Navigator.pop(context);
-                      },
-                    ),
-                  ]),
-            ],
-          );
-        });
-  }
-
-  Widget _estadoSala() {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Padding(
-          padding: EdgeInsets.only(left: 25),
-          child: Text(
-            "Condições de trabalho:",
-            style: TextStyle(
-                fontSize: 20,
-                fontStyle: FontStyle.italic,
-                fontWeight: FontWeight.w400,
-                fontFamily: 'Segoe UI'),
-          ),
-        ),
-        Padding(
-          padding: EdgeInsets.fromLTRB(20, 40, 20, 10),
-          child: InkWell(
-            onTap: () {
-              createEstadoSalaPopUp(context);
-            },
-            child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Expanded(
-                    flex: 1,
-                    child: Icon(
-                      icon,
-                      size: 30,
-                    ),
-                  ),
-                  Expanded(
-                    flex: 4,
-                    child: Text(
-                      estadoSala.valueString,
-                      style: TextStyle(
-                          fontSize: 21,
-                          fontStyle: FontStyle.italic,
-                          fontWeight: FontWeight.w400,
-                          fontFamily: 'Segoe UI'),
-                    ),
-                  ),
-                  Expanded(
-                    flex: 1,
-                    child: Icon(
-                      Icons.expand_more,
-                      size: 32,
-                    ),
-                  )
-                ]),
-          ),
-        ),
-        Padding(
-          padding: EdgeInsets.fromLTRB(20, 20, 20, 0),
-          child: InkWell(
-            child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Expanded(
-                    flex: 1,
-                    child: Icon(
-                      CustomIcons.cafe,
-                      size: 30,
-                    ),
-                  ),
-                  Expanded(
-                    flex: 4,
-                    child: Text(
-                      'Café feito às $horas de hoje',
-                      style: TextStyle(
-                          fontSize: 21,
-                          fontStyle: FontStyle.italic,
-                          fontWeight: FontWeight.w400,
-                          fontFamily: 'Segoe UI'),
-                    ),
-                  ),
-                  Expanded(
-                    flex: 1,
-                    child: Icon(
-                      Icons.expand_more,
-                      size: 32,
-                    ),
-                  )
-                ]),
-            onTap: () {
-              createCoffeePopUp(context);
-            },
+    return Stack(
+      children: <Widget>[
+        ListOnline(),
+        Positioned.fill(
+          top: Globals.windowSize.height * 0.27,
+          child: Container(
+            decoration: BoxDecoration(
+                borderRadius: BorderRadius.only(
+                    topLeft: const Radius.circular(50.0),
+                    topRight: const Radius.circular(50.0)),
+                color: Colors.white),
+            child: Column(children: [
+              EstadoSala(),
+              loading
+                  ? Loading()
+                  : started
+                      ? InfoPlantao(
+                          label: 'Muito bom, assim que eu gosto de ver!',
+                          title: 'Finalize seu Plantão!',
+                          buttonLabel: 'Fechar Plantão',
+                          onPressed: _fecharPlantao)
+                      : InfoPlantao(
+                          label: 'Partiu entregar alguns projetos?!',
+                          title: 'Iniciar seu Plantão!',
+                          buttonLabel: 'Iniciar Plantão',
+                          onPressed: _iniciarPlantao)
+            ]),
           ),
         )
       ],
     );
   }
-
-  /* ---------------------------------------------------------------------------------------------------------------
-   * --------------------------------------------- FUNCTIONS ------------------------------------------------------- 
-   * ---------------------------------------------------------------------------------------------------------------
-   */
 
   //Carregar dados da SharedPreferences
   void _start() async {

@@ -23,9 +23,7 @@ class _CriarContaState extends State<CriarConta> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: GradientAppBar(
-        text: 'Mega Ponto',
-      ),
+      appBar: GradientAppBar(),
       body: SingleChildScrollView(
         child: Padding(
           padding: EdgeInsets.all(8),

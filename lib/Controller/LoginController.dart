@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:io';
 import 'package:http/http.dart' as http;
 import 'package:flutter/material.dart';
 import 'package:megaponto_oficial/Model/Usuario.dart';
@@ -11,7 +12,9 @@ const String URL_LOGIN = 'https://paineljunior.com.br/api/login.json';
 class LoginController {
   String senha;
   BuildContext context;
+
   LoginController({this.senha, this.context});
+
   final GlobalKey<FormState> formKey = new GlobalKey<FormState>();
 
   Future<bool> doLogin(Usuario usuario, BuildContext context) async {
@@ -20,13 +23,17 @@ class LoginController {
     formKey.currentState.save();
 
     Map<String, dynamic> body = {'email': usuario.email, 'senha': senha};
+    Map<String, String> headers = {
+      HttpHeaders.contentTypeHeader: 'application/json'
+    };
 
-    http.Response response = await http.post(URL_LOGIN, body: body);
+    http.Response response = await http.post(URL_LOGIN, body: jsonEncode(body), headers: headers);
 
     Map parsedJson = json.decode(response.body);
 
     if (response.statusCode == 401) {
-     Scaffold.of(context).showSnackBar(ErrorSnackBar(errorText: 'Usuário ou senha incorretos!'));
+      Scaffold.of(context).showSnackBar(
+          ErrorSnackBar(errorText: 'Usuário ou senha incorretos!'));
       return false;
     }
 

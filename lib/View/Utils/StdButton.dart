@@ -6,9 +6,10 @@ class StdButton extends StatelessWidget {
   final Function onPressed;
   final EdgeInsets padding;
   final double height;
+  final double width;
 
   StdButton(
-      {Key key, @required this.label, @required this.onPressed, this.padding, this.height})
+      {Key key, @required this.label, @required this.onPressed, this.padding, this.height, this.width})
       : super(key: key);
 
   @override
@@ -17,7 +18,7 @@ class StdButton extends StatelessWidget {
       padding: padding ?? EdgeInsets.only(bottom: 8),
       child: Container(
         height: height ?? 50,
-        width: Globals.windowSize.width * 0.45,
+        width: width ?? Globals.windowSize.width * 0.45,
         alignment: Alignment.centerLeft,
         decoration: BoxDecoration(
             color: Theme.of(context).primaryColor,

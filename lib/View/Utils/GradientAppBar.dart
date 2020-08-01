@@ -6,7 +6,7 @@ class GradientAppBar extends AppBar {
 
   GradientAppBar({this.text})
       : super(
-            title: Text(text, style: Globals.textTheme.headline3,),
+            title: Text(text ?? 'Mega Ponto', style: Globals.textTheme.headline3,),
             centerTitle: true,
             flexibleSpace: Container(
                 decoration: BoxDecoration(
