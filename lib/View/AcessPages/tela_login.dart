@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:megaponto_oficial/Controller/LoginController.dart';
 import 'package:megaponto_oficial/Model/Usuario.dart';
 import 'package:megaponto_oficial/Resources/Globals.dart';
+import 'package:megaponto_oficial/View/AcessPages/tela_acesso.dart';
 import 'package:megaponto_oficial/View/Utils/StdButton.dart';
 import 'package:megaponto_oficial/View/Utils/StdTextInput.dart';
 

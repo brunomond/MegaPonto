@@ -1,6 +1,6 @@
-import 'package:flutter/cupertino.dart';
+
 import 'package:flutter/material.dart';
-import 'package:megaponto_oficial/Resources/Globals.dart';
+import 'package:megaponto_oficial/Controller/PerfilController.dart';
 
 import 'tela_editar_perfil.dart';
 
@@ -11,12 +11,26 @@ class Perfil extends StatefulWidget {
 
 class _PerfilState extends State<Perfil> {
   String estadoPatente = "Megariano Bronze";
+  PerfilController perfilController = PerfilController();
+  int totalSemana = 0;
+
+  @override
+  void initState() {
+    super.initState();
+    teste();
+  }
+
+  void teste() async {
+    int teste = await perfilController.pegarInfoPlantaoSemana();
+    setState(() {
+      totalSemana = teste;
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
     return Column(
-      mainAxisAlignment: MainAxisAlignment.spaceAround,
-      crossAxisAlignment: CrossAxisAlignment.center,
+      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
       mainAxisSize: MainAxisSize.max,
       children: <Widget>[
         Row(
@@ -48,41 +62,10 @@ class _PerfilState extends State<Perfil> {
             )
           ],
         ),
-        _Identificacao(),
-        Divider(
-          height: Globals.windowSize.height * 0.05,
-          color: Colors.transparent,
-        ),
-        _TempoPonto(),
-        Divider(
-          height: Globals.windowSize.height * 0.02,
-          color: Colors.transparent,
-        )
-      ],
-    );
-  }
-
-  Widget _Identificacao() {
-    return Column(
-      children: <Widget>[
-        Text(
-          "Nome Completo",
-          style: TextStyle(fontSize: 28),
-        ),
-        Divider(
-          height: Globals.windowSize.height * 0.05,
-          color: Colors.transparent,
-        ),
-        Text(
-          "(Apelido)",
-          style: TextStyle(fontSize: 16, fontStyle: FontStyle.italic),
-        ),
-        Divider(
-          height: Globals.windowSize.height * 0.05,
-          color: Colors.transparent,
-        ),
+        _identificacao(),
+        _espacamento(),
         Container(
-          width: Globals.windowSize.width * 0.4,
+          width: MediaQuery.of(context).size.width * 0.4,
           decoration: BoxDecoration(
             shape: BoxShape.rectangle,
             border: Border.all(),
@@ -94,49 +77,70 @@ class _PerfilState extends State<Perfil> {
             textAlign: TextAlign.center,
           ),
         ),
+        _espacamento(),
+        _tempoPonto(),
+        _espacamento(),
       ],
     );
   }
 
-  Widget _TempoPonto() {
+  Widget _identificacao() {
+    return Column(
+      children: <Widget>[
+        Text(
+          "Nome Completo",
+          style: TextStyle(fontSize: 28),
+
+        ),
+        Text(
+          "(Apelido)",
+          style: TextStyle(fontSize: 16, fontStyle: FontStyle.italic),
+        ),
+
+      ],
+    );
+  }
+
+  Widget _tempoPonto() {
     return Row(
       crossAxisAlignment: CrossAxisAlignment.center,
       mainAxisAlignment: MainAxisAlignment.spaceAround,
       children: <Widget>[
         Expanded(
           flex: 1,
-          child: _TempoSMA('S h', 'Essa Semana'),
+          child: _tempoSMA('$totalSemana', 'Essa Semana'),
         ),
         Expanded(
           flex: 1,
-          child: _TempoSMA('M h', 'Esse Mês'),
+          child: _tempoSMA('M h', 'Esse Mês'),
         ),
         Expanded(
           flex: 1,
-          child: _TempoSMA('A h', 'Esse Ano'),
+          child: _tempoSMA('A h', 'Esse Ano'),
         ),
       ],
     );
   }
 
-  Widget _TempoSMA(String HorasAcumuladas, String SMA) {
+  Widget _tempoSMA(String horasAcumuladas, String sma) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.center,
       children: <Widget>[
         Text(
-          HorasAcumuladas,
+          horasAcumuladas,
           style: TextStyle(fontSize: 22),
         ),
         Text(
-          SMA,
+          sma,
           style: TextStyle(fontSize: 16),
         ),
       ],
     );
+  }
 
-
-
-
-
+  Widget _espacamento() {
+    return SizedBox(
+      height: MediaQuery.of(context).size.height * 0.04,
+    );
   }
 }

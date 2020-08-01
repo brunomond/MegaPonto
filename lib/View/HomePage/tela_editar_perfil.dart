@@ -1,6 +1,5 @@
-import 'package:flutter/cupertino.dart';
+
 import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
 import 'package:megaponto_oficial/Resources/Globals.dart';
 
 class EditarPerfil extends StatefulWidget {
@@ -16,6 +15,12 @@ class _EditarPerfilState extends State<EditarPerfil> {
         title: Text("Editar Perfil"),
         centerTitle: true,
         backgroundColor: Color.fromRGBO(143, 58, 56, 1),
+        actions: <Widget>[
+          GestureDetector(
+            child: Icon(Icons.done,),
+          ),
+          SizedBox(width: 8)
+        ],
       ),
       backgroundColor: Colors.white,
       body: LayoutBuilder(
@@ -23,7 +28,7 @@ class _EditarPerfilState extends State<EditarPerfil> {
         return SingleChildScrollView(
           child: Column(
             children: <Widget>[
-              _Espacamento(),
+              _espacamento(),
               SizedBox(
                   width: 128,
                   height: 128,
@@ -33,7 +38,7 @@ class _EditarPerfilState extends State<EditarPerfil> {
                   )),
               InkWell(
                 onTap: () {
-                  AlterarFotoPopUp(context);
+                  alterarFotoPopUp(context);
                 },
                 child: Text(
                   "Alterar foto de perfil",
@@ -41,24 +46,24 @@ class _EditarPerfilState extends State<EditarPerfil> {
                       color: Color.fromRGBO(199, 59, 35, 1), fontSize: 20),
                 ),
               ),
-              _Espacamento(),
+              _espacamento(),
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: <Widget>[
                   Container(
-                    width: Globals.windowSize.width * 0.8,
+                    width: MediaQuery.of(context).size.width * 0.8,
                     child: TextField(
                       decoration: InputDecoration(labelText: "Nome"),
                     ),
                   ),
                 ],
               ),
-              _Espacamento(),
+              _espacamento(),
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: <Widget>[
                   Container(
-                    width: Globals.windowSize.width * 0.8,
+                    width: MediaQuery.of(context).size.width * 0.8,
                     child: TextField(
                       decoration: InputDecoration(labelText: "Apelido"),
                     ),
@@ -66,7 +71,7 @@ class _EditarPerfilState extends State<EditarPerfil> {
                 ],
               ),
               Divider(
-                height: Globals.windowSize.height * 0.08,
+                height: MediaQuery.of(context).size.height * 0.08,
               ),
               Text(
                 "Informações do perfil",
@@ -74,7 +79,7 @@ class _EditarPerfilState extends State<EditarPerfil> {
                   fontSize: 20,
                 ),
               ),
-              _Espacamento(),
+              _espacamento(),
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: <Widget>[
@@ -83,7 +88,7 @@ class _EditarPerfilState extends State<EditarPerfil> {
                   ),
                   GestureDetector(
                     child: Container(
-                      width: Globals.windowSize.width * 0.8,
+                      width: MediaQuery.of(context).size.width * 0.8,
                       child: TextField(
                         decoration:
                             InputDecoration(labelText: "Endereço de Email"),
@@ -92,7 +97,7 @@ class _EditarPerfilState extends State<EditarPerfil> {
                   ),
                 ],
               ),
-              _Espacamento(),
+              _espacamento(),
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: <Widget>[
@@ -100,33 +105,21 @@ class _EditarPerfilState extends State<EditarPerfil> {
                     width: 15,
                   ),
                   Container(
-                    width: Globals.windowSize.width * 0.8,
+                    width: MediaQuery.of(context).size.width * 0.8,
                     child: TextField(
                       decoration: InputDecoration(labelText: "Senha"),
                     ),
                   ),
                 ],
               ),
-              _Espacamento(),
-              Container(
-                  width: 200,
-                  height: 55,
-                  decoration: BoxDecoration(
-                      color: Color.fromRGBO(143, 58, 56, 1),
-                      borderRadius: BorderRadius.all(Radius.circular(26))),
-                  child: FlatButton(
-                    child: Text("Concluir",
-                        style: TextStyle(color: Colors.white, fontSize: 20)),
-                    onPressed: () {},
-                  )),
+
             ],
           ),
         );
       }),
     );
   }
-
-  AlterarFotoPopUp(BuildContext context) {
+  alterarFotoPopUp(BuildContext context) {
     return showDialog(
         context: context,
         builder: (context) {
@@ -158,9 +151,9 @@ class _EditarPerfilState extends State<EditarPerfil> {
         });
   }
 
-  Widget _Espacamento() {
+  Widget _espacamento() {
     return SizedBox(
-      height: Globals.windowSize.height * 0.04,
+      height: MediaQuery.of(context).size.height * 0.04,
     );
   }
 }

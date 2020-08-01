@@ -6,6 +6,7 @@ import 'package:intl/intl.dart';
 
 class PlantaoAmigo extends StatefulWidget {
   final GlobalKey<ScaffoldState> scaffold;
+
   PlantaoAmigo({this.scaffold});
 
   @override
@@ -14,6 +15,8 @@ class PlantaoAmigo extends StatefulWidget {
 
 class _PlantaoAmigoState extends State<PlantaoAmigo> {
   List<Usuario> listFuncionarios = List();
+  List<Usuario> listOnline = List();
+  List<Usuario> listOffline = List();
 
   @override
   void initState() {
@@ -41,12 +44,25 @@ class _PlantaoAmigoState extends State<PlantaoAmigo> {
           itemBuilder: (context, index) {
             return Column(
               children: [
-                _listMembros(context, index, listFuncionarios),
+
+                _listMembros(context, index, listOnline),
               ],
             );
           },
-          itemCount: listFuncionarios.length,
+          itemCount: listOnline.length,
         )),
+        Expanded(
+            child: ListView.builder(
+              itemBuilder: (context, index) {
+                return Column(
+                  children: [
+
+                    _listMembros(context, index, listOffline),
+                  ],
+                );
+              },
+              itemCount: listOffline.length,
+            )),
       ],
     );
   }
@@ -134,10 +150,15 @@ class _PlantaoAmigoState extends State<PlantaoAmigo> {
   }
 
   void _alterarStatusFun(Usuario user) {
-    if (user.online)
+    if (user.online) {
       _fecharPlantao(user);
-    else
+      listOnline.remove(user);
+      listOffline.add(user);
+    } else {
       _iniciarPlantao(user);
+      listOnline.add(user);
+      listOffline.remove(user);
+    }
   }
 
   void _iniciarPlantao(Usuario user) async {
@@ -204,11 +225,20 @@ class _PlantaoAmigoState extends State<PlantaoAmigo> {
   }
 
   void inserirFuncionarios() {
+    Usuario fun0 = Usuario();
+    fun0.id = 0;
+    fun0.nome = "MegaPato";
+    fun0.online = true;
+    fun0.imgUrl = "https://api.adorable.io/avatars/206/abott@exaust.io";
+    listOnline.add(fun0);
+    listFuncionarios.add(fun0);
+
     Usuario fun1 = Usuario();
     fun1.id = 1;
     fun1.nome = "Bruno Monteiro";
     fun1.online = false;
     fun1.imgUrl = "https://api.adorable.io/avatars/206/abott@exaust.io";
+    listOffline.add(fun1);
     listFuncionarios.add(fun1);
 
     Usuario fun2 = Usuario();
@@ -217,6 +247,7 @@ class _PlantaoAmigoState extends State<PlantaoAmigo> {
     fun2.online = false;
     fun2.imgUrl =
         "https://api.adorable.io/avatars/283/abott@adorable.pngCopy to Clipboard";
+    listOffline.add(fun2);
     listFuncionarios.add(fun2);
 
     Usuario fun3 = Usuario();
@@ -224,6 +255,7 @@ class _PlantaoAmigoState extends State<PlantaoAmigo> {
     fun3.nome = "José Kazuo";
     fun3.online = false;
     fun3.imgUrl = "https://api.adorable.io/avatars/285/abott@adorable.png";
+    listOffline.add(fun3);
     listFuncionarios.add(fun3);
 
     Usuario fun4 = Usuario();
@@ -231,6 +263,7 @@ class _PlantaoAmigoState extends State<PlantaoAmigo> {
     fun4.nome = "Kamylla Nogueira";
     fun4.online = false;
     fun4.imgUrl = "https://api.adorable.io/avatars/206/abott@woman.io";
+    listOffline.add(fun4);
     listFuncionarios.add(fun4);
 
     Usuario fun5 = Usuario();
@@ -240,6 +273,7 @@ class _PlantaoAmigoState extends State<PlantaoAmigo> {
     fun5.online = false;
     fun5.imgUrl =
         "https://api.adorable.io/avatars/283/abott@power.pngCopy to Clipboard";
+    listOffline.add(fun5);
     listFuncionarios.add(fun5);
 
     Usuario fun6 = Usuario();
@@ -247,6 +281,7 @@ class _PlantaoAmigoState extends State<PlantaoAmigo> {
     fun6.nome = "João Victor";
     fun6.online = false;
     fun6.imgUrl = "https://api.adorable.io/avatars/285/abott@ocuped.png";
+    listOffline.add(fun6);
     listFuncionarios.add(fun6);
   }
 }
