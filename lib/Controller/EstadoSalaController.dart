@@ -24,5 +24,19 @@ class EstadoSalaController {
     return EstadoSalaEnumExtension.responseData(parsedJson['status']);
   }
 
-  //Future<DateTime> alterarHorarioCafe(DateTime date) async {}
+  Future<String> alterarHorarioCafe(DateTime date) async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+
+    Map<String, dynamic> body = {'cafe': date.toString()};
+
+    String urlToken = URL_LOGIN + prefs.getString('loginAuth');
+
+    http.Response response = await http.put(urlToken, body: body);
+
+    if (response.statusCode == 400) return "Erro";
+
+    Map parsedJson = json.decode(response.body);
+
+    return "Ok";
+  }
 }

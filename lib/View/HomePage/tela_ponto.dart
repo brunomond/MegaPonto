@@ -1,6 +1,7 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:megaponto_oficial/Controller/EstadoSalaController.dart';
+import 'package:megaponto_oficial/Controller/MembrosController.dart';
 import 'package:megaponto_oficial/Controller/PontoController.dart';
 import 'package:megaponto_oficial/Resources/EstadoSalaEnum.dart';
 import 'package:megaponto_oficial/View/Utils/Loading.dart';
@@ -19,6 +20,7 @@ class Ponto extends StatefulWidget {
 class _PontoState extends State<Ponto> {
   EstadoSalaController estadoSalaController = EstadoSalaController();
   PontoController pontoController = PontoController();
+  MembrosController membrosController = MembrosController();
 
   TextStyle _botaoStyle = TextStyle(color: Colors.white, fontSize: 20);
   bool started = false;
@@ -33,6 +35,7 @@ class _PontoState extends State<Ponto> {
   void initState() {
     super.initState();
     _start();
+    membrosController.listarMembrosOnline();
   }
 
   @override
@@ -143,6 +146,7 @@ class _PontoState extends State<Ponto> {
                   onPressed: () {
                     setState(() {
                       horas = DateFormat.Hm().format(DateTime.now());
+                      estadoSalaController.alterarHorarioCafe(DateTime.now());
                     });
                     Navigator.of(context).pop();
                   },

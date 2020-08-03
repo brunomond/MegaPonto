@@ -21,8 +21,7 @@ class Usuario {
     this.nome = map['nome'];
     this.sobrenome = map['sobrenome'];
     this.email = map['email'];
-    this.nascimento =
-        DateTime.parse(map['nascimento'].toString().replaceAll('/', '-'));
+    this.nascimento = DateTime.parse(map['nascimento']);
     this.celular = map['celular'];
     this.cpf = (map['cpf'].toString().length > 14) ? map['cpf'] : null;
     this.rga = map['rga'];
