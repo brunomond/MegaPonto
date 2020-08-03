@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:megaponto_oficial/Controller/PerfilController.dart';
 
@@ -13,17 +12,23 @@ class _PerfilState extends State<Perfil> {
   String estadoPatente = "Megariano Bronze";
   PerfilController perfilController = PerfilController();
   int totalSemana = 0;
+  int totalMes = 0;
+  int totalAno = 0;
+  double totalSemanaD = 0;
 
   @override
   void initState() {
     super.initState();
-    teste();
+    infoPlantao();
   }
 
-  void teste() async {
-    int teste = await perfilController.pegarInfoPlantaoSemana();
+  void infoPlantao() async {
+    Map parsedJson = await perfilController.pegarInfoPlantao();
+    totalSemana = parsedJson['total_semana'];
+    totalMes = parsedJson['total_mes'];
+    totalAno = parsedJson['total_ano'];
     setState(() {
-      totalSemana = teste;
+      totalSemanaD = totalSemana/3600;
     });
   }
 
@@ -108,15 +113,15 @@ class _PerfilState extends State<Perfil> {
       children: <Widget>[
         Expanded(
           flex: 1,
-          child: _tempoSMA('$totalSemana', 'Essa Semana'),
+          child: _tempoSMA('$totalSemanaD', 'Essa Semana'),
         ),
         Expanded(
           flex: 1,
-          child: _tempoSMA('M h', 'Esse Mês'),
+          child: _tempoSMA('$totalMes', 'Esse Mês'),
         ),
         Expanded(
           flex: 1,
-          child: _tempoSMA('A h', 'Esse Ano'),
+          child: _tempoSMA('$totalAno', 'Esse Ano'),
         ),
       ],
     );
