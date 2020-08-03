@@ -36,9 +36,8 @@ class _CheckSessionState extends State<CheckSession> {
 
   void _navega() {
     if (logged ?? false)
-      Navigator.of(context).popAndPushNamed('/acesso');
+      Navigator.of(context).popAndPushNamed('/home');
     else
-      //Navigator.of(context).popAndPushNamed('/home');
-      Navigator.of(context).popAndPushNamed('/acesso');
+      Navigator.of(context).pushReplacementNamed('/login');
   }
 }

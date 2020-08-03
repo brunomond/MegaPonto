@@ -47,14 +47,14 @@ class _LeaderboardState extends State<Leaderboard> {
                 ),
               ],
             ),
-            _Rankeamento(),
+            _rankeamento(),
           ],
         ),
       ),
     );
   }
 
-  Widget _Rankeamento(){
+  Widget _rankeamento(){
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       mainAxisAlignment: MainAxisAlignment.start,
