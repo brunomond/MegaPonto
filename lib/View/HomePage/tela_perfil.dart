@@ -1,5 +1,7 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:megaponto_oficial/Controller/PerfilController.dart';
+import 'package:megaponto_oficial/View/Utils/TranformaTempo.dart';
 
 import 'tela_editar_perfil.dart';
 
@@ -14,7 +16,9 @@ class _PerfilState extends State<Perfil> {
   int totalSemana = 0;
   int totalMes = 0;
   int totalAno = 0;
-  double totalSemanaD = 0;
+  String totalSemanaD;
+  String totalMesD;
+  String totalAnoD;
 
   @override
   void initState() {
@@ -28,7 +32,9 @@ class _PerfilState extends State<Perfil> {
     totalMes = parsedJson['total_mes'];
     totalAno = parsedJson['total_ano'];
     setState(() {
-      totalSemanaD = totalSemana/3600;
+      totalSemanaD = TransformaTempo(totalSemana);
+      totalMesD = TransformaTempo(totalMes);
+      totalAnoD = TransformaTempo(totalAno);
     });
   }
 
@@ -117,29 +123,36 @@ class _PerfilState extends State<Perfil> {
         ),
         Expanded(
           flex: 1,
-          child: _tempoSMA('$totalMes', 'Esse Mês'),
+          child: _tempoSMA('$totalMesD', 'Esse Mês'),
         ),
         Expanded(
           flex: 1,
-          child: _tempoSMA('$totalAno', 'Esse Ano'),
+          child: _tempoSMA('$totalAnoD', 'Esse Ano'),
         ),
       ],
     );
   }
 
   Widget _tempoSMA(String horasAcumuladas, String sma) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.center,
-      children: <Widget>[
-        Text(
-          horasAcumuladas,
-          style: TextStyle(fontSize: 22),
-        ),
-        Text(
-          sma,
-          style: TextStyle(fontSize: 16),
-        ),
-      ],
+    return SizedBox(
+      height: MediaQuery.of(context).size.height*0.2,
+      width: MediaQuery.of(context).size.width*0.2,
+      child:
+        Column(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.end,
+          mainAxisSize: MainAxisSize.max,
+          children: <Widget>[
+            Text(
+              horasAcumuladas,
+              style: TextStyle(fontSize: 22),
+            ),
+            Text(
+              sma,
+              style: TextStyle(fontSize: 16),
+            ),
+          ],
+        )
     );
   }
 
@@ -148,4 +161,5 @@ class _PerfilState extends State<Perfil> {
       height: MediaQuery.of(context).size.height * 0.04,
     );
   }
+
 }
