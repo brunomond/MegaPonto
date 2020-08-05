@@ -3,10 +3,12 @@ import 'package:megaponto_oficial/Resources/Globals.dart';
 
 class GradientAppBar extends AppBar {
   final String text;
+  final List<Widget> actions;
 
-  GradientAppBar({this.text})
+  GradientAppBar({this.text, this.actions})
       : super(
             title: Text(text ?? 'Mega Ponto', style: Globals.textTheme.headline3,),
+            actions: actions != null ? actions : null,
             centerTitle: true,
             flexibleSpace: Container(
                 decoration: BoxDecoration(
