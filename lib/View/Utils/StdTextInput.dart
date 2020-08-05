@@ -47,6 +47,7 @@ class StdTextInput extends StatelessWidget {
         onEditingComplete: () => !done ? FocusScope.of(context).nextFocus() : FocusScope.of(context).unfocus(),
         decoration: InputDecoration(
           hintText: hintText != null && hintText.isNotEmpty ? hintText : null,
+          labelText: hintText != null && hintText.isNotEmpty ? hintText : null,
           prefixIcon: prefixIcon != null
               ? StdPrefixIcon(
                   iconData: prefixIcon,

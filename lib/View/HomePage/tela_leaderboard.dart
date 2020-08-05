@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:megaponto_oficial/Resources/Globals.dart';
 import 'package:megaponto_oficial/presets/custom_icons_icons.dart';
 
 class Leaderboard extends StatefulWidget {
@@ -16,36 +17,38 @@ class _LeaderboardState extends State<Leaderboard> {
           crossAxisAlignment: CrossAxisAlignment.start,
           mainAxisAlignment: MainAxisAlignment.start,
           children: [
+//            Padding(
+//              padding: EdgeInsets.fromLTRB(32, 16, 16, 0),
+//              child: Text(
+//                "RANKING",
+//                style: TextStyle(fontSize: 19, fontWeight: FontWeight.w600),
+//              ),
+//            ),
             Padding(
-              padding: EdgeInsets.fromLTRB(30, 0, 0, 0),
-              child: Text(
-                "RANKING",
-                style: TextStyle(fontSize: 19, fontWeight: FontWeight.w600),
+              padding: const EdgeInsets.fromLTRB(16.0, 16, 16, 24),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: <Widget>[
+                  GestureDetector(
+                    child: Text(
+                      'Semanal',
+                      style: Globals.textTheme.bodyText2.copyWith(decoration: TextDecoration.underline),
+                    ),
+                  ),
+                  GestureDetector(
+                    child: Text(
+                      'Mensal',
+                      style: Globals.textTheme.bodyText2,
+                    ),
+                  ),
+                  GestureDetector(
+                    child: Text(
+                      'Anual',
+                      style: Globals.textTheme.bodyText2,
+                    ),
+                  ),
+                ],
               ),
-            ),
-            SizedBox(height: 5),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: <Widget>[
-                GestureDetector(
-                  child: Text(
-                    'Semanal',
-                    style: TextStyle(fontSize: 16, decoration: TextDecoration.underline),
-                  ),
-                ),
-                GestureDetector(
-                  child: Text(
-                    'Mensal',
-                    style: TextStyle(fontSize: 16),
-                  ),
-                ),
-                GestureDetector(
-                  child: Text(
-                    'Anual',
-                    style: TextStyle(fontSize: 16),
-                  ),
-                ),
-              ],
             ),
             _rankeamento(),
           ],

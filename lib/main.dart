@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter/widgets.dart';
+import 'package:megaponto_oficial/View/HomePage/tela_editar_perfil.dart';
 
 //Telas
 import 'View/AcessPages/tela_acesso.dart';
@@ -35,6 +36,7 @@ class MegaPonto extends StatelessWidget {
         '/chave_acesso': (context) => Access.withItem(itemIndex: 1),
         '/esqueceu_senha': (context) => Access.withItem(itemIndex: 2),
         '/criar_conta': (context) => CriarConta(),
+        '/editar_perfil': (context) => EditarPerfil()
       },
       theme: ThemeData(
           primaryColor: Color.fromRGBO(140, 32, 55, 1),
@@ -60,6 +62,7 @@ class MegaPonto extends StatelessWidget {
                   borderSide:
                       BorderSide(color: Color.fromRGBO(140, 32, 55, 1))),
               hoverColor: Color.fromRGBO(140, 32, 55, 1),
+              alignLabelWithHint: true,
               hintStyle: TextStyle(
                   color: Colors.grey,
                   fontFamily: 'Segoe UI',

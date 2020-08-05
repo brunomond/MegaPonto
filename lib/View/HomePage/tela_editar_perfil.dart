@@ -1,6 +1,8 @@
 
 import 'package:flutter/material.dart';
 import 'package:megaponto_oficial/Resources/Globals.dart';
+import 'package:megaponto_oficial/View/Utils/GradientAppBar.dart';
+import 'package:megaponto_oficial/View/Utils/StdTextInput.dart';
 
 class EditarPerfil extends StatefulWidget {
   @override
@@ -11,109 +13,55 @@ class _EditarPerfilState extends State<EditarPerfil> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text("Editar Perfil"),
-        centerTitle: true,
-        backgroundColor: Color.fromRGBO(143, 58, 56, 1),
-        actions: <Widget>[
-          GestureDetector(
-            child: Icon(Icons.done,),
-          ),
-          SizedBox(width: 8)
-        ],
-      ),
-      backgroundColor: Colors.white,
+      appBar: GradientAppBar(text: 'Editar Perfil', actions: <Widget>[
+        IconButton(
+          icon: Icon(Icons.done, color: Colors.white,),
+          onPressed: () => Navigator.of(context).pop(),
+        ),
+//        SizedBox(width: 8)
+      ],),
       body: LayoutBuilder(
           builder: (BuildContext context, BoxConstraints viewportConstraints) {
         return SingleChildScrollView(
-          child: Column(
-            children: <Widget>[
-              _espacamento(),
-              SizedBox(
-                  width: 128,
-                  height: 128,
-                  child: CircleAvatar(
-                    radius: 50,
-                    backgroundImage: AssetImage('images/abott@adorable.png'),
-                  )),
-              InkWell(
-                onTap: () {
-                  alterarFotoPopUp(context);
-                },
-                child: Text(
-                  "Alterar foto de perfil",
-                  style: TextStyle(
-                      color: Color.fromRGBO(199, 59, 35, 1), fontSize: 20),
-                ),
-              ),
-              _espacamento(),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
+          child: Form(
+            child: Padding(
+              padding: const EdgeInsets.all(16.0),
+              child: Column(
                 children: <Widget>[
-                  Container(
-                    width: MediaQuery.of(context).size.width * 0.8,
-                    child: TextField(
-                      decoration: InputDecoration(labelText: "Nome"),
-                    ),
-                  ),
-                ],
-              ),
-              _espacamento(),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: <Widget>[
-                  Container(
-                    width: MediaQuery.of(context).size.width * 0.8,
-                    child: TextField(
-                      decoration: InputDecoration(labelText: "Apelido"),
-                    ),
-                  ),
-                ],
-              ),
-              Divider(
-                height: MediaQuery.of(context).size.height * 0.08,
-              ),
-              Text(
-                "Informações do perfil",
-                style: TextStyle(
-                  fontSize: 20,
-                ),
-              ),
-              _espacamento(),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: <Widget>[
-                  SizedBox(
-                    width: 15,
+                  Padding(
+                    padding: const EdgeInsets.only(top: 16.0),
+                    child: SizedBox(
+                        width: 128,
+                        height: 128,
+                        child: CircleAvatar(
+                          radius: 50,
+                          backgroundImage: AssetImage('images/abott@adorable.png'),
+                        )),
                   ),
                   GestureDetector(
-                    child: Container(
-                      width: MediaQuery.of(context).size.width * 0.8,
-                      child: TextField(
-                        decoration:
-                            InputDecoration(labelText: "Endereço de Email"),
-                      ),
+                    onTap: () {
+                      alterarFotoPopUp(context);
+                    },
+                    child: Text(
+                      "Alterar foto de perfil",
+                      style: Globals.textTheme.headline6.copyWith(color: Globals.theme.primaryColor, fontStyle: FontStyle.normal),
                     ),
                   ),
-                ],
-              ),
-              _espacamento(),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: <Widget>[
-                  SizedBox(
-                    width: 15,
-                  ),
-                  Container(
-                    width: MediaQuery.of(context).size.width * 0.8,
-                    child: TextField(
-                      decoration: InputDecoration(labelText: "Senha"),
-                    ),
-                  ),
-                ],
-              ),
 
-            ],
+                  StdTextInput(padding: EdgeInsets.fromLTRB(8, 24, 8, 8),hintText: 'Nome',),
+                  StdTextInput(hintText: 'Apelido',),
+                  Divider(
+                    height: MediaQuery.of(context).size.height * 0.08,
+                  ),
+                  Text(
+                    "Informações do perfil",
+                    style: Globals.textTheme.headline6,
+                  ),
+                  StdTextInput(padding: EdgeInsets.fromLTRB(8, 24, 8, 8),hintText: 'E-mail',),
+                  StdTextInput(hintText: 'Senha', done: true,),
+                ],
+              ),
+            ),
           ),
         );
       }),

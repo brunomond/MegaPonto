@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:megaponto_oficial/Model/usuario.dart';
-import 'package:megaponto_oficial/View/Utils/online.dart';
+import 'package:megaponto_oficial/Resources/Globals.dart';
+import 'package:megaponto_oficial/View/HomePage/Widgets/MembrosCard.dart';
+import 'package:megaponto_oficial/View/Utils/StdDialog.dart';
+import 'package:megaponto_oficial/View/Utils/StdSnackBar.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:intl/intl.dart';
 
@@ -15,8 +18,6 @@ class PlantaoAmigo extends StatefulWidget {
 
 class _PlantaoAmigoState extends State<PlantaoAmigo> {
   List<Usuario> listFuncionarios = List();
-  List<Usuario> listOnline = List();
-  List<Usuario> listOffline = List();
 
   @override
   void initState() {
@@ -36,7 +37,7 @@ class _PlantaoAmigoState extends State<PlantaoAmigo> {
           padding: EdgeInsets.fromLTRB(30, 25, 0, 0),
           child: Text(
             "Quem está na sala?",
-            style: TextStyle(fontSize: 19, fontWeight: FontWeight.w600),
+            style: Globals.textTheme.headline5.apply(fontSizeDelta: -4),
           ),
         ),
         Expanded(
@@ -44,27 +45,27 @@ class _PlantaoAmigoState extends State<PlantaoAmigo> {
           itemBuilder: (context, index) {
             return Column(
               children: [
-
-                _listMembros(context, index, listOnline),
+              MembrosCard(lista: listFuncionarios, index: index, onTap: () => confirmPopUp(listFuncionarios[index], context),)
               ],
             );
           },
-          itemCount: listOnline.length,
+          itemCount: listFuncionarios.length,
         )),
-        Expanded(
-            child: ListView.builder(
-              itemBuilder: (context, index) {
-                return Column(
-                  children: [
-
-                    _listMembros(context, index, listOffline),
-                  ],
-                );
-              },
-              itemCount: listOffline.length,
-            )),
       ],
     );
+  }
+
+  cancelar(BuildContext context) {
+    Navigator.of(context).pop();
+  }
+
+  alterarStatusFun(Usuario user, BuildContext context) {
+    if (user.online)
+      _fecharPlantao(user);
+    else
+      _iniciarPlantao(user);
+
+    Navigator.of(context).pop();
   }
 
   //Pop-Ups
@@ -72,93 +73,16 @@ class _PlantaoAmigoState extends State<PlantaoAmigo> {
     return showDialog(
         context: context,
         builder: (context) {
-          return AlertDialog(
-              shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.all(Radius.circular(24))),
-              backgroundColor: Color.fromRGBO(143, 58, 56, 1),
-              content: user.online
-                  ? Text('Deseja finalizar o plantão do(a) ' + user.nome + ' ?',
-                      style: TextStyle(color: Colors.white))
-                  : Text('Deseja iniciar o plantão do(a) ' + user.nome + ' ?',
-                      style: TextStyle(color: Colors.white)),
-              actions: <Widget>[
-                FlatButton(
-                  child: Text("Cancelar",
-                      style: TextStyle(color: Colors.white, fontSize: 18)),
-                  onPressed: () {
-                    Navigator.of(context).pop();
-                  },
-                ),
-                FlatButton(
-                  child: Text("Sim",
-                      style: TextStyle(color: Colors.white, fontSize: 18)),
-                  onPressed: () {
-                    _alterarStatusFun(user);
-                    Navigator.of(context).pop();
-                  },
-                )
-              ]);
+          return StdDialog(
+            contentText: user.online
+                ? 'Deseja finalizar o plantão do(a) ${user.nome}?'
+                : 'Deseja iniciar o plantão do(a) ${user.nome}?',
+            options: {
+              'Cancelar': () => cancelar(context),
+              'Sim': () => alterarStatusFun(user, context)
+            },
+          );
         });
-  }
-
-  Widget _listMembros(BuildContext context, int index, List lista) {
-    return Padding(
-        padding: EdgeInsets.fromLTRB(25, 5, 25, 0),
-        child: Card(
-            shape: RoundedRectangleBorder(
-              side: BorderSide(color: Colors.grey[300], width: 1.5),
-              borderRadius: BorderRadius.circular(10.0),
-            ),
-            child: Padding(
-              padding: EdgeInsets.fromLTRB(16, 8, 16, 8),
-              child: Row(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Container(
-                        width: 55,
-                        height: 55,
-                        decoration: BoxDecoration(
-                          shape: BoxShape.circle,
-                          image: DecorationImage(
-                            image: NetworkImage(lista[index].imgUrl),
-                          ),
-                        ),
-                      ),
-                      Padding(
-                        padding: EdgeInsets.only(left: 16),
-                        child: Text(lista[index].nome),
-                      )
-                    ],
-                  ),
-                  GestureDetector(
-                      behavior: HitTestBehavior.opaque,
-                      child: Padding(
-                        padding: EdgeInsets.fromLTRB(15, 15, 15, 15),
-                        child: Online(
-                            online: lista[index].online, width: 20, heigth: 20),
-                      ),
-                      onTap: () {
-                        confirmPopUp(lista[index], context);
-                      }),
-                ],
-              ),
-            )));
-  }
-
-  void _alterarStatusFun(Usuario user) {
-    if (user.online) {
-      _fecharPlantao(user);
-      listOnline.remove(user);
-      listOffline.add(user);
-    } else {
-      _iniciarPlantao(user);
-      listOnline.add(user);
-      listOffline.remove(user);
-    }
   }
 
   void _iniciarPlantao(Usuario user) async {
@@ -170,7 +94,9 @@ class _PlantaoAmigoState extends State<PlantaoAmigo> {
         .setInt(id, DateTime.now().toUtc().millisecondsSinceEpoch)
         .then((value) {
       setState(() => user.online = true);
-      _showSnack(DateFormat.Hm().format(DateTime.now()), true, user.nome);
+      widget.scaffold.currentState.showSnackBar(StdSnackBar(
+          text:
+              'Plantão de ${user.nome} iniciado às ${DateFormat.Hm().format(DateTime.now())}!'));
     });
   }
 
@@ -184,25 +110,9 @@ class _PlantaoAmigoState extends State<PlantaoAmigo> {
 
     prefs.remove('$user.nome').then((value) {
       setState(() => user.online = false);
-      _showSnack(_formatDuration(timeOnline), false, user.nome);
+      widget.scaffold.currentState.showSnackBar(StdSnackBar(
+          text: 'Duração do plantão de ${user.nome}: ${_formatDuration(timeOnline)}'));
     });
-  }
-
-  //Mostra a snackBar
-  void _showSnack(String time, bool start, String nome) {
-    SnackBar snackBar;
-
-    snackBar = start
-        ? snackBar = new SnackBar(
-            content: Text('Plantão do(a) $nome iniciado às $time'),
-            duration: Duration(seconds: 2),
-          )
-        : snackBar = new SnackBar(
-            content: Text('Duração do plantão do(a) $nome: $time'),
-            duration: Duration(seconds: 2),
-          );
-
-    widget.scaffold.currentState.showSnackBar(snackBar);
   }
 
   Future<SharedPreferences> _getSharedInstance() async {
@@ -225,20 +135,11 @@ class _PlantaoAmigoState extends State<PlantaoAmigo> {
   }
 
   void inserirFuncionarios() {
-    Usuario fun0 = Usuario();
-    fun0.id = 0;
-    fun0.nome = "MegaPato";
-    fun0.online = true;
-    fun0.imgUrl = "https://api.adorable.io/avatars/206/abott@exaust.io";
-    listOnline.add(fun0);
-    listFuncionarios.add(fun0);
-
     Usuario fun1 = Usuario();
     fun1.id = 1;
     fun1.nome = "Bruno Monteiro";
     fun1.online = false;
     fun1.imgUrl = "https://api.adorable.io/avatars/206/abott@exaust.io";
-    listOffline.add(fun1);
     listFuncionarios.add(fun1);
 
     Usuario fun2 = Usuario();
@@ -247,7 +148,6 @@ class _PlantaoAmigoState extends State<PlantaoAmigo> {
     fun2.online = false;
     fun2.imgUrl =
         "https://api.adorable.io/avatars/283/abott@adorable.pngCopy to Clipboard";
-    listOffline.add(fun2);
     listFuncionarios.add(fun2);
 
     Usuario fun3 = Usuario();
@@ -255,7 +155,6 @@ class _PlantaoAmigoState extends State<PlantaoAmigo> {
     fun3.nome = "José Kazuo";
     fun3.online = false;
     fun3.imgUrl = "https://api.adorable.io/avatars/285/abott@adorable.png";
-    listOffline.add(fun3);
     listFuncionarios.add(fun3);
 
     Usuario fun4 = Usuario();
@@ -263,7 +162,6 @@ class _PlantaoAmigoState extends State<PlantaoAmigo> {
     fun4.nome = "Kamylla Nogueira";
     fun4.online = false;
     fun4.imgUrl = "https://api.adorable.io/avatars/206/abott@woman.io";
-    listOffline.add(fun4);
     listFuncionarios.add(fun4);
 
     Usuario fun5 = Usuario();
@@ -273,7 +171,6 @@ class _PlantaoAmigoState extends State<PlantaoAmigo> {
     fun5.online = false;
     fun5.imgUrl =
         "https://api.adorable.io/avatars/283/abott@power.pngCopy to Clipboard";
-    listOffline.add(fun5);
     listFuncionarios.add(fun5);
 
     Usuario fun6 = Usuario();
@@ -281,7 +178,6 @@ class _PlantaoAmigoState extends State<PlantaoAmigo> {
     fun6.nome = "João Victor";
     fun6.online = false;
     fun6.imgUrl = "https://api.adorable.io/avatars/285/abott@ocuped.png";
-    listOffline.add(fun6);
     listFuncionarios.add(fun6);
   }
 }

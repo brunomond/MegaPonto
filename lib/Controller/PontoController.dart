@@ -23,8 +23,6 @@ class PontoController {
 
     String teste = parsedJson['comeco'];
 
-    DateTime testes = DateTime.parse(teste);
-
     return "ok";
   }
 

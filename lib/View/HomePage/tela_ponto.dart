@@ -29,7 +29,7 @@ class _PontoState extends State<Ponto> {
   void initState() {
     super.initState();
     _start();
-    membrosController.listarMembrosOnline();
+//    membrosController.listarMembrosOnline();
   }
 
   @override

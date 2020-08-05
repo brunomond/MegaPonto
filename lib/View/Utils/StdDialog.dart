@@ -11,7 +11,7 @@ class StdDialog extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return AlertDialog(
-        title: Text(title),
+        title: title != null ? Text(title) : null,
         backgroundColor: Globals.theme.primaryColor,
         elevation: 8,
         content: Text(contentText, textAlign: TextAlign.justify,),
