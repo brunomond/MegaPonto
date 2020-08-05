@@ -11,4 +11,5 @@ String TransformaTempo (int segundo) {
     return "$horas:$min Horas";
    else
     return "$dias Dias e $horas:$min Horas";
+  //return DateTime.now().difference(DateTime.fromMillisecondsSinceEpoch(segundos * 1000))
 }
