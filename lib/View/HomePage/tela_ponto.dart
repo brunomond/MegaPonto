@@ -1,7 +1,8 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:megaponto_oficial/Controller/MembrosController.dart';
 import 'package:megaponto_oficial/Controller/PontoController.dart';
 import 'package:megaponto_oficial/Resources/Globals.dart';
+import 'package:megaponto_oficial/View/Utils/StdSnackBar.dart';
 import 'Widgets/EstadoSala.dart';
 import 'Widgets/InfoPlantao.dart';
 import 'package:megaponto_oficial/View/Utils/ListOnline.dart';
@@ -11,7 +12,6 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 class Ponto extends StatefulWidget {
   final GlobalKey<ScaffoldState> scaffold;
-
   Ponto({this.scaffold});
 
   @override
@@ -19,20 +19,17 @@ class Ponto extends StatefulWidget {
 }
 
 class _PontoState extends State<Ponto> {
-
   PontoController pontoController = PontoController();
-
-  TextStyle _botaoStyle = TextStyle(color: Colors.white, fontSize: 20);
-  bool started = false;
+  MembrosController membrosController = MembrosController();
   bool loading = true;
-
-
+  bool started;
   var now = TimeOfDay.now();
 
   @override
   void initState() {
     super.initState();
     _start();
+    membrosController.listarMembrosOnline();
   }
 
   @override
@@ -70,6 +67,11 @@ class _PontoState extends State<Ponto> {
     );
   }
 
+  /* ---------------------------------------------------------------------------------------------------------------
+   * --------------------------------------------- FUNCTIONS ------------------------------------------------------- 
+   * ---------------------------------------------------------------------------------------------------------------
+   */
+
   //Carregar dados da SharedPreferences
   void _start() async {
     await _getSharedInstance().then((value) {
@@ -88,7 +90,7 @@ class _PontoState extends State<Ponto> {
         .setInt('startTime', DateTime.now().toUtc().millisecondsSinceEpoch)
         .then((value) {
       setState(() => started = true);
-      _showSnack(DateFormat.Hm().format(DateTime.now()), true);
+      widget.scaffold.currentState.showSnackBar(StdSnackBar(text: 'Plantão iniciado às ${DateFormat.Hm().format(DateTime.now())}!'));
     });
 
     pontoController.iniciarPlantao();
@@ -103,7 +105,7 @@ class _PontoState extends State<Ponto> {
 
     prefs.remove('startTime').then((value) {
       setState(() => started = false);
-      _showSnack(_formatDuration(timeOnline), false);
+      widget.scaffold.currentState.showSnackBar(StdSnackBar(text: 'Duração do plantão: ${_formatDuration(timeOnline)}'));
     });
 
     pontoController.fecharPlantao();
@@ -122,23 +124,6 @@ class _PontoState extends State<Ponto> {
     });
 
     return prefs;
-  }
-
-//Mostra a snackBar
-  void _showSnack(String time, bool start) {
-    SnackBar snackBar;
-
-    snackBar = start
-        ? snackBar = new SnackBar(
-            content: Text('Plantão iniciado às $time'),
-            duration: Duration(seconds: 2),
-          )
-        : snackBar = new SnackBar(
-            content: Text('Duração do plantão: $time'),
-            duration: Duration(seconds: 2),
-          );
-
-    widget.scaffold.currentState.showSnackBar(snackBar);
   }
 
 //Formata a duração para mostrar
