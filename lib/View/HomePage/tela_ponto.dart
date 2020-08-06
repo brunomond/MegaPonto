@@ -86,33 +86,25 @@ class _PontoState extends State<Ponto> {
 
   //Iniciar / Fechar Plantão
   void _iniciarPlantao() async {
-    SharedPreferences prefs = await _getSharedInstance();
-
-    prefs
-        .setInt('startTime', DateTime.now().toUtc().millisecondsSinceEpoch)
-        .then((value) {
-      setState(() => started = true);
-      widget.scaffold.currentState.showSnackBar(StdSnackBar(
-          text:
-              'Plantão iniciado às ${DateFormat.Hm().format(DateTime.now())}!'));
-    });
-
-    pontoController.iniciarPlantao();
+    DateTime horaInicio = await pontoController.iniciarPlantao();
+    setState(() => started = true);
+    widget.scaffold.currentState.showSnackBar(StdSnackBar(
+        text: 'Plantão iniciado às ${DateFormat.Hm().format(horaInicio)}!'));
   }
 
   void _fecharPlantao() async {
-    SharedPreferences prefs = await _getSharedInstance();
+    Map parsedJson = await pontoController.fecharPlantao();
+    Duration duracao = new Duration(seconds: parsedJson['tempo_online']);
+    setState(() => started = false);
+    _showSnack(_formatDuration(duracao), false);
 
-    int time = prefs.get('startTime');
+/*
     DateTime startTime = DateTime.fromMillisecondsSinceEpoch(time);
     Duration timeOnline = DateTime.now().toUtc().difference(startTime);
 
     prefs.remove('startTime').then((value) {
-      setState(() => started = false);
       _showSnack(_formatDuration(timeOnline), false);
-    });
-
-    pontoController.fecharPlantao();
+    });*/
   }
 
   //Inicializa a Instância da SharedPreferences
