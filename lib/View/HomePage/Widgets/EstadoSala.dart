@@ -16,8 +16,13 @@ class EstadoSala extends StatefulWidget {
 class _EstadoSalaState extends State<EstadoSala> {
   EstadoSalaController estadoSalaController = EstadoSalaController();
   EstadoSalaEnum estadoSala = EstadoSalaEnum.NORMAL;
-  IconData icon = CustomIcons.clima_normal;
-  String horas = "14:00";
+  String horas = "00:00";
+
+  @override
+  void initState() {
+    super.initState();
+    obterSalaCafe();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -98,8 +103,23 @@ class _EstadoSalaState extends State<EstadoSala> {
     Navigator.of(context).pop();
   }
 
-  alterarCafe(BuildContext context) {
-    setState(() => horas = DateFormat.Hm().format(DateTime.now()));
+  alterarCafe(BuildContext context) async {
+    DateTime timeCofe =
+        DateTime.parse(await estadoSalaController.alterarHorarioCafe())
+            .toLocal();
+    setState(() => horas = DateFormat.Hm().format(timeCofe));
+
     Navigator.of(context).pop();
+  }
+
+  void obterSalaCafe() async {
+    Map salaCafeMap = await estadoSalaController.getSalaCafe();
+    int sala = int.parse(salaCafeMap['status']);
+    DateTime timeCofe = DateTime.parse(salaCafeMap['cafe']).toLocal();
+
+    setState(() {
+      horas = DateFormat.Hm().format(timeCofe);
+      estadoSala = EstadoSalaEnumExtension.responseData(sala);
+    });
   }
 }

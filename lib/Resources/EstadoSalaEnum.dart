@@ -61,8 +61,9 @@ extension EstadoSalaEnumExtension on EstadoSalaEnum {
   }
 
   List<EstadoSalaEnum> get toList {
-    return EstadoSalaEnum.values.sublist(0,3);
+    return EstadoSalaEnum.values.sublist(0, 3);
   }
+
   static EstadoSalaEnum responseData(int response) {
     switch (response) {
       case 1:

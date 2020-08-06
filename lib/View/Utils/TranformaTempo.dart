@@ -4,7 +4,7 @@ import 'package:megaponto_oficial/View/Utils/FormatDuration.dart';
 String TransformaTempo (int segundo) {
   int dias = segundo ~/ 86400;
   int resto = (segundo % 86400);
-  Duration horas = Duration(seconds: resto+86400);
+  Duration horas = Duration(seconds: resto+86399);
 
   if (dias == 0)
     return "${formatDuration(horas)} Horas";

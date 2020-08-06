@@ -10,33 +10,29 @@ const String URL_FECHAR_PLANTAO =
     'https://paineljunior.com.br/api/plantao/put.json?token=';
 
 class PontoController {
-  Future<String> iniciarPlantao() async {
+  Future<DateTime> iniciarPlantao() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
 
     String urlToken = URL_INICIAR_PLANTAO + prefs.getString('loginAuth');
 
     http.Response response = await http.post(urlToken);
 
-    if (response.statusCode == 400) return "Plantão já foi iniciado";
+    //if (response.statusCode == 400) return DateTime.parse("00:00");
 
     Map parsedJson = json.decode(response.body);
 
-    String teste = parsedJson['comeco'];
-
-    return "ok";
+    return DateTime.parse(parsedJson['comeco']).toLocal();
   }
 
-  Future<int> fecharPlantao() async {
+  Future<Map> fecharPlantao() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
 
     String urlToken = URL_FECHAR_PLANTAO + prefs.getString('loginAuth');
 
     http.Response response = await http.put(urlToken);
 
-    if (response.statusCode == 400) return 0;
+    if (response.statusCode == 400) return Map();
 
-    Map parsedJson = json.decode(response.body);
-
-    return parsedJson['tempo_online'];
+    return json.decode(response.body);
   }
 }
