@@ -7,18 +7,23 @@ import 'package:shared_preferences/shared_preferences.dart';
 const String URL_LOGIN = 'https://paineljunior.com.br/api/home/put.json?token=';
 
 class EstadoSalaController {
+
+
+
+
+
+
   Future<EstadoSalaEnum> alterarEstadoSala(
       EstadoSalaEnum estadoSalaEnum) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    String urlToken = URL_LOGIN + prefs.getString('loginAuth');
 
     Map<String, dynamic> body = {'status': estadoSalaEnum.value};
     Map<String, String> headers = {
       HttpHeaders.contentTypeHeader: 'application/json'
     };
+    String urlToken = URL_LOGIN + prefs.getString('loginAuth');
 
-    http.Response response =
-        await http.put(urlToken, body: jsonEncode(body), headers: headers);
+    http.Response response = await http.put(urlToken, body: jsonEncode(body), headers: headers);
 
     if (response.statusCode == 400) return EstadoSalaEnum.ERRO;
 
@@ -26,23 +31,23 @@ class EstadoSalaController {
 
     return EstadoSalaEnumExtension.responseData(parsedJson['status']);
   }
+<<<<<<<<< Temporary merge branch 1
+=========
 
-  Future<String> alterarHorarioCafe() async {
+  Future<String> alterarHorarioCafe(DateTime date) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
+
+    Map<String, dynamic> body = {'cafe': date.toString()};
+
     String urlToken = URL_LOGIN + prefs.getString('loginAuth');
 
-    Map<String, dynamic> body = {'cafe': true};
-    Map<String, String> headers = {
-      HttpHeaders.contentTypeHeader: 'application/json'
-    };
-
-    http.Response response =
-        await http.put(urlToken, body: jsonEncode(body), headers: headers);
+    http.Response response = await http.put(urlToken, body: body, headers: headers);
 
     if (response.statusCode == 400) return "Erro";
 
     Map parsedJson = json.decode(response.body);
 
-    return parsedJson['cafe'];
+    return "Ok";
   }
+>>>>>>>>> Temporary merge branch 2
 }

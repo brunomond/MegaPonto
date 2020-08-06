@@ -23,7 +23,11 @@ class PontoController {
 
     DateTime horaInicio = DateTime.parse(parsedJson['comeco']).toLocal();
 
+<<<<<<< HEAD
     return horaInicio;
+=======
+    return "ok";
+>>>>>>> origin/bruno
   }
 
   Future<int> fecharPlantao() async {

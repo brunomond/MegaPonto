@@ -1,19 +1,21 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:megaponto_oficial/Controller/EstadoSalaController.dart';
 import 'package:megaponto_oficial/Controller/MembrosController.dart';
+
 import 'package:megaponto_oficial/Controller/PontoController.dart';
-import 'package:megaponto_oficial/Resources/EstadoSalaEnum.dart';
-import 'package:megaponto_oficial/View/Utils/Loading.dart';
-import 'package:megaponto_oficial/View/Utils/ListOnline.dart';
 import 'package:megaponto_oficial/Resources/Globals.dart';
+import 'package:megaponto_oficial/View/Utils/StdSnackBar.dart';
 import 'Widgets/EstadoSala.dart';
 import 'Widgets/InfoPlantao.dart';
+import 'package:megaponto_oficial/View/Utils/ListOnline.dart';
+import 'package:megaponto_oficial/View/Utils/Loading.dart';
 import 'package:intl/intl.dart';
-import 'package:megaponto_oficial/presets/custom_icons_icons.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class Ponto extends StatefulWidget {
   final GlobalKey<ScaffoldState> scaffold;
+
   Ponto({this.scaffold});
 
   @override
@@ -25,10 +27,9 @@ class _PontoState extends State<Ponto> {
   PontoController pontoController = PontoController();
   MembrosController membrosController = MembrosController();
 
-  bool started = false;
-  bool loading = true;
-  String horas = "14:00";
 
+  bool loading = true;
+  bool started;
   var now = TimeOfDay.now();
 
   @override
@@ -40,6 +41,7 @@ class _PontoState extends State<Ponto> {
 
   @override
   Widget build(BuildContext context) {
+
     return Stack(
       children: <Widget>[
         ListOnline(),
@@ -78,6 +80,8 @@ class _PontoState extends State<Ponto> {
    * ---------------------------------------------------------------------------------------------------------------
    */
 
+
+
   //Carregar dados da SharedPreferences
   void _start() async {
     await _getSharedInstance().then((value) {
@@ -92,25 +96,28 @@ class _PontoState extends State<Ponto> {
   void _iniciarPlantao() async {
     SharedPreferences prefs = await _getSharedInstance();
 
-    String horaInicioPlantao =
-        DateFormat.Hm().format(await pontoController.iniciarPlantao());
+    prefs
+        .setInt('startTime', DateTime.now().toUtc().millisecondsSinceEpoch)
+        .then((value) {
+      setState(() => started = true);
+      widget.scaffold.currentState.showSnackBar(StdSnackBar(text: 'Plantão iniciado às ${DateFormat.Hm().format(DateTime.now())}!'));
+    });
 
-    _showSnack(horaInicioPlantao, true);
-    setState(() => started = true);
+    pontoController.iniciarPlantao();
   }
 
   void _fecharPlantao() async {
     SharedPreferences prefs = await _getSharedInstance();
 
-    /*int time = prefs.get('startTime');
+    int time = prefs.get('startTime');
     DateTime startTime = DateTime.fromMillisecondsSinceEpoch(time);
     Duration timeOnline = DateTime.now().toUtc().difference(startTime);
 
     prefs.remove('startTime').then((value) {
       setState(() => started = false);
       _showSnack(_formatDuration(timeOnline), false);
-    });*/
-    setState(() => started = false);
+    });
+
     pontoController.fecharPlantao();
   }
 
