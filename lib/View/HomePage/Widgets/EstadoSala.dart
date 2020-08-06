@@ -100,6 +100,7 @@ class _EstadoSalaState extends State<EstadoSala> {
 
   alterarCafe(BuildContext context) {
     setState(() => horas = DateFormat.Hm().format(DateTime.now()));
+    estadoSalaController.alterarHorarioCafe();
     Navigator.of(context).pop();
   }
 }

@@ -1,9 +1,13 @@
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:megaponto_oficial/Controller/EstadoSalaController.dart';
+import 'package:megaponto_oficial/Controller/MembrosController.dart';
 import 'package:megaponto_oficial/Controller/PontoController.dart';
 import 'package:megaponto_oficial/Resources/EstadoSalaEnum.dart';
 import 'package:megaponto_oficial/View/Utils/Loading.dart';
+import 'package:megaponto_oficial/View/Utils/ListOnline.dart';
+import 'package:megaponto_oficial/Resources/Globals.dart';
+import 'Widgets/EstadoSala.dart';
+import 'Widgets/InfoPlantao.dart';
 import 'package:intl/intl.dart';
 import 'package:megaponto_oficial/presets/custom_icons_icons.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -21,11 +25,8 @@ class _PontoState extends State<Ponto> {
   PontoController pontoController = PontoController();
   MembrosController membrosController = MembrosController();
 
-  TextStyle _botaoStyle = TextStyle(color: Colors.white, fontSize: 20);
   bool started = false;
   bool loading = true;
-  EstadoSalaEnum estadoSala = EstadoSalaEnum.NORMAL;
-  IconData icon = CustomIcons.clima_normal;
   String horas = "14:00";
 
   var now = TimeOfDay.now();
@@ -91,28 +92,25 @@ class _PontoState extends State<Ponto> {
   void _iniciarPlantao() async {
     SharedPreferences prefs = await _getSharedInstance();
 
-    prefs
-        .setInt('startTime', DateTime.now().toUtc().millisecondsSinceEpoch)
-        .then((value) {
-      setState(() => started = true);
-      _showSnack(DateFormat.Hm().format(DateTime.now()), true);
-    });
+    String horaInicioPlantao =
+        DateFormat.Hm().format(await pontoController.iniciarPlantao());
 
-    pontoController.iniciarPlantao();
+    _showSnack(horaInicioPlantao, true);
+    setState(() => started = true);
   }
 
   void _fecharPlantao() async {
     SharedPreferences prefs = await _getSharedInstance();
 
-    int time = prefs.get('startTime');
+    /*int time = prefs.get('startTime');
     DateTime startTime = DateTime.fromMillisecondsSinceEpoch(time);
     Duration timeOnline = DateTime.now().toUtc().difference(startTime);
 
     prefs.remove('startTime').then((value) {
       setState(() => started = false);
       _showSnack(_formatDuration(timeOnline), false);
-    });
-
+    });*/
+    setState(() => started = false);
     pontoController.fecharPlantao();
   }
 

@@ -10,22 +10,20 @@ const String URL_FECHAR_PLANTAO =
     'https://paineljunior.com.br/api/plantao/put.json?token=';
 
 class PontoController {
-  Future<String> iniciarPlantao() async {
+  Future<DateTime> iniciarPlantao() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
 
     String urlToken = URL_INICIAR_PLANTAO + prefs.getString('loginAuth');
 
     http.Response response = await http.post(urlToken);
 
-    if (response.statusCode == 400) return "Plantão já foi iniciado";
+    //if (response.statusCode == 400) return "Plantão já foi iniciado";
 
     Map parsedJson = json.decode(response.body);
 
-    String teste = parsedJson['comeco'];
+    DateTime horaInicio = DateTime.parse(parsedJson['comeco']).toLocal();
 
-    DateTime testes = DateTime.parse(teste);
-
-    return "ok";
+    return horaInicio;
   }
 
   Future<int> fecharPlantao() async {
