@@ -1,8 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:megaponto_oficial/Controller/EstadoSalaController.dart';
 import 'package:megaponto_oficial/Controller/MembrosController.dart';
-
 import 'package:megaponto_oficial/Controller/PontoController.dart';
 import 'package:megaponto_oficial/Resources/Globals.dart';
 import 'package:megaponto_oficial/View/Utils/StdSnackBar.dart';
@@ -23,11 +21,8 @@ class Ponto extends StatefulWidget {
 }
 
 class _PontoState extends State<Ponto> {
-  EstadoSalaController estadoSalaController = EstadoSalaController();
   PontoController pontoController = PontoController();
   MembrosController membrosController = MembrosController();
-
-
   bool loading = true;
   bool started;
   var now = TimeOfDay.now();
@@ -41,7 +36,6 @@ class _PontoState extends State<Ponto> {
 
   @override
   Widget build(BuildContext context) {
-
     return Stack(
       children: <Widget>[
         ListOnline(),
@@ -80,8 +74,6 @@ class _PontoState extends State<Ponto> {
    * ---------------------------------------------------------------------------------------------------------------
    */
 
-
-
   //Carregar dados da SharedPreferences
   void _start() async {
     await _getSharedInstance().then((value) {
@@ -100,7 +92,9 @@ class _PontoState extends State<Ponto> {
         .setInt('startTime', DateTime.now().toUtc().millisecondsSinceEpoch)
         .then((value) {
       setState(() => started = true);
-      widget.scaffold.currentState.showSnackBar(StdSnackBar(text: 'Plantão iniciado às ${DateFormat.Hm().format(DateTime.now())}!'));
+      widget.scaffold.currentState.showSnackBar(StdSnackBar(
+          text:
+              'Plantão iniciado às ${DateFormat.Hm().format(DateTime.now())}!'));
     });
 
     pontoController.iniciarPlantao();
