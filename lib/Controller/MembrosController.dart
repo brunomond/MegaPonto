@@ -20,9 +20,9 @@ class MembrosController {
     List parsedJson = json.decode(response.body);
 
     List<Usuario> listaUser = List();
-    for (int i = 0; i <= parsedJson.length; i++) {
-      //Usuario user = Usuario.fromMap(parsedJson[i][9]['usuario']);
-      //listaUser.add(user);
+    for (int i = 0; i < parsedJson.length; i++) {
+      Usuario user = Usuario.fromMap(parsedJson[i]['usuario']);
+      listaUser.add(user);
     }
 
     return "ok";

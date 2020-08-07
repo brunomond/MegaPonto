@@ -5,7 +5,7 @@ class Usuario {
   String nome;
   String sobrenome;
   String email;
-  DateTime nascimento;
+  String nascimento;
   String celular;
   String cpf;
   String rga;
@@ -21,7 +21,7 @@ class Usuario {
     this.nome = map['nome'];
     this.sobrenome = map['sobrenome'];
     this.email = map['email'];
-    this.nascimento = DateTime.parse(map['nascimento']);
+    this.nascimento = map['nascimento'];
     this.celular = map['celular'];
     this.cpf = (map['cpf'].toString().length > 14) ? map['cpf'] : null;
     this.rga = map['rga'];
@@ -36,8 +36,8 @@ class Usuario {
       'nome': this.nome,
       'sobrenome': this.sobrenome,
       'email': this.email,
-      'nascimento':
-          new DateFormat('dd/MM/yyyy', 'pt-BR').format(this.nascimento),
+      'nascimento': this.nascimento,
+      //new DateFormat('dd/MM/yyyy', 'pt-BR').format(this.nascimento),
       'celular': this.celular,
       'cpf': this.cpf,
       'rga': this.rga,
