@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'dart:io';
 import 'package:http/http.dart' as http;
 import 'package:megaponto_oficial/Resources/EstadoSalaEnum.dart';
+import 'package:megaponto_oficial/Resources/Globals.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 const String URL_PUT_SALA_CAFE =
@@ -15,13 +16,10 @@ class EstadoSalaController {
     SharedPreferences prefs = await SharedPreferences.getInstance();
 
     Map<String, dynamic> body = {'status': estadoSalaEnum.value};
-    Map<String, String> headers = {
-      HttpHeaders.contentTypeHeader: 'application/json'
-    };
     String urlToken = URL_PUT_SALA_CAFE + prefs.getString('loginAuth');
 
-    http.Response response =
-        await http.put(urlToken, body: jsonEncode(body), headers: headers);
+    http.Response response = await http.put(urlToken,
+        body: jsonEncode(body), headers: Globals.headers);
 
     if (response.statusCode == 400) return EstadoSalaEnum.ERRO;
 

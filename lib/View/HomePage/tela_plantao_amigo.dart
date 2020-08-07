@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:megaponto_oficial/Controller/PlantaoAmigoController.dar.dart';
+import 'package:megaponto_oficial/Controller/PlantaoAmigoController.dart';
 import 'package:megaponto_oficial/Model/usuario.dart';
 import 'package:megaponto_oficial/Resources/Globals.dart';
 import 'package:megaponto_oficial/View/HomePage/Widgets/MembrosCard.dart';
@@ -49,7 +49,11 @@ class _PlantaoAmigoState extends State<PlantaoAmigo> {
           itemBuilder: (context, index) {
             return Column(
               children: [
-              MembrosCard(lista: listFuncionarios, index: index, onTap: () => confirmPopUp(listFuncionarios[index], context),)
+                MembrosCard(
+                  lista: listFuncionarios,
+                  index: index,
+                  onTap: () => confirmPopUp(listFuncionarios[index], context),
+                )
               ],
             );
           },
@@ -115,7 +119,8 @@ class _PlantaoAmigoState extends State<PlantaoAmigo> {
     prefs.remove('$user.nome').then((value) {
       setState(() => user.online = false);
       widget.scaffold.currentState.showSnackBar(StdSnackBar(
-          text: 'Duração do plantão de ${user.nome}: ${formatDuration(timeOnline)}'));
+          text:
+              'Duração do plantão de ${user.nome}: ${formatDuration(timeOnline)}'));
     });
   }
 
@@ -142,7 +147,7 @@ class _PlantaoAmigoState extends State<PlantaoAmigo> {
     fun2.id = 2;
     fun2.online = false;
     fun2.imgUrl =
-    "https://api.adorable.io/avatars/283/abott@adorable.pngCopy to Clipboard";
+        "https://api.adorable.io/avatars/283/abott@adorable.pngCopy to Clipboard";
     listFuncionarios.add(fun2);
 
     Usuario fun3 = Usuario();
@@ -165,7 +170,7 @@ class _PlantaoAmigoState extends State<PlantaoAmigo> {
     fun5.nome = "Gabriel Martinez";
     fun5.online = false;
     fun5.imgUrl =
-    "https://api.adorable.io/avatars/283/abott@power.pngCopy to Clipboard";
+        "https://api.adorable.io/avatars/283/abott@power.pngCopy to Clipboard";
     listFuncionarios.add(fun5);
 
     Usuario fun6 = Usuario();
