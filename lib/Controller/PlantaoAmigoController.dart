@@ -21,11 +21,11 @@ class PlantaoAmigoController {
 
     List<Usuario> listFuncionario = List();
 
-    for (int i = 0; i < amigos.length; i++) {
-      Usuario user = Usuario.fromMap(amigos[i]["usuario"]);
-      (amigos[i]['online'] != null) ? user.online = true : user.online = false;
+    amigos.forEach((amigo) {
+      Usuario user = Usuario.fromMap(amigo['usuario']);
+      user.online = amigo['online'] != null;
       listFuncionario.add(user);
-    }
+    });
 
     return listFuncionario;
   }
