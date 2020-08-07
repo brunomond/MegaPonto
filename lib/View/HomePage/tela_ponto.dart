@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:megaponto_oficial/Controller/MembrosController.dart';
 import 'package:megaponto_oficial/Controller/PontoController.dart';
@@ -8,12 +7,12 @@ import 'Widgets/EstadoSala.dart';
 import 'Widgets/InfoPlantao.dart';
 import 'package:megaponto_oficial/View/Utils/ListOnline.dart';
 import 'package:megaponto_oficial/View/Utils/Loading.dart';
+import 'package:megaponto_oficial/View/Utils/FormatDuration.dart';
 import 'package:intl/intl.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class Ponto extends StatefulWidget {
   final GlobalKey<ScaffoldState> scaffold;
-
   Ponto({this.scaffold});
 
   @override
@@ -104,7 +103,7 @@ class _PontoState extends State<Ponto> {
     Map parsedJson = await pontoController.fecharPlantao();
     Duration duracao = new Duration(seconds: parsedJson['tempo_online']);
     setState(() => started = false);
-    _showSnack(_formatDuration(duracao), false);
+    _showSnack(formatDuration(duracao), false);
     prefs.setBool('start', false);
   }
 
@@ -138,14 +137,5 @@ class _PontoState extends State<Ponto> {
           );
 
     widget.scaffold.currentState.showSnackBar(snackBar);
-  }
-
-//Formata a duração para mostrar
-  String _formatDuration(Duration duration) {
-    String twoDigits(int n) => n.toString().padLeft(2, "0");
-    String twoDigitMinutes = twoDigits(duration.inMinutes.remainder(60));
-    String twoDigitSeconds = twoDigits(duration.inSeconds.remainder(60));
-
-    return "${twoDigits(duration.inHours)}:$twoDigitMinutes:$twoDigitSeconds";
   }
 }

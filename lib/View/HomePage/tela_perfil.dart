@@ -1,7 +1,5 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:megaponto_oficial/Controller/PerfilController.dart';
-import 'package:megaponto_oficial/Resources/Globals.dart';
 import 'package:megaponto_oficial/View/HomePage/Widgets/TempoPerfil.dart';
 import 'package:megaponto_oficial/View/HomePage/Widgets/UsuarioLabel.dart';
 import 'package:megaponto_oficial/View/Utils/TranformaTempo.dart';
@@ -20,8 +18,6 @@ class _PerfilState extends State<Perfil> {
     super.initState();
 
   }
-
-
 
   @override
   Widget build(BuildContext context) {
