@@ -23,7 +23,7 @@ class PlantaoAmigoController {
 
     for (int i = 0; i < amigos.length; i++) {
       Usuario user = Usuario.fromMap(amigos[i]["usuario"]);
-      (amigos[i]['online']) ? user.online = true : user.online = false;
+      (amigos[i]['online'] != null) ? user.online = true : user.online = false;
       listFuncionario.add(user);
     }
 

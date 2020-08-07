@@ -2,11 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:megaponto_oficial/View/Utils/online.dart';
 
 class MembrosCard extends StatelessWidget {
-
   final List lista;
   final int index;
   final Function onTap;
-  MembrosCard({@required this.lista, @required this.index, @required this.onTap});
+  MembrosCard(
+      {@required this.lista, @required this.index, @required this.onTap});
 
   @override
   Widget build(BuildContext context) {
@@ -54,6 +54,4 @@ class MembrosCard extends StatelessWidget {
               ),
             )));
   }
-
-
 }
