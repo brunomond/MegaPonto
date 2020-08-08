@@ -33,7 +33,9 @@ class _TempoPerfilState extends State<TempoPerfil> {
       children: <Widget>[
         Expanded(
           flex: 1,
-          child: _tempoSMA('$totalSemanaD', 'Essa Semana'),
+          child: Container(
+              child: _tempoSMA('$totalSemanaD', 'Essa Semana')
+          ),
         ),
         Expanded(
           flex: 1,

@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:megaponto_oficial/Resources/Globals.dart';
 import 'package:megaponto_oficial/View/Utils/GradientAppBar.dart';
@@ -97,11 +96,5 @@ class _EditarPerfilState extends State<EditarPerfil> {
                 ],
               ));
         });
-  }
-
-  Widget _espacamento() {
-    return SizedBox(
-      height: MediaQuery.of(context).size.height * 0.04,
-    );
   }
 }

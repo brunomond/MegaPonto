@@ -137,6 +137,5 @@ class _PlantaoAmigoState extends State<PlantaoAmigo> {
     setState(() async {
       listFuncionarios = await plantaoAmigoController.mostrarAmigos();
     });
-    String i = "";
   }
 }
