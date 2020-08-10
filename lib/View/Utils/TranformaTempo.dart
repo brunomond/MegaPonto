@@ -7,8 +7,7 @@ String TransformaTempo (int segundo) {
   Duration horas = Duration(seconds: resto+86399);
 
   if (dias == 0)
-    return "${formatDuration(horas)} Horas";
+    return "${formatDuration(horas)}";
    else
-    return "$dias Dias e ${formatDuration(horas)} Horas";
-  //return DateTime.now().difference(DateTime.fromMillisecondsSinceEpoch(segundos * 1000))
+    return "$dias Dias ${formatDuration(horas)}";
 }

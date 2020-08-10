@@ -26,8 +26,7 @@ class _PlantaoAmigoState extends State<PlantaoAmigo> {
   void initState() {
     super.initState();
     setState(() {
-      inserirFuncionarios2();
-      //inserirFuncionarios();
+      inserirFuncionarios();
     });
   }
 
@@ -134,97 +133,9 @@ class _PlantaoAmigoState extends State<PlantaoAmigo> {
     return prefs;
   }
 
-  void inserirFuncionarios2() {
-    Usuario fun1 = Usuario();
-    fun1.id = 1;
-    fun1.nome = "Bruno Monteiro";
-    fun1.online = false;
-    fun1.imgUrl = "https://api.adorable.io/avatars/206/abott@exaust.io";
-    listFuncionarios.add(fun1);
-
-    Usuario fun2 = Usuario();
-    fun2.nome = "Jefferson Henrique";
-    fun2.id = 2;
-    fun2.online = false;
-    fun2.imgUrl =
-        "https://api.adorable.io/avatars/283/abott@adorable.pngCopy to Clipboard";
-    listFuncionarios.add(fun2);
-
-    Usuario fun3 = Usuario();
-    fun3.id = 3;
-    fun3.nome = "José Kazuo";
-    fun3.online = false;
-    fun3.imgUrl = "https://api.adorable.io/avatars/285/abott@adorable.png";
-    listFuncionarios.add(fun3);
-
-    Usuario fun4 = Usuario();
-    fun4.id = 4;
-    fun4.nome = "Kamylla Nogueira";
-    fun4.online = false;
-    fun4.imgUrl = "https://api.adorable.io/avatars/206/abott@woman.io";
-    listFuncionarios.add(fun4);
-
-    Usuario fun5 = Usuario();
-    fun5.id = 5;
-
-    fun5.nome = "Gabriel Martinez";
-    fun5.online = false;
-    fun5.imgUrl =
-        "https://api.adorable.io/avatars/283/abott@power.pngCopy to Clipboard";
-    listFuncionarios.add(fun5);
-
-    Usuario fun6 = Usuario();
-    fun6.id = 6;
-    fun6.nome = "João Victor";
-    fun6.online = false;
-    fun6.imgUrl = "https://api.adorable.io/avatars/285/abott@ocuped.png";
-    listFuncionarios.add(fun6);
+  void inserirFuncionarios() {
+    setState(() async {
+      listFuncionarios = await plantaoAmigoController.mostrarAmigos();
+    });
   }
-
-  /*void inserirFuncionarios() {
-    Usuario fun1 = Usuario();
-    fun1.id = 1;
-    fun1.nome = "Bruno Monteiro";
-    fun1.online = false;
-    fun1.imgUrl = "https://api.adorable.io/avatars/206/abott@exaust.io";
-    listFuncionarios.add(fun1);
-
-    Usuario fun2 = Usuario();
-    fun2.nome = "Jefferson Henrique";
-    fun2.id = 2;
-    fun2.online = false;
-    fun2.imgUrl =
-        "https://api.adorable.io/avatars/283/abott@adorable.pngCopy to Clipboard";
-    listFuncionarios.add(fun2);
-
-    Usuario fun3 = Usuario();
-    fun3.id = 3;
-    fun3.nome = "José Kazuo";
-    fun3.online = false;
-    fun3.imgUrl = "https://api.adorable.io/avatars/285/abott@adorable.png";
-    listFuncionarios.add(fun3);
-
-    Usuario fun4 = Usuario();
-    fun4.id = 4;
-    fun4.nome = "Kamylla Nogueira";
-    fun4.online = false;
-    fun4.imgUrl = "https://api.adorable.io/avatars/206/abott@woman.io";
-    listFuncionarios.add(fun4);
-
-    Usuario fun5 = Usuario();
-    fun5.id = 5;
-
-    fun5.nome = "Gabriel Martinez";
-    fun5.online = false;
-    fun5.imgUrl =
-        "https://api.adorable.io/avatars/283/abott@power.pngCopy to Clipboard";
-    listFuncionarios.add(fun5);
-
-    Usuario fun6 = Usuario();
-    fun6.id = 6;
-    fun6.nome = "João Victor";
-    fun6.online = false;
-    fun6.imgUrl = "https://api.adorable.io/avatars/285/abott@ocuped.png";
-    listFuncionarios.add(fun6);
-  }*/
 }
