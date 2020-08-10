@@ -3,45 +3,35 @@ import 'package:megaponto_oficial/Resources/Globals.dart';
 import 'package:megaponto_oficial/View/Utils/Gradient.dart';
 
 class ListOnline extends StatelessWidget {
+  final List lista;
+  ListOnline({@required this.lista});
+
   @override
   Widget build(BuildContext context) {
     return GradientBackground(
       child: Padding(
-          padding:
-              EdgeInsets.only(top: Globals.windowSize.height * 0.065),
+          padding: EdgeInsets.only(top: Globals.windowSize.height * 0.065),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
               SizedBox(
                   height: Globals.windowSize.height * 0.14,
-                  child: _listOnline()),
+                  child: ListView.builder(
+                    scrollDirection: Axis.horizontal,
+                    itemCount: lista.length,
+                    itemBuilder: (context, index) {
+                      return Column(
+                        children: [_itemListOnline(index)],
+                      );
+                    },
+                  )),
               Padding(padding: EdgeInsets.only(top: 8), child: _textOnline())
             ],
           )),
     );
   }
 
-  Widget _listOnline() {
-    return ListView(
-      scrollDirection: Axis.horizontal,
-      children: [
-        _itemListOnline(
-            "Kazuo", "https://api.adorable.io/avatars/285/abott@adorable.png"),
-        _itemListOnline("Bruno",
-            "https://api.adorable.io/avatars/283/abott@adorable.pngCopy to Clipboard"),
-        _itemListOnline(
-            "Cleber", "https://api.adorable.io/avatars/206/abott@exaust.io"),
-        _itemListOnline(
-            "Eduardo", "https://api.adorable.io/avatars/206/abott@strong.io"),
-        _itemListOnline(
-            "Jose", "https://api.adorable.io/avatars/206/abott@hungry.io"),
-        _itemListOnline(
-            "Enzo", "https://api.adorable.io/avatars/206/abott@fasty.io"),
-      ],
-    );
-  }
-
-  Widget _itemListOnline(String texto, String imagem) {
+  Widget _itemListOnline(int index) {
     return Container(
       padding: EdgeInsets.only(left: 30),
       child: Column(
@@ -56,7 +46,8 @@ class ListOnline extends StatelessWidget {
                 decoration: BoxDecoration(
                   shape: BoxShape.circle,
                   image: DecorationImage(
-                    image: NetworkImage("$imagem"),
+                    image: NetworkImage(
+                        "https://api.adorable.io/avatars/285/abott@adorable.png"),
                   ),
                 ),
               ),
@@ -64,7 +55,8 @@ class ListOnline extends StatelessWidget {
           ),
           Padding(
             padding: EdgeInsets.only(top: 5),
-            child: Text("$texto", style: TextStyle(color: Colors.white)),
+            child:
+                Text(lista[index].nome, style: TextStyle(color: Colors.white)),
           )
         ],
       ),
