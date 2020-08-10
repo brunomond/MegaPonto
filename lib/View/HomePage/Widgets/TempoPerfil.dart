@@ -27,25 +27,24 @@ class _TempoPerfilState extends State<TempoPerfil> {
 
   @override
   Widget build(BuildContext context) {
-    return  Row(
-      crossAxisAlignment: CrossAxisAlignment.center,
-      mainAxisAlignment: MainAxisAlignment.spaceAround,
-      children: <Widget>[
-        Expanded(
-          flex: 1,
+    return Padding(
+      padding: EdgeInsets.only(bottom: 16.0),
+      child: Stack(
+        children: <Widget>[
+        Positioned(
+          left: 16,
           child: Container(
-              child: _tempoSMA('$totalSemanaD', 'Essa Semana')
+              child: _tempoSMA('$totalSemanaD', 'Semanais')
           ),
         ),
-        Expanded(
-          flex: 1,
-          child: _tempoSMA('$totalMesD', 'Esse Mês'),
+        Align(
+          alignment: Alignment.center,
+          child: _tempoSMA('$totalMesD', 'Mensais'),
         ),
-        Expanded(
-          flex: 1,
-          child: _tempoSMA('$totalAnoD', 'Esse Ano'),
-        ),
-      ],
+        Positioned(
+          right: 16,
+          child: _tempoSMA('$totalAnoD', 'Anuais'),)
+    ]),
     );
   }
 
@@ -61,10 +60,15 @@ class _TempoPerfilState extends State<TempoPerfil> {
           children: <Widget>[
             Text(
               horasAcumuladas,
+              maxLines: 2,
+              textAlign: TextAlign.center,
               style: TextStyle(fontSize: 22),
             ),
             Text(
               sma,
+              maxLines: 1,
+              textAlign: TextAlign.center,
+              overflow: TextOverflow.ellipsis,
               style: TextStyle(fontSize: 16),
             ),
           ],

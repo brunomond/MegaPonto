@@ -1,5 +1,3 @@
-import 'package:intl/intl.dart';
-
 class Usuario {
   int id;
   String nome;
@@ -11,7 +9,6 @@ class Usuario {
   String rga;
   String imgUrl;
   String token;
-  int tokenId;
   bool online; //Apenas para teste
 
   Usuario();
@@ -27,8 +24,19 @@ class Usuario {
     this.rga = map['rga'];
     this.imgUrl = map['imagem'];
     this.token = map['token'];
-    this.tokenId = map['token_id'];
   }
+
+  Usuario.fromJson(Map<String, dynamic> json)
+      : this.id = json['id'],
+        this.nome = json['nome'],
+        this.sobrenome = json['sobrenome'],
+        this.email = json['email'],
+        this.nascimento = json['nascimento'],
+        this.celular = json['celular'],
+        this.cpf = (json['cpf'].toString().length > 14) ? json['cpf'] : null,
+        this.rga = json['rga'],
+        this.imgUrl = json['imagem'],
+        this.token = json['token'];
 
   Map toMap() {
     Map<String, dynamic> map = {
@@ -42,8 +50,7 @@ class Usuario {
       'cpf': this.cpf,
       'rga': this.rga,
       'imagem': this.imgUrl,
-      'token': this.token,
-      'token_id': this.tokenId
+      'token': this.token
     };
 
     return map;
