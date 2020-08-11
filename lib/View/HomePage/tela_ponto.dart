@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:megaponto_oficial/Controller/MembrosController.dart';
 import 'package:megaponto_oficial/Controller/PontoController.dart';
+import 'package:megaponto_oficial/Model/usuario.dart';
 import 'package:megaponto_oficial/Resources/Globals.dart';
 import 'package:megaponto_oficial/View/Utils/StdSnackBar.dart';
 import 'Widgets/EstadoSala.dart';
@@ -25,19 +26,22 @@ class _PontoState extends State<Ponto> {
   bool loading = true;
   bool started;
   var now = TimeOfDay.now();
+  List<Usuario> listUsuariosOnline = List();
 
   @override
   void initState() {
     super.initState();
     _start();
-    membrosController.listarMembrosOnline();
+    buscarMembrosOnline();
   }
 
   @override
   Widget build(BuildContext context) {
     return Stack(
       children: <Widget>[
-        ListOnline(),
+        ListOnline(
+          lista: listUsuariosOnline,
+        ),
         Positioned.fill(
           top: Globals.windowSize.height * 0.27,
           child: Container(
@@ -69,9 +73,9 @@ class _PontoState extends State<Ponto> {
   }
 
   /* ---------------------------------------------------------------------------------------------------------------
-   * --------------------------------------------- FUNCTIONS ------------------------------------------------------- 
-   * ---------------------------------------------------------------------------------------------------------------
-   */
+       * --------------------------------------------- FUNCTIONS ------------------------------------------------------- 
+       * ---------------------------------------------------------------------------------------------------------------
+       */
 
   //Carregar dados da SharedPreferences
   void _start() async {
@@ -122,7 +126,7 @@ class _PontoState extends State<Ponto> {
     return prefs;
   }
 
-//Mostra a snackBar
+  //Mostra a snackBar
   void _showSnack(String time, bool start) {
     SnackBar snackBar;
 
@@ -137,5 +141,14 @@ class _PontoState extends State<Ponto> {
           );
 
     widget.scaffold.currentState.showSnackBar(snackBar);
+  }
+
+  void buscarMembrosOnline() async {
+    List<Usuario> listUsuariosOnlines =
+        await membrosController.listarMembrosOnline();
+
+    setState(() {
+      listUsuariosOnline = listUsuariosOnlines;
+    });
   }
 }

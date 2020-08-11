@@ -8,14 +8,14 @@ const String URL_LIST_MEMBROS_ONLINE =
     'https://paineljunior.com.br/api/plantao/list.json?token=';
 
 class MembrosController {
-  Future<String> listarMembrosOnline() async {
+  Future<List> listarMembrosOnline() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
 
     String urlToken = URL_LIST_MEMBROS_ONLINE + prefs.getString('loginAuth');
 
     http.Response response = await http.get(urlToken);
 
-    if (response.statusCode == 400) return "Erro";
+    if (response.statusCode == 400) return List();
 
     List parsedJson = json.decode(response.body);
 
@@ -25,6 +25,6 @@ class MembrosController {
       listaUser.add(user);
     }
 
-    return "ok";
+    return listaUser;
   }
 }
