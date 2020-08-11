@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:megaponto_oficial/Model/usuario.dart';
 import 'package:megaponto_oficial/Resources/Globals.dart';
 import 'package:megaponto_oficial/View/Utils/Gradient.dart';
 
 class ListOnline extends StatelessWidget {
   final List lista;
-  ListOnline({@required this.lista});
+  final Usuario user;
+  ListOnline({@required this.lista, this.user});
 
   @override
   Widget build(BuildContext context) {
@@ -64,6 +66,7 @@ class ListOnline extends StatelessWidget {
   }
 
   Widget _textOnline() {
+    int quantidade = lista.length;
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
@@ -76,7 +79,7 @@ class ListOnline extends StatelessWidget {
           ),
         ),
         Text(
-          ' 5 MegaMembros na sala :)',
+          ' $quantidade MegaMembros na sala :)',
           style: TextStyle(
               fontSize: 21, color: Colors.white, fontStyle: FontStyle.italic),
         ),
