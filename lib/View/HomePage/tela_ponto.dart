@@ -109,7 +109,8 @@ class _PontoState extends State<Ponto> {
     Map parsedJson = await pontoController.fecharPlantao();
     Duration duracao = new Duration(seconds: parsedJson['tempo_online']);
     setState(() => started = false);
-    _showSnack(formatDuration(duracao), false);
+    widget.scaffold.currentState.showSnackBar(
+        StdSnackBar(text: 'Duração do plantão: ${formatDuration(duracao)}!'));
     prefs.setBool('start', false);
   }
 
@@ -126,23 +127,6 @@ class _PontoState extends State<Ponto> {
     });
 
     return prefs;
-  }
-
-  //Mostra a snackBar
-  void _showSnack(String time, bool start) {
-    SnackBar snackBar;
-
-    snackBar = start
-        ? snackBar = new SnackBar(
-            content: Text('Plantão iniciado às $time'),
-            duration: Duration(seconds: 2),
-          )
-        : snackBar = new SnackBar(
-            content: Text('Duração do plantão: $time'),
-            duration: Duration(seconds: 2),
-          );
-
-    widget.scaffold.currentState.showSnackBar(snackBar);
   }
 
   void buscarMembrosOnline() async {
