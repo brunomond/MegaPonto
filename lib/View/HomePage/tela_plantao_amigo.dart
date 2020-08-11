@@ -93,34 +93,11 @@ class _PlantaoAmigoState extends State<PlantaoAmigo> {
   }
 
   void _iniciarPlantao(Usuario user) async {
-    SharedPreferences prefs = await _getSharedInstance();
-
-    String id = user.id.toString();
-
-    prefs
-        .setInt(id, DateTime.now().toUtc().millisecondsSinceEpoch)
-        .then((value) {
-      setState(() => user.online = true);
-      widget.scaffold.currentState.showSnackBar(StdSnackBar(
-          text:
-              'Plantão de ${user.nome} iniciado às ${DateFormat.Hm().format(DateTime.now())}!'));
-    });
+    plantaoAmigoController.iniciarAmigo(user.id);
   }
 
   void _fecharPlantao(Usuario user) async {
-    SharedPreferences prefs = await _getSharedInstance();
-
-    String id = user.id.toString();
-    int time = prefs.get(id);
-    DateTime startTime = DateTime.fromMillisecondsSinceEpoch(time);
-    Duration timeOnline = DateTime.now().toUtc().difference(startTime);
-
-    prefs.remove('$user.nome').then((value) {
-      setState(() => user.online = false);
-      widget.scaffold.currentState.showSnackBar(StdSnackBar(
-          text:
-              'Duração do plantão de ${user.nome}: ${formatDuration(timeOnline)}'));
-    });
+    plantaoAmigoController.fecharAmigo(user.id);
   }
 
   Future<SharedPreferences> _getSharedInstance() async {
@@ -133,9 +110,10 @@ class _PlantaoAmigoState extends State<PlantaoAmigo> {
     return prefs;
   }
 
-  void inserirFuncionarios() {
-    setState(() async {
-      listFuncionarios = await plantaoAmigoController.mostrarAmigos();
+  void inserirFuncionarios() async {
+    List<Usuario> listUsuario = await plantaoAmigoController.mostrarAmigos();
+    setState(() {
+      listFuncionarios = listUsuario;
     });
   }
 }
