@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:megaponto_oficial/Controller/MembrosController.dart';
 import 'package:megaponto_oficial/Controller/PontoController.dart';
@@ -79,14 +81,14 @@ class _PontoState extends State<Ponto> {
 
   //Carregar dados da SharedPreferences
   void _start() async {
-    await _getSharedInstance().then((value) {
-      setState(() {
-        if (value.get('start') == true)
-          started = true;
-        else
-          started = false;
-        loading = false;
-      });
+    int online = await pontoController.verificarUserOnline();
+
+    setState(() {
+      if (online == 1)
+        started = true;
+      else
+        started = false;
+      loading = false;
     });
   }
 

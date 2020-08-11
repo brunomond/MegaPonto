@@ -9,6 +9,9 @@ const String URL_INICIAR_PLANTAO =
 const String URL_FECHAR_PLANTAO =
     'https://paineljunior.com.br/api/plantao/put.json?token=';
 
+const String URL_INFO_PLANTAO =
+    'https://paineljunior.com.br/api/plantao/get.json?token=';
+
 class PontoController {
   Future<DateTime> iniciarPlantao() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
@@ -34,5 +37,17 @@ class PontoController {
     if (response.statusCode == 400) return Map();
 
     return json.decode(response.body);
+  }
+
+  Future<int> verificarUserOnline() async {
+    SharedPreferences preferences = await SharedPreferences.getInstance();
+
+    String urlToken = URL_INFO_PLANTAO + preferences.getString('loginAuth');
+
+    http.Response response = await http.get(urlToken);
+
+    if (response.statusCode != 200) return 0;
+
+    return 1;
   }
 }
