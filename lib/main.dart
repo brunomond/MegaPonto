@@ -42,8 +42,8 @@ class MegaPonto extends StatelessWidget {
           primaryColor: Color.fromRGBO(140, 32, 55, 1),
           accentColor: Color.fromRGBO(61, 1, 78, 1),
           dialogTheme: DialogTheme(
-            shape:RoundedRectangleBorder(
-          borderRadius: BorderRadius.all(Radius.circular(24))),
+            shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.all(Radius.circular(24))),
             backgroundColor: Color.fromRGBO(140, 32, 55, 1),
             titleTextStyle: TextStyle(
                 fontSize: 20,
@@ -76,30 +76,30 @@ class MegaPonto extends StatelessWidget {
                   borderRadius: BorderRadius.circular(32),
                   borderSide: BorderSide(color: Colors.red))),
           textTheme: TextTheme(
-              button: TextStyle(
-                  color: Colors.white,
-                  fontSize: 20,
-                  fontFamily: 'Segoe UI',
-                  fontWeight: FontWeight.bold),
-              bodyText1: TextStyle(
-                  color: Colors.black87, fontSize: 28, fontFamily: 'Segoe UI'),
-              bodyText2: TextStyle(
-                  color: Colors.black87, fontSize: 16, fontFamily: 'Segoe UI'),
-              overline: TextStyle(
-                  color: Colors.grey,
-                  fontSize: 13,
-                  letterSpacing: -0.5,
-                  wordSpacing: 0),
-              headline3: TextStyle(color: Colors.white, fontFamily: 'Cookie'),
-              headline5: TextStyle(
-                  fontSize: 24,
-                  fontWeight: FontWeight.bold,
-                  fontFamily: 'Segoe UI'),
-              headline6: TextStyle(
-                  fontSize: 21,
-                  fontStyle: FontStyle.italic,
-                  fontWeight: FontWeight.w400,
-                  fontFamily: 'Segoe UI'),
+            button: TextStyle(
+                color: Colors.white,
+                fontSize: 20,
+                fontFamily: 'Segoe UI',
+                fontWeight: FontWeight.bold),
+            bodyText1: TextStyle(
+                color: Colors.black87, fontSize: 28, fontFamily: 'Segoe UI'),
+            bodyText2: TextStyle(
+                color: Colors.black87, fontSize: 16, fontFamily: 'Segoe UI'),
+            overline: TextStyle(
+                color: Colors.grey,
+                fontSize: 13,
+                letterSpacing: -0.5,
+                wordSpacing: 0),
+            headline3: TextStyle(color: Colors.white, fontFamily: 'Bebas Neue'),
+            headline5: TextStyle(
+                fontSize: 24,
+                fontWeight: FontWeight.bold,
+                fontFamily: 'Segoe UI'),
+            headline6: TextStyle(
+                fontSize: 21,
+                fontStyle: FontStyle.italic,
+                fontWeight: FontWeight.w400,
+                fontFamily: 'Segoe UI'),
           )),
     );
   }

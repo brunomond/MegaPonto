@@ -93,6 +93,11 @@ flutter:
     - family: Cookie
       fonts:
         - asset: fonts/Cookie-Regular.ttf
+
+    - family: Bebas Neue
+      fonts:
+         - asset: fonts/BebasNeue-Regular.ttf
+
   #
   # For details regarding fonts from package dependencies,
   # see https://flutter.dev/custom-fonts/#from-packages
