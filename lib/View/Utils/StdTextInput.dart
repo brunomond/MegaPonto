@@ -17,6 +17,8 @@ class StdTextInput extends StatelessWidget {
   final FormFieldValidator<String> validator;
   final FormFieldSetter<String> onSaved;
   final bool done;
+  final Function(String) onChanged;
+  final bool enabled;
 
   StdTextInput(
       {this.keyboardType,
@@ -30,7 +32,9 @@ class StdTextInput extends StatelessWidget {
       this.iconsPadding,
       this.validator,
       this.onSaved,
-      this.done = false});
+      this.done = false, 
+      this.onChanged,
+      this.enabled = true});
 
   final phoneMask = new MaskTextInputFormatter(
       mask: '(##) #####-####', filter: {'#': RegExp(r'[0-9]')});
@@ -46,7 +50,7 @@ class StdTextInput extends StatelessWidget {
         textInputAction: textInputAction ?? !done ? TextInputAction.next : TextInputAction.done,
         onEditingComplete: () => !done ? FocusScope.of(context).nextFocus() : FocusScope.of(context).unfocus(),
         decoration: InputDecoration(
-          hintText: hintText != null && hintText.isNotEmpty ? hintText : null,
+          hintText: null,
           labelText: hintText != null && hintText.isNotEmpty ? hintText : null,
           prefixIcon: prefixIcon != null
               ? StdPrefixIcon(
@@ -60,6 +64,8 @@ class StdTextInput extends StatelessWidget {
         inputFormatters: isPhone ? [phoneMask] : null,
         validator: validator,
         onSaved: onSaved,
+        onChanged: onChanged,
+        enabled: enabled,
       ),
     );
   }

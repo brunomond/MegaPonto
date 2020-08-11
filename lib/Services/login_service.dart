@@ -1,46 +1,38 @@
 import 'dart:convert';
-import 'dart:io';
 import 'package:http/http.dart' as http;
 import 'package:flutter/material.dart';
 import 'package:megaponto_oficial/Model/Usuario.dart';
+import 'package:megaponto_oficial/Resources/Globals.dart';
 import 'package:megaponto_oficial/View/Utils/ErrorSnackBar.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-//Constantes
 const String URL_LOGIN = 'https://paineljunior.com.br/api/login.json';
 
-class LoginController {
-  String senha;
-  BuildContext context;
+class LoginService {
 
-  LoginController({this.senha, this.context});
+  final String senha;
+  final String email;
 
-  final GlobalKey<FormState> formKey = new GlobalKey<FormState>();
+  LoginService({this.senha, this.email});
 
-  Future<bool> doLogin(Usuario usuario, BuildContext context) async {
-    if (!formKey.currentState.validate()) return false;
+  Future<Usuario> doLogin(BuildContext context) async {
 
-    formKey.currentState.save();
+    Map<String, dynamic> body = {'email': email, 'senha': senha};
 
-    Map<String, dynamic> body = {'email': usuario.email, 'senha': senha};
-    Map<String, String> headers = {
-      HttpHeaders.contentTypeHeader: 'application/json'
-    };
-
-    http.Response response = await http.post(URL_LOGIN, body: jsonEncode(body), headers: headers);
+    http.Response response = await http.post(URL_LOGIN, body: jsonEncode(body), headers: Globals.headers);
 
     Map parsedJson = json.decode(response.body);
 
     if (response.statusCode == 401) {
       Scaffold.of(context).showSnackBar(
           ErrorSnackBar(errorText: 'Usuário ou senha incorretos!'));
-      return false;
+      return null;
     }
 
     SharedPreferences prefs = await SharedPreferences.getInstance();
     prefs.setString(parsedJson['user']['token'], response.body);
     prefs.setString('loginAuth', parsedJson['user']['token']);
 
-    return prefs.get('loginAuth') != null;
+    return new Usuario.fromJson(json.decode(response.body)['user']);
   }
 }

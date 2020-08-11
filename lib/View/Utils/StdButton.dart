@@ -21,11 +21,11 @@ class StdButton extends StatelessWidget {
         width: width ?? Globals.windowSize.width * 0.45,
         alignment: Alignment.centerLeft,
         decoration: BoxDecoration(
-            color: Theme.of(context).primaryColor,
+            color: onPressed != null ? Theme.of(context).primaryColor : Colors.grey,
             borderRadius: BorderRadius.all(Radius.circular(32))),
         child: SizedBox.expand(
           child: FlatButton(
-            onPressed: () => onPressed(),
+            onPressed: onPressed,
             child: Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[

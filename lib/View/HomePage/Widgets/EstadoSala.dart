@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:megaponto_oficial/Controller/EstadoSalaController.dart';
-import 'package:megaponto_oficial/Resources/EstadoSalaEnum.dart';
+import 'file:///C:/Users/Bruno%20Monteiro/Desktop/MegaPonto/lib/Resources/Enums/EstadoSalaEnum.dart';
 import 'package:megaponto_oficial/Resources/Globals.dart';
 import 'package:megaponto_oficial/View/HomePage/Widgets/EstadoSalaDialog.dart';
 import 'package:megaponto_oficial/View/Utils/StdDialog.dart';
-import 'package:megaponto_oficial/presets/custom_icons_icons.dart';
+import 'package:megaponto_oficial/Resources/presets/custom_icons_icons.dart';
 import 'EstadoSelector.dart';
 
 class EstadoSala extends StatefulWidget {

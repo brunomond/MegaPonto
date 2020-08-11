@@ -1,7 +1,7 @@
 import 'dart:convert';
 import 'dart:io';
 import 'package:http/http.dart' as http;
-import 'package:megaponto_oficial/Model/usuario.dart';
+import 'package:megaponto_oficial/Model/Usuario.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:megaponto_oficial/Resources/Globals.dart';
 

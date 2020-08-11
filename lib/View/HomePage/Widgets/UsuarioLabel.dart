@@ -1,7 +1,7 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
-import 'package:megaponto_oficial/Model/usuario.dart';
+import 'package:megaponto_oficial/Model/Usuario.dart';
 import 'package:megaponto_oficial/Resources/Globals.dart';
 import 'package:megaponto_oficial/View/Utils/Loading.dart';
 import 'package:shared_preferences/shared_preferences.dart';
