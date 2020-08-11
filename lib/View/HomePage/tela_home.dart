@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:megaponto_oficial/View/Utils/BottomApp.dart';
+import 'package:megaponto_oficial/Resources/Globals.dart';
+import 'package:megaponto_oficial/View//HomePage/Widgets/BottomApp.dart';
+import 'package:megaponto_oficial/View/Utils/GradientAppBar.dart';
 import 'package:megaponto_oficial/View/Utils/ListOnline.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 //Fragmentos BottomBar
 import 'tela_feed.dart';
@@ -35,28 +38,29 @@ class _HomeState extends State<Home> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: _selectedItem != 2 ? GradientAppBar(
+        actions: _selectedItem == 4 ? <Widget> [
+          IconButton(icon: Icon(Icons.power_settings_new, color: Colors.white,), onPressed: () => _logOut(),)
+        ] : null,
+      ) : null,
       key: _scaffoldKey,
       bottomNavigationBar: BottomApp(
         index: _selectedItem,
         onTap: tapBottomBar,
       ),
-      body: Stack(children: [
-        ListOnline(),
-        Positioned.fill(
-            top: MediaQuery.of(context).size.height * 0.27,
-            child: Container(
-              decoration: BoxDecoration(
-                  borderRadius: BorderRadius.only(
-                      topLeft: const Radius.circular(50.0),
-                      topRight: const Radius.circular(50.0)),
-                  color: Colors.white),
-              child: _telas[_selectedItem],
-            ))
-      ]),
+      body: _telas[_selectedItem],
     );
   }
 
   void tapBottomBar(int index) {
     setState(() => _selectedItem = index);
+  }
+
+  void _logOut() async{
+    await SharedPreferences.getInstance().then((prefs) {
+      prefs.remove(prefs.getString('loginAuth'));
+      prefs.remove('loginAuth');
+      Navigator.pushNamedAndRemoveUntil(context, '/login', (route) => false);
+    });
   }
 }

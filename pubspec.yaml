@@ -79,16 +79,25 @@ flutter:
   #       - asset: fonts/TrajanPro_Bold.ttf
   #         weight: 700
   fonts:
-     - family: CustomIcons
-       fonts:
-         - asset: icons/CustomIcons.ttf
+    - family: CustomIcons
+      fonts:
+        - asset: icons/CustomIcons.ttf
 
-     - family: Segoe UI
-       fonts:
-         - asset: fonts/Segoe UI.ttf
-         - asset: fonts/Segoe UI Bold.ttf
-         - asset: fonts/Segoe UI Bold Italic.ttf
-         - asset: fonts/Segoe UI Italic.ttf
+    - family: Segoe UI
+      fonts:
+        - asset: fonts/Segoe UI.ttf
+        - asset: fonts/Segoe UI Bold.ttf
+        - asset: fonts/Segoe UI Bold Italic.ttf
+        - asset: fonts/Segoe UI Italic.ttf
+
+    - family: Cookie
+      fonts:
+        - asset: fonts/Cookie-Regular.ttf
+
+    - family: Bebas Neue
+      fonts:
+         - asset: fonts/BebasNeue-Regular.ttf
+
   #
   # For details regarding fonts from package dependencies,
   # see https://flutter.dev/custom-fonts/#from-packages

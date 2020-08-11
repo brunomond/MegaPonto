@@ -11,7 +11,7 @@ class StdPrefixIcon extends StatelessWidget {
   Widget build(BuildContext context) {
     
     return Padding(
-      padding: padding ?? EdgeInsets.all(0), 
+      padding: padding ?? EdgeInsets.all(0),
       child: Icon(iconData, 
                   color: color ?? Colors.grey,
                   )

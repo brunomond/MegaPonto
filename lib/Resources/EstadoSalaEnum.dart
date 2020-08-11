@@ -1,3 +1,6 @@
+import 'package:flutter/material.dart';
+import 'package:megaponto_oficial/presets/custom_icons_icons.dart';
+
 enum EstadoSalaEnum { NORMAL, REUNIAODIRETORIA, REUNIAOCLIENTE, ERRO }
 
 extension EstadoSalaEnumExtension on EstadoSalaEnum {
@@ -15,10 +18,10 @@ extension EstadoSalaEnumExtension on EstadoSalaEnum {
     }
   }
 
-  String get valueString {
+  String get title {
     switch (this) {
       case EstadoSalaEnum.NORMAL:
-        return 'Clima normal de trabalho';
+        return 'Sala Normal';
       case EstadoSalaEnum.REUNIAODIRETORIA:
         return 'Reunião da Diretoria';
       case EstadoSalaEnum.REUNIAOCLIENTE:
@@ -29,15 +32,47 @@ extension EstadoSalaEnumExtension on EstadoSalaEnum {
     }
   }
 
-  static EstadoSalaEnum responseData(String response) {
+  String get description {
+    switch (this) {
+      case EstadoSalaEnum.NORMAL:
+        return 'Clima normal de trabalho';
+      case EstadoSalaEnum.REUNIAODIRETORIA:
+        return 'Reunião interna da diretoria';
+      case EstadoSalaEnum.REUNIAOCLIENTE:
+        return 'Reunião com cliente em andamento';
+      case EstadoSalaEnum.ERRO:
+      default:
+        return 'Requisição Falhou';
+    }
+  }
+
+  IconData get icon {
+    switch (this) {
+      case EstadoSalaEnum.NORMAL:
+        return CustomIcons.clima_normal;
+      case EstadoSalaEnum.REUNIAODIRETORIA:
+        return CustomIcons.diretoria;
+      case EstadoSalaEnum.REUNIAOCLIENTE:
+        return CustomIcons.cliente;
+      case EstadoSalaEnum.ERRO:
+      default:
+        return null;
+    }
+  }
+
+  List<EstadoSalaEnum> get toList {
+    return EstadoSalaEnum.values.sublist(0, 3);
+  }
+
+  static EstadoSalaEnum responseData(int response) {
     switch (response) {
-      case "1":
+      case 1:
         return EstadoSalaEnum.NORMAL;
-      case "2":
+      case 2:
         return EstadoSalaEnum.REUNIAODIRETORIA;
-      case "3":
+      case 3:
         return EstadoSalaEnum.REUNIAOCLIENTE;
-      case "83":
+      case 83:
         return EstadoSalaEnum.ERRO;
       default:
         return EstadoSalaEnum.ERRO;

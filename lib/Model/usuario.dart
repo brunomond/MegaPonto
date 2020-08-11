@@ -1,17 +1,14 @@
-import 'package:intl/intl.dart';
-
 class Usuario {
   int id;
   String nome;
   String sobrenome;
   String email;
-  DateTime nascimento;
+  String nascimento;
   String celular;
   String cpf;
   String rga;
   String imgUrl;
   String token;
-  int tokenId;
   bool online; //Apenas para teste
 
   Usuario();
@@ -21,15 +18,25 @@ class Usuario {
     this.nome = map['nome'];
     this.sobrenome = map['sobrenome'];
     this.email = map['email'];
-    this.nascimento =
-        DateTime.parse(map['nascimento'].toString().replaceAll('/', '-'));
+    this.nascimento = map['nascimento'];
     this.celular = map['celular'];
     this.cpf = (map['cpf'].toString().length > 14) ? map['cpf'] : null;
     this.rga = map['rga'];
     this.imgUrl = map['imagem'];
     this.token = map['token'];
-    this.tokenId = map['token_id'];
   }
+
+  Usuario.fromJson(Map<String, dynamic> json)
+      : this.id = json['id'],
+        this.nome = json['nome'],
+        this.sobrenome = json['sobrenome'],
+        this.email = json['email'],
+        this.nascimento = json['nascimento'],
+        this.celular = json['celular'],
+        this.cpf = (json['cpf'].toString().length > 14) ? json['cpf'] : null,
+        this.rga = json['rga'],
+        this.imgUrl = json['imagem'],
+        this.token = json['token'];
 
   Map toMap() {
     Map<String, dynamic> map = {
@@ -37,14 +44,13 @@ class Usuario {
       'nome': this.nome,
       'sobrenome': this.sobrenome,
       'email': this.email,
-      'nascimento':
-          new DateFormat('dd/MM/yyyy', 'pt-BR').format(this.nascimento),
+      'nascimento': this.nascimento,
+      //new DateFormat('dd/MM/yyyy', 'pt-BR').format(this.nascimento),
       'celular': this.celular,
       'cpf': this.cpf,
       'rga': this.rga,
       'imagem': this.imgUrl,
-      'token': this.token,
-      'token_id': this.tokenId
+      'token': this.token
     };
 
     return map;
