@@ -19,6 +19,7 @@ class StdTextInput extends StatelessWidget {
   final bool done;
   final Function(String) onChanged;
   final bool enabled;
+  final TextEditingController controller;
 
   StdTextInput(
       {this.keyboardType,
@@ -34,7 +35,8 @@ class StdTextInput extends StatelessWidget {
       this.onSaved,
       this.done = false, 
       this.onChanged,
-      this.enabled = true});
+      this.enabled = true,
+      this.controller});
 
   final phoneMask = new MaskTextInputFormatter(
       mask: '(##) #####-####', filter: {'#': RegExp(r'[0-9]')});
@@ -44,6 +46,7 @@ class StdTextInput extends StatelessWidget {
     return Padding(
       padding: padding ?? EdgeInsets.all(8),
       child: TextFormField(
+        controller: controller,
         textAlignVertical: TextAlignVertical.center,
         cursorColor: Globals.theme.primaryColor,
         keyboardType: keyboardType ?? TextInputType.text,

@@ -34,8 +34,13 @@ abstract class _LoginControllerBase with Store {
 
     LoginService service = new LoginService(email: email, senha: password);
     await service.doLogin(context).then((user) {
-      if (user != null) Globals.sessionController.setUser(user);
-      
+      if (user != null) {
+        Globals.sessionController.setUser(user);
+        Navigator.of(context).popAndPushNamed('/home');
+      }
+
+      email = "";
+      password = "";
       loading = false;
     });
   }
@@ -49,8 +54,7 @@ abstract class _LoginControllerBase with Store {
   bool get isValidPass => password.length > 0;
 
   @computed
-  bool get loginPressed =>
-      (isValidPass && isValidEmail && !loading);
+  bool get loginPressed => (isValidPass && isValidEmail && !loading);
 
   @computed
   IconData get iconVisibility =>
