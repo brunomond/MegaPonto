@@ -32,7 +32,8 @@ class MembrosCard extends StatelessWidget {
                         decoration: BoxDecoration(
                           shape: BoxShape.circle,
                           image: DecorationImage(
-                            image: NetworkImage(lista[index].imgUrl),
+                            image: NetworkImage(
+                                "https://api.adorable.io/avatars/285/abott@adorable.png"),
                           ),
                         ),
                       ),

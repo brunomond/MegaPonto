@@ -1,7 +1,7 @@
 import 'dart:convert';
 import 'dart:io';
 import 'package:http/http.dart' as http;
-import 'file:///C:/Users/Bruno%20Monteiro/Desktop/MegaPonto/lib/Resources/Enums/EstadoSalaEnum.dart';
+import 'package:megaponto_oficial/Resources/Enums/EstadoSalaEnum.dart';
 import 'package:megaponto_oficial/Resources/Globals.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 

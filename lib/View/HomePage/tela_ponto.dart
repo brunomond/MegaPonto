@@ -59,12 +59,10 @@ class _PontoState extends State<Ponto> {
                   : started
                       ? InfoPlantao(
                           label: 'Muito bom, assim que eu gosto de ver!',
-                          title: 'Finalize seu Plantão!',
                           buttonLabel: 'Fechar Plantão',
                           onPressed: _fecharPlantao)
                       : InfoPlantao(
                           label: 'Partiu entregar alguns projetos?!',
-                          title: 'Iniciar seu Plantão!',
                           buttonLabel: 'Iniciar Plantão',
                           onPressed: _iniciarPlantao)
             ]),

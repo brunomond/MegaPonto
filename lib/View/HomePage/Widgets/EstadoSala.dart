@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:megaponto_oficial/Controller/EstadoSalaController.dart';
-import 'file:///C:/Users/Bruno%20Monteiro/Desktop/MegaPonto/lib/Resources/Enums/EstadoSalaEnum.dart';
+import 'package:megaponto_oficial/Resources/Enums/EstadoSalaEnum.dart';
 import 'package:megaponto_oficial/Resources/Globals.dart';
 import 'package:megaponto_oficial/View/HomePage/Widgets/EstadoSalaDialog.dart';
 import 'package:megaponto_oficial/View/Utils/StdDialog.dart';
@@ -33,16 +33,9 @@ class _EstadoSalaState extends State<EstadoSala> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Padding(
-              padding: EdgeInsets.only(left: 25),
-              child: Text(
-                "Condições de trabalho:",
-                style: Globals.textTheme.headline6,
-              ),
-            ),
             EstadoSelector(
               padding: EdgeInsets.fromLTRB(24, 24, 24, 8),
-              text: estadoSala.description,
+              text: estadoSala.title,
               icon: estadoSala.icon,
               onTap: () => showDialog(
                   context: context,

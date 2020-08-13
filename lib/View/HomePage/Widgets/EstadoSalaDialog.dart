@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'file:///C:/Users/Bruno%20Monteiro/Desktop/MegaPonto/lib/Resources/Enums/EstadoSalaEnum.dart';
+import 'package:megaponto_oficial/Resources/Enums/EstadoSalaEnum.dart';
 import 'package:megaponto_oficial/Resources/Globals.dart';
 
 class EstadoSalaDialog extends StatelessWidget {

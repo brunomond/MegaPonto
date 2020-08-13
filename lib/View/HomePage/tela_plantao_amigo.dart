@@ -4,10 +4,7 @@ import 'package:megaponto_oficial/Model/Usuario.dart';
 import 'package:megaponto_oficial/Resources/Globals.dart';
 import 'package:megaponto_oficial/View/HomePage/Widgets/MembrosCard.dart';
 import 'package:megaponto_oficial/View/Utils/StdDialog.dart';
-import 'package:megaponto_oficial/View/Utils/StdSnackBar.dart';
-import 'package:megaponto_oficial/View/Utils/FormatDuration.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:intl/intl.dart';
 
 class PlantaoAmigo extends StatefulWidget {
   final GlobalKey<ScaffoldState> scaffold;
@@ -36,12 +33,9 @@ class _PlantaoAmigoState extends State<PlantaoAmigo> {
       crossAxisAlignment: CrossAxisAlignment.start,
       mainAxisAlignment: MainAxisAlignment.start,
       children: [
-        Padding(
-          padding: EdgeInsets.fromLTRB(30, 25, 0, 0),
-          child: Text(
-            "Quem está na sala?",
-            style: Globals.textTheme.headline5.apply(fontSizeDelta: -4),
-          ),
+        Divider(
+          height: 10,
+          color: Colors.transparent,
         ),
         Expanded(
             child: ListView.builder(
