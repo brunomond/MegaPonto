@@ -14,7 +14,10 @@ class StdDialog extends StatelessWidget {
         title: title != null ? Text(title) : null,
         backgroundColor: Globals.theme.primaryColor,
         elevation: 8,
-        content: Text(contentText, textAlign: TextAlign.justify,),
+        content: Text(
+          contentText,
+          textAlign: TextAlign.justify,
+        ),
         actions: _optionSelector(options));
   }
 
@@ -22,7 +25,11 @@ class StdDialog extends StatelessWidget {
     List<Widget> actions = new List<Widget>();
     options.forEach((key, value) {
       actions.add(new FlatButton(
-        child: Text(key, style: TextStyle(color: Colors.white, fontSize: 18, fontWeight: FontWeight.normal)),
+        child: Text(key,
+            style: TextStyle(
+                color: Colors.white,
+                fontSize: 18,
+                fontWeight: FontWeight.normal)),
         onPressed: () => value(),
       ));
     });
