@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_mobx/flutter_mobx.dart';
+import 'package:megaponto_oficial/Controller/membros_online_controller.dart';
 import 'package:megaponto_oficial/Model/Usuario.dart';
 import 'package:megaponto_oficial/Resources/Globals.dart';
 import 'package:megaponto_oficial/View/Utils/Gradient.dart';
+import 'package:megaponto_oficial/View/Utils/Loading.dart';
 
 class ListOnline extends StatelessWidget {
-  final List lista;
-  final Usuario user;
-  ListOnline({@required this.lista, this.user});
+  final MembrosOnlineController controller = new MembrosOnlineController();
 
   @override
   Widget build(BuildContext context) {
@@ -18,22 +19,33 @@ class ListOnline extends StatelessWidget {
             children: [
               SizedBox(
                   height: Globals.windowSize.height * 0.14,
-                  child: ListView.builder(
-                    scrollDirection: Axis.horizontal,
-                    itemCount: lista.length,
-                    itemBuilder: (context, index) {
-                      return Column(
-                        children: [_itemListOnline(index)],
-                      );
-                    },
-                  )),
-              Padding(padding: EdgeInsets.only(top: 8), child: _textOnline())
+                  child: Observer(builder: (_) {
+                    if (controller.loading) return Loading(color: Colors.white);
+
+                    List<Usuario> membrosOnline =
+                        controller.membrosOnlineOutput.data;
+                    return ListView.builder(
+                      scrollDirection: Axis.horizontal,
+                      itemCount:
+                          membrosOnline != null ? membrosOnline.length : 0,
+                      itemBuilder: (context, index) {
+                        return Column(
+                          children: [_itemListOnline(membrosOnline[index])],
+                        );
+                      },
+                    );
+                  })),
+              Observer(builder: (_) {
+                return Padding(
+                    padding: EdgeInsets.only(top: 8),
+                    child: _textOnline(controller.qtdOnline));
+              })
             ],
           )),
     );
   }
 
-  Widget _itemListOnline(int index) {
+  Widget _itemListOnline(Usuario user) {
     return Container(
       padding: EdgeInsets.only(left: 30),
       child: Column(
@@ -57,16 +69,14 @@ class ListOnline extends StatelessWidget {
           ),
           Padding(
             padding: EdgeInsets.only(top: 5),
-            child:
-                Text(lista[index].nome, style: TextStyle(color: Colors.white)),
+            child: Text(user.nome, style: TextStyle(color: Colors.white)),
           )
         ],
       ),
     );
   }
 
-  Widget _textOnline() {
-    int quantidade = lista.length;
+  Widget _textOnline(int quantidade) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [

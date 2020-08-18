@@ -1,6 +1,9 @@
 import 'dart:async';
+import 'dart:convert';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_mobx/flutter_mobx.dart';
+import 'package:megaponto_oficial/Model/Usuario.dart';
 import 'package:megaponto_oficial/Resources/Globals.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -12,8 +15,6 @@ class CheckSession extends StatefulWidget {
 class _CheckSessionState extends State<CheckSession>
     with SingleTickerProviderStateMixin {
   AnimationController _animationController;
-  bool logged = false;
-  bool _visible = false;
 
   @override
   void initState() {
@@ -23,6 +24,7 @@ class _CheckSessionState extends State<CheckSession>
     Timer(Duration(milliseconds: 200), () => _animationController.forward());
     super.initState();
   }
+
 
   @override
   void dispose() {
@@ -53,21 +55,21 @@ class _CheckSessionState extends State<CheckSession>
   }
 
   void _checkSession() async {
-    await SharedPreferences.getInstance().then((value) {
-      setState(() {
-        logged = value.getString('loginAuth') != null;
-      });
-      Timer(Duration(seconds: 3), () => _navega());
+    bool logged = false;
+    await SharedPreferences.getInstance().then((prefs) {
+      if (prefs.getString('loginJson') != null) {
+        Globals.sessionController.setUser(Usuario.fromJson(
+            json.decode(prefs.getString('loginJson'))['user']));
+        logged = Globals.sessionController.loggedUser != null;
+      }
+
+      Timer(Duration(seconds: 3), () => _navega(logged));
     });
   }
 
-  void _navega() {
-    _animationController.reverse().then((value) => logged ?? false
+  void _navega(bool logged) {
+    _animationController.reverse().then((_) => logged
         ? Navigator.of(context).popAndPushNamed('/home')
         : Navigator.of(context).pushReplacementNamed('/login'));
-//    if (logged ?? false)
-//
-//    else
-//      ;
   }
 }
