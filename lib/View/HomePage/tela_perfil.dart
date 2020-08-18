@@ -2,9 +2,9 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:megaponto_oficial/View/HomePage/Widgets/TempoPerfil.dart';
 import 'package:megaponto_oficial/View/HomePage/Widgets/UsuarioLabel.dart';
-import 'package:megaponto_oficial/View/Utils/TranformaTempo.dart';
+//import 'package:megaponto_oficial/View/Utils/TranformaTempo.dart';
 
-import 'tela_editar_perfil.dart';
+//import 'tela_editar_perfil.dart';
 
 class Perfil extends StatefulWidget {
   @override
@@ -12,11 +12,9 @@ class Perfil extends StatefulWidget {
 }
 
 class _PerfilState extends State<Perfil> {
-
   @override
   void initState() {
     super.initState();
-
   }
 
   @override
@@ -24,12 +22,7 @@ class _PerfilState extends State<Perfil> {
     return Column(
       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
       mainAxisSize: MainAxisSize.max,
-      children: <Widget>[
-        UsuarioLabel(),
-        TempoPerfil()
-      ],
+      children: <Widget>[UsuarioLabel(), TempoPerfil()],
     );
   }
-
-
 }

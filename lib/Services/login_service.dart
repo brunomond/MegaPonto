@@ -30,8 +30,7 @@ class LoginService {
     }
 
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    prefs.setString(parsedJson['user']['token'], response.body);
-    prefs.setString('loginAuth', parsedJson['user']['token']);
+    prefs.setString('loginJson', response.body);
 
     return new Usuario.fromJson(json.decode(response.body)['user']);
   }

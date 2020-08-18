@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:megaponto_oficial/Controller/PlantaoAmigoController.dart';
 import 'package:megaponto_oficial/Model/Usuario.dart';
-import 'package:megaponto_oficial/Resources/Globals.dart';
 import 'package:megaponto_oficial/View/HomePage/Widgets/MembrosCard.dart';
 import 'package:megaponto_oficial/View/Utils/StdDialog.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+//import 'package:megaponto_oficial/Resources/Globals.dart';
 
 class PlantaoAmigo extends StatefulWidget {
   final GlobalKey<ScaffoldState> scaffold;

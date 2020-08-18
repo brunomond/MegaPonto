@@ -1,9 +1,5 @@
-import 'dart:convert';
-
 import 'package:flutter/material.dart';
-import 'package:megaponto_oficial/Controller/MembrosController.dart';
 import 'package:megaponto_oficial/Controller/PontoController.dart';
-import 'package:megaponto_oficial/Model/Usuario.dart';
 import 'package:megaponto_oficial/Resources/Globals.dart';
 import 'package:megaponto_oficial/View/Utils/StdSnackBar.dart';
 import 'Widgets/EstadoSala.dart';
@@ -24,26 +20,21 @@ class Ponto extends StatefulWidget {
 
 class _PontoState extends State<Ponto> {
   PontoController pontoController = PontoController();
-  MembrosController membrosController = MembrosController();
   bool loading = true;
   bool started;
   var now = TimeOfDay.now();
-  List<Usuario> listUsuariosOnline = List();
 
   @override
   void initState() {
     super.initState();
     _start();
-    buscarMembrosOnline();
   }
 
   @override
   Widget build(BuildContext context) {
     return Stack(
       children: <Widget>[
-        ListOnline(
-          lista: listUsuariosOnline,
-        ),
+        ListOnline(),
         Positioned.fill(
           top: Globals.windowSize.height * 0.27,
           child: Container(
@@ -125,14 +116,5 @@ class _PontoState extends State<Ponto> {
     });
 
     return prefs;
-  }
-
-  void buscarMembrosOnline() async {
-    List<Usuario> listUsuariosOnlines =
-        await membrosController.listarMembrosOnline();
-
-    setState(() {
-      listUsuariosOnline = listUsuariosOnlines;
-    });
   }
 }
