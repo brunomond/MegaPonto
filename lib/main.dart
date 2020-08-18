@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter/widgets.dart';
 import 'package:megaponto_oficial/Controller/session_controller.dart';
+import 'package:megaponto_oficial/View/HomePage/tela_adm.dart';
 import 'package:megaponto_oficial/View/HomePage/tela_editar_perfil.dart';
 import 'package:provider/provider.dart';
 
@@ -38,6 +39,7 @@ class MegaPonto extends StatelessWidget {
         initialRoute: '/',
         routes: {
           '/': (context) => CheckSession(),
+          '/adm': (context) => Admin(),
           '/home': (context) => Home(),
           '/acesso': (context) => Access.withItem(),
           '/login': (context) => Access.withItem(itemIndex: 0),

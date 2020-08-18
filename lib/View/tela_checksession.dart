@@ -9,8 +9,8 @@ class CheckSession extends StatefulWidget {
   _CheckSessionState createState() => _CheckSessionState();
 }
 
-class _CheckSessionState extends State<CheckSession> with SingleTickerProviderStateMixin {
-
+class _CheckSessionState extends State<CheckSession>
+    with SingleTickerProviderStateMixin {
   AnimationController _animationController;
   bool logged = false;
   bool _visible = false;
@@ -18,11 +18,11 @@ class _CheckSessionState extends State<CheckSession> with SingleTickerProviderSt
   @override
   void initState() {
     _checkSession();
-    _animationController = new AnimationController(vsync: this, duration: Duration(milliseconds: 1500));
+    _animationController = new AnimationController(
+        vsync: this, duration: Duration(milliseconds: 1500));
     Timer(Duration(milliseconds: 200), () => _animationController.forward());
     super.initState();
   }
-
 
   @override
   void dispose() {
@@ -62,7 +62,9 @@ class _CheckSessionState extends State<CheckSession> with SingleTickerProviderSt
   }
 
   void _navega() {
-     _animationController.reverse().then((value) => logged ?? false ?  Navigator.of(context).popAndPushNamed('/home') : Navigator.of(context).pushReplacementNamed('/login'));
+    _animationController.reverse().then((value) => logged ?? false
+        ? Navigator.of(context).popAndPushNamed('/home')
+        : Navigator.of(context).pushReplacementNamed('/login'));
 //    if (logged ?? false)
 //
 //    else
