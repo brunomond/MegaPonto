@@ -7,6 +7,7 @@ import 'package:megaponto_oficial/View/HomePage/Widgets/EstadoSalaDialog.dart';
 import 'package:megaponto_oficial/View/Utils/StdDialog.dart';
 import 'package:megaponto_oficial/Resources/presets/custom_icons_icons.dart';
 import 'EstadoSelector.dart';
+import 'package:intl/date_symbol_data_local.dart';
 
 class EstadoSala extends StatefulWidget {
   @override
@@ -16,7 +17,7 @@ class EstadoSala extends StatefulWidget {
 class _EstadoSalaState extends State<EstadoSala> {
   EstadoSalaController estadoSalaController = EstadoSalaController();
   EstadoSalaEnum estadoSala = EstadoSalaEnum.NORMAL;
-  String horas = "00:00";
+  String horas = "";
 
   @override
   void initState() {
@@ -49,7 +50,7 @@ class _EstadoSalaState extends State<EstadoSala> {
                       )),
             ),
             EstadoSelector(
-              text: 'Café feito às $horas de hoje',
+              text: 'Café feito às $horas',
               icon: CustomIcons.cafe,
               onTap: () => showDialog(
                   context: context,
@@ -100,7 +101,14 @@ class _EstadoSalaState extends State<EstadoSala> {
     DateTime timeCofe =
         DateTime.parse(await estadoSalaController.alterarHorarioCafe())
             .toLocal();
-    setState(() => horas = DateFormat.Hm().format(timeCofe));
+
+    initializeDateFormatting('pt_Br', null);
+
+    setState(() {
+      horas = DateFormat.Hm().format(timeCofe) +
+          ' de ' +
+          DateFormat(DateFormat.WEEKDAY, 'pt_Br').format(timeCofe);
+    });
 
     Navigator.of(context).pop();
   }
