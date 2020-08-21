@@ -7,16 +7,18 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 const String URL_PUT_SALA_CAFE =
     'https://paineljunior.com.br/api/home/put.json?token=';
+
 const String URL_GET_SALA_CAFE =
     'https://paineljunior.com.br/api/home/get.json?token=';
 
-class EstadoSalaController {
+class EstadoSalaService {
   Future<EstadoSalaEnum> alterarEstadoSala(
       EstadoSalaEnum estadoSalaEnum) async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
+    String tokenUser = Globals.sessionController.loggedUser.token;
+
+    String urlToken = '$URL_PUT_SALA_CAFE$tokenUser';
 
     Map<String, dynamic> body = {'status': estadoSalaEnum.value};
-    String urlToken = URL_PUT_SALA_CAFE + prefs.getString('loginAuth');
 
     http.Response response = await http.put(urlToken,
         body: jsonEncode(body), headers: Globals.headers);
