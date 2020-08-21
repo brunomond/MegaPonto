@@ -25,6 +25,7 @@ class _CheckSessionState extends State<CheckSession>
     super.initState();
   }
 
+
   @override
   void dispose() {
     _animationController.dispose();

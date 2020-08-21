@@ -5,6 +5,7 @@ import 'package:megaponto_oficial/Model/Usuario.dart';
 import 'package:megaponto_oficial/Resources/Globals.dart';
 import 'package:megaponto_oficial/View/Utils/Loading.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:megaponto_oficial/View/HomePage/tela_adm.dart';
 
 class UsuarioLabel extends StatelessWidget {
   String estadoPatente = "Megariano Bronze";
@@ -29,9 +30,10 @@ class UsuarioLabel extends StatelessWidget {
                           width: 128,
                           child: CircleAvatar(
                             radius: 50,
-                            backgroundImage: user.imgUrl != null && user.imgUrl.isNotEmpty ?
-                                NetworkImage(user.imgUrl) :
-                                AssetImage('images/abott@adorable.png'),
+                            backgroundImage:
+                                user.imgUrl != null && user.imgUrl.isNotEmpty
+                                    ? NetworkImage(user.imgUrl)
+                                    : AssetImage('images/abott@adorable.png'),
                           ),
                         ),
                       ),
@@ -75,6 +77,17 @@ class UsuarioLabel extends StatelessWidget {
                     ),
                   ),
                 ),
+
+                //SE FOR ADMINISTRADOR ENTRA AQUI
+                GestureDetector(
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [Icon(Icons.build), Text('Administrador')],
+                  ),
+                  onTap: () => Navigator.pushNamed(context, '/adm'),
+                )
+
+                //FIM DO SE FOR ADMINISTRADOR ENTRA AQUI
               ],
             );
           }

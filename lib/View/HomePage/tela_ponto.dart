@@ -34,7 +34,7 @@ class _PontoState extends State<Ponto> {
   Widget build(BuildContext context) {
     return Stack(
       children: <Widget>[
-        //ListOnline(),
+        ListOnline(),
         Positioned.fill(
           top: Globals.windowSize.height * 0.27,
           child: Container(
