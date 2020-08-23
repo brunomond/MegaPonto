@@ -31,6 +31,14 @@ mixin _$MembrosOnlineController on _MembrosOnlineControllerBase, Store {
     return _$setMembrosOnlineAsyncAction.run(() => super.setMembrosOnline());
   }
 
+  final _$fetchDataAsyncAction =
+      AsyncAction('_MembrosOnlineControllerBase.fetchData');
+
+  @override
+  Future<void> fetchData() {
+    return _$fetchDataAsyncAction.run(() => super.fetchData());
+  }
+
   @override
   String toString() {
     return '''

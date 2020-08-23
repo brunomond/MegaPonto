@@ -3,8 +3,6 @@ import 'package:megaponto_oficial/Resources/presets/custom_icons_icons.dart';
 import 'package:megaponto_oficial/View//HomePage/Widgets/BottomApp.dart';
 import 'package:megaponto_oficial/View/Utils/GradientAppBar.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-//import 'package:megaponto_oficial/Resources/Globals.dart';
-//import 'package:megaponto_oficial/View/Utils/ListOnline.dart';
 
 //Fragmentos BottomBar
 import 'tela_feed.dart';

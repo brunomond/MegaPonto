@@ -15,7 +15,7 @@ abstract class _MembrosOnlineControllerBase with Store {
 
   _MembrosOnlineControllerBase() {
     setMembrosOnline();
-    membrosOnlineOutput = membrosOnline.stream.asObservable();
+    membrosOnlineOutput = membrosOnline.stream.asObservable(initialValue: []);
 
   }
 
@@ -24,7 +24,7 @@ abstract class _MembrosOnlineControllerBase with Store {
 
 
   @computed
-  bool get loading => membrosOnlineOutput != null && membrosOnlineOutput.data != null && membrosOnlineOutput.data.isEmpty;
+  bool get loading => membrosOnlineOutput != null && membrosOnlineOutput.data == null;
 
 
   @action
@@ -37,5 +37,11 @@ abstract class _MembrosOnlineControllerBase with Store {
   
   void dispose(){
     membrosOnline.close();
+  }
+
+  @action
+  Future<void> fetchData() async {
+    Future.delayed(Duration(seconds: 2));
+    await setMembrosOnline().then((_) => membrosOnlineOutput = membrosOnline.stream.asObservable());
   }
 }

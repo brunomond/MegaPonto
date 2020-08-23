@@ -10,6 +10,7 @@ class GradientBackground extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
+      padding: EdgeInsets.all(0),
           width: Globals.windowSize.width,
           height: Globals.windowSize.height,
           decoration: BoxDecoration(

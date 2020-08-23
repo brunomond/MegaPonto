@@ -100,7 +100,7 @@ class _EstadoSalaState extends State<EstadoSala> {
     DateTime timeCofe =
         DateTime.parse(await estadoSalaController.alterarHorarioCafe())
             .toLocal();
-    setState(() => horas = DateFormat.Hm().format(timeCofe));
+    setState(() => horas = DateFormat(DateFormat.ABBR_WEEKDAY, 'pt_Br').format(timeCofe));
 
     Navigator.of(context).pop();
   }
