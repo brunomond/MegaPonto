@@ -45,12 +45,11 @@ abstract class _EstadoSalaControllerBase with Store {
   @action
   void enviarCafe(BuildContext context) async {
     EstadoSalaService service = new EstadoSalaService();
-    DateTime timeCofe =
-        DateTime.parse(await service.alterarHorarioCafe()).toLocal();
+    await service.alterarHorarioCafe();
 
-    cafe = DateFormat.Hm().format(timeCofe) +
+    cafe = DateFormat.Hm().format(DateTime.now()) +
         ' de ' +
-        DateFormat(DateFormat.WEEKDAY, 'pt_Br').format(timeCofe);
+        DateFormat(DateFormat.WEEKDAY, 'pt_Br').format(DateTime.now());
 
     Navigator.of(context).pop();
   }
