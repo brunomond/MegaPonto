@@ -9,7 +9,12 @@ class StdButton extends StatelessWidget {
   final double width;
 
   StdButton(
-      {Key key, @required this.label, @required this.onPressed, this.padding, this.height, this.width})
+      {Key key,
+      @required this.label,
+      @required this.onPressed,
+      this.padding,
+      this.height,
+      this.width})
       : super(key: key);
 
   @override
@@ -21,7 +26,9 @@ class StdButton extends StatelessWidget {
         width: width ?? Globals.windowSize.width * 0.45,
         alignment: Alignment.centerLeft,
         decoration: BoxDecoration(
-            color: onPressed != null ? Theme.of(context).primaryColor : Colors.grey,
+            color: onPressed != null
+                ? Theme.of(context).primaryColor
+                : Colors.grey,
             borderRadius: BorderRadius.all(Radius.circular(32))),
         child: SizedBox.expand(
           child: FlatButton(

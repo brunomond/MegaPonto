@@ -47,4 +47,6 @@ class Admin extends StatelessWidget {
       ),
     );
   }
+
+  Widget gestureComBorda() {}
 }
