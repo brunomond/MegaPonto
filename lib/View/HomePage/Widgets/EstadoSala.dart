@@ -3,12 +3,10 @@ import 'package:intl/intl.dart';
 import 'package:megaponto_oficial/Controller/estado_sala_controller.dart';
 import 'package:megaponto_oficial/Resources/Enums/EstadoSalaEnum.dart';
 import 'package:megaponto_oficial/Resources/Globals.dart';
-import 'package:megaponto_oficial/Services/estado_sala_service.dart';
 import 'package:megaponto_oficial/View/HomePage/Widgets/EstadoSalaDialog.dart';
 import 'package:megaponto_oficial/View/Utils/StdDialog.dart';
 import 'package:megaponto_oficial/Resources/presets/custom_icons_icons.dart';
 import 'EstadoSelector.dart';
-import 'package:intl/date_symbol_data_local.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 
 class EstadoSala extends StatefulWidget {

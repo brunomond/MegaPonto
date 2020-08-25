@@ -44,7 +44,7 @@ mixin _$EstadoSalaController on _EstadoSalaControllerBase, Store {
       AsyncAction('_EstadoSalaControllerBase.obterCafeSala');
 
   @override
-  Future<void> obterCafeSala() {
+  Future obterCafeSala() {
     return _$obterCafeSalaAsyncAction.run(() => super.obterCafeSala());
   }
 
@@ -52,7 +52,7 @@ mixin _$EstadoSalaController on _EstadoSalaControllerBase, Store {
       AsyncAction('_EstadoSalaControllerBase.enviarCafe');
 
   @override
-  Future<void> enviarCafe(BuildContext context) {
+  Future enviarCafe(BuildContext context) {
     return _$enviarCafeAsyncAction.run(() => super.enviarCafe(context));
   }
 
@@ -60,7 +60,7 @@ mixin _$EstadoSalaController on _EstadoSalaControllerBase, Store {
       AsyncAction('_EstadoSalaControllerBase.enviarEstadoSala');
 
   @override
-  Future<void> enviarEstadoSala(EstadoSalaEnum estadoEnum) {
+  Future enviarEstadoSala(EstadoSalaEnum estadoEnum) {
     return _$enviarEstadoSalaAsyncAction
         .run(() => super.enviarEstadoSala(estadoEnum));
   }
