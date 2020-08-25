@@ -39,6 +39,15 @@ mixin _$SessionController on _SessionControllerBase, Store {
     });
   }
 
+  final _$obterStatusPlantaoAsyncAction =
+      AsyncAction('_SessionControllerBase.obterStatusPlantao');
+
+  @override
+  Future<void> obterStatusPlantao() {
+    return _$obterStatusPlantaoAsyncAction
+        .run(() => super.obterStatusPlantao());
+  }
+
   final _$_SessionControllerBaseActionController =
       ActionController(name: '_SessionControllerBase');
 

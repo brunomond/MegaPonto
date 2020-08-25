@@ -2,9 +2,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:megaponto_oficial/View/HomePage/Widgets/TempoPerfil.dart';
 import 'package:megaponto_oficial/View/HomePage/Widgets/UsuarioLabel.dart';
-//import 'package:megaponto_oficial/View/Utils/TranformaTempo.dart';
-
-//import 'tela_editar_perfil.dart';
 
 class Perfil extends StatefulWidget {
   @override

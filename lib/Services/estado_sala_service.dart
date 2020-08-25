@@ -3,8 +3,6 @@ import 'dart:io';
 import 'package:http/http.dart' as http;
 import 'package:megaponto_oficial/Resources/Enums/EstadoSalaEnum.dart';
 import 'package:megaponto_oficial/Resources/Globals.dart';
-import 'package:shared_preferences/shared_preferences.dart';
-
 const String URL_PUT_SALA_CAFE =
     'https://paineljunior.com.br/api/home/put.json?token=';
 

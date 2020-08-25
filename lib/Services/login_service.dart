@@ -21,8 +21,6 @@ class LoginService {
 
     http.Response response = await http.post(URL_LOGIN, body: jsonEncode(body), headers: Globals.headers);
 
-    Map parsedJson = json.decode(response.body);
-
     if (response.statusCode == 401) {
       Scaffold.of(context).showSnackBar(
           ErrorSnackBar(errorText: 'Usuário ou senha incorretos!'));
