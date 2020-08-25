@@ -14,7 +14,7 @@ class InfoPlantao extends StatelessWidget {
       flex: 7,
       child: Center(
         child: Padding(
-          padding: const EdgeInsets.all(16.0),
+          padding: const EdgeInsets.fromLTRB(16,16,16,0),
           child: Column(
             children: [
               label != null
@@ -27,7 +27,7 @@ class InfoPlantao extends StatelessWidget {
                     )
                   : null,
               StdButton(
-                padding: EdgeInsets.all(8),
+                padding: EdgeInsets.fromLTRB(8,8,8,0),
                 label: buttonLabel,
                 onPressed: onPressed,
                 width: 200,

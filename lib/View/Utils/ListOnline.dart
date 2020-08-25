@@ -7,7 +7,10 @@ import 'package:megaponto_oficial/View/Utils/Gradient.dart';
 import 'package:megaponto_oficial/View/Utils/Loading.dart';
 
 class ListOnline extends StatelessWidget {
-  final MembrosOnlineController controller = new MembrosOnlineController();
+  final MembrosOnlineController controller;
+
+  ListOnline({this.controller});
+  
 
   @override
   Widget build(BuildContext context) {
@@ -24,15 +27,18 @@ class ListOnline extends StatelessWidget {
 
                     List<Usuario> membrosOnline =
                         controller.membrosOnlineOutput.data;
-                    return ListView.builder(
-                      scrollDirection: Axis.horizontal,
-                      itemCount:
-                          membrosOnline != null ? membrosOnline.length : 0,
-                      itemBuilder: (context, index) {
-                        return Column(
-                          children: [_itemListOnline(membrosOnline[index])],
-                        );
-                      },
+                    return RefreshIndicator(
+                      onRefresh: controller.fetchData,
+                      child: ListView.builder(
+                        scrollDirection: Axis.horizontal,
+                        itemCount:
+                            membrosOnline != null ? membrosOnline.length : 0,
+                        itemBuilder: (context, index) {
+                          return Column(
+                            children: [_itemListOnline(membrosOnline[index])],
+                          );
+                        },
+                      ),
                     );
                   })),
               Observer(builder: (_) {

@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:intl/intl.dart';
-import 'package:megaponto_oficial/Controller/plantao_controller.dart';
+import 'package:flutter/rendering.dart';
+import 'package:megaponto_oficial/Animations/ponto_scroll_physics.dart';
+import 'package:megaponto_oficial/Controller/PontoController.dart';
+import 'package:megaponto_oficial/Controller/membros_online_controller.dart';
 import 'package:megaponto_oficial/Resources/Globals.dart';
+import 'package:megaponto_oficial/Services/membros_online_service.dart';
 import 'package:megaponto_oficial/View/Utils/StdSnackBar.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'Widgets/EstadoSala.dart';
@@ -9,6 +12,7 @@ import 'Widgets/InfoPlantao.dart';
 import 'package:megaponto_oficial/View/Utils/ListOnline.dart';
 import 'package:megaponto_oficial/View/Utils/Loading.dart';
 import 'package:megaponto_oficial/View/Utils/FormatDuration.dart';
+import 'package:intl/intl.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class Ponto extends StatefulWidget {
@@ -23,38 +27,51 @@ class _PontoState extends State<Ponto> {
   PlantaoController plantaoController = PlantaoController();
   var now = TimeOfDay.now();
 
+
+
   @override
   Widget build(BuildContext context) {
-    return Stack(
-      children: <Widget>[
-        ListOnline(),
-        Positioned.fill(
-          top: Globals.windowSize.height * 0.27,
-          child: Container(
-            decoration: BoxDecoration(
-                borderRadius: BorderRadius.only(
-                    topLeft: const Radius.circular(50.0),
-                    topRight: const Radius.circular(50.0)),
-                color: Colors.white),
-            child: Column(children: [
-              EstadoSala(),
-              Observer(builder: (_) {
-                return plantaoController.loading
-                    ? Loading()
-                    : Globals.sessionController.pontoAtivo
-                        ? InfoPlantao(
-                            label: 'Muito bom, assim que eu gosto de ver!',
-                            buttonLabel: 'Fechar Plantão',
-                            onPressed: _fecharPlantao)
-                        : InfoPlantao(
-                            label: 'Partiu entregar alguns projetos?!',
-                            buttonLabel: 'Iniciar Plantão',
-                            onPressed: _iniciarPlantao);
-              }),
-            ]),
+    return RefreshIndicator(
+      onRefresh: controller.fetchData,
+      child: ListView(
+        itemExtent: Globals.windowSize.height,
+        padding: EdgeInsets.all(0),
+        shrinkWrap: true,
+        physics: PontoScrollPhysics(),
+        children: [
+          Stack(
+            children: <Widget>[
+              ListOnline(controller: controller),
+              Positioned.fill(
+                top: Globals.windowSize.height * 0.27,
+                child: Container(
+                  decoration: BoxDecoration(
+                      borderRadius: BorderRadius.only(
+                          topLeft: const Radius.circular(50.0),
+                          topRight: const Radius.circular(50.0)),
+                      color: Colors.white),
+                  child: Column(children: [
+                    EstadoSala(),
+                    loading
+                        ? 
+                        Loading()
+                        : started
+                           ? InfoPlantao(
+                               label:
+                                   'Muito bom, assim que eu gosto de ver!',
+                               buttonLabel: 'Fechar Plantão',
+                               onPressed: _fecharPlantao)
+                           : InfoPlantao(
+                               label: 'Partiu entregar alguns projetos?!',
+                               buttonLabel: 'Iniciar Plantão',
+                               onPressed: _iniciarPlantao)
+                  ]),
+                ),
+              )
+            ],
           ),
-        )
-      ],
+        ],
+      ),
     );
   }
 
@@ -62,6 +79,8 @@ class _PontoState extends State<Ponto> {
        * --------------------------------------------- FUNCTIONS ------------------------------------------------------- 
        * ---------------------------------------------------------------------------------------------------------------
        */
+
+
 
   //Iniciar / Fechar Plantão
   void _iniciarPlantao() async {

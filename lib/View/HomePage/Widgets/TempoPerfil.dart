@@ -3,14 +3,12 @@ import 'package:megaponto_oficial/Controller/PerfilController.dart';
 import 'package:megaponto_oficial/Resources/Globals.dart';
 import 'package:megaponto_oficial/View/Utils/TranformaTempo.dart';
 
-
 class TempoPerfil extends StatefulWidget {
   @override
   _TempoPerfilState createState() => _TempoPerfilState();
 }
 
 class _TempoPerfilState extends State<TempoPerfil> {
-
   PerfilController perfilController = PerfilController();
   int totalSemana = 0;
   int totalMes = 0;
@@ -29,13 +27,10 @@ class _TempoPerfilState extends State<TempoPerfil> {
   Widget build(BuildContext context) {
     return Padding(
       padding: EdgeInsets.only(bottom: 16.0),
-      child: Stack(
-        children: <Widget>[
+      child: Stack(children: <Widget>[
         Positioned(
           left: 16,
-          child: Container(
-              child: _tempoSMA('$totalSemanaD', 'Semanais')
-          ),
+          child: Container(child: _tempoSMA('$totalSemanaD', 'Semanais')),
         ),
         Align(
           alignment: Alignment.center,
@@ -43,17 +38,17 @@ class _TempoPerfilState extends State<TempoPerfil> {
         ),
         Positioned(
           right: 16,
-          child: _tempoSMA('$totalAnoD', 'Anuais'),)
-    ]),
+          child: _tempoSMA('$totalAnoD', 'Anuais'),
+        )
+      ]),
     );
   }
 
   Widget _tempoSMA(String horasAcumuladas, String sma) {
     return SizedBox(
-        height: Globals.windowSize.height*0.2,
-        width: Globals.windowSize.width*0.2,
-        child:
-        Column(
+        height: Globals.windowSize.height * 0.2,
+        width: Globals.windowSize.width * 0.2,
+        child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
           mainAxisAlignment: MainAxisAlignment.end,
           mainAxisSize: MainAxisSize.max,
@@ -62,7 +57,7 @@ class _TempoPerfilState extends State<TempoPerfil> {
               horasAcumuladas,
               maxLines: 2,
               textAlign: TextAlign.center,
-              style: TextStyle(fontSize: 22),
+              style: TextStyle(fontSize: 20),
             ),
             Text(
               sma,
@@ -72,8 +67,7 @@ class _TempoPerfilState extends State<TempoPerfil> {
               style: TextStyle(fontSize: 16),
             ),
           ],
-        )
-    );
+        ));
   }
 
   void infoPlantao() async {
