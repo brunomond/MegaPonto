@@ -13,7 +13,7 @@ class MembrosOnlineService {
 
     String urlToken = '$URL_LIST_MEMBROS_ONLINE$tokenUser';
 
-    http.Response response = await http.get(urlToken);
+    http.Response response = await http.get(urlToken, headers: Globals.headers);
 
     if (response.statusCode == 400) return new List<Usuario>();
 

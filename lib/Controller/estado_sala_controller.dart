@@ -27,7 +27,7 @@ abstract class _EstadoSalaControllerBase with Store {
   void setEstadoSala(EstadoSalaEnum estadoSala) => estadoSalaEnum = estadoSala;
 
   @action
-  void obterCafeSala() async {
+  Future<void> obterCafeSala() async {
     await EstadoSalaService().getSalaCafe().then((map) {
       DateTime timeCofe = DateTime.parse(map['cafe']).toLocal();
 
@@ -43,20 +43,19 @@ abstract class _EstadoSalaControllerBase with Store {
   }
 
   @action
-  void enviarCafe(BuildContext context) async {
+  Future<void> enviarCafe(BuildContext context) async {
     EstadoSalaService service = new EstadoSalaService();
-    DateTime timeCofe =
-        DateTime.parse(await service.alterarHorarioCafe()).toLocal();
+    await service.alterarHorarioCafe();
 
-    cafe = DateFormat.Hm().format(timeCofe) +
+    cafe = DateFormat.Hm().format(DateTime.now()) +
         ' de ' +
-        DateFormat(DateFormat.WEEKDAY, 'pt_Br').format(timeCofe);
+        DateFormat(DateFormat.WEEKDAY, 'pt_Br').format(DateTime.now());
 
     Navigator.of(context).pop();
   }
 
   @action
-  void enviarEstadoSala(EstadoSalaEnum estadoEnum) async {
+  Future<void> enviarEstadoSala(EstadoSalaEnum estadoEnum) async {
     EstadoSalaService service = new EstadoSalaService();
     estadoSalaEnum = await service.alterarEstadoSala(estadoEnum);
   }

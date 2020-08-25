@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
+import 'package:megaponto_oficial/Animations/ponto_scroll_physics.dart';
 import 'package:megaponto_oficial/Controller/PontoController.dart';
+import 'package:megaponto_oficial/Controller/membros_online_controller.dart';
 import 'package:megaponto_oficial/Resources/Globals.dart';
+import 'package:megaponto_oficial/Services/membros_online_service.dart';
 import 'package:megaponto_oficial/View/Utils/StdSnackBar.dart';
 import 'Widgets/EstadoSala.dart';
 import 'Widgets/InfoPlantao.dart';
@@ -20,6 +24,8 @@ class Ponto extends StatefulWidget {
 
 class _PontoState extends State<Ponto> {
   PontoController pontoController = PontoController();
+  MembrosOnlineController controller = MembrosOnlineController();
+  bool up = false;
   bool loading = true;
   bool started;
   var now = TimeOfDay.now();
@@ -27,39 +33,52 @@ class _PontoState extends State<Ponto> {
   @override
   void initState() {
     super.initState();
-    _start();
+   // _start();
   }
 
   @override
   Widget build(BuildContext context) {
-    return Stack(
-      children: <Widget>[
-        ListOnline(),
-        Positioned.fill(
-          top: Globals.windowSize.height * 0.27,
-          child: Container(
-            decoration: BoxDecoration(
-                borderRadius: BorderRadius.only(
-                    topLeft: const Radius.circular(50.0),
-                    topRight: const Radius.circular(50.0)),
-                color: Colors.white),
-            child: Column(children: [
-              EstadoSala(),
-              loading
-                  ? Loading()
-                  : started
-                      ? InfoPlantao(
-                          label: 'Muito bom, assim que eu gosto de ver!',
-                          buttonLabel: 'Fechar Plantão',
-                          onPressed: _fecharPlantao)
-                      : InfoPlantao(
-                          label: 'Partiu entregar alguns projetos?!',
-                          buttonLabel: 'Iniciar Plantão',
-                          onPressed: _iniciarPlantao)
-            ]),
+    return RefreshIndicator(
+      onRefresh: controller.fetchData,
+      child: ListView(
+        itemExtent: Globals.windowSize.height,
+        padding: EdgeInsets.all(0),
+        shrinkWrap: true,
+        physics: PontoScrollPhysics(),
+        children: [
+          Stack(
+            children: <Widget>[
+              ListOnline(controller: controller),
+              Positioned.fill(
+                top: Globals.windowSize.height * 0.27,
+                child: Container(
+                  decoration: BoxDecoration(
+                      borderRadius: BorderRadius.only(
+                          topLeft: const Radius.circular(50.0),
+                          topRight: const Radius.circular(50.0)),
+                      color: Colors.white),
+                  child: Column(children: [
+                    EstadoSala(),
+                    loading
+                        ? 
+                        Loading()
+                        : started
+                           ? InfoPlantao(
+                               label:
+                                   'Muito bom, assim que eu gosto de ver!',
+                               buttonLabel: 'Fechar Plantão',
+                               onPressed: _fecharPlantao)
+                           : InfoPlantao(
+                               label: 'Partiu entregar alguns projetos?!',
+                               buttonLabel: 'Iniciar Plantão',
+                               onPressed: _iniciarPlantao)
+                  ]),
+                ),
+              )
+            ],
           ),
-        )
-      ],
+        ],
+      ),
     );
   }
 

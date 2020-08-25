@@ -25,10 +25,76 @@ mixin _$EstadoSalaController on _EstadoSalaControllerBase, Store {
     });
   }
 
+  final _$cafeAtom = Atom(name: '_EstadoSalaControllerBase.cafe');
+
+  @override
+  String get cafe {
+    _$cafeAtom.reportRead();
+    return super.cafe;
+  }
+
+  @override
+  set cafe(String value) {
+    _$cafeAtom.reportWrite(value, super.cafe, () {
+      super.cafe = value;
+    });
+  }
+
+  final _$obterCafeSalaAsyncAction =
+      AsyncAction('_EstadoSalaControllerBase.obterCafeSala');
+
+  @override
+  Future<void> obterCafeSala() {
+    return _$obterCafeSalaAsyncAction.run(() => super.obterCafeSala());
+  }
+
+  final _$enviarCafeAsyncAction =
+      AsyncAction('_EstadoSalaControllerBase.enviarCafe');
+
+  @override
+  Future<void> enviarCafe(BuildContext context) {
+    return _$enviarCafeAsyncAction.run(() => super.enviarCafe(context));
+  }
+
+  final _$enviarEstadoSalaAsyncAction =
+      AsyncAction('_EstadoSalaControllerBase.enviarEstadoSala');
+
+  @override
+  Future<void> enviarEstadoSala(EstadoSalaEnum estadoEnum) {
+    return _$enviarEstadoSalaAsyncAction
+        .run(() => super.enviarEstadoSala(estadoEnum));
+  }
+
+  final _$_EstadoSalaControllerBaseActionController =
+      ActionController(name: '_EstadoSalaControllerBase');
+
+  @override
+  void setCafe(String horario) {
+    final _$actionInfo = _$_EstadoSalaControllerBaseActionController
+        .startAction(name: '_EstadoSalaControllerBase.setCafe');
+    try {
+      return super.setCafe(horario);
+    } finally {
+      _$_EstadoSalaControllerBaseActionController.endAction(_$actionInfo);
+    }
+  }
+
+  @override
+  void setEstadoSala(EstadoSalaEnum estadoSala) {
+    final _$actionInfo = _$_EstadoSalaControllerBaseActionController
+        .startAction(name: '_EstadoSalaControllerBase.setEstadoSala');
+    try {
+      return super.setEstadoSala(estadoSala);
+    } finally {
+      _$_EstadoSalaControllerBaseActionController.endAction(_$actionInfo);
+    }
+  }
+
   @override
   String toString() {
     return '''
-estadoSalaEnum: ${estadoSalaEnum}
+estadoSalaEnum: ${estadoSalaEnum},
+cafe: ${cafe}
     ''';
   }
 }

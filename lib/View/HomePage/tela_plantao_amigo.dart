@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:megaponto_oficial/Controller/PlantaoAmigoController.dart';
+import 'package:flutter_mobx/flutter_mobx.dart';
+import 'package:megaponto_oficial/Controller/plantao_amigo_controller.dart';
 import 'package:megaponto_oficial/Model/Usuario.dart';
+import 'package:megaponto_oficial/Resources/Globals.dart';
 import 'package:megaponto_oficial/View/HomePage/Widgets/MembrosCard.dart';
-import 'package:megaponto_oficial/View/Utils/StdDialog.dart';
-import 'package:shared_preferences/shared_preferences.dart';
-//import 'package:megaponto_oficial/Resources/Globals.dart';
+import 'package:megaponto_oficial/View/Utils/Loading.dart';
 
 class PlantaoAmigo extends StatefulWidget {
   final GlobalKey<ScaffoldState> scaffold;
@@ -16,98 +16,34 @@ class PlantaoAmigo extends StatefulWidget {
 }
 
 class _PlantaoAmigoState extends State<PlantaoAmigo> {
-  List<Usuario> listFuncionarios = List();
-  PlantaoAmigoController plantaoAmigoController = PlantaoAmigoController();
-
-  @override
-  void initState() {
-    super.initState();
-    setState(() {
-      inserirFuncionarios();
-    });
-  }
+  PlantaoAmigoController controller = PlantaoAmigoController();
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      mainAxisAlignment: MainAxisAlignment.start,
-      children: [
-        Divider(
-          height: 10,
-          color: Colors.transparent,
-        ),
-        Expanded(
-            child: ListView.builder(
-          itemBuilder: (context, index) {
-            return Column(
-              children: [
-                MembrosCard(
-                  lista: listFuncionarios,
-                  index: index,
-                  onTap: () => confirmPopUp(listFuncionarios[index], context),
-                )
-              ],
-            );
-          },
-          itemCount: listFuncionarios.length,
-        )),
-      ],
-    );
-  }
+    return Observer(builder: (_) {
+      if (controller.loading || controller.membrosEjOutput.data.length == 0)
+        return SizedBox(
+            height: Globals.windowSize.height,
+            width: Globals.windowSize.width,
+            child: Loading());
 
-  cancelar(BuildContext context) {
-    Navigator.of(context).pop();
-  }
+      List<Usuario> membrosEj = controller.membrosEjOutput.data;
 
-  alterarStatusFun(Usuario user, BuildContext context) {
-    if (user.online)
-      _fecharPlantao(user);
-    else
-      _iniciarPlantao(user);
-
-    Navigator.of(context).pop();
-  }
-
-  //Pop-Ups
-  confirmPopUp(Usuario user, BuildContext context) {
-    return showDialog(
-        context: context,
-        builder: (context) {
-          return StdDialog(
-            contentText: user.online
-                ? 'Deseja finalizar o plantão do(a) ${user.nome}?'
-                : 'Deseja iniciar o plantão do(a) ${user.nome}?',
-            options: {
-              'Cancelar': () => cancelar(context),
-              'Sim': () => alterarStatusFun(user, context)
-            },
-          );
-        });
-  }
-
-  void _iniciarPlantao(Usuario user) async {
-    plantaoAmigoController.iniciarAmigo(user.id);
-  }
-
-  void _fecharPlantao(Usuario user) async {
-    plantaoAmigoController.fecharAmigo(user.id);
-  }
-
-  Future<SharedPreferences> _getSharedInstance() async {
-    SharedPreferences prefs;
-
-    await SharedPreferences.getInstance().then((value) {
-      prefs = value;
-    });
-
-    return prefs;
-  }
-
-  void inserirFuncionarios() async {
-    List<Usuario> listUsuario = await plantaoAmigoController.mostrarAmigos();
-    setState(() {
-      listFuncionarios = listUsuario;
+      return RefreshIndicator(
+          onRefresh: controller.fetchData,
+          child: controller.loadingNewState
+              ? SizedBox(
+                  height: Globals.windowSize.height,
+                  width: Globals.windowSize.width,
+                  child: Loading())
+              : ListView.builder(
+                  itemBuilder: (_, index) => MembrosCard(
+                      lista: membrosEj,
+                      index: index,
+                      onTap: () =>
+                          controller.alterarPlantao(membrosEj[index], context)),
+                  itemCount: membrosEj.length,
+                ));
     });
   }
 }
