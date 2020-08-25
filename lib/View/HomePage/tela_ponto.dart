@@ -33,7 +33,7 @@ class _PontoState extends State<Ponto> {
   @override
   void initState() {
     super.initState();
-    _start();
+   // _start();
   }
 
   @override
@@ -60,17 +60,18 @@ class _PontoState extends State<Ponto> {
                   child: Column(children: [
                     EstadoSala(),
                     loading
-                        ? Loading()
+                        ? 
+                        Loading()
                         : started
-                            ? InfoPlantao(
-                                label:
-                                    'Muito bom, assim que eu gosto de ver!',
-                                buttonLabel: 'Fechar Plantão',
-                                onPressed: _fecharPlantao)
-                            : InfoPlantao(
-                                label: 'Partiu entregar alguns projetos?!',
-                                buttonLabel: 'Iniciar Plantão',
-                                onPressed: _iniciarPlantao)
+                           ? InfoPlantao(
+                               label:
+                                   'Muito bom, assim que eu gosto de ver!',
+                               buttonLabel: 'Fechar Plantão',
+                               onPressed: _fecharPlantao)
+                           : InfoPlantao(
+                               label: 'Partiu entregar alguns projetos?!',
+                               buttonLabel: 'Iniciar Plantão',
+                               onPressed: _iniciarPlantao)
                   ]),
                 ),
               )
