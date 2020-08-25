@@ -15,29 +15,27 @@ class Admin extends StatelessWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: [
-            GestureDetector(
-              child: Container(
-                height: MediaQuery.of(context).size.height * 0.36,
-                decoration: BoxDecoration(border: Border.all()),
+            Container(
+              width: MediaQuery.of(context).size.width * 0.8,
+              height: MediaQuery.of(context).size.height * 0.36,
+              child: OutlineButton(
                 child: Text(
                   'Editar Funcionários',
                   style: TextStyle(fontSize: 32, color: Colors.black),
                 ),
-                alignment: Alignment.center,
+                onPressed: () => Navigator.pushNamed(context, '/adm_funcio'),
               ),
-              onTap: () => Navigator.pushNamed(context, '/adm_funcio'),
             ),
-            GestureDetector(
-              child: Container(
-                height: MediaQuery.of(context).size.height * 0.36,
-                decoration: BoxDecoration(border: Border.all()),
+            Container(
+              width: MediaQuery.of(context).size.width * 0.8,
+              height: MediaQuery.of(context).size.height * 0.36,
+              child: OutlineButton(
                 child: Text(
                   'Editar Aplicativo',
                   style: TextStyle(fontSize: 32),
                 ),
-                alignment: Alignment.center,
+                onPressed: () => Navigator.pushNamed(context, '/adm_app'),
               ),
-              onTap: () => Navigator.pushNamed(context, '/adm_app'),
             ),
           ],
         ),
@@ -47,6 +45,4 @@ class Admin extends StatelessWidget {
       ),
     );
   }
-
-  Widget gestureComBorda() {}
 }
