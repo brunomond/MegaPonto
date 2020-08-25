@@ -29,16 +29,27 @@ abstract class _PlantaoControllerBase with Store {
   void setDuration(Duration duracao) => duration = duracao;
 
   @action
-  Future<void> iniciarPlantaoUser() async {}
-
-  @action
   Future<void> iniciarPlantaoAmigo() async {}
 
   @action
+  Future<void> fecharPlantaoAmigo() async {}
+
+  @action
+  Future<void> iniciarPlantaoUser() async {
+    await PontoService().iniciarPlantao().then((map) {
+      if (map)
+        started = true;
+      else
+        started = false;
+    });
+  }
+
+  @action
   Future<void> fecharPlantao() async {
-    Map parsedJson = await PontoService().fecharPlantao();
-    duration = new Duration(seconds: parsedJson['tempo_online']);
-    started = false;
+    await PontoService().fecharPlantao().then((map) {
+      duration = new Duration(seconds: map['tempo_online']);
+      started = false;
+    });
   }
 
   @action

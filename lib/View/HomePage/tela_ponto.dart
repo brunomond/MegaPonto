@@ -67,11 +67,13 @@ class _PontoState extends State<Ponto> {
   void _iniciarPlantao() async {
     await plantaoController.iniciarPlantaoUser();
 
-    //setState(() => started = true);
-    widget.scaffold.currentState.showSnackBar(StdSnackBar(
-        text:
-            'Plantão iniciado às ${DateFormat.Hm().format(DateTime.now())}!'));
-    //prefs.setBool('start', true);
+    if (plantaoController.started) {
+      widget.scaffold.currentState.showSnackBar(StdSnackBar(
+          text:
+              'Plantão iniciado às ${DateFormat.Hm().format(DateTime.now())}!'));
+    } else {
+      widget.scaffold.currentState.showSnackBar(StdSnackBar(text: 'Erro'));
+    }
   }
 
   void _fecharPlantao() async {

@@ -2,7 +2,6 @@ import 'dart:convert';
 
 import 'package:http/http.dart' as http;
 import 'package:megaponto_oficial/Resources/Globals.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 const String URL_INICIAR_PLANTAO =
     'https://paineljunior.com.br/api/plantao/post.json?token=';
@@ -14,15 +13,13 @@ const String URL_INFO_PLANTAO =
     'https://paineljunior.com.br/api/plantao/get.json?token=';
 
 class PontoService {
-  Future<DateTime> iniciarPlantao() async {
+  Future<bool> iniciarPlantao() async {
     http.Response response =
         await http.post(obterUrlComToken(URL_INICIAR_PLANTAO));
 
-    //if (response.statusCode == 400) return DateTime.parse("00:00");
+    if (response.statusCode == 400) return false;
 
-    Map parsedJson = json.decode(response.body);
-
-    return DateTime.parse(parsedJson['comeco']).toLocal();
+    return true;
   }
 
   Future<Map> fecharPlantao() async {
