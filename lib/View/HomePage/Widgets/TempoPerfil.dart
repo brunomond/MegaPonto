@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:megaponto_oficial/Controller/PerfilController.dart';
+import 'package:flutter_mobx/flutter_mobx.dart';
+import 'package:megaponto_oficial/Controller/perfil_controller.dart';
 import 'package:megaponto_oficial/Resources/Globals.dart';
-import 'package:megaponto_oficial/View/Utils/TranformaTempo.dart';
 
 class TempoPerfil extends StatefulWidget {
   @override
@@ -9,42 +9,32 @@ class TempoPerfil extends StatefulWidget {
 }
 
 class _TempoPerfilState extends State<TempoPerfil> {
-  PerfilController perfilController = PerfilController();
-  int totalSemana = 0;
-  int totalMes = 0;
-  int totalAno = 0;
-  String totalSemanaD;
-  String totalMesD;
-  String totalAnoD;
-
-  @override
-  void initState() {
-    super.initState();
-    infoPlantao();
-  }
+  PerfilController controller = PerfilController();
 
   @override
   Widget build(BuildContext context) {
     return Padding(
       padding: EdgeInsets.only(bottom: 16.0),
-      child: Stack(children: <Widget>[
-        Positioned(
-          left: 16,
-          child: Container(child: _tempoSMA('$totalSemanaD', 'Semanais')),
-        ),
-        Align(
-          alignment: Alignment.center,
-          child: _tempoSMA('$totalMesD', 'Mensais'),
-        ),
-        Positioned(
-          right: 16,
-          child: _tempoSMA('$totalAnoD', 'Anuais'),
-        )
-      ]),
+      child: Observer(builder: (_) {
+        return Stack(children: <Widget>[
+          Positioned(
+            left: 16,
+            child: Container(child: _tempoSMA(controller.tempoSemana, 'Semanais')),
+          ),
+          Align(
+            alignment: Alignment.center,
+            child: _tempoSMA(controller.tempoMes, 'Mensais'),
+          ),
+          Positioned(
+            right: 16,
+            child: _tempoSMA(controller.tempoAno, 'Anuais'),
+          )
+        ]);
+      }),
     );
   }
 
-  Widget _tempoSMA(String horasAcumuladas, String sma) {
+  Widget _tempoSMA(int horasAcumuladas, String sma) {
     return SizedBox(
         height: Globals.windowSize.height * 0.2,
         width: Globals.windowSize.width * 0.2,
@@ -54,7 +44,7 @@ class _TempoPerfilState extends State<TempoPerfil> {
           mainAxisSize: MainAxisSize.max,
           children: <Widget>[
             Text(
-              horasAcumuladas,
+              horasAcumuladas.toString(),
               maxLines: 2,
               textAlign: TextAlign.center,
               style: TextStyle(fontSize: 20),
@@ -68,19 +58,5 @@ class _TempoPerfilState extends State<TempoPerfil> {
             ),
           ],
         ));
-  }
-
-  void infoPlantao() async {
-    await perfilController.pegarInfoPlantao().then((parsedJson) {
-      totalSemana = parsedJson['total_semana'];
-      totalMes = parsedJson['total_mes'];
-      totalAno = parsedJson['total_ano'];
-
-      setState(() {
-        totalSemanaD = TransformaTempo(totalSemana);
-        totalMesD = TransformaTempo(totalMes);
-        totalAnoD = TransformaTempo(totalAno);
-      });
-    });
   }
 }

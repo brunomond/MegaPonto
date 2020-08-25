@@ -3,6 +3,7 @@ import 'package:flutter/rendering.dart';
 import 'package:megaponto_oficial/Animations/ponto_scroll_physics.dart';
 import 'package:megaponto_oficial/Controller/PontoController.dart';
 import 'package:megaponto_oficial/Controller/membros_online_controller.dart';
+import 'package:megaponto_oficial/Controller/plantao_controller.dart';
 import 'package:megaponto_oficial/Resources/Globals.dart';
 import 'package:megaponto_oficial/Services/membros_online_service.dart';
 import 'package:megaponto_oficial/View/Utils/StdSnackBar.dart';
@@ -13,7 +14,6 @@ import 'package:megaponto_oficial/View/Utils/ListOnline.dart';
 import 'package:megaponto_oficial/View/Utils/Loading.dart';
 import 'package:megaponto_oficial/View/Utils/FormatDuration.dart';
 import 'package:intl/intl.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 class Ponto extends StatefulWidget {
   final GlobalKey<ScaffoldState> scaffold;
@@ -24,6 +24,7 @@ class Ponto extends StatefulWidget {
 }
 
 class _PontoState extends State<Ponto> {
+  MembrosOnlineController controller = MembrosOnlineController();
   PlantaoController plantaoController = PlantaoController();
   var now = TimeOfDay.now();
 
@@ -52,10 +53,10 @@ class _PontoState extends State<Ponto> {
                       color: Colors.white),
                   child: Column(children: [
                     EstadoSala(),
-                    loading
+                    plantaoController.loading
                         ? 
                         Loading()
-                        : started
+                        : Globals.sessionController.pontoAtivo
                            ? InfoPlantao(
                                label:
                                    'Muito bom, assim que eu gosto de ver!',
