@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:megaponto_oficial/Animations/ponto_scroll_physics.dart';
-import 'package:megaponto_oficial/Controller/PontoController.dart';
 import 'package:megaponto_oficial/Controller/membros_online_controller.dart';
 import 'package:megaponto_oficial/Controller/plantao_controller.dart';
 import 'package:megaponto_oficial/Resources/Globals.dart';
@@ -53,19 +52,20 @@ class _PontoState extends State<Ponto> {
                       color: Colors.white),
                   child: Column(children: [
                     EstadoSala(),
-                    plantaoController.loading
-                        ? 
-                        Loading()
-                        : Globals.sessionController.pontoAtivo
-                           ? InfoPlantao(
-                               label:
-                                   'Muito bom, assim que eu gosto de ver!',
-                               buttonLabel: 'Fechar Plantão',
-                               onPressed: _fecharPlantao)
-                           : InfoPlantao(
-                               label: 'Partiu entregar alguns projetos?!',
-                               buttonLabel: 'Iniciar Plantão',
-                               onPressed: _iniciarPlantao)
+                    Observer(builder: (_) {
+                      return plantaoController.loading
+                          ? Loading()
+                          : Globals.sessionController.pontoAtivo
+                              ? InfoPlantao(
+                                  label:
+                                      'Muito bom, assim que eu gosto de ver!',
+                                  buttonLabel: 'Fechar Plantão',
+                                  onPressed: _fecharPlantao)
+                              : InfoPlantao(
+                                  label: 'Partiu entregar alguns projetos?!',
+                                  buttonLabel: 'Iniciar Plantão',
+                                  onPressed: _iniciarPlantao);
+                    }),
                   ]),
                 ),
               )
