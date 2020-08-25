@@ -58,7 +58,7 @@ class _EstadoSalaState extends State<EstadoSala> {
                                   DateFormat.Hm().format(DateTime.now()) +
                                   ' de hoje?',
                           options: {
-                            'Cancelar': () => cancelar(context),
+                            'Cancelar': () => Navigator.of(context).pop(),
                             'Sim': () => controller.enviarCafe(context)
                           },
                         )),
@@ -79,7 +79,6 @@ class _EstadoSalaState extends State<EstadoSala> {
         onTap: () => onTap(element),
       ));
     });
-
     return opcoes;
   }
 
@@ -87,17 +86,4 @@ class _EstadoSalaState extends State<EstadoSala> {
     controller.enviarEstadoSala(estadoEnum);
     Navigator.pop(context);
   }
-
-  cancelar(BuildContext context) {
-    Navigator.of(context).pop();
-  }
-
-  /*void obterSalaCafe() async {
-    DateTime timeCofe = DateTime.parse(salaCafeMap['cafe']).toLocal();
-
-    setState(() {
-      horas = DateFormat.Hm().format(timeCofe);
-      estadoSala = EstadoSalaEnumExtension.responseData(sala);
-    });
-  }*/
 }

@@ -14,14 +14,12 @@ const String URL_GET_SALA_CAFE =
 class EstadoSalaService {
   Future<EstadoSalaEnum> alterarEstadoSala(
       EstadoSalaEnum estadoSalaEnum) async {
-    String tokenUser = Globals.sessionController.loggedUser.token;
-
-    String urlToken = '$URL_PUT_SALA_CAFE$tokenUser';
-
     Map<String, dynamic> body = {'status': estadoSalaEnum.value};
 
-    http.Response response = await http.put(urlToken,
-        body: jsonEncode(body), headers: Globals.headers);
+    http.Response response = await http.put(
+        obterRespostaComToken(URL_PUT_SALA_CAFE),
+        body: jsonEncode(body),
+        headers: Globals.headers);
 
     if (response.statusCode == 400) return EstadoSalaEnum.ERRO;
 
@@ -31,17 +29,16 @@ class EstadoSalaService {
   }
 
   Future<String> alterarHorarioCafe() async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-
     Map<String, dynamic> body = {'cafe': true};
 
-    String urlToken = URL_PUT_SALA_CAFE + prefs.getString('loginAuth');
     Map<String, String> headers = {
       HttpHeaders.contentTypeHeader: 'application/json'
     };
 
-    http.Response response =
-        await http.put(urlToken, body: jsonEncode(body), headers: headers);
+    http.Response response = await http.put(
+        obterRespostaComToken(URL_PUT_SALA_CAFE),
+        body: jsonEncode(body),
+        headers: headers);
 
     if (response.statusCode == 400) return "Erro";
 
@@ -51,19 +48,22 @@ class EstadoSalaService {
   }
 
   Future<Map> getSalaCafe() async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-
-    String urlToken = URL_GET_SALA_CAFE + prefs.getString('loginAuth');
     Map<String, String> headers = {
       HttpHeaders.contentTypeHeader: 'application/json'
     };
 
-    http.Response response = await http.get(urlToken, headers: headers);
+    http.Response response = await http
+        .get(obterRespostaComToken(URL_GET_SALA_CAFE), headers: headers);
 
     if (response.statusCode == 400) return Map();
 
     Map parsedJson = json.decode(response.body);
 
     return parsedJson;
+  }
+
+  String obterRespostaComToken(String url) {
+    String urlToken = url + Globals.sessionController.loggedUser.token;
+    return urlToken;
   }
 }
