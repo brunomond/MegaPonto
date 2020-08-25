@@ -9,21 +9,6 @@ part of 'plantao_controller.dart';
 // ignore_for_file: non_constant_identifier_names, unnecessary_brace_in_string_interps, unnecessary_lambdas, prefer_expression_function_bodies, lines_longer_than_80_chars, avoid_as, avoid_annotating_with_dynamic
 
 mixin _$PlantaoController on _PlantaoControllerBase, Store {
-  final _$startedAtom = Atom(name: '_PlantaoControllerBase.started');
-
-  @override
-  bool get started {
-    _$startedAtom.reportRead();
-    return super.started;
-  }
-
-  @override
-  set started(bool value) {
-    _$startedAtom.reportWrite(value, super.started, () {
-      super.started = value;
-    });
-  }
-
   final _$durationAtom = Atom(name: '_PlantaoControllerBase.duration');
 
   @override
@@ -54,54 +39,43 @@ mixin _$PlantaoController on _PlantaoControllerBase, Store {
     });
   }
 
-  final _$iniciarPlantaoUserAsyncAction =
-      AsyncAction('_PlantaoControllerBase.iniciarPlantaoUser');
-
-  @override
-  Future iniciarPlantaoUser() {
-    return _$iniciarPlantaoUserAsyncAction
-        .run(() => super.iniciarPlantaoUser());
-  }
-
   final _$iniciarPlantaoAmigoAsyncAction =
       AsyncAction('_PlantaoControllerBase.iniciarPlantaoAmigo');
 
   @override
-  Future iniciarPlantaoAmigo() {
+  Future<void> iniciarPlantaoAmigo() {
     return _$iniciarPlantaoAmigoAsyncAction
         .run(() => super.iniciarPlantaoAmigo());
+  }
+
+  final _$fecharPlantaoAmigoAsyncAction =
+      AsyncAction('_PlantaoControllerBase.fecharPlantaoAmigo');
+
+  @override
+  Future<void> fecharPlantaoAmigo() {
+    return _$fecharPlantaoAmigoAsyncAction
+        .run(() => super.fecharPlantaoAmigo());
+  }
+
+  final _$iniciarPlantaoUserAsyncAction =
+      AsyncAction('_PlantaoControllerBase.iniciarPlantaoUser');
+
+  @override
+  Future<void> iniciarPlantaoUser() {
+    return _$iniciarPlantaoUserAsyncAction
+        .run(() => super.iniciarPlantaoUser());
   }
 
   final _$fecharPlantaoAsyncAction =
       AsyncAction('_PlantaoControllerBase.fecharPlantao');
 
   @override
-  Future fecharPlantao() {
+  Future<void> fecharPlantao() {
     return _$fecharPlantaoAsyncAction.run(() => super.fecharPlantao());
-  }
-
-  final _$obterStatusPlantaoAsyncAction =
-      AsyncAction('_PlantaoControllerBase.obterStatusPlantao');
-
-  @override
-  Future obterStatusPlantao() {
-    return _$obterStatusPlantaoAsyncAction
-        .run(() => super.obterStatusPlantao());
   }
 
   final _$_PlantaoControllerBaseActionController =
       ActionController(name: '_PlantaoControllerBase');
-
-  @override
-  void setStarted(bool iniciado) {
-    final _$actionInfo = _$_PlantaoControllerBaseActionController.startAction(
-        name: '_PlantaoControllerBase.setStarted');
-    try {
-      return super.setStarted(iniciado);
-    } finally {
-      _$_PlantaoControllerBaseActionController.endAction(_$actionInfo);
-    }
-  }
 
   @override
   void setLoading(bool carregando) {
@@ -128,7 +102,6 @@ mixin _$PlantaoController on _PlantaoControllerBase, Store {
   @override
   String toString() {
     return '''
-started: ${started},
 duration: ${duration},
 loading: ${loading}
     ''';

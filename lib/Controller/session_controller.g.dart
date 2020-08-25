@@ -12,13 +12,13 @@ mixin _$SessionController on _SessionControllerBase, Store {
   final _$loggedUserAtom = Atom(name: '_SessionControllerBase.loggedUser');
 
   @override
-  Usuario get loggedUser {
+  dynamic get loggedUser {
     _$loggedUserAtom.reportRead();
     return super.loggedUser;
   }
 
   @override
-  set loggedUser(Usuario value) {
+  set loggedUser(dynamic value) {
     _$loggedUserAtom.reportWrite(value, super.loggedUser, () {
       super.loggedUser = value;
     });
@@ -39,11 +39,20 @@ mixin _$SessionController on _SessionControllerBase, Store {
     });
   }
 
+  final _$obterStatusPlantaoAsyncAction =
+      AsyncAction('_SessionControllerBase.obterStatusPlantao');
+
+  @override
+  Future<void> obterStatusPlantao() {
+    return _$obterStatusPlantaoAsyncAction
+        .run(() => super.obterStatusPlantao());
+  }
+
   final _$_SessionControllerBaseActionController =
       ActionController(name: '_SessionControllerBase');
 
   @override
-  dynamic setUser(Usuario user) {
+  dynamic setUser(dynamic user) {
     final _$actionInfo = _$_SessionControllerBaseActionController.startAction(
         name: '_SessionControllerBase.setUser');
     try {
