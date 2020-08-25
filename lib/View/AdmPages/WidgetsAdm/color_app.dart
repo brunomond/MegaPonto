@@ -10,6 +10,7 @@ class ColorApp extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           Container(
+            //Mostra Gradiente das cores escolhidas
             height: 32,
             child: GradientBackground(),
           ),
@@ -19,10 +20,12 @@ class ColorApp extends StatelessWidget {
           ),
           Row(
             children: [
-              Container(
-                height: 32,
-                width: 32,
-                color: Color.fromRGBO(199, 59, 35, 1),
+              GestureDetector(
+                child: Container(
+                  height: 32,
+                  width: 32,
+                  color: Color.fromRGBO(199, 59, 35, 1),
+                ),
               ),
               SizedBox(
                 width: 16,
@@ -36,10 +39,12 @@ class ColorApp extends StatelessWidget {
           ),
           Row(
             children: [
-              Container(
-                height: 32,
-                width: 32,
-                color: Color.fromRGBO(61, 1, 78, 1),
+              GestureDetector(
+                child: Container(
+                  height: 32,
+                  width: 32,
+                  color: Color.fromRGBO(61, 1, 78, 1),
+                ),
               ),
               SizedBox(
                 width: 16,
