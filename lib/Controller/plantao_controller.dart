@@ -28,18 +28,15 @@ abstract class _PlantaoControllerBase with Store {
   @action
   Future<void> iniciarPlantaoUser() async {
     await PontoService().iniciarPlantao().then((map) {
-      if (map)
-        SessionController().setPonto(true);
-      else
-        SessionController().setPonto(false);
+      SessionController().setPonto(map);
     });
   }
 
   @action
   Future<void> fecharPlantao() async {
     await PontoService().fecharPlantao().then((map) {
+      SessionController().setPonto(map['tempo_online'] == null);
       duration = new Duration(seconds: map['tempo_online']);
-      SessionController().setPonto(false);
     });
   }
 }
