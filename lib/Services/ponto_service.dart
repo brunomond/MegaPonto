@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:http/http.dart' as http;
+import 'package:megaponto_oficial/Resources/Globals.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 const String URL_INICIAR_PLANTAO =
@@ -12,13 +13,10 @@ const String URL_FECHAR_PLANTAO =
 const String URL_INFO_PLANTAO =
     'https://paineljunior.com.br/api/plantao/get.json?token=';
 
-class PontoController {
+class PontoService {
   Future<DateTime> iniciarPlantao() async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-
-    String urlToken = URL_INICIAR_PLANTAO + prefs.getString('loginAuth');
-
-    http.Response response = await http.post(urlToken);
+    http.Response response =
+        await http.post(obterUrlComToken(URL_INICIAR_PLANTAO));
 
     //if (response.statusCode == 400) return DateTime.parse("00:00");
 
@@ -28,26 +26,24 @@ class PontoController {
   }
 
   Future<Map> fecharPlantao() async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-
-    String urlToken = URL_FECHAR_PLANTAO + prefs.getString('loginAuth');
-
-    http.Response response = await http.put(urlToken);
+    http.Response response =
+        await http.put(obterUrlComToken(URL_FECHAR_PLANTAO));
 
     if (response.statusCode == 400) return Map();
 
     return json.decode(response.body);
   }
 
-  Future<int> verificarUserOnline() async {
-    SharedPreferences preferences = await SharedPreferences.getInstance();
+  Future<bool> obterStatusPlantao() async {
+    http.Response response = await http.get(obterUrlComToken(URL_INFO_PLANTAO));
 
-    String urlToken = URL_INFO_PLANTAO + preferences.getString('loginAuth');
+    if (response.statusCode != 200) return false;
 
-    http.Response response = await http.get(urlToken);
+    return true;
+  }
 
-    if (response.statusCode != 200) return 0;
-
-    return 1;
+  String obterUrlComToken(String url) {
+    String urlToken = url + Globals.sessionController.loggedUser.token;
+    return urlToken;
   }
 }
