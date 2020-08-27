@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
-import 'package:megaponto_oficial/Model/Usuario.dart';
+import 'package:megaponto_oficial/Model/usuario.dart';
 import 'package:megaponto_oficial/Resources/Globals.dart';
 
 class UsuarioLabel extends StatefulWidget {
@@ -9,7 +9,6 @@ class UsuarioLabel extends StatefulWidget {
 }
 
 class _UsuarioLabelState extends State<UsuarioLabel> {
-  
   String estadoPatente = "Megariano Bronze";
   Usuario user = Globals.sessionController.loggedUser;
 

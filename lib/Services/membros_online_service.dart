@@ -1,6 +1,6 @@
 import 'dart:convert';
 
-import 'package:megaponto_oficial/Model/Usuario.dart';
+import 'package:megaponto_oficial/Model/usuario.dart';
 import 'package:megaponto_oficial/Resources/Globals.dart';
 import 'package:http/http.dart' as http;
 

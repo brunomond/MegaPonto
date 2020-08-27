@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:megaponto_oficial/Controller/plantao_amigo_controller.dart';
-import 'package:megaponto_oficial/Model/Usuario.dart';
+import 'package:megaponto_oficial/Model/usuario.dart';
 import 'package:megaponto_oficial/Resources/Globals.dart';
 import 'package:megaponto_oficial/View/HomePage/Widgets/MembrosCard.dart';
 import 'package:megaponto_oficial/View/Utils/Loading.dart';

@@ -1,6 +1,6 @@
 import 'dart:convert';
 import 'package:http/http.dart' as http;
-import 'package:megaponto_oficial/Model/Usuario.dart';
+import 'package:megaponto_oficial/Model/usuario.dart';
 import 'package:megaponto_oficial/Resources/Globals.dart';
 
 const String URL_GET_AMIGO =
@@ -11,7 +11,6 @@ const String URL_PUT_FECHA_AMIGO =
     'https://paineljunior.com.br/api/membros/put.json?token=';
 
 class PlantaoAmigoService {
-
   String tokenUser = Globals.sessionController.loggedUser.token;
 
   Future<List> mostrarAmigos() async {
@@ -39,10 +38,7 @@ class PlantaoAmigoService {
 
     String urlToken = '$URL_POST_INICIA_AMIGO$tokenUser';
 
-    await http.post(urlToken,
-        body: jsonEncode(body), headers: Globals.headers);
-
-  
+    await http.post(urlToken, body: jsonEncode(body), headers: Globals.headers);
   }
 
   Future<void> fecharAmigo(int id) async {
@@ -50,7 +46,6 @@ class PlantaoAmigoService {
 
     String urlToken = '$URL_PUT_FECHA_AMIGO$tokenUser';
 
-    await http.put(urlToken,
-        body: jsonEncode(body), headers: Globals.headers);
+    await http.put(urlToken, body: jsonEncode(body), headers: Globals.headers);
   }
 }

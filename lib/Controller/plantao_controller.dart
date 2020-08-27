@@ -7,6 +7,10 @@ part 'plantao_controller.g.dart';
 class PlantaoController = _PlantaoControllerBase with _$PlantaoController;
 
 abstract class _PlantaoControllerBase with Store {
+  _PlantaoControllerBase() {
+    SessionController().obterStatusPlantao();
+  }
+
   @observable
   Duration duration;
 

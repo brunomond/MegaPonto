@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:megaponto_oficial/Model/Usuario.dart';
+import 'package:megaponto_oficial/Model/usuario.dart';
 import 'package:megaponto_oficial/Services/plantao_amigo_service.dart';
 import 'package:megaponto_oficial/View/Utils/Loading.dart';
 import 'package:megaponto_oficial/View/Utils/StdDialog.dart';

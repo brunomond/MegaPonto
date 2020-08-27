@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:megaponto_oficial/Controller/membros_online_controller.dart';
-import 'package:megaponto_oficial/Model/Usuario.dart';
+import 'package:megaponto_oficial/Model/usuario.dart';
 import 'package:megaponto_oficial/Resources/Globals.dart';
 import 'package:megaponto_oficial/View/Utils/Gradient.dart';
 import 'package:megaponto_oficial/View/Utils/Loading.dart';
@@ -10,7 +10,6 @@ class ListOnline extends StatelessWidget {
   final MembrosOnlineController controller;
 
   ListOnline({this.controller});
-  
 
   @override
   Widget build(BuildContext context) {

@@ -26,8 +26,6 @@ class _PontoState extends State<Ponto> {
   PlantaoController plantaoController = PlantaoController();
   var now = TimeOfDay.now();
 
-
-
   @override
   Widget build(BuildContext context) {
     return RefreshIndicator(
@@ -79,8 +77,6 @@ class _PontoState extends State<Ponto> {
        * --------------------------------------------- FUNCTIONS ------------------------------------------------------- 
        * ---------------------------------------------------------------------------------------------------------------
        */
-
-
 
   //Iniciar / Fechar Plantão
   void _iniciarPlantao() async {
