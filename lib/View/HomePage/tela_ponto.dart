@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:megaponto_oficial/Animations/ponto_scroll_physics.dart';
 import 'package:megaponto_oficial/Controller/membros_online_controller.dart';
-import 'package:megaponto_oficial/Controller/plantao_controller.dart';
+import 'package:megaponto_oficial/Controller/ponto_controller.dart';
 import 'package:megaponto_oficial/Resources/Globals.dart';
 import 'package:megaponto_oficial/View/Utils/StdSnackBar.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
@@ -23,7 +23,7 @@ class Ponto extends StatefulWidget {
 
 class _PontoState extends State<Ponto> {
   MembrosOnlineController controller = MembrosOnlineController();
-  PlantaoController plantaoController = PlantaoController();
+  PontoController plantaoController = PontoController();
   var now = TimeOfDay.now();
 
   @override
@@ -52,7 +52,7 @@ class _PontoState extends State<Ponto> {
                     Observer(builder: (_) {
                       return plantaoController.loading
                           ? Loading()
-                          : Globals.sessionController.pontoAtivo
+                          : plantaoController.pontoAtivo
                               ? InfoPlantao(
                                   label:
                                       'Muito bom, assim que eu gosto de ver!',

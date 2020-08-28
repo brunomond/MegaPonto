@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'plantao_controller.dart';
+part of 'ponto_controller.dart';
 
 // **************************************************************************
 // StoreGenerator
@@ -8,8 +8,8 @@ part of 'plantao_controller.dart';
 
 // ignore_for_file: non_constant_identifier_names, unnecessary_brace_in_string_interps, unnecessary_lambdas, prefer_expression_function_bodies, lines_longer_than_80_chars, avoid_as, avoid_annotating_with_dynamic
 
-mixin _$PlantaoController on _PlantaoControllerBase, Store {
-  final _$durationAtom = Atom(name: '_PlantaoControllerBase.duration');
+mixin _$PontoController on _PontoControllerBase, Store {
+  final _$durationAtom = Atom(name: '_PontoControllerBase.duration');
 
   @override
   Duration get duration {
@@ -24,7 +24,22 @@ mixin _$PlantaoController on _PlantaoControllerBase, Store {
     });
   }
 
-  final _$loadingAtom = Atom(name: '_PlantaoControllerBase.loading');
+  final _$pontoAtivoAtom = Atom(name: '_PontoControllerBase.pontoAtivo');
+
+  @override
+  bool get pontoAtivo {
+    _$pontoAtivoAtom.reportRead();
+    return super.pontoAtivo;
+  }
+
+  @override
+  set pontoAtivo(bool value) {
+    _$pontoAtivoAtom.reportWrite(value, super.pontoAtivo, () {
+      super.pontoAtivo = value;
+    });
+  }
+
+  final _$loadingAtom = Atom(name: '_PontoControllerBase.loading');
 
   @override
   bool get loading {
@@ -40,7 +55,7 @@ mixin _$PlantaoController on _PlantaoControllerBase, Store {
   }
 
   final _$iniciarPlantaoAmigoAsyncAction =
-      AsyncAction('_PlantaoControllerBase.iniciarPlantaoAmigo');
+      AsyncAction('_PontoControllerBase.iniciarPlantaoAmigo');
 
   @override
   Future<void> iniciarPlantaoAmigo() {
@@ -49,7 +64,7 @@ mixin _$PlantaoController on _PlantaoControllerBase, Store {
   }
 
   final _$fecharPlantaoAmigoAsyncAction =
-      AsyncAction('_PlantaoControllerBase.fecharPlantaoAmigo');
+      AsyncAction('_PontoControllerBase.fecharPlantaoAmigo');
 
   @override
   Future<void> fecharPlantaoAmigo() {
@@ -58,7 +73,7 @@ mixin _$PlantaoController on _PlantaoControllerBase, Store {
   }
 
   final _$iniciarPlantaoUserAsyncAction =
-      AsyncAction('_PlantaoControllerBase.iniciarPlantaoUser');
+      AsyncAction('_PontoControllerBase.iniciarPlantaoUser');
 
   @override
   Future<void> iniciarPlantaoUser() {
@@ -67,35 +82,55 @@ mixin _$PlantaoController on _PlantaoControllerBase, Store {
   }
 
   final _$fecharPlantaoAsyncAction =
-      AsyncAction('_PlantaoControllerBase.fecharPlantao');
+      AsyncAction('_PontoControllerBase.fecharPlantao');
 
   @override
   Future<void> fecharPlantao() {
     return _$fecharPlantaoAsyncAction.run(() => super.fecharPlantao());
   }
 
-  final _$_PlantaoControllerBaseActionController =
-      ActionController(name: '_PlantaoControllerBase');
+  final _$obterStatusPlantaoAsyncAction =
+      AsyncAction('_PontoControllerBase.obterStatusPlantao');
+
+  @override
+  Future<void> obterStatusPlantao() {
+    return _$obterStatusPlantaoAsyncAction
+        .run(() => super.obterStatusPlantao());
+  }
+
+  final _$_PontoControllerBaseActionController =
+      ActionController(name: '_PontoControllerBase');
 
   @override
   void setLoading(bool carregando) {
-    final _$actionInfo = _$_PlantaoControllerBaseActionController.startAction(
-        name: '_PlantaoControllerBase.setLoading');
+    final _$actionInfo = _$_PontoControllerBaseActionController.startAction(
+        name: '_PontoControllerBase.setLoading');
     try {
       return super.setLoading(carregando);
     } finally {
-      _$_PlantaoControllerBaseActionController.endAction(_$actionInfo);
+      _$_PontoControllerBaseActionController.endAction(_$actionInfo);
     }
   }
 
   @override
   void setDuration(Duration duracao) {
-    final _$actionInfo = _$_PlantaoControllerBaseActionController.startAction(
-        name: '_PlantaoControllerBase.setDuration');
+    final _$actionInfo = _$_PontoControllerBaseActionController.startAction(
+        name: '_PontoControllerBase.setDuration');
     try {
       return super.setDuration(duracao);
     } finally {
-      _$_PlantaoControllerBaseActionController.endAction(_$actionInfo);
+      _$_PontoControllerBaseActionController.endAction(_$actionInfo);
+    }
+  }
+
+  @override
+  void setPontoAtivo(bool status) {
+    final _$actionInfo = _$_PontoControllerBaseActionController.startAction(
+        name: '_PontoControllerBase.setPontoAtivo');
+    try {
+      return super.setPontoAtivo(status);
+    } finally {
+      _$_PontoControllerBaseActionController.endAction(_$actionInfo);
     }
   }
 
@@ -103,6 +138,7 @@ mixin _$PlantaoController on _PlantaoControllerBase, Store {
   String toString() {
     return '''
 duration: ${duration},
+pontoAtivo: ${pontoAtivo},
 loading: ${loading}
     ''';
   }
