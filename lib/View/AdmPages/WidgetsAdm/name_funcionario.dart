@@ -6,13 +6,12 @@ class NameFuncionario extends StatelessWidget {
     return Container(
       child: Column(
         children: [
-          GestureDetector(
-            //Editar Cargos
-            child: SizedBox(
-              child: Text('Editar Cargos'),
-            ),
-          ),
-          OutlineButton(onPressed: null, child: Text('Editar Patentes'))
+          OutlineButton(
+              onPressed: () => Navigator.pushNamed(context, '/adm_app'),
+              child: Text('Editar Cargos')),
+          OutlineButton(
+              onPressed: () => Navigator.pushNamed(context, '/adm_app'),
+              child: Text('Editar Patentes'))
         ],
       ),
     );

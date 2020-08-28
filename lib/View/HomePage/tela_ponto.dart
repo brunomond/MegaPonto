@@ -23,8 +23,10 @@ class Ponto extends StatefulWidget {
 
 class _PontoState extends State<Ponto> {
   MembrosOnlineController controller = MembrosOnlineController();
-  PontoController plantaoController = PontoController();
+  PontoController pontoController = PontoController();
   var now = TimeOfDay.now();
+
+
 
   @override
   Widget build(BuildContext context) {
@@ -77,6 +79,8 @@ class _PontoState extends State<Ponto> {
        * --------------------------------------------- FUNCTIONS ------------------------------------------------------- 
        * ---------------------------------------------------------------------------------------------------------------
        */
+
+
 
   //Iniciar / Fechar Plantão
   void _iniciarPlantao() async {

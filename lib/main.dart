@@ -44,6 +44,7 @@ class MegaPonto extends StatelessWidget {
           '/adm': (context) => Admin(),
           '/adm_funcio': (context) => EditarFuncionario(),
           '/adm_app': (context) => EditarAplicativo(),
+          '/adm_app_escrita': (context) => EditarAplicativo(),
           '/home': (context) => Home(),
           '/acesso': (context) => Access.withItem(),
           '/login': (context) => Access.withItem(itemIndex: 0),
