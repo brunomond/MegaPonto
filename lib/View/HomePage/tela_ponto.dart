@@ -26,6 +26,8 @@ class _PontoState extends State<Ponto> {
   PontoController pontoController = PontoController();
   var now = TimeOfDay.now();
 
+
+
   @override
   Widget build(BuildContext context) {
     return RefreshIndicator(
@@ -52,7 +54,7 @@ class _PontoState extends State<Ponto> {
                     Observer(builder: (_) {
                       return pontoController.loading
                           ? Loading()
-                          : pontoController.pontoAtivo
+                          : Globals.sessionController.pontoAtivo
                               ? InfoPlantao(
                                   label:
                                       'Muito bom, assim que eu gosto de ver!',
@@ -77,6 +79,8 @@ class _PontoState extends State<Ponto> {
        * --------------------------------------------- FUNCTIONS ------------------------------------------------------- 
        * ---------------------------------------------------------------------------------------------------------------
        */
+
+
 
   //Iniciar / Fechar Plantão
   void _iniciarPlantao() async {
