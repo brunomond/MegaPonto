@@ -14,7 +14,13 @@ class EditarAplicativo extends StatelessWidget {
       body: Column(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         mainAxisSize: MainAxisSize.max,
-        children: <Widget>[ColorApp(), NameFuncionario()],
+        children: <Widget>[
+          Padding(
+            padding: EdgeInsets.symmetric(horizontal: 16),
+            child: ColorApp(),
+          ),
+          NameFuncionario(),
+        ],
       ),
       bottomNavigationBar: BottomApp(
         index: 4,

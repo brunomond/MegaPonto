@@ -11,7 +11,7 @@ class ColorApp extends StatelessWidget {
         children: [
           Container(
             //Mostra Gradiente das cores escolhidas
-            height: 32,
+            height: 64,
             child: GradientBackground(),
           ),
           Divider(

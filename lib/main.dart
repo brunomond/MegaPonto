@@ -5,6 +5,7 @@ import 'package:megaponto_oficial/Controller/session_controller.dart';
 import 'package:megaponto_oficial/View/AdmPages/tela_adm.dart';
 import 'package:megaponto_oficial/View/AdmPages/tela_edit_funcionario.dart';
 import 'package:megaponto_oficial/View/AdmPages/tela_editar_aplicativo.dart';
+import 'package:megaponto_oficial/View/AdmPages/tela_nomenclatura.dart';
 import 'package:megaponto_oficial/View/HomePage/tela_editar_perfil.dart';
 import 'package:provider/provider.dart';
 
@@ -45,6 +46,7 @@ class MegaPonto extends StatelessWidget {
           '/adm_funcio': (context) => EditarFuncionario(),
           '/adm_app': (context) => EditarAplicativo(),
           '/adm_app_escrita': (context) => EditarAplicativo(),
+          '/adm_nomenclatura': (context) => EditarNomenclatura(),
           '/home': (context) => Home(),
           '/acesso': (context) => Access.withItem(),
           '/login': (context) => Access.withItem(itemIndex: 0),
