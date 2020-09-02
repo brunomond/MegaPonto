@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:megaponto_oficial/Resources/presets/custom_icons_icons.dart';
 import 'package:megaponto_oficial/View//HomePage/Widgets/BottomApp.dart';
+import 'package:megaponto_oficial/View/Utils/ConstPopupMenu.dart';
 import 'package:megaponto_oficial/View/Utils/GradientAppBar.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -41,13 +42,17 @@ class _HomeState extends State<Home> {
           ? GradientAppBar(
               actions: _selectedItem == 4
                   ? <Widget>[
-                      IconButton(
-                        icon: Icon(
-                          CustomIcons.sair,
-                          color: Colors.white,
-                        ),
-                        onPressed: () => _logOut(),
-                      )
+                      PopupMenuButton(
+                        onSelected: choiceAction,
+                        itemBuilder: (BuildContext context) {
+                          return ConstPopupMenu.choices.map((String choice) {
+                            return PopupMenuItem<String>(
+                              value: choice,
+                              child: Text(choice),
+                            );
+                          }).toList();
+                        },
+                      ),
                     ]
                   : null,
             )
@@ -71,5 +76,15 @@ class _HomeState extends State<Home> {
       prefs.remove('loginAuth');
       Navigator.pushNamedAndRemoveUntil(context, '/login', (route) => false);
     });
+  }
+
+  void choiceAction(String choice) {
+    if (choice == ConstPopupMenu.Logout) {
+      _logOut();
+    } else if (choice == ConstPopupMenu.EditPerfil) {
+      Navigator.pushNamed(context, '/editar_perfil');
+    } else if (choice == ConstPopupMenu.Admin) {
+      Navigator.pushNamed(context, '/adm');
+    }
   }
 }
