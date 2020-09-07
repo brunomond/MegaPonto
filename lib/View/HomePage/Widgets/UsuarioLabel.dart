@@ -37,17 +37,6 @@ class _UsuarioLabelState extends State<UsuarioLabel> {
                       ),
                     ),
                   ),
-                  Positioned(
-                    right: 64,
-                    child: Align(
-                      alignment: Alignment.center,
-                      child: IconButton(
-                        icon: Icon(Icons.edit),
-                        onPressed: () =>
-                            Navigator.pushNamed(context, '/editar_perfil'),
-                      ),
-                    ),
-                  )
                 ],
               ),
             ),
@@ -77,19 +66,6 @@ class _UsuarioLabelState extends State<UsuarioLabel> {
                 ),
               ),
             ),
-
-            //SE FOR ADMINISTRADOR ENTRA AQUI
-            GestureDetector(
-              child: SizedBox(
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [Icon(Icons.build), Text('Administrador')],
-                ),
-              ),
-              onTap: () => Navigator.pushNamed(context, '/adm'),
-            )
-
-            //FIM DO SE FOR ADMINISTRADOR ENTRA AQUI
           ],
         );
       },

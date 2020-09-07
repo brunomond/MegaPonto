@@ -7,10 +7,12 @@ class NameFuncionario extends StatelessWidget {
       child: Column(
         children: [
           OutlineButton(
-              onPressed: () => Navigator.pushNamed(context, '/adm_app'),
+              onPressed: () =>
+                  Navigator.pushNamed(context, '/adm_nomenclatura'),
               child: Text('Editar Cargos')),
           OutlineButton(
-              onPressed: () => Navigator.pushNamed(context, '/adm_app'),
+              onPressed: () =>
+                  Navigator.pushNamed(context, '/adm_nomenclatura'),
               child: Text('Editar Patentes'))
         ],
       ),
