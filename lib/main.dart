@@ -6,6 +6,7 @@ import 'package:megaponto_oficial/View/AdmPages/tela_adm.dart';
 import 'package:megaponto_oficial/View/AdmPages/tela_edit_funcionario.dart';
 import 'package:megaponto_oficial/View/AdmPages/tela_editar_aplicativo.dart';
 import 'package:megaponto_oficial/View/HomePage/tela_editar_perfil.dart';
+import 'package:onesignal_flutter/onesignal_flutter.dart';
 import 'package:provider/provider.dart';
 
 //Telas
@@ -28,6 +29,8 @@ class MegaPonto extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    OneSignal.shared.init('50e5b17c-989a-4fe5-84ab-e10c6871e889');
+
     return MultiProvider(
       providers: [
         Provider<SessionController>(
