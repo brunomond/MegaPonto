@@ -1,42 +1,42 @@
 {
   "project_info": {
-    "project_number": "136128097091",
-    "firebase_url": "https://mega-ponto.firebaseio.com",
-    "project_id": "mega-ponto",
-    "storage_bucket": "mega-ponto.appspot.com"
+    "project_number": "1047670899028",
+    "firebase_url": "https://megaponto-59e53.firebaseio.com",
+    "project_id": "megaponto-59e53",
+    "storage_bucket": "megaponto-59e53.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:136128097091:android:71ac714cec9177e117ddf6",
+        "mobilesdk_app_id": "1:1047670899028:android:21a9016dae26ed30d708c1",
         "android_client_info": {
           "package_name": "br.com.gustavoneves.megaponto_oficial"
         }
       },
       "oauth_client": [
         {
-          "client_id": "136128097091-71l77etqirgbi131mrv8m7cps70topjc.apps.googleusercontent.com",
+          "client_id": "1047670899028-39e6ojvuss0shekbgosul2bn6cfs6boi.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
             "package_name": "br.com.gustavoneves.megaponto_oficial",
-            "certificate_hash": "1dfa0652d572a3760ed78dcc9c07b974f179962f"
+            "certificate_hash": "466836ea6f45020b045fbfc870e5d8e9816f219f"
           }
         },
         {
-          "client_id": "136128097091-h56ksqr4n1e3cajpie4fqojgc5qr9a1t.apps.googleusercontent.com",
+          "client_id": "1047670899028-ok7egduq3pua67fqe80jl08n12omq16n.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyCIEq-A-AEfePpJucVKcRMv5TCXBvhvE3M"
+          "current_key": "AIzaSyAmvQwbGQyLcyXddok468glzSCuQMRV35k"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "136128097091-h56ksqr4n1e3cajpie4fqojgc5qr9a1t.apps.googleusercontent.com",
+              "client_id": "1047670899028-ok7egduq3pua67fqe80jl08n12omq16n.apps.googleusercontent.com",
               "client_type": 3
             }
           ]
