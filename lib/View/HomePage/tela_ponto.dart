@@ -54,7 +54,7 @@ class _PontoState extends State<Ponto> {
                     Observer(builder: (_) {
                       return pontoController.loading
                           ? Loading()
-                          : Globals.sessionController.pontoAtivo
+                          : pontoController.pontoAtivo
                               ? InfoPlantao(
                                   label:
                                       'Muito bom, assim que eu gosto de ver!',
