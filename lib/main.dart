@@ -32,6 +32,11 @@ class MegaPonto extends StatelessWidget {
   Widget build(BuildContext context) {
     OneSignal.shared.init('50e5b17c-989a-4fe5-84ab-e10c6871e889');
 
+    OneSignal.shared.postNotification(OSCreateNotification(
+        playerIds: null,
+        content: 'Mensagem de teste',
+        heading: 'Acho que esta funcionando'));
+
     return MultiProvider(
       providers: [
         Provider<SessionController>(
