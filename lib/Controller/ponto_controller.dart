@@ -1,6 +1,7 @@
 import 'package:megaponto_oficial/Controller/session_controller.dart';
 import 'package:megaponto_oficial/Services/ponto_service.dart';
 import 'package:mobx/mobx.dart';
+import 'package:onesignal_flutter/onesignal_flutter.dart';
 
 part 'ponto_controller.g.dart';
 
@@ -40,6 +41,13 @@ abstract class _PontoControllerBase with Store {
     await PontoService().iniciarPlantao().then((map) {
       SessionController().setPonto(map);
     });
+
+    pontoAtivo = true;
+
+    OneSignal.shared.postNotification(OSCreateNotification(
+        playerIds: ['e2926936-48d7-46c7-a093-169c19b902ee'],
+        content: 'Plantão Iniciado',
+        heading: 'Não se esqueça de fechar o plantão após sair'));
   }
 
   @action
@@ -48,6 +56,7 @@ abstract class _PontoControllerBase with Store {
       SessionController().setPonto(map['tempo_online'] == null);
       duration = new Duration(seconds: map['tempo_online']);
     });
+    pontoAtivo = false;
   }
 
   @action

@@ -16,6 +16,8 @@ class Globals {
   static final Map<String, String> headers = {
     HttpHeaders.contentTypeHeader: 'application/json'
   };
- static final sessionController  = Provider.of<SessionController>(MegaPonto.mainState.currentContext, listen: false);
- 
+  static final sessionController = Provider.of<SessionController>(
+      MegaPonto.mainState.currentContext,
+      listen: false);
+  static String userId;
 }

@@ -3,6 +3,7 @@ import 'package:intl/date_symbol_data_local.dart';
 import 'package:intl/intl.dart';
 import 'package:megaponto_oficial/Services/estado_sala_service.dart';
 import 'package:mobx/mobx.dart';
+import 'package:onesignal_flutter/onesignal_flutter.dart';
 import 'package:megaponto_oficial/Resources/Enums/EstadoSalaEnum.dart';
 part 'estado_sala_controller.g.dart';
 
@@ -51,6 +52,11 @@ abstract class _EstadoSalaControllerBase with Store {
         ' de ' +
         DateFormat(DateFormat.WEEKDAY, 'pt_Br').format(DateTime.now());
 
+    OneSignal.shared.postNotification(OSCreateNotification(
+        playerIds: ['e2926936-48d7-46c7-a093-169c19b902ee'],
+        content: 'Olha o café',
+        heading: 'Café feito as $cafe'));
+
     Navigator.of(context).pop();
   }
 
@@ -58,5 +64,9 @@ abstract class _EstadoSalaControllerBase with Store {
   Future<void> enviarEstadoSala(EstadoSalaEnum estadoEnum) async {
     EstadoSalaService service = new EstadoSalaService();
     estadoSalaEnum = await service.alterarEstadoSala(estadoEnum);
+    OneSignal.shared.postNotification(OSCreateNotification(
+        playerIds: ['e2926936-48d7-46c7-a093-169c19b902ee'],
+        content: '$estadoSalaEnum',
+        heading: 'A sala mudou'));
   }
 }

@@ -26,8 +26,6 @@ class _PontoState extends State<Ponto> {
   PontoController pontoController = PontoController();
   var now = TimeOfDay.now();
 
-
-
   @override
   Widget build(BuildContext context) {
     return RefreshIndicator(
@@ -80,13 +78,11 @@ class _PontoState extends State<Ponto> {
        * ---------------------------------------------------------------------------------------------------------------
        */
 
-
-
   //Iniciar / Fechar Plantão
   void _iniciarPlantao() async {
     await pontoController.iniciarPlantaoUser();
 
-    if (Globals.sessionController.pontoAtivo)
+    if (pontoController.pontoAtivo)
       widget.scaffold.currentState.showSnackBar(StdSnackBar(
           text:
               'Plantão iniciado às ${DateFormat.Hm().format(DateTime.now())}!'));
@@ -97,7 +93,7 @@ class _PontoState extends State<Ponto> {
   void _fecharPlantao() async {
     await pontoController.fecharPlantao();
 
-    if (!Globals.sessionController.pontoAtivo)
+    if (!pontoController.pontoAtivo)
       widget.scaffold.currentState.showSnackBar(StdSnackBar(
           text:
               'Duração do plantão: ${formatDuration(pontoController.duration)}'));
