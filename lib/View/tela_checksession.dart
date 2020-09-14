@@ -59,6 +59,8 @@ class _CheckSessionState extends State<CheckSession>
       if (prefs.getString('loginJson') != null) {
         Globals.sessionController.setUser(Usuario.fromJson(
             json.decode(prefs.getString('loginJson'))['user']));
+        Globals.sessionController.setPonto(prefs.get('pontoAtivo') ?? false);
+        
         logged = Globals.sessionController.loggedUser != null;
       }
 

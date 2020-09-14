@@ -52,7 +52,7 @@ mixin _$PlantaoAmigoController on _PlantaoAmigoControllerBase, Store {
       AsyncAction('_PlantaoAmigoControllerBase._alterarPlantaoAmigo');
 
   @override
-  Future _alterarPlantaoAmigo(Usuario user, BuildContext context) {
+  Future _alterarPlantaoAmigo(dynamic user, BuildContext context) {
     return _$_alterarPlantaoAmigoAsyncAction
         .run(() => super._alterarPlantaoAmigo(user, context));
   }
@@ -61,7 +61,7 @@ mixin _$PlantaoAmigoController on _PlantaoAmigoControllerBase, Store {
       ActionController(name: '_PlantaoAmigoControllerBase');
 
   @override
-  dynamic alterarPlantao(Usuario user, BuildContext context) {
+  dynamic alterarPlantao(dynamic user, BuildContext context) {
     final _$actionInfo = _$_PlantaoAmigoControllerBaseActionController
         .startAction(name: '_PlantaoAmigoControllerBase.alterarPlantao');
     try {
@@ -72,7 +72,7 @@ mixin _$PlantaoAmigoController on _PlantaoAmigoControllerBase, Store {
   }
 
   @override
-  dynamic _changeOnline(Usuario user) {
+  dynamic _changeOnline(dynamic user) {
     final _$actionInfo = _$_PlantaoAmigoControllerBaseActionController
         .startAction(name: '_PlantaoAmigoControllerBase._changeOnline');
     try {
