@@ -52,10 +52,14 @@ abstract class _EstadoSalaControllerBase with Store {
         ' de ' +
         DateFormat(DateFormat.WEEKDAY, 'pt_Br').format(DateTime.now());
 
+    var status = await OneSignal.shared.getPermissionSubscriptionState();
+
+    var playerId = status.subscriptionStatus.userId;
+
     OneSignal.shared.postNotification(OSCreateNotification(
-        playerIds: ['e2926936-48d7-46c7-a093-169c19b902ee'],
-        content: 'Olha o café',
-        heading: 'Café feito as $cafe'));
+        playerIds: ['$playerId'],
+        heading: 'Olha o café',
+        content: 'Café feito as $cafe'));
 
     Navigator.of(context).pop();
   }
@@ -64,9 +68,13 @@ abstract class _EstadoSalaControllerBase with Store {
   Future<void> enviarEstadoSala(EstadoSalaEnum estadoEnum) async {
     EstadoSalaService service = new EstadoSalaService();
     estadoSalaEnum = await service.alterarEstadoSala(estadoEnum);
+
+    var status = await OneSignal.shared.getPermissionSubscriptionState();
+
+    var playerId = status.subscriptionStatus.userId;
     OneSignal.shared.postNotification(OSCreateNotification(
-        playerIds: ['e2926936-48d7-46c7-a093-169c19b902ee'],
-        content: '$estadoSalaEnum',
-        heading: 'A sala mudou'));
+        playerIds: ['$playerId'],
+        heading: '$estadoSalaEnum.title',
+        content: '$estadoSalaEnum.description'));
   }
 }

@@ -44,8 +44,12 @@ abstract class _PontoControllerBase with Store {
 
     pontoAtivo = true;
 
+    var status = await OneSignal.shared.getPermissionSubscriptionState();
+
+    var playerId = status.subscriptionStatus.userId;
+
     OneSignal.shared.postNotification(OSCreateNotification(
-        playerIds: ['e2926936-48d7-46c7-a093-169c19b902ee'],
+        playerIds: ['$playerId'],
         content: 'Plantão Iniciado',
         heading: 'Não se esqueça de fechar o plantão após sair'));
   }
