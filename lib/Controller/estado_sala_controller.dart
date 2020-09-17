@@ -58,6 +58,7 @@ abstract class _EstadoSalaControllerBase with Store {
 
     OneSignal.shared.postNotification(OSCreateNotification(
         playerIds: ['$playerId'],
+        androidLargeIcon: 'ic_onesignal_large_icon_default_cofe',
         heading: 'Olha o café',
         content: 'Café feito as $cafe'));
 
@@ -74,7 +75,7 @@ abstract class _EstadoSalaControllerBase with Store {
     var playerId = status.subscriptionStatus.userId;
     OneSignal.shared.postNotification(OSCreateNotification(
         playerIds: ['$playerId'],
-        heading: '$estadoSalaEnum.title',
+        heading: '${estadoSalaEnum.title}',
         content: '$estadoSalaEnum.description'));
   }
 }
