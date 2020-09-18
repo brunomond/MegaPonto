@@ -56,6 +56,7 @@ class MembrosCrud extends StatelessWidget {
           Text(crud)
         ]),
       ),
+      onTap: null,
     );
   }
 }
