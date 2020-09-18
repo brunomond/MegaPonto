@@ -3,6 +3,7 @@ import 'package:intl/date_symbol_data_local.dart';
 import 'package:intl/intl.dart';
 import 'package:megaponto_oficial/Services/estado_sala_service.dart';
 import 'package:mobx/mobx.dart';
+import 'package:onesignal_flutter/onesignal_flutter.dart';
 import 'package:megaponto_oficial/Resources/Enums/EstadoSalaEnum.dart';
 part 'estado_sala_controller.g.dart';
 
@@ -51,6 +52,16 @@ abstract class _EstadoSalaControllerBase with Store {
         ' de ' +
         DateFormat(DateFormat.WEEKDAY, 'pt_Br').format(DateTime.now());
 
+    var status = await OneSignal.shared.getPermissionSubscriptionState();
+
+    var playerId = status.subscriptionStatus.userId;
+
+    OneSignal.shared.postNotification(OSCreateNotification(
+        playerIds: ['$playerId'],
+        androidLargeIcon: 'ic_onesignal_large_icon_default_cofe',
+        heading: 'Olha o café',
+        content: 'Café feito as $cafe'));
+
     Navigator.of(context).pop();
   }
 
@@ -58,5 +69,13 @@ abstract class _EstadoSalaControllerBase with Store {
   Future<void> enviarEstadoSala(EstadoSalaEnum estadoEnum) async {
     EstadoSalaService service = new EstadoSalaService();
     estadoSalaEnum = await service.alterarEstadoSala(estadoEnum);
+
+    var status = await OneSignal.shared.getPermissionSubscriptionState();
+
+    var playerId = status.subscriptionStatus.userId;
+    OneSignal.shared.postNotification(OSCreateNotification(
+        playerIds: ['$playerId'],
+        heading: '${estadoSalaEnum.title}',
+        content: '$estadoSalaEnum.description'));
   }
 }
