@@ -58,7 +58,7 @@ abstract class _EstadoSalaControllerBase with Store {
 
     OneSignal.shared.postNotification(OSCreateNotification(
         playerIds: ['$playerId'],
-        androidLargeIcon: 'ic_onesignal_large_icon_default_cofe',
+        androidLargeIcon: 'ic_onesignal_large_icon_default_cofe2',
         heading: 'Olha o café',
         content: 'Café feito as $cafe'));
 
