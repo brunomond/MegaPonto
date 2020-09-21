@@ -52,15 +52,8 @@ abstract class _EstadoSalaControllerBase with Store {
         ' de ' +
         DateFormat(DateFormat.WEEKDAY, 'pt_Br').format(DateTime.now());
 
-    var status = await OneSignal.shared.getPermissionSubscriptionState();
-
-    var playerId = status.subscriptionStatus.userId;
-
-    OneSignal.shared.postNotification(OSCreateNotification(
-        playerIds: ['$playerId'],
-        androidLargeIcon: 'ic_onesignal_large_icon_default_cofe2',
-        heading: 'Olha o café',
-        content: 'Café feito as $cafe'));
+    enviarNotify('Olha o café', 'Café feito as $cafe',
+        'ic_onesignal_large_icon_default_cofe');
 
     Navigator.of(context).pop();
   }
@@ -70,12 +63,18 @@ abstract class _EstadoSalaControllerBase with Store {
     EstadoSalaService service = new EstadoSalaService();
     estadoSalaEnum = await service.alterarEstadoSala(estadoEnum);
 
+    enviarNotify('O estado da sala mudou', estadoSalaEnum.title,
+        estadoSalaEnum.iconNotify);
+  }
+
+  void enviarNotify(String heading, String content, String largeIcon) async {
     var status = await OneSignal.shared.getPermissionSubscriptionState();
 
     var playerId = status.subscriptionStatus.userId;
     OneSignal.shared.postNotification(OSCreateNotification(
         playerIds: ['$playerId'],
-        heading: '${estadoSalaEnum.title}',
-        content: '$estadoSalaEnum.description'));
+        heading: heading,
+        content: content,
+        androidLargeIcon: largeIcon));
   }
 }
