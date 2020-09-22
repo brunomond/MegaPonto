@@ -68,11 +68,8 @@ abstract class _EstadoSalaControllerBase with Store {
   }
 
   void enviarNotify(String heading, String content, String largeIcon) async {
-    var status = await OneSignal.shared.getPermissionSubscriptionState();
-
-    var playerId = status.subscriptionStatus.userId;
     OneSignal.shared.postNotification(OSCreateNotification(
-        playerIds: ['$playerId'],
+        playerIds: [''],
         heading: heading,
         content: content,
         androidLargeIcon: largeIcon));
