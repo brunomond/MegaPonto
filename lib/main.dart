@@ -30,10 +30,6 @@ class MegaPonto extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    OneSignal.shared.init('50e5b17c-989a-4fe5-84ab-e10c6871e889');
-    OneSignal.shared
-        .setInFocusDisplayType(OSNotificationDisplayType.notification);
-
     return MultiProvider(
       providers: [
         Provider<SessionController>(

@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:megaponto_oficial/Controller/session_controller.dart';
 import 'package:megaponto_oficial/main.dart';
 import 'dart:io';
-
 import 'package:provider/provider.dart';
 
 class Globals {
@@ -15,7 +14,7 @@ class Globals {
       MediaQuery.of(MegaPonto.mainState.currentContext).size;
   static final Map<String, String> headers = {
     HttpHeaders.contentTypeHeader: 'application/json',
-    //"Authorization": "Bearer $token"
+    //"Authorization": "Bearer $Globals.sessionController.loggedUser.token"
   };
   static final sessionController = Provider.of<SessionController>(
       MegaPonto.mainState.currentContext,
