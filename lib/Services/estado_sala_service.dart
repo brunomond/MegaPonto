@@ -30,12 +30,10 @@ class EstadoSalaService {
   Future<String> alterarHorarioCafe() async {
     Map<String, dynamic> body = {'cafe': true};
 
-    Map<String, String> headers = {
-      HttpHeaders.contentTypeHeader: 'application/json'
-    };
-
-    http.Response response = await http.put(URL_PUT_SALA_CAFE,
-        body: jsonEncode(body), headers: headers);
+    http.Response response = await http.put(
+        URL_PUT_SALA_CAFE + Globals.sessionController.loggedUser.token,
+        body: jsonEncode(body),
+        headers: Globals.headers);
 
     if (response.statusCode == 400) return "Erro";
 

@@ -9,6 +9,7 @@ class Usuario {
   String rga;
   String imgUrl;
   String token;
+  String player_id;
   bool online; //Apenas para teste
 
   Usuario();
@@ -24,6 +25,7 @@ class Usuario {
     this.rga = map['rga'];
     this.imgUrl = map['imagem'];
     this.token = map['token'];
+    this.player_id = map['player_id'];
   }
 
   Usuario.fromJson(Map<String, dynamic> json)
