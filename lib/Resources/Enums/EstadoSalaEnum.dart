@@ -60,6 +60,20 @@ extension EstadoSalaEnumExtension on EstadoSalaEnum {
     }
   }
 
+  String get iconNotify {
+    switch (this) {
+      case EstadoSalaEnum.NORMAL:
+        return 'ic_onesignal_large_icon_default_sala_normal';
+      case EstadoSalaEnum.REUNIAODIRETORIA:
+        return 'ic_onesignal_large_icon_default_sala_diretoria';
+      case EstadoSalaEnum.REUNIAOCLIENTE:
+        return 'ic_onesignal_large_icon_default_sala_cliente';
+      case EstadoSalaEnum.ERRO:
+      default:
+        return null;
+    }
+  }
+
   List<EstadoSalaEnum> get toList {
     return EstadoSalaEnum.values.sublist(0, 3);
   }

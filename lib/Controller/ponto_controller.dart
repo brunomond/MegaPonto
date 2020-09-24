@@ -51,6 +51,7 @@ abstract class _PontoControllerBase with Store {
     OneSignal.shared.postNotification(OSCreateNotification(
         playerIds: ['$playerId'],
         content: 'Plantão Iniciado',
+        androidLargeIcon: 'ic_onesignal_large_icon_default_sala_ponto',
         heading: 'Não se esqueça de fechar o plantão após sair'));
   }
 
