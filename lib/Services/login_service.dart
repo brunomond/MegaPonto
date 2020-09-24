@@ -44,7 +44,7 @@ class LoginService {
 
     Map<String, dynamic> body = {'player_id': status.subscriptionStatus.userId};
 
-    await http.put(
+    http.Response response = await http.put(
         URL_PLAYERID +
             Globals.sessionController.loggedUser.id.toString() +
             '.json?token=' +

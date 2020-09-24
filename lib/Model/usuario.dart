@@ -38,7 +38,8 @@ class Usuario {
         this.cpf = (json['cpf'].toString().length > 14) ? json['cpf'] : null,
         this.rga = json['rga'],
         this.imgUrl = json['imagem'],
-        this.token = json['token'];
+        this.token = json['token'],
+        this.player_id = json['player_id'];
 
   Map toMap() {
     Map<String, dynamic> map = {

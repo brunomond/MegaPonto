@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:intl/date_symbol_data_local.dart';
 import 'package:intl/intl.dart';
-import 'package:megaponto_oficial/Model/usuario.dart';
+import 'package:megaponto_oficial/Resources/Globals.dart';
 import 'package:megaponto_oficial/Services/estado_sala_service.dart';
 import 'package:megaponto_oficial/Services/plantao_amigo_service.dart';
 import 'package:mobx/mobx.dart';
@@ -80,8 +80,11 @@ abstract class _EstadoSalaControllerBase with Store {
 
   void obterListaUsuarios() async {
     await PlantaoAmigoService().mostrarAmigos().then((list) {
-      for (int i = 0; i < list.length; i++)
-        listaUser.add(list[i].player_id.toString());
+      for (int i = 0; i < list.length; i++) {
+        if (!listaUser.contains(list[i].player_id.toString()))
+          listaUser.add(list[i].player_id.toString());
+      }
+      listaUser.add(Globals.sessionController.loggedUser.player_id);
     });
   }
 }
