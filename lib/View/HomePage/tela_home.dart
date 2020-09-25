@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:megaponto_oficial/Resources/presets/custom_icons_icons.dart';
 import 'package:megaponto_oficial/View//HomePage/Widgets/BottomApp.dart';
 import 'package:megaponto_oficial/View/Utils/ConstPopupMenu.dart';
 import 'package:megaponto_oficial/View/Utils/GradientAppBar.dart';
@@ -25,7 +24,7 @@ class _HomeState extends State<Home> {
     Feed(),
     PlantaoAmigo(scaffold: _scaffoldKey),
     Ponto(scaffold: _scaffoldKey),
-    Leaderboard(),
+    LeaderBoard(),
     Perfil(),
   ];
 
