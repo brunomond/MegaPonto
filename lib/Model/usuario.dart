@@ -10,11 +10,15 @@ class Usuario {
   String imgUrl;
   String token;
   String player_id;
-  bool online; //Apenas para teste
+  bool online;
+  int total_semana;
+  int total_mes;
+  int total_ano;
 
   Usuario();
 
-  Usuario.fromMap(Map map) {
+  Usuario.fromMap(
+      Map map, int horasMensais, int horasAnual, int horasSemanais) {
     this.id = map['id'];
     this.nome = map['nome'];
     this.sobrenome = map['sobrenome'];
@@ -26,6 +30,9 @@ class Usuario {
     this.imgUrl = map['imagem'];
     this.token = map['token'];
     this.player_id = map['player_id'];
+    this.total_semana = horasSemanais;
+    this.total_mes = horasMensais;
+    this.total_ano = horasAnual;
   }
 
   Usuario.fromJson(Map<String, dynamic> json)
@@ -39,7 +46,10 @@ class Usuario {
         this.rga = json['rga'],
         this.imgUrl = json['imagem'],
         this.token = json['token'],
-        this.player_id = json['player_id'];
+        this.player_id = json['player_id'],
+        this.total_semana = json['total_semana'],
+        this.total_mes = json['total_mes'],
+        this.total_ano = json['total_ano'];
 
   Map toMap() {
     Map<String, dynamic> map = {
@@ -53,7 +63,11 @@ class Usuario {
       'cpf': this.cpf,
       'rga': this.rga,
       'imagem': this.imgUrl,
-      'token': this.token
+      'token': this.token,
+      'player_id': this.player_id,
+      'total_semana': this.total_semana,
+      'total_mes': this.total_mes,
+      'total_ano': this.total_ano
     };
 
     return map;

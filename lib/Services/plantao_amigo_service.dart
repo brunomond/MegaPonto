@@ -25,7 +25,11 @@ class PlantaoAmigoService {
     List<Usuario> listFuncionario = List();
 
     parsedJson.forEach((amigo) {
-      Usuario user = Usuario.fromMap(amigo['usuario']);
+      Usuario user = Usuario.fromMap(
+          amigo['usuario'],
+          (amigo['total_mes'] == null) ? 0 : amigo['total_mes'],
+          (amigo['total_ano'] == null) ? 0 : amigo['total_ano'],
+          (amigo['total_semana'] == null) ? 0 : amigo['total_semana']);
       user.online = amigo['online'] != null;
       listFuncionario.add(user);
     });

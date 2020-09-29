@@ -3,35 +3,53 @@ import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:megaponto_oficial/Controller/leaderboard_controller.dart';
 import 'package:megaponto_oficial/Model/usuario.dart';
 import 'package:megaponto_oficial/Resources/Globals.dart';
-import 'package:megaponto_oficial/View/HomePage/Widgets/MembrosCard.dart';
-import 'package:megaponto_oficial/View/Utils/Loading.dart';
 
 class LeaderBoard extends StatelessWidget {
   LeaderBoardController controller = LeaderBoardController();
+  List<Usuario> rankingSemanal;
+  List<Usuario> rankingMensal;
+  List<Usuario> rankingAnual;
+
+  LeaderBoard() {
+    obterDados();
+  }
 
   @override
   Widget build(BuildContext context) {
     return Observer(builder: (_) {
-      if (controller.loading || controller.membrosEjOutput.data.length == 0)
-        return SizedBox(
-            height: Globals.windowSize.height,
-            width: Globals.windowSize.width,
-            child: Loading());
-
-      List<Usuario> membrosEj = controller.membrosEjOutput.data;
-
-      return RefreshIndicator(
-          onRefresh: controller.fetchData,
-          child: controller.loadingNewState
-              ? SizedBox(
-                  height: Globals.windowSize.height,
-                  width: Globals.windowSize.width,
-                  child: Loading())
-              : ListView.builder(
-                  itemBuilder: (_, index) =>
-                      MembrosCard(lista: membrosEj, index: index),
-                  itemCount: membrosEj.length,
-                ));
+      return SingleChildScrollView(
+        padding: EdgeInsets.fromLTRB(16, 20, 30, 0),
+        child: Column(
+          children: [
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              children: [
+                GestureDetector(
+                  child: Text('Essa Semana',
+                      style: Globals.textTheme.bodyText2
+                          .copyWith(decoration: TextDecoration.underline)),
+                ),
+                GestureDetector(
+                  child: Text('Esse Mês',
+                      style: Globals.textTheme.bodyText2
+                          .copyWith(decoration: TextDecoration.underline)),
+                ),
+                GestureDetector(
+                  child: Text('Esse Ano',
+                      style: Globals.textTheme.bodyText2
+                          .copyWith(decoration: TextDecoration.underline)),
+                ),
+              ],
+            ),
+          ],
+        ),
+      );
     });
+  }
+
+  void obterDados() async {
+    rankingSemanal = await controller.rankingSemanal();
+    rankingMensal = await controller.rankingMensal(rankingSemanal);
+    rankingAnual = await controller.rankingAnual(rankingSemanal);
   }
 }
