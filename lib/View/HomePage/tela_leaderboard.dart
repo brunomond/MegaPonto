@@ -37,8 +37,10 @@ class _LeaderBoardState extends State<LeaderBoard> {
                   children: <Widget>[
                     GestureDetector(
                       onTap: () {
-                        listExibicao.sort(
-                            (a, b) => a.total_semana.compareTo(b.total_semana));
+                        setState(() {
+                          listExibicao.sort((a, b) =>
+                              a.total_semana.compareTo(b.total_semana));
+                        });
                       },
                       child: Text(
                         'Semanal',
@@ -48,8 +50,10 @@ class _LeaderBoardState extends State<LeaderBoard> {
                     ),
                     GestureDetector(
                       onTap: () {
-                        listExibicao
-                            .sort((a, b) => a.total_mes.compareTo(b.total_mes));
+                        setState(() {
+                          listExibicao.sort(
+                              (a, b) => a.total_mes.compareTo(b.total_mes));
+                        });
                       },
                       child: Text(
                         'Mensal',
@@ -58,8 +62,10 @@ class _LeaderBoardState extends State<LeaderBoard> {
                     ),
                     GestureDetector(
                       onTap: () {
-                        listExibicao
-                            .sort((a, b) => a.total_ano.compareTo(b.total_ano));
+                        setState(() {
+                          listExibicao.sort(
+                              (a, b) => a.total_ano.compareTo(b.total_ano));
+                        });
                       },
                       child: Text(
                         'Anual',
@@ -68,24 +74,63 @@ class _LeaderBoardState extends State<LeaderBoard> {
                     ),
                   ],
                 ),
-                Expanded(
-                    child: RefreshIndicator(
-                        onRefresh: controller.fetchData,
-                        child: controller.loadingNewState
-                            ? SizedBox(
-                                height: Globals.windowSize.height,
-                                width: Globals.windowSize.width,
-                                child: Loading())
-                            : ListView.builder(
-                                itemBuilder: (_, index) => MembrosCard(
-                                    lista: listExibicao,
-                                    index: index,
-                                    onTap: () {}),
-                                itemCount: listExibicao.length,
-                              )))
+                _cardList()
               ],
             )),
       );
     });
+  }
+
+  Widget _cardList() {
+    return Expanded(
+        child: ListView.builder(
+            itemCount: listExibicao.length,
+            itemBuilder: (context, index) {
+              return _widgetLista(context, index);
+            }));
+  }
+
+  Widget _widgetLista(BuildContext contexto, int index) {
+    return Card(
+      child: Padding(
+        padding: EdgeInsets.all(10.0),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Row(
+              children: [
+                Padding(
+                  padding: EdgeInsets.only(right: 10),
+                  child: Text(
+                    (index + 1).toString(),
+                    style: TextStyle(fontWeight: FontWeight.w600, fontSize: 29),
+                  ),
+                ),
+                Container(
+                  width: 60.0,
+                  height: 60.0,
+                  decoration: BoxDecoration(
+                      shape: BoxShape.circle,
+                      image: DecorationImage(
+                        image: NetworkImage(
+                            "https://api.adorable.io/avatars/285/abott@adorable.png"),
+                      )),
+                ),
+                Padding(
+                  padding: EdgeInsets.only(left: 10.0),
+                  child: Column(
+                    children: [
+                      Text(listExibicao[index].nome),
+                      Text(listExibicao[index].total_ano.toString()),
+                    ],
+                  ),
+                )
+              ],
+            ),
+            (index == 0) ? Icon(CustomIcons.primeiro) : Text("nao e primeiro"),
+          ],
+        ),
+      ),
+    );
   }
 }
