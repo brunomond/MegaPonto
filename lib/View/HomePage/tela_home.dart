@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:megaponto_oficial/View//HomePage/Widgets/BottomApp.dart';
+import 'package:megaponto_oficial/View/HomePage/tela_leaderboard.dart';
 import 'package:megaponto_oficial/View/Utils/ConstPopupMenu.dart';
 import 'package:megaponto_oficial/View/Utils/GradientAppBar.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -9,7 +10,6 @@ import 'tela_feed.dart';
 import 'tela_ponto.dart';
 import 'tela_plantao_amigo.dart';
 import 'tela_perfil.dart';
-import 'tela_leaderboard.dart';
 
 class Home extends StatefulWidget {
   @override

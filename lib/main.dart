@@ -7,7 +7,6 @@ import 'package:megaponto_oficial/View/AdmPages/tela_edit_funcionario.dart';
 import 'package:megaponto_oficial/View/AdmPages/tela_editar_aplicativo.dart';
 import 'package:megaponto_oficial/View/AdmPages/tela_nomenclatura.dart';
 import 'package:megaponto_oficial/View/HomePage/tela_editar_perfil.dart';
-import 'package:onesignal_flutter/onesignal_flutter.dart';
 import 'package:provider/provider.dart';
 
 //Telas
