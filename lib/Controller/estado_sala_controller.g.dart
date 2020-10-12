@@ -25,6 +25,21 @@ mixin _$EstadoSalaController on _EstadoSalaControllerBase, Store {
     });
   }
 
+  final _$listaUserAtom = Atom(name: '_EstadoSalaControllerBase.listaUser');
+
+  @override
+  List<String> get listaUser {
+    _$listaUserAtom.reportRead();
+    return super.listaUser;
+  }
+
+  @override
+  set listaUser(List<String> value) {
+    _$listaUserAtom.reportWrite(value, super.listaUser, () {
+      super.listaUser = value;
+    });
+  }
+
   final _$cafeAtom = Atom(name: '_EstadoSalaControllerBase.cafe');
 
   @override
@@ -80,20 +95,10 @@ mixin _$EstadoSalaController on _EstadoSalaControllerBase, Store {
   }
 
   @override
-  void setEstadoSala(EstadoSalaEnum estadoSala) {
-    final _$actionInfo = _$_EstadoSalaControllerBaseActionController
-        .startAction(name: '_EstadoSalaControllerBase.setEstadoSala');
-    try {
-      return super.setEstadoSala(estadoSala);
-    } finally {
-      _$_EstadoSalaControllerBaseActionController.endAction(_$actionInfo);
-    }
-  }
-
-  @override
   String toString() {
     return '''
 estadoSalaEnum: ${estadoSalaEnum},
+listaUser: ${listaUser},
 cafe: ${cafe}
     ''';
   }

@@ -1,7 +1,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:intl/date_symbol_data_local.dart';
 import 'package:intl/intl.dart';
+import 'package:megaponto_oficial/Resources/Globals.dart';
 import 'package:megaponto_oficial/Services/estado_sala_service.dart';
+import 'package:megaponto_oficial/Services/plantao_amigo_service.dart';
 import 'package:mobx/mobx.dart';
 import 'package:onesignal_flutter/onesignal_flutter.dart';
 import 'package:megaponto_oficial/Resources/Enums/EstadoSalaEnum.dart';
@@ -13,19 +15,20 @@ class EstadoSalaController = _EstadoSalaControllerBase
 abstract class _EstadoSalaControllerBase with Store {
   _EstadoSalaControllerBase() {
     obterCafeSala();
+    obterListaUsuarios();
   }
 
   @observable
   EstadoSalaEnum estadoSalaEnum = EstadoSalaEnum.NORMAL;
 
   @observable
+  List<String> listaUser = List<String>();
+
+  @observable
   String cafe = "";
 
   @action
   void setCafe(String horario) => cafe = horario;
-
-  @action
-  void setEstadoSala(EstadoSalaEnum estadoSala) => estadoSalaEnum = estadoSala;
 
   @action
   Future<void> obterCafeSala() async {
@@ -69,9 +72,19 @@ abstract class _EstadoSalaControllerBase with Store {
 
   void enviarNotify(String heading, String content, String largeIcon) async {
     OneSignal.shared.postNotification(OSCreateNotification(
-        playerIds: [''],
+        playerIds: listaUser,
         heading: heading,
         content: content,
         androidLargeIcon: largeIcon));
+  }
+
+  void obterListaUsuarios() async {
+    await PlantaoAmigoService().mostrarAmigos().then((list) {
+      for (int i = 0; i < list.length; i++) {
+        if (!listaUser.contains(list[i].player_id.toString()))
+          listaUser.add(list[i].player_id.toString());
+      }
+      listaUser.add(Globals.sessionController.loggedUser.player_id);
+    });
   }
 }

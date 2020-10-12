@@ -8,6 +8,7 @@ import 'package:onesignal_flutter/onesignal_flutter.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 const String URL_LOGIN = 'https://paineljunior.com.br/api/login.json';
+const String URL_PLAYERID = 'https://paineljunior.com.br/api/usuarios/put/';
 
 class LoginService {
   final String senha;
@@ -30,22 +31,28 @@ class LoginService {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     prefs.setString('loginJson', response.body);
 
+    enviarPlayerId();
+
     return new Usuario.fromJson(json.decode(response.body)['user']);
   }
 
-  Future<bool> enviarPlayerId(BuildContext context) async {
+  void enviarPlayerId() async {
+    OneSignal.shared.init('50e5b17c-989a-4fe5-84ab-e10c6871e889');
+    OneSignal.shared
+        .setInFocusDisplayType(OSNotificationDisplayType.notification);
     var status = await OneSignal.shared.getPermissionSubscriptionState();
 
     Map<String, dynamic> body = {'player_id': status.subscriptionStatus.userId};
 
-    http.Response response = await http.post(URL_LOGIN,
-        body: jsonEncode(body), headers: Globals.headers);
-
-    if (response.statusCode == 401) return false;
+    http.Response response = await http.put(
+        URL_PLAYERID +
+            Globals.sessionController.loggedUser.id.toString() +
+            '.json?token=' +
+            Globals.sessionController.loggedUser.token,
+        body: jsonEncode(body),
+        headers: Globals.headers);
 
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    prefs.setString('player_id', response.body);
-
-    return true;
+    prefs.setString('player_id', status.subscriptionStatus.userId);
   }
 }
