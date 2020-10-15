@@ -34,9 +34,6 @@ class _AdminState extends State<Admin> {
         text: 'Administrador',
       ),
       key: _scaffoldKey,
-      bottomNavigationBar: BottomApp(
-        index: 4,
-      ),
       body: _telas[_selectedItem],
     );
   }

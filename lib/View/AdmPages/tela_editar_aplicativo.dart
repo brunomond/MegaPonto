@@ -22,9 +22,6 @@ class EditarAplicativo extends StatelessWidget {
           NameFuncionario(),
         ],
       ),
-      bottomNavigationBar: BottomApp(
-        index: 4,
-      ),
     );
   }
 }

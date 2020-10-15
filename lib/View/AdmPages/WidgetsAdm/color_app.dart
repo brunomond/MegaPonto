@@ -46,7 +46,7 @@ class ColorApp extends StatelessWidget {
                       actions: [
                         FlatButton(
                           child: Text('Cancelar'),
-                          onPressed: () => null,
+                          onPressed: () => Navigator.pop(context),
                         ),
                         FlatButton(
                           child: Text('Enviar'),
@@ -85,7 +85,7 @@ class ColorApp extends StatelessWidget {
                       actions: [
                         FlatButton(
                           child: Text('Cancelar'),
-                          onPressed: () => null,
+                          onPressed: () => Navigator.pop(context),
                         ),
                         FlatButton(
                           child: Text('Enviar'),

@@ -24,9 +24,6 @@ class EditarNomenclatura extends StatelessWidget {
           ],
         ),
       ),
-      bottomNavigationBar: BottomApp(
-        index: 4,
-      ),
     );
   }
 }
