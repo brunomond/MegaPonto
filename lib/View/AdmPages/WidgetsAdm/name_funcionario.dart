@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:megaponto_oficial/View/Utils/GradientAppBar.dart';
 
 class NameFuncionario extends StatelessWidget {
   @override

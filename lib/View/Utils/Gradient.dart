@@ -1,10 +1,13 @@
-
 import 'package:flutter/cupertino.dart';
 import 'package:megaponto_oficial/Resources/Globals.dart';
 
 class GradientBackground extends StatelessWidget {
   final Widget child;
-  const GradientBackground({this.child});
+  final Color primaryColor;
+  final Color secondaryColor;
+
+  const GradientBackground(
+      {this.child, this.primaryColor, this.secondaryColor});
 
   @override
   Widget build(BuildContext context) {
@@ -16,8 +19,12 @@ class GradientBackground extends StatelessWidget {
                 begin: Alignment.topLeft,
                 end: Alignment.centerRight,
                 colors: [
-              Color.fromRGBO(199, 59, 35, 1),
-              Color.fromRGBO(61, 1, 78, 1),
+              primaryColor == null
+                  ? Color.fromRGBO(199, 59, 35, 1)
+                  : primaryColor,
+              secondaryColor == null
+                  ? Color.fromRGBO(61, 1, 78, 1)
+                  : secondaryColor,
             ])),
         child: child ?? Container());
   }

@@ -6,6 +6,7 @@ import 'package:megaponto_oficial/View/HomePage/Widgets/BottomApp.dart';
 import 'package:megaponto_oficial/View/AdmPages/tela_edit_funcionario.dart';
 import 'package:megaponto_oficial/View/AdmPages/tela_editar_aplicativo.dart';
 import 'package:megaponto_oficial/View/AdmPages/tela_editar.dart';
+import 'package:megaponto_oficial/View/AdmPages/tela_nomenclatura.dart';
 
 class Admin extends StatefulWidget {
   @override
@@ -19,6 +20,7 @@ class _AdminState extends State<Admin> {
     AdmEdit(),
     EditarFuncionario(),
     EditarAplicativo(),
+    EditarNomenclatura(),
   ];
 
   @override

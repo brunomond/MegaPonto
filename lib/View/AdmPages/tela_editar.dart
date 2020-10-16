@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 class AdmEdit extends StatefulWidget {
   final GlobalKey<ScaffoldState> scaffold;
+  String editavel;
 
   AdmEdit({this.scaffold});
 
@@ -13,34 +14,28 @@ class _AdmEditState extends State<AdmEdit> {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: EdgeInsets.only(left: 32, right: 32),
+      padding: EdgeInsets.symmetric(horizontal: 32),
       child: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: [
-            Container(
-              height: MediaQuery.of(context).size.height * 0.36,
-              width: MediaQuery.of(context).size.width * 0.8,
-              child: OutlineButton(
-                child: Text(
-                  'Editar Funcionários',
-                  style: TextStyle(fontSize: 32, color: Colors.black),
-                ),
-                onPressed: () => Navigator.pushNamed(context, '/adm_funcio'),
-              ),
-            ),
-            Container(
-              height: MediaQuery.of(context).size.height * 0.36,
-              width: MediaQuery.of(context).size.width * 0.8,
-              child: OutlineButton(
-                child: Text(
-                  'Editar Aplicativo',
-                  style: TextStyle(fontSize: 32),
-                ),
-                onPressed: () => Navigator.pushNamed(context, '/adm_app'),
-              ),
-            ),
+            admOutlineBottom('Funcionário', '/adm_funcio'),
+            admOutlineBottom('Aplicativo', '/adm_app'),
           ],
+        ),
+      ),
+    );
+  }
+
+  Widget admOutlineBottom(String editavel, String page) {
+    return Container(
+      height: MediaQuery.of(context).size.height * 0.36,
+      width: MediaQuery.of(context).size.width * 0.8,
+      child: OutlineButton(
+        onPressed: () => Navigator.pushNamed(context, '$page'),
+        child: Text(
+          'Editar $editavel',
+          style: TextStyle(fontSize: 28, color: Colors.black),
         ),
       ),
     );
