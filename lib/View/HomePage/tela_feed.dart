@@ -37,8 +37,7 @@ class _FeedState extends State<Feed> {
                         decoration: BoxDecoration(
                           shape: BoxShape.circle,
                           image: DecorationImage(
-                            image: NetworkImage(
-                                "https://api.adorable.io/avatars/283/abott@adorable.pngCopy to Clipboard"),
+                            image: AssetImage('images/abott@adorable.png'),
                           ),
                         ),
                       ),

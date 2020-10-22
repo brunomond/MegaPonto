@@ -18,7 +18,7 @@ class PontoService {
     http.Response response =
         await http.post(obterUrlComToken(URL_INICIAR_PLANTAO));
 
-    SharedPreferences prefs = await SharedPreferences.getInstance(); 
+    SharedPreferences prefs = await SharedPreferences.getInstance();
 
     if (response.statusCode == 400) return false;
 
@@ -30,17 +30,17 @@ class PontoService {
     http.Response response =
         await http.put(obterUrlComToken(URL_FECHAR_PLANTAO));
 
-    SharedPreferences prefs = await SharedPreferences.getInstance(); 
+    SharedPreferences prefs = await SharedPreferences.getInstance();
     if (response.statusCode == 400) return Map();
 
-    prefs.setBool('pontoAtivo', false);  
+    prefs.setBool('pontoAtivo', false);
     return json.decode(response.body);
   }
 
   Future<bool> obterStatusPlantao() async {
     http.Response response = await http.get(obterUrlComToken(URL_INFO_PLANTAO));
-    SharedPreferences prefs = await SharedPreferences.getInstance();  
-    prefs.setBool('pontoAtivo', response.statusCode != 200);
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    prefs.setBool('pontoAtivo', response.statusCode == 200);
 
     return prefs.get('pontoAtivo');
   }

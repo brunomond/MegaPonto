@@ -65,8 +65,7 @@ class ListOnline extends StatelessWidget {
                 decoration: BoxDecoration(
                   shape: BoxShape.circle,
                   image: DecorationImage(
-                    image: NetworkImage(
-                        "https://api.adorable.io/avatars/285/abott@adorable.png"),
+                    image: AssetImage('images/abott@adorable.png'),
                   ),
                 ),
               ),
