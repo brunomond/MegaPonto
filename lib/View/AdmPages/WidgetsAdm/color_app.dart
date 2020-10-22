@@ -33,6 +33,7 @@ class _ColorAppState extends State<ColorApp> {
         children: [
           Container(
             //Mostra Gradiente das cores escolhidas
+            decoration: BoxDecoration(border: Border.all()),
             height: 64,
             child: GradientBackground(
               primaryColor: pickerFirstColor,
@@ -44,12 +45,16 @@ class _ColorAppState extends State<ColorApp> {
             color: Colors.transparent,
           ),
           GestureDetector(
+            //Cor primária
             child: Row(
               children: [
                 Container(
                   height: 32,
                   width: 32,
-                  color: pickerFirstColor,
+                  decoration: BoxDecoration(
+                    border: Border.all(),
+                    color: pickerFirstColor,
+                  ),
                 ),
                 SizedBox(
                   width: 16,
@@ -60,7 +65,7 @@ class _ColorAppState extends State<ColorApp> {
             onTap: () => showDialog(
               context: context,
               child: AlertDialog(
-                title: const Text('Pick a color!'),
+                title: const Text('Escolha a cor primária'),
                 content: SingleChildScrollView(
                   child: ColorPicker(
                     pickerColor: pickerFirstColor,
@@ -71,7 +76,7 @@ class _ColorAppState extends State<ColorApp> {
                 ),
                 actions: <Widget>[
                   FlatButton(
-                    child: const Text('Got it'),
+                    child: const Text('Feito!'),
                     onPressed: () {
                       setState(() => currentFirstColor = pickerFirstColor);
                       Navigator.of(context).pop();
@@ -80,18 +85,22 @@ class _ColorAppState extends State<ColorApp> {
                 ],
               ),
             ),
-          ),
+          ), //fim cor primária
           Divider(
             height: MediaQuery.of(context).size.height * 0.08,
             color: Colors.transparent,
           ),
           GestureDetector(
+              //cor secundária
               child: Row(
                 children: [
                   Container(
                     height: 32,
                     width: 32,
-                    color: pickerSecondColor,
+                    decoration: BoxDecoration(
+                      border: Border.all(),
+                      color: pickerSecondColor,
+                    ),
                   ),
                   SizedBox(
                     width: 16,
@@ -102,7 +111,7 @@ class _ColorAppState extends State<ColorApp> {
               onTap: () => showDialog(
                     context: context,
                     child: AlertDialog(
-                      title: const Text('Pick a color!'),
+                      title: const Text('Escolha a cor secundária'),
                       content: SingleChildScrollView(
                         child: ColorPicker(
                           pickerColor: pickerSecondColor,
@@ -113,7 +122,7 @@ class _ColorAppState extends State<ColorApp> {
                       ),
                       actions: <Widget>[
                         FlatButton(
-                          child: const Text('Got it'),
+                          child: const Text('Feito!'),
                           onPressed: () {
                             setState(
                                 () => currentSecondColor = pickerSecondColor);
@@ -122,7 +131,7 @@ class _ColorAppState extends State<ColorApp> {
                         ),
                       ],
                     ),
-                  )),
+                  )), //fim cor secondária
         ],
       ),
     );

@@ -1,3 +1,4 @@
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:megaponto_oficial/View/Utils/GradientAppBar.dart';
 import 'package:megaponto_oficial/View/HomePage/Widgets/BottomApp.dart';
@@ -16,16 +17,18 @@ class _EditarNomenclaturaState extends State<EditarNomenclatura> {
         text: 'Administrador',
       ),
       body: SingleChildScrollView(
-        child: Column(
-          children: [
-            Text(
-              'Cargos',
-              textAlign: TextAlign.center,
-              style: TextStyle(fontSize: 24),
-            ),
-          ],
-        ),
-      ),
+          child: ListBody(
+        children: [
+          Text('Cargos'),
+          Row(
+            children: [
+              StdTextInput(
+                hintText: 'Cargo 1',
+              ),
+            ],
+          ),
+        ],
+      )),
     );
   }
 }
