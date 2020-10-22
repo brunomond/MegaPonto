@@ -4,7 +4,12 @@ import 'package:megaponto_oficial/View/HomePage/Widgets/BottomApp.dart';
 import 'package:megaponto_oficial/View/AdmPages/WidgetsAdm/color_app.dart';
 import 'package:megaponto_oficial/View/AdmPages/WidgetsAdm/name_funcionario.dart';
 
-class EditarAplicativo extends StatelessWidget {
+class EditarAplicativo extends StatefulWidget {
+  @override
+  _EditarAplicativoState createState() => _EditarAplicativoState();
+}
+
+class _EditarAplicativoState extends State<EditarAplicativo> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -21,9 +26,6 @@ class EditarAplicativo extends StatelessWidget {
           ),
           NameFuncionario(),
         ],
-      ),
-      bottomNavigationBar: BottomApp(
-        index: 4,
       ),
     );
   }

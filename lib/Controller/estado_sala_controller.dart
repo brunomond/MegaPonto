@@ -1,9 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:intl/date_symbol_data_local.dart';
 import 'package:intl/intl.dart';
-import 'package:megaponto_oficial/Resources/Globals.dart';
 import 'package:megaponto_oficial/Services/estado_sala_service.dart';
-import 'package:megaponto_oficial/Services/plantao_amigo_service.dart';
 import 'package:mobx/mobx.dart';
 import 'package:onesignal_flutter/onesignal_flutter.dart';
 import 'package:megaponto_oficial/Resources/Enums/EstadoSalaEnum.dart';
@@ -15,20 +13,19 @@ class EstadoSalaController = _EstadoSalaControllerBase
 abstract class _EstadoSalaControllerBase with Store {
   _EstadoSalaControllerBase() {
     obterCafeSala();
-    obterListaUsuarios();
   }
 
   @observable
   EstadoSalaEnum estadoSalaEnum = EstadoSalaEnum.NORMAL;
 
   @observable
-  List<String> listaUser = List<String>();
-
-  @observable
   String cafe = "";
 
   @action
   void setCafe(String horario) => cafe = horario;
+
+  @action
+  void setEstadoSala(EstadoSalaEnum estadoSala) => estadoSalaEnum = estadoSala;
 
   @action
   Future<void> obterCafeSala() async {
@@ -55,8 +52,15 @@ abstract class _EstadoSalaControllerBase with Store {
         ' de ' +
         DateFormat(DateFormat.WEEKDAY, 'pt_Br').format(DateTime.now());
 
-    enviarNotify('Olha o café', 'Café feito as $cafe',
-        'ic_onesignal_large_icon_default_cofe');
+    var status = await OneSignal.shared.getPermissionSubscriptionState();
+
+    var playerId = status.subscriptionStatus.userId;
+
+    OneSignal.shared.postNotification(OSCreateNotification(
+        playerIds: ['$playerId'],
+        androidLargeIcon: 'ic_onesignal_large_icon_default_cofe',
+        heading: 'Olha o café',
+        content: 'Café feito as $cafe'));
 
     Navigator.of(context).pop();
   }
@@ -66,25 +70,12 @@ abstract class _EstadoSalaControllerBase with Store {
     EstadoSalaService service = new EstadoSalaService();
     estadoSalaEnum = await service.alterarEstadoSala(estadoEnum);
 
-    enviarNotify('O estado da sala mudou', estadoSalaEnum.title,
-        estadoSalaEnum.iconNotify);
-  }
+    var status = await OneSignal.shared.getPermissionSubscriptionState();
 
-  void enviarNotify(String heading, String content, String largeIcon) async {
+    var playerId = status.subscriptionStatus.userId;
     OneSignal.shared.postNotification(OSCreateNotification(
-        playerIds: listaUser,
-        heading: heading,
-        content: content,
-        androidLargeIcon: largeIcon));
-  }
-
-  void obterListaUsuarios() async {
-    await PlantaoAmigoService().mostrarAmigos().then((list) {
-      for (int i = 0; i < list.length; i++) {
-        if (!listaUser.contains(list[i].player_id.toString()))
-          listaUser.add(list[i].player_id.toString());
-      }
-      listaUser.add(Globals.sessionController.loggedUser.player_id);
-    });
+        playerIds: ['$playerId'],
+        heading: '${estadoSalaEnum.title}',
+        content: '${estadoSalaEnum.description}'));
   }
 }
