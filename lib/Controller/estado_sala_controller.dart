@@ -1,7 +1,10 @@
 import 'package:flutter/cupertino.dart';
 import 'package:intl/date_symbol_data_local.dart';
 import 'package:intl/intl.dart';
+import 'package:megaponto_oficial/Model/usuario.dart';
+import 'package:megaponto_oficial/Resources/Globals.dart';
 import 'package:megaponto_oficial/Services/estado_sala_service.dart';
+import 'package:megaponto_oficial/Services/plantao_amigo_service.dart';
 import 'package:mobx/mobx.dart';
 import 'package:onesignal_flutter/onesignal_flutter.dart';
 import 'package:megaponto_oficial/Resources/Enums/EstadoSalaEnum.dart';
@@ -20,6 +23,9 @@ abstract class _EstadoSalaControllerBase with Store {
 
   @observable
   String cafe = "";
+
+  @observable
+  List<String> listPlayerId = List();
 
   @action
   void setCafe(String horario) => cafe = horario;
@@ -41,6 +47,15 @@ abstract class _EstadoSalaControllerBase with Store {
       estadoSalaEnum =
           EstadoSalaEnumExtension.responseData(int.parse(map['status']));
     });
+
+    await PlantaoAmigoService().mostrarAmigos().then((list) {
+      list.forEach((element) {
+        Usuario user = element;
+        if (!listPlayerId.contains(user.player_id))
+          listPlayerId.add(user.player_id);
+      });
+      listPlayerId.add(Globals.sessionController.loggedUser.player_id);
+    });
   }
 
   @action
@@ -52,12 +67,12 @@ abstract class _EstadoSalaControllerBase with Store {
         ' de ' +
         DateFormat(DateFormat.WEEKDAY, 'pt_Br').format(DateTime.now());
 
-    var status = await OneSignal.shared.getPermissionSubscriptionState();
-
-    var playerId = status.subscriptionStatus.userId;
+    List<String> teste = List();
+    teste.add('732540f0-0386-4543-a9aa-6f7fb5ba1f77');
+    teste.add('e2926936-48d7-46c7-a093-169c19b902ee');
 
     OneSignal.shared.postNotification(OSCreateNotification(
-        playerIds: ['$playerId'],
+        playerIds: teste,
         androidLargeIcon: 'ic_onesignal_large_icon_default_cofe',
         heading: 'Olha o café',
         content: 'Café feito as $cafe'));
@@ -70,12 +85,10 @@ abstract class _EstadoSalaControllerBase with Store {
     EstadoSalaService service = new EstadoSalaService();
     estadoSalaEnum = await service.alterarEstadoSala(estadoEnum);
 
-    var status = await OneSignal.shared.getPermissionSubscriptionState();
-
-    var playerId = status.subscriptionStatus.userId;
     OneSignal.shared.postNotification(OSCreateNotification(
-        playerIds: ['$playerId'],
+        playerIds: listPlayerId,
         heading: '${estadoSalaEnum.title}',
-        content: '${estadoSalaEnum.description}'));
+        content: '${estadoSalaEnum.description}',
+        androidLargeIcon: 'ic_onesignal_large_icon_default_cofe'));
   }
 }

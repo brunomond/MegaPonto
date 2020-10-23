@@ -17,6 +17,7 @@ class _LeaderBoardState extends State<LeaderBoard> {
 
   static const length = 3;
   final pageIndexNotifier = ValueNotifier<int>(0);
+  final pageController = PageController(initialPage: 1);
 
   @override
   Widget build(BuildContext context) {
@@ -32,8 +33,10 @@ class _LeaderBoardState extends State<LeaderBoard> {
             padding: const EdgeInsets.fromLTRB(16.0, 16, 16, 24),
             child: Column(
               children: [
+                _buildExample2(),
                 Expanded(
                   child: PageView.builder(
+                    controller: pageController,
                     onPageChanged: (index) => pageIndexNotifier.value = index,
                     itemCount: length,
                     itemBuilder: (context, index) {
@@ -41,7 +44,6 @@ class _LeaderBoardState extends State<LeaderBoard> {
                     },
                   ),
                 ),
-                _buildExample2(),
               ],
             )),
       );
@@ -62,10 +64,40 @@ class _LeaderBoardState extends State<LeaderBoard> {
       pageIndexNotifier: pageIndexNotifier,
       length: length,
       normalBuilder: (animationController, index) => (index == 0)
-          ? Text("Semanal")
+          ? GestureDetector(
+              onTap: () async {
+                await pageController.animateToPage(0,
+                    duration: Duration(seconds: 1), curve: Curves.ease);
+                pageIndexNotifier.value = 0;
+              },
+              child: Text(
+                "Semanal",
+                style: TextStyle(decoration: TextDecoration.underline),
+              ),
+            )
           : (index == 1)
-              ? Text("Mensal")
-              : (index == 2) ? Text("Anual") : Container(),
+              ? GestureDetector(
+                  onTap: () async {
+                    await pageController.animateToPage(1,
+                        duration: Duration(seconds: 1), curve: Curves.ease);
+                    pageIndexNotifier.value = 1;
+                  },
+                  child: Text(
+                    "Mensal",
+                  ),
+                )
+              : (index == 2)
+                  ? GestureDetector(
+                      onTap: () async {
+                        await pageController.animateToPage(2,
+                            duration: Duration(seconds: 1), curve: Curves.ease);
+                        pageIndexNotifier.value = 2;
+                      },
+                      child: Text(
+                        "Semanal",
+                      ),
+                    )
+                  : Container(),
       highlightedBuilder: (animationController, index) => ScaleTransition(
         scale: CurvedAnimation(
           parent: animationController,
