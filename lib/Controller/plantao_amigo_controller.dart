@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:megaponto_oficial/Model/usuario.dart';
+import 'package:megaponto_oficial/Resources/Globals.dart';
 import 'package:megaponto_oficial/Services/plantao_amigo_service.dart';
 import 'package:megaponto_oficial/View/Utils/Loading.dart';
 import 'package:megaponto_oficial/View/Utils/StdDialog.dart';
 import 'package:mobx/mobx.dart';
+import 'package:onesignal_flutter/onesignal_flutter.dart';
 import 'package:rxdart/rxdart.dart';
 part 'plantao_amigo_controller.g.dart';
 
@@ -64,10 +66,25 @@ abstract class _PlantaoAmigoControllerBase with Store {
     loadingNewState = true;
     Navigator.of(context).pop();
 
-    if (user.online)
+    if (user.online) {
       await PlantaoAmigoService().fecharAmigo(user.id);
-    else
+
+      var nomeUser = Globals.sessionController.loggedUser.nome;
+      OneSignal.shared.postNotification(OSCreateNotification(
+          playerIds: [user.player_id],
+          heading: "Plantão encerrado",
+          //acrescentar duracao do plantao
+          content: "Seu plantão foi encerrado pelo $nomeUser"));
+    } else {
       await PlantaoAmigoService().iniciarAmigo(user.id);
+
+      var nomeUser = Globals.sessionController.loggedUser.nome;
+      OneSignal.shared.postNotification(OSCreateNotification(
+          playerIds: [user.player_id],
+          heading: "Plantão iniciado",
+          //acrescentar hora de inicio
+          content: "Seu plantão foi iniciado pelo $nomeUser"));
+    }
     fetchData().then((_) => loadingNewState = false);
   }
 

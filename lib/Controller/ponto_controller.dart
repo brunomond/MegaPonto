@@ -1,4 +1,5 @@
 import 'package:megaponto_oficial/Controller/session_controller.dart';
+import 'package:megaponto_oficial/Resources/Globals.dart';
 import 'package:megaponto_oficial/Services/ponto_service.dart';
 import 'package:mobx/mobx.dart';
 import 'package:onesignal_flutter/onesignal_flutter.dart';
@@ -44,15 +45,12 @@ abstract class _PontoControllerBase with Store {
 
     pontoAtivo = true;
 
-    var status = await OneSignal.shared.getPermissionSubscriptionState();
-
-    var playerId = status.subscriptionStatus.userId;
-
     OneSignal.shared.postNotification(OSCreateNotification(
-        playerIds: ['$playerId'],
-        content: 'Plantão Iniciado',
-        androidLargeIcon: 'ic_onesignal_large_icon_default_sala_ponto',
-        heading: 'Não se esqueça de fechar o plantão após sair'));
+      playerIds: [Globals.sessionController.loggedUser.player_id],
+      heading: "Plantão Iniciado",
+      content: "Não se esqueça de fechar o plantão após sair",
+      androidLargeIcon: 'ic_onesignal_large_icon_default_sala_ponto',
+    ));
   }
 
   @action
