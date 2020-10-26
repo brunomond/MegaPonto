@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:megaponto_oficial/Resources/Globals.dart';
 import 'package:megaponto_oficial/View/Utils/GradientAppBar.dart';
 import 'package:megaponto_oficial/View/Utils/StdTextInput.dart';
+import 'package:megaponto_oficial/View/Utils/StdButton.dart';
 
 class EditarPerfil extends StatefulWidget {
   @override
@@ -9,16 +10,32 @@ class EditarPerfil extends StatefulWidget {
 }
 
 class _EditarPerfilState extends State<EditarPerfil> {
+  bool isPasswordVisible = false;
+  bool isConfirmPasswordVisible = false;
+
+  @override
+  void initState() {
+    isPasswordVisible = false;
+    isConfirmPasswordVisible = false;
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: GradientAppBar(text: 'Editar Perfil', actions: <Widget>[
-        IconButton(
-          icon: Icon(Icons.done, color: Colors.white,),
-          onPressed: () => Navigator.of(context).pop(),
-        ),
+      appBar: GradientAppBar(
+        text: 'Editar Perfil',
+        actions: <Widget>[
+          IconButton(
+            icon: Icon(
+              Icons.done,
+              color: Colors.white,
+            ),
+            onPressed: () => Navigator.of(context).pop(),
+          ),
 //        SizedBox(width: 8)
-      ],),
+        ],
+      ),
       body: LayoutBuilder(
           builder: (BuildContext context, BoxConstraints viewportConstraints) {
         return SingleChildScrollView(
@@ -34,7 +51,8 @@ class _EditarPerfilState extends State<EditarPerfil> {
                         height: 128,
                         child: CircleAvatar(
                           radius: 50,
-                          backgroundImage: AssetImage('images/abott@adorable.png'),
+                          backgroundImage:
+                              AssetImage('images/abott@adorable.png'),
                         )),
                   ),
                   GestureDetector(
@@ -43,21 +61,58 @@ class _EditarPerfilState extends State<EditarPerfil> {
                     },
                     child: Text(
                       "Alterar foto de perfil",
-                      style: Globals.textTheme.headline6.copyWith(color: Globals.theme.primaryColor, fontStyle: FontStyle.normal),
+                      style: Globals.textTheme.headline6.copyWith(
+                          color: Globals.theme.primaryColor,
+                          fontStyle: FontStyle.normal),
                     ),
                   ),
-
-                  StdTextInput(padding: EdgeInsets.fromLTRB(8, 24, 8, 8),hintText: 'Nome',),
-                  StdTextInput(hintText: 'Apelido',),
-                  Divider(
-                    height: MediaQuery.of(context).size.height * 0.08,
+                  StdTextInput(
+                    padding: EdgeInsets.fromLTRB(8.0, 16, 8, 8),
+                    hintText: 'Nome Completo',
+                    prefixIcon: Icons.person,
                   ),
-                  Text(
-                    "Informações do perfil",
-                    style: Globals.textTheme.headline6,
+                  StdTextInput(
+                    keyboardType: TextInputType.emailAddress,
+                    hintText: 'E-mail',
+                    prefixIcon: Icons.email,
                   ),
-                  StdTextInput(padding: EdgeInsets.fromLTRB(8, 24, 8, 8),hintText: 'E-mail',),
-                  StdTextInput(hintText: 'Senha', done: true,),
+                  StdTextInput(
+                      hintText: 'Senha',
+                      prefixIcon: Icons.vpn_key,
+                      obscureText: !isPasswordVisible,
+                      suffixIcon: IconButton(
+                        icon: Icon(isPasswordVisible
+                            ? Icons.visibility
+                            : Icons.visibility_off),
+                        onPressed: () => _trocarVisibilidadeSenha(true),
+                      )),
+                  StdTextInput(
+                    hintText: 'Confirmar Senha',
+                    prefixIcon: Icons.vpn_key,
+                    obscureText: !isConfirmPasswordVisible,
+                    suffixIcon: IconButton(
+                      icon: Icon(isConfirmPasswordVisible
+                          ? Icons.visibility
+                          : Icons.visibility_off),
+                      onPressed: () => _trocarVisibilidadeSenha(false),
+                    ),
+                  ),
+                  StdTextInput(
+                    hintText: 'Apelido',
+                    prefixIcon: Icons.person_pin,
+                  ),
+                  StdTextInput(
+                    keyboardType: TextInputType.phone,
+                    hintText: 'Tel: (xx) xxxxx-xxxx',
+                    prefixIcon: Icons.phone,
+                    isPhone: true,
+                    done: true,
+                  ),
+                  StdButton(
+                    padding: EdgeInsets.only(top: 24),
+                    label: 'Confirmar',
+                    onPressed: () => null,
+                  )
                 ],
               ),
             ),
@@ -66,6 +121,7 @@ class _EditarPerfilState extends State<EditarPerfil> {
       }),
     );
   }
+
   alterarFotoPopUp(BuildContext context) {
     return showDialog(
         context: context,
@@ -96,5 +152,11 @@ class _EditarPerfilState extends State<EditarPerfil> {
                 ],
               ));
         });
+  }
+
+  void _trocarVisibilidadeSenha(bool senha) {
+    senha
+        ? setState(() => isPasswordVisible = !isPasswordVisible)
+        : setState(() => isConfirmPasswordVisible = !isConfirmPasswordVisible);
   }
 }
