@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:megaponto_oficial/Resources/presets/custom_icons_icons.dart';
+import 'package:megaponto_oficial/View/HomePage/tela_editar_perfil.dart';
 
 class MembrosCrud extends StatelessWidget {
   final List lista;
@@ -34,8 +35,8 @@ class MembrosCrud extends StatelessWidget {
                   Text(lista[index].nome),
                   Column(
                     children: [
-                      gestureCRUD('editar'),
-                      gestureCRUD('deletar'),
+                      gestureCRUD(context, 'editar'),
+                      gestureCRUD(context, 'deletar'),
                     ],
                   ),
                 ],
@@ -43,7 +44,7 @@ class MembrosCrud extends StatelessWidget {
             )));
   }
 
-  Widget gestureCRUD(String crud) {
+  Widget gestureCRUD(BuildContext context, String crud) {
     return GestureDetector(
       behavior: HitTestBehavior.opaque,
       child: Padding(
@@ -55,7 +56,7 @@ class MembrosCrud extends StatelessWidget {
           Text(crud)
         ]),
       ),
-      onTap: null,
+      onTap: () => Navigator.of(context).pushNamed('editar_perfil'),
     );
   }
 }
