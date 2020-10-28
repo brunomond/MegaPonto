@@ -67,10 +67,6 @@ abstract class _EstadoSalaControllerBase with Store {
         ' de ' +
         DateFormat(DateFormat.WEEKDAY, 'pt_Br').format(DateTime.now());
 
-    List<String> teste = List();
-    teste.add('732540f0-0386-4543-a9aa-6f7fb5ba1f77');
-    teste.add('e2926936-48d7-46c7-a093-169c19b902ee');
-
     OneSignal.shared.postNotification(OSCreateNotification(
         playerIds: listPlayerId,
         androidLargeIcon: 'ic_onesignal_large_icon_default_cofe',
@@ -84,11 +80,25 @@ abstract class _EstadoSalaControllerBase with Store {
   Future<void> enviarEstadoSala(EstadoSalaEnum estadoEnum) async {
     EstadoSalaService service = new EstadoSalaService();
     estadoSalaEnum = await service.alterarEstadoSala(estadoEnum);
+    String largeIcon = "";
+
+    switch (estadoSalaEnum.title) {
+      case 'Sala Normal':
+        largeIcon = "ic_onesignal_large_icon_default_sala_normal";
+        break;
+      case 'Reunião da Diretoria':
+        largeIcon = "ic_onesignal_large_icon_default_sala_diretoria";
+        break;
+      case 'Reunião com Cliente':
+        largeIcon = "ic_onesignal_large_icon_default_sala_cliente";
+        break;
+      default:
+    }
 
     OneSignal.shared.postNotification(OSCreateNotification(
         playerIds: listPlayerId,
         heading: '${estadoSalaEnum.title}',
         content: '${estadoSalaEnum.description}',
-        androidLargeIcon: 'ic_onesignal_large_icon_default_cofe'));
+        androidLargeIcon: largeIcon));
   }
 }
