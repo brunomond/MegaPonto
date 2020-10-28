@@ -7,10 +7,10 @@ import 'package:onesignal_flutter/onesignal_flutter.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 const String URL_PUT_SALA_CAFE =
-    'https://paineljunior.com.br/api/home/put.json?token=';
+    'https://paineljunior.com.br/api/home/put.json';
 
 const String URL_GET_SALA_CAFE =
-    'https://paineljunior.com.br/api/home/get.json?token=';
+    'https://paineljunior.com.br/api/home/get.json';
 
 const String URL_PLAYERID = 'https://paineljunior.com.br/api/usuarios/put/';
 
@@ -18,11 +18,14 @@ class EstadoSalaService {
   Future<EstadoSalaEnum> alterarEstadoSala(
       EstadoSalaEnum estadoSalaEnum) async {
     Map<String, dynamic> body = {'status': estadoSalaEnum.value};
+    final String token = Globals.sessionController.loggedUser.token;
+    final Map<String, String> headers = {
+      HttpHeaders.contentTypeHeader: 'application/json',
+      HttpHeaders.authorizationHeader: "Bearer $token"
+    };
 
-    http.Response response = await http.put(
-        URL_PUT_SALA_CAFE + Globals.sessionController.loggedUser.token,
-        body: jsonEncode(body),
-        headers: Globals.headers);
+    http.Response response = await http.put(URL_PUT_SALA_CAFE,
+        body: jsonEncode(body), headers: headers);
 
     if (response.statusCode == 400) return EstadoSalaEnum.ERRO;
 
@@ -33,11 +36,14 @@ class EstadoSalaService {
 
   Future<String> alterarHorarioCafe() async {
     Map<String, dynamic> body = {'cafe': true};
+    final String token = Globals.sessionController.loggedUser.token;
+    final Map<String, String> headers = {
+      HttpHeaders.contentTypeHeader: 'application/json',
+      HttpHeaders.authorizationHeader: "Bearer $token"
+    };
 
-    http.Response response = await http.put(
-        URL_PUT_SALA_CAFE + Globals.sessionController.loggedUser.token,
-        body: jsonEncode(body),
-        headers: Globals.headers);
+    http.Response response = await http.put(URL_PUT_SALA_CAFE,
+        body: jsonEncode(body), headers: headers);
 
     if (response.statusCode == 400) return "Erro";
 
@@ -47,13 +53,13 @@ class EstadoSalaService {
   }
 
   Future<Map> getSalaCafe() async {
-    Map<String, String> headers = {
-      HttpHeaders.contentTypeHeader: 'application/json'
+    final String token = Globals.sessionController.loggedUser.token;
+    final Map<String, String> headers = {
+      HttpHeaders.contentTypeHeader: 'application/json',
+      HttpHeaders.authorizationHeader: "Bearer $token"
     };
-
-    http.Response response = await http.get(
-        URL_GET_SALA_CAFE + Globals.sessionController.loggedUser.token,
-        headers: headers);
+    http.Response response =
+        await http.get(URL_GET_SALA_CAFE, headers: headers);
 
     if (response.statusCode == 400) return Map();
 

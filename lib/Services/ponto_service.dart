@@ -1,22 +1,28 @@
 import 'dart:convert';
+import 'dart:io';
 
 import 'package:http/http.dart' as http;
 import 'package:megaponto_oficial/Resources/Globals.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 const String URL_INICIAR_PLANTAO =
-    'https://paineljunior.com.br/api/plantao/post.json?token=';
+    'https://paineljunior.com.br/api/plantao/post.json';
 
 const String URL_FECHAR_PLANTAO =
-    'https://paineljunior.com.br/api/plantao/put.json?token=';
+    'https://paineljunior.com.br/api/plantao/put.json';
 
 const String URL_INFO_PLANTAO =
-    'https://paineljunior.com.br/api/plantao/get.json?token=';
+    'https://paineljunior.com.br/api/plantao/get.json';
 
 class PontoService {
   Future<bool> iniciarPlantao() async {
+    final String token = Globals.sessionController.loggedUser.token;
+    final Map<String, String> headers = {
+      HttpHeaders.contentTypeHeader: 'application/json',
+      HttpHeaders.authorizationHeader: "Bearer $token"
+    };
     http.Response response =
-        await http.post(obterUrlComToken(URL_INICIAR_PLANTAO));
+        await http.post(URL_INICIAR_PLANTAO, headers: headers);
 
     SharedPreferences prefs = await SharedPreferences.getInstance();
 
@@ -27,8 +33,13 @@ class PontoService {
   }
 
   Future<Map> fecharPlantao() async {
+    final String token = Globals.sessionController.loggedUser.token;
+    final Map<String, String> headers = {
+      HttpHeaders.contentTypeHeader: 'application/json',
+      HttpHeaders.authorizationHeader: "Bearer $token"
+    };
     http.Response response =
-        await http.put(obterUrlComToken(URL_FECHAR_PLANTAO));
+        await http.put(URL_FECHAR_PLANTAO, headers: headers);
 
     SharedPreferences prefs = await SharedPreferences.getInstance();
     if (response.statusCode == 400) return Map();
@@ -38,7 +49,12 @@ class PontoService {
   }
 
   Future<bool> obterStatusPlantao() async {
-    http.Response response = await http.get(obterUrlComToken(URL_INFO_PLANTAO));
+    final String token = Globals.sessionController.loggedUser.token;
+    final Map<String, String> headers = {
+      HttpHeaders.contentTypeHeader: 'application/json',
+      HttpHeaders.authorizationHeader: "Bearer $token"
+    };
+    http.Response response = await http.get(URL_INFO_PLANTAO, headers: headers);
     SharedPreferences prefs = await SharedPreferences.getInstance();
     prefs.setBool('pontoAtivo', response.statusCode == 200);
 

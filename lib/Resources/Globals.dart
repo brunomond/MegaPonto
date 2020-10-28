@@ -14,7 +14,7 @@ class Globals {
       MediaQuery.of(MegaPonto.mainState.currentContext).size;
   static final Map<String, String> headers = {
     HttpHeaders.contentTypeHeader: 'application/json',
-    //"Authorization": "Bearer $Globals.sessionController.loggedUser.token"
+    //HttpHeaders.authorizationHeader: "Bearer $token"
   };
   static final sessionController = Provider.of<SessionController>(
       MegaPonto.mainState.currentContext,

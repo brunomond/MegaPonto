@@ -49,12 +49,12 @@ abstract class _EstadoSalaControllerBase with Store {
     });
 
     await PlantaoAmigoService().mostrarAmigos().then((list) {
+      listPlayerId.add(Globals.sessionController.loggedUser.player_id);
       list.forEach((element) {
         Usuario user = element;
         if (!listPlayerId.contains(user.player_id))
           listPlayerId.add(user.player_id);
       });
-      listPlayerId.add(Globals.sessionController.loggedUser.player_id);
     });
   }
 
@@ -72,7 +72,7 @@ abstract class _EstadoSalaControllerBase with Store {
     teste.add('e2926936-48d7-46c7-a093-169c19b902ee');
 
     OneSignal.shared.postNotification(OSCreateNotification(
-        playerIds: teste,
+        playerIds: listPlayerId,
         androidLargeIcon: 'ic_onesignal_large_icon_default_cofe',
         heading: 'Olha o café',
         content: 'Café feito as $cafe'));

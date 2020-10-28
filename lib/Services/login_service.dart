@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:io';
 import 'package:http/http.dart' as http;
 import 'package:flutter/material.dart';
 import 'package:megaponto_oficial/Model/usuario.dart';
@@ -18,9 +19,14 @@ class LoginService {
 
   Future<Usuario> doLogin(BuildContext context) async {
     Map<String, dynamic> body = {'email': email, 'senha': senha};
+    final String token = Globals.sessionController.loggedUser.token;
+    final Map<String, String> headers = {
+      HttpHeaders.contentTypeHeader: 'application/json',
+      HttpHeaders.authorizationHeader: "Bearer $token"
+    };
 
-    http.Response response = await http.post(URL_LOGIN,
-        body: jsonEncode(body), headers: Globals.headers);
+    http.Response response =
+        await http.post(URL_LOGIN, body: jsonEncode(body), headers: headers);
 
     if (response.statusCode == 401) {
       Scaffold.of(context).showSnackBar(
@@ -30,8 +36,6 @@ class LoginService {
 
     SharedPreferences prefs = await SharedPreferences.getInstance();
     prefs.setString('loginJson', response.body);
-
-    enviarPlayerId();
 
     return new Usuario.fromJson(json.decode(response.body)['user']);
   }
@@ -43,6 +47,11 @@ class LoginService {
     var status = await OneSignal.shared.getPermissionSubscriptionState();
 
     Map<String, dynamic> body = {'player_id': status.subscriptionStatus.userId};
+    final String token = Globals.sessionController.loggedUser.token;
+    final Map<String, String> headers = {
+      HttpHeaders.contentTypeHeader: 'application/json',
+      HttpHeaders.authorizationHeader: "Bearer $token"
+    };
 
     await http.put(
         URL_PLAYERID +
@@ -50,7 +59,7 @@ class LoginService {
             '.json?token=' +
             Globals.sessionController.loggedUser.token,
         body: jsonEncode(body),
-        headers: Globals.headers);
+        headers: headers);
 
     SharedPreferences prefs = await SharedPreferences.getInstance();
     prefs.setString('player_id', status.subscriptionStatus.userId);

@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:megaponto_oficial/Controller/leaderboard_controller.dart';
-import 'package:megaponto_oficial/Model/usuario.dart';
 import 'package:megaponto_oficial/Resources/Globals.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:megaponto_oficial/View/HomePage/Widgets/Rank.dart';
@@ -61,53 +60,55 @@ class _LeaderBoardState extends State<LeaderBoard> {
 
   PageViewIndicator _buildExample2() {
     return PageViewIndicator(
-      pageIndexNotifier: pageIndexNotifier,
-      length: length,
-      normalBuilder: (animationController, index) => (index == 0)
-          ? GestureDetector(
-              onTap: () async {
-                await pageController.animateToPage(0,
-                    duration: Duration(seconds: 1), curve: Curves.ease);
-                pageIndexNotifier.value = 0;
-              },
-              child: Text(
-                "Semanal",
-                style: TextStyle(decoration: TextDecoration.underline),
-              ),
-            )
-          : (index == 1)
-              ? GestureDetector(
-                  onTap: () async {
-                    await pageController.animateToPage(1,
-                        duration: Duration(seconds: 1), curve: Curves.ease);
-                    pageIndexNotifier.value = 1;
-                  },
-                  child: Text(
-                    "Mensal",
-                  ),
-                )
-              : (index == 2)
-                  ? GestureDetector(
-                      onTap: () async {
-                        await pageController.animateToPage(2,
-                            duration: Duration(seconds: 1), curve: Curves.ease);
-                        pageIndexNotifier.value = 2;
-                      },
-                      child: Text(
-                        "Semanal",
-                      ),
-                    )
-                  : Container(),
-      highlightedBuilder: (animationController, index) => ScaleTransition(
-        scale: CurvedAnimation(
-          parent: animationController,
-          curve: Curves.ease,
-        ),
-        child: Circle(
-          size: 8.0,
-          color: Colors.red,
-        ),
-      ),
-    );
+        pageIndexNotifier: pageIndexNotifier,
+        length: length,
+        normalBuilder: (animationController, index) => (index == 0)
+            ? GestureDetector(
+                onTap: () async {
+                  await pageController.animateToPage(0,
+                      duration: Duration(seconds: 1), curve: Curves.ease);
+                  pageIndexNotifier.value = 0;
+                },
+                child: Text(
+                  "Semanal",
+                  style: TextStyle(decoration: TextDecoration.underline),
+                ),
+              )
+            : (index == 1)
+                ? GestureDetector(
+                    onTap: () async {
+                      await pageController.animateToPage(1,
+                          duration: Duration(seconds: 1), curve: Curves.ease);
+                      pageIndexNotifier.value = 1;
+                    },
+                    child: Text(
+                      "Mensal",
+                    ),
+                  )
+                : (index == 2)
+                    ? GestureDetector(
+                        onTap: () async {
+                          await pageController.animateToPage(2,
+                              duration: Duration(seconds: 1),
+                              curve: Curves.ease);
+                          pageIndexNotifier.value = 2;
+                        },
+                        child: Text(
+                          "Anual",
+                        ),
+                      )
+                    : Container(),
+        highlightedBuilder: (animationController, index) {
+          return ScaleTransition(
+            scale: CurvedAnimation(
+              parent: animationController,
+              curve: Curves.ease,
+            ),
+            child: Circle(
+              size: 8.0,
+              color: Colors.red,
+            ),
+          );
+        });
   }
 }
