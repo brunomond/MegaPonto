@@ -10,11 +10,11 @@ class EstadoSalaDialog extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return AlertDialog(
-      actions: <Widget>[
-        GestureDetector(
-          onTap: onTap,
-          child: SizedBox(
+    return GestureDetector(
+      onTap: onTap,
+      child: AlertDialog(
+        actions: <Widget>[
+          Container(
             height: Globals.windowSize.height * 0.1,
             width: Globals.windowSize.width,
             child: Row(
@@ -52,8 +52,8 @@ class EstadoSalaDialog extends StatelessWidget {
               ],
             ),
           ),
-        )
-      ],
+        ],
+      ),
     );
   }
 }
