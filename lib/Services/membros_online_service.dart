@@ -1,5 +1,4 @@
 import 'dart:convert';
-import 'dart:io';
 
 import 'package:megaponto_oficial/Model/usuario.dart';
 import 'package:megaponto_oficial/Resources/Globals.dart';
@@ -10,14 +9,8 @@ const String URL_LIST_MEMBROS_ONLINE =
 
 class MembrosOnlineService {
   Future<List<Usuario>> listarMembrosOnline() async {
-    final String token = Globals.sessionController.loggedUser.token;
-    final Map<String, String> headers = {
-      HttpHeaders.contentTypeHeader: 'application/json',
-      HttpHeaders.authorizationHeader: "Bearer $token"
-    };
-
     http.Response response =
-        await http.get(URL_LIST_MEMBROS_ONLINE, headers: headers);
+        await http.get(URL_LIST_MEMBROS_ONLINE, headers: Globals.headers);
 
     if (response.statusCode == 400) return new List<Usuario>();
 

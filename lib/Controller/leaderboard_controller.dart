@@ -39,4 +39,34 @@ abstract class _LeaderBoardControllerBase with Store {
     await setMembrosEj()
         .then((_) => membrosEjOutput = membrosEj.stream.asObservable());
   }
+
+  @action
+  alterarList(int index) async {
+    switch (index) {
+      case 0:
+        membrosEjOutput.value
+            .sort((a, b) => b.total_semana.compareTo(a.total_semana));
+        membrosEjOutput.value.forEach((element) {
+          print(element.nome);
+          print(element.total_semana);
+        });
+        break;
+      case 1:
+        membrosEjOutput.value
+            .sort((a, b) => a.total_mes.compareTo(b.total_mes));
+        membrosEjOutput.value.forEach((element) {
+          print(element.nome);
+          print(element.total_mes);
+        });
+        break;
+      case 2:
+        membrosEjOutput.value
+            .sort((a, b) => a.total_ano.compareTo(b.total_ano));
+        membrosEjOutput.value.forEach((element) {
+          print(element.nome);
+          print(element.total_ano);
+        });
+        break;
+    }
+  }
 }

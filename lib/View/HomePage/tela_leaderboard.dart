@@ -30,31 +30,42 @@ class _LeaderBoardState extends State<LeaderBoard> {
       return Container(
         child: Padding(
             padding: const EdgeInsets.fromLTRB(16.0, 16, 16, 24),
-            child: Column(
-              children: [
-                _buildExample2(),
-                Expanded(
-                  child: PageView.builder(
-                    controller: pageController,
-                    onPageChanged: (index) => pageIndexNotifier.value = index,
-                    itemCount: length,
-                    itemBuilder: (context, index) {
-                      return _cardList(controller.membrosEjOutput.data);
-                    },
+            child: Container(
+              child: Column(
+                children: [
+                  _buildExample2(),
+                  Expanded(
+                    child: PageView.builder(
+                      controller: pageController,
+                      onPageChanged: (index) {
+                        pageIndexNotifier.value = index;
+                        controller.alterarList(index);
+                      },
+                      itemCount: length,
+                      itemBuilder: (context, index) {
+                        return _cardList(
+                            controller.membrosEjOutput.data, index);
+                      },
+                    ),
                   ),
-                ),
-              ],
+                ],
+              ),
             )),
       );
     });
   }
 
-  Widget _cardList(List lista) {
+  Widget _cardList(List lista, int rank) {
     return Expanded(
         child: ListView.builder(
             itemCount: lista.length,
             itemBuilder: (context, index) {
-              return Rank(lista: lista, index: index, onTap: () {});
+              return Rank(
+                lista: lista,
+                index: index,
+                onTap: () {},
+                rank: rank,
+              );
             }));
   }
 

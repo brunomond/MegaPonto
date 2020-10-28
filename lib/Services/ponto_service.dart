@@ -16,13 +16,8 @@ const String URL_INFO_PLANTAO =
 
 class PontoService {
   Future<bool> iniciarPlantao() async {
-    final String token = Globals.sessionController.loggedUser.token;
-    final Map<String, String> headers = {
-      HttpHeaders.contentTypeHeader: 'application/json',
-      HttpHeaders.authorizationHeader: "Bearer $token"
-    };
     http.Response response =
-        await http.post(URL_INICIAR_PLANTAO, headers: headers);
+        await http.post(URL_INICIAR_PLANTAO, headers: Globals.headers);
 
     SharedPreferences prefs = await SharedPreferences.getInstance();
 
@@ -33,13 +28,8 @@ class PontoService {
   }
 
   Future<Map> fecharPlantao() async {
-    final String token = Globals.sessionController.loggedUser.token;
-    final Map<String, String> headers = {
-      HttpHeaders.contentTypeHeader: 'application/json',
-      HttpHeaders.authorizationHeader: "Bearer $token"
-    };
     http.Response response =
-        await http.put(URL_FECHAR_PLANTAO, headers: headers);
+        await http.put(URL_FECHAR_PLANTAO, headers: Globals.headers);
 
     SharedPreferences prefs = await SharedPreferences.getInstance();
     if (response.statusCode == 400) return Map();
@@ -49,12 +39,8 @@ class PontoService {
   }
 
   Future<bool> obterStatusPlantao() async {
-    final String token = Globals.sessionController.loggedUser.token;
-    final Map<String, String> headers = {
-      HttpHeaders.contentTypeHeader: 'application/json',
-      HttpHeaders.authorizationHeader: "Bearer $token"
-    };
-    http.Response response = await http.get(URL_INFO_PLANTAO, headers: headers);
+    http.Response response =
+        await http.get(URL_INFO_PLANTAO, headers: Globals.headers);
     SharedPreferences prefs = await SharedPreferences.getInstance();
     prefs.setBool('pontoAtivo', response.statusCode == 200);
 

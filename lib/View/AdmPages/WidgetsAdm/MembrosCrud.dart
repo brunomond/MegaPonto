@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:megaponto_oficial/Resources/presets/custom_icons_icons.dart';
-import 'package:megaponto_oficial/View/HomePage/tela_editar_perfil.dart';
 
 class MembrosCrud extends StatelessWidget {
   final List lista;

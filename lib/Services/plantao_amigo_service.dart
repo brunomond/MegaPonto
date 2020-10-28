@@ -15,12 +15,8 @@ class PlantaoAmigoService {
   String tokenUser = Globals.sessionController.loggedUser.token;
 
   Future<List> mostrarAmigos() async {
-    final String token = Globals.sessionController.loggedUser.token;
-    final Map<String, String> headers = {
-      HttpHeaders.contentTypeHeader: 'application/json',
-      HttpHeaders.authorizationHeader: "Bearer $token"
-    };
-    http.Response response = await http.get(URL_GET_AMIGO, headers: headers);
+    http.Response response =
+        await http.get(URL_GET_AMIGO, headers: Globals.headers);
 
     if (response.statusCode == 400) return new List<Usuario>();
 
@@ -43,25 +39,15 @@ class PlantaoAmigoService {
 
   Future<void> iniciarAmigo(int id) async {
     Map<String, dynamic> body = {'amigo': id};
-    final String token = Globals.sessionController.loggedUser.token;
-    final Map<String, String> headers = {
-      HttpHeaders.contentTypeHeader: 'application/json',
-      HttpHeaders.authorizationHeader: "Bearer $token"
-    };
 
     await http.post(URL_POST_INICIA_AMIGO,
-        body: jsonEncode(body), headers: headers);
+        body: jsonEncode(body), headers: Globals.headers);
   }
 
   Future<void> fecharAmigo(int id) async {
-    final String token = Globals.sessionController.loggedUser.token;
-    final Map<String, String> headers = {
-      HttpHeaders.contentTypeHeader: 'application/json',
-      HttpHeaders.authorizationHeader: "Bearer $token"
-    };
     Map<String, dynamic> body = {'amigo': id};
 
     await http.put(URL_PUT_FECHA_AMIGO,
-        body: jsonEncode(body), headers: headers);
+        body: jsonEncode(body), headers: Globals.headers);
   }
 }

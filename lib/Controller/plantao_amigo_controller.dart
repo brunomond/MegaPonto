@@ -66,10 +66,11 @@ abstract class _PlantaoAmigoControllerBase with Store {
     loadingNewState = true;
     Navigator.of(context).pop();
 
+    var nomeUser = Globals.sessionController.loggedUser.nome;
+
     if (user.online) {
       await PlantaoAmigoService().fecharAmigo(user.id);
 
-      var nomeUser = Globals.sessionController.loggedUser.nome;
       OneSignal.shared.postNotification(OSCreateNotification(
           playerIds: [user.player_id],
           heading: "Plantão encerrado",
@@ -79,7 +80,6 @@ abstract class _PlantaoAmigoControllerBase with Store {
     } else {
       await PlantaoAmigoService().iniciarAmigo(user.id);
 
-      var nomeUser = Globals.sessionController.loggedUser.nome;
       OneSignal.shared.postNotification(OSCreateNotification(
           playerIds: [user.player_id],
           heading: "Plantão iniciado",
