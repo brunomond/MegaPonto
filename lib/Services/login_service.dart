@@ -31,8 +31,6 @@ class LoginService {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     prefs.setString('loginJson', response.body);
 
-    enviarPlayerId();
-
     return new Usuario.fromJson(json.decode(response.body)['user']);
   }
 

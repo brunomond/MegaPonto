@@ -66,24 +66,26 @@ abstract class _PlantaoAmigoControllerBase with Store {
     loadingNewState = true;
     Navigator.of(context).pop();
 
+    var nomeUser = Globals.sessionController.loggedUser.nome;
+
     if (user.online) {
       await PlantaoAmigoService().fecharAmigo(user.id);
 
-      var nomeUser = Globals.sessionController.loggedUser.nome;
       OneSignal.shared.postNotification(OSCreateNotification(
           playerIds: [user.player_id],
           heading: "Plantão encerrado",
           //acrescentar duracao do plantao
-          content: "Seu plantão foi encerrado pelo $nomeUser"));
+          content: "Seu plantão foi encerrado pelo $nomeUser",
+          androidLargeIcon: 'ic_onesignal_large_icon_default_sala_ponto'));
     } else {
       await PlantaoAmigoService().iniciarAmigo(user.id);
 
-      var nomeUser = Globals.sessionController.loggedUser.nome;
       OneSignal.shared.postNotification(OSCreateNotification(
           playerIds: [user.player_id],
           heading: "Plantão iniciado",
           //acrescentar hora de inicio
-          content: "Seu plantão foi iniciado pelo $nomeUser"));
+          content: "Seu plantão foi iniciado pelo $nomeUser",
+          androidLargeIcon: 'ic_onesignal_large_icon_default_sala_ponto'));
     }
     fetchData().then((_) => loadingNewState = false);
   }

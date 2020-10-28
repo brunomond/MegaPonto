@@ -12,12 +12,14 @@ class Globals {
   static final InputDecorationTheme inputTheme = theme.inputDecorationTheme;
   static final Size windowSize =
       MediaQuery.of(MegaPonto.mainState.currentContext).size;
-  static final Map<String, String> headers = {
-    HttpHeaders.contentTypeHeader: 'application/json',
-    //"Authorization": "Bearer $Globals.sessionController.loggedUser.token"
-  };
   static final sessionController = Provider.of<SessionController>(
       MegaPonto.mainState.currentContext,
       listen: false);
   static String userId;
+  static String token = sessionController.loggedUser.token;
+  static final Map<String, String> headers = {
+    HttpHeaders.contentTypeHeader: 'application/json',
+    HttpHeaders.authorizationHeader:
+        "Bearer ${sessionController.loggedUser.token}"
+  };
 }

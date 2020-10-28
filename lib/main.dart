@@ -3,6 +3,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter/widgets.dart';
 import 'package:megaponto_oficial/Controller/session_controller.dart';
 import 'package:megaponto_oficial/View/AdmPages/tela_adm.dart';
+import 'package:megaponto_oficial/View/AdmPages/tela_adm_perfil.dart';
 import 'package:megaponto_oficial/View/AdmPages/tela_edit_funcionario.dart';
 import 'package:megaponto_oficial/View/AdmPages/tela_editar_aplicativo.dart';
 import 'package:megaponto_oficial/View/AdmPages/tela_nomenclatura.dart';
@@ -46,6 +47,7 @@ class MegaPonto extends StatelessWidget {
           '/adm_funcio': (context) => EditarFuncionario(),
           '/adm_app': (context) => EditarAplicativo(),
           '/adm_app_escrita': (context) => EditarAplicativo(),
+          '/adm_perfil': (context) => AdmEditarPerfil(),
           '/adm_nomenclatura': (context) => EditarNomenclatura(),
           '/home': (context) => Home(),
           '/acesso': (context) => Access.withItem(),

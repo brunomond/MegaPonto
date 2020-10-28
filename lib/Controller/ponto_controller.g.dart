@@ -24,21 +24,6 @@ mixin _$PontoController on _PontoControllerBase, Store {
     });
   }
 
-  final _$pontoAtivoAtom = Atom(name: '_PontoControllerBase.pontoAtivo');
-
-  @override
-  bool get pontoAtivo {
-    _$pontoAtivoAtom.reportRead();
-    return super.pontoAtivo;
-  }
-
-  @override
-  set pontoAtivo(bool value) {
-    _$pontoAtivoAtom.reportWrite(value, super.pontoAtivo, () {
-      super.pontoAtivo = value;
-    });
-  }
-
   final _$loadingAtom = Atom(name: '_PontoControllerBase.loading');
 
   @override
@@ -124,21 +109,9 @@ mixin _$PontoController on _PontoControllerBase, Store {
   }
 
   @override
-  void setPontoAtivo(bool status) {
-    final _$actionInfo = _$_PontoControllerBaseActionController.startAction(
-        name: '_PontoControllerBase.setPontoAtivo');
-    try {
-      return super.setPontoAtivo(status);
-    } finally {
-      _$_PontoControllerBaseActionController.endAction(_$actionInfo);
-    }
-  }
-
-  @override
   String toString() {
     return '''
 duration: ${duration},
-pontoAtivo: ${pontoAtivo},
 loading: ${loading}
     ''';
   }

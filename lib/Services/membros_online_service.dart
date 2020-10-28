@@ -5,15 +5,12 @@ import 'package:megaponto_oficial/Resources/Globals.dart';
 import 'package:http/http.dart' as http;
 
 const String URL_LIST_MEMBROS_ONLINE =
-    'https://paineljunior.com.br/api/plantao/list.json?token=';
+    'https://paineljunior.com.br/api/plantao/list.json';
 
 class MembrosOnlineService {
   Future<List<Usuario>> listarMembrosOnline() async {
-    String tokenUser = Globals.sessionController.loggedUser.token;
-
-    String urlToken = '$URL_LIST_MEMBROS_ONLINE$tokenUser';
-
-    http.Response response = await http.get(urlToken, headers: Globals.headers);
+    http.Response response =
+        await http.get(URL_LIST_MEMBROS_ONLINE, headers: Globals.headers);
 
     if (response.statusCode == 400) return new List<Usuario>();
 

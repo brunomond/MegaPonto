@@ -4,8 +4,13 @@ import 'package:megaponto_oficial/Resources/presets/custom_icons_icons.dart';
 class Rank extends StatelessWidget {
   final List lista;
   final int index;
+  final int rank;
   final Function onTap;
-  Rank({@required this.lista, @required this.index, @required this.onTap});
+  Rank(
+      {@required this.lista,
+      @required this.index,
+      @required this.onTap,
+      @required this.rank});
   @override
   Widget build(BuildContext context) {
     return Card(
@@ -37,7 +42,13 @@ class Rank extends StatelessWidget {
                   child: Column(
                     children: [
                       Text(lista[index].nome),
-                      Text(lista[index].total_ano.toString()),
+                      (rank == 0)
+                          ? Text(lista[index].total_semana.toString())
+                          : (rank == 1)
+                              ? Text(lista[index].total_mes.toString())
+                              : (rank == 2)
+                                  ? Text(lista[index].total_ano.toString())
+                                  : Container(),
                     ],
                   ),
                 )

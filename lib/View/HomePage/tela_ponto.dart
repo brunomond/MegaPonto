@@ -52,7 +52,7 @@ class _PontoState extends State<Ponto> {
                     Observer(builder: (_) {
                       return pontoController.loading
                           ? Loading()
-                          : pontoController.pontoAtivo
+                          : Globals.sessionController.pontoAtivo
                               ? InfoPlantao(
                                   label:
                                       'Muito bom, assim que eu gosto de ver!',
@@ -82,7 +82,7 @@ class _PontoState extends State<Ponto> {
   void _iniciarPlantao() async {
     await pontoController.iniciarPlantaoUser();
 
-    if (pontoController.pontoAtivo)
+    if (Globals.sessionController.pontoAtivo)
       widget.scaffold.currentState.showSnackBar(StdSnackBar(
           text:
               'Plantão iniciado às ${DateFormat.Hm().format(DateTime.now())}!'));
@@ -93,7 +93,7 @@ class _PontoState extends State<Ponto> {
   void _fecharPlantao() async {
     await pontoController.fecharPlantao();
 
-    if (!pontoController.pontoAtivo)
+    if (!Globals.sessionController.pontoAtivo)
       widget.scaffold.currentState.showSnackBar(StdSnackBar(
           text:
               'Duração do plantão: ${formatDuration(pontoController.duration)}'));

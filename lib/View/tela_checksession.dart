@@ -2,7 +2,6 @@ import 'dart:async';
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
-import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:megaponto_oficial/Model/usuario.dart';
 import 'package:megaponto_oficial/Resources/Globals.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -60,7 +59,8 @@ class _CheckSessionState extends State<CheckSession>
         Globals.sessionController.setUser(Usuario.fromJson(
             json.decode(prefs.getString('loginJson'))['user']));
         Globals.sessionController.setPonto(prefs.get('pontoAtivo') ?? false);
-        
+        Globals.sessionController.pontoAtivo = prefs.get('pontoAtivo') ?? false;
+
         logged = Globals.sessionController.loggedUser != null;
       }
 

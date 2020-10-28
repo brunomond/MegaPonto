@@ -40,6 +40,22 @@ mixin _$EstadoSalaController on _EstadoSalaControllerBase, Store {
     });
   }
 
+  final _$listPlayerIdAtom =
+      Atom(name: '_EstadoSalaControllerBase.listPlayerId');
+
+  @override
+  List<String> get listPlayerId {
+    _$listPlayerIdAtom.reportRead();
+    return super.listPlayerId;
+  }
+
+  @override
+  set listPlayerId(List<String> value) {
+    _$listPlayerIdAtom.reportWrite(value, super.listPlayerId, () {
+      super.listPlayerId = value;
+    });
+  }
+
   final _$obterCafeSalaAsyncAction =
       AsyncAction('_EstadoSalaControllerBase.obterCafeSala');
 
@@ -94,7 +110,8 @@ mixin _$EstadoSalaController on _EstadoSalaControllerBase, Store {
   String toString() {
     return '''
 estadoSalaEnum: ${estadoSalaEnum},
-cafe: ${cafe}
+cafe: ${cafe},
+listPlayerId: ${listPlayerId}
     ''';
   }
 }

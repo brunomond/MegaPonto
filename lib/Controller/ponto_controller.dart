@@ -17,9 +17,6 @@ abstract class _PontoControllerBase with Store {
   Duration duration;
 
   @observable
-  bool pontoAtivo;
-
-  @observable
   bool loading = true;
 
   @action
@@ -27,9 +24,6 @@ abstract class _PontoControllerBase with Store {
 
   @action
   void setDuration(Duration duracao) => duration = duracao;
-
-  @action
-  void setPontoAtivo(bool status) => pontoAtivo = status;
 
   @action
   Future<void> iniciarPlantaoAmigo() async {}
@@ -41,9 +35,8 @@ abstract class _PontoControllerBase with Store {
   Future<void> iniciarPlantaoUser() async {
     await PontoService().iniciarPlantao().then((map) {
       SessionController().setPonto(map);
+      Globals.sessionController.pontoAtivo = map;
     });
-
-    pontoAtivo = true;
 
     OneSignal.shared.postNotification(OSCreateNotification(
       playerIds: [Globals.sessionController.loggedUser.player_id],
@@ -57,20 +50,22 @@ abstract class _PontoControllerBase with Store {
   Future<void> fecharPlantao() async {
     await PontoService().fecharPlantao().then((map) {
       SessionController().setPonto(map['tempo_online'] == null);
+      Globals.sessionController.pontoAtivo = false;
       duration = new Duration(seconds: map['tempo_online']);
     });
-    pontoAtivo = false;
   }
 
   @action
   Future<void> obterStatusPlantao() async {
     await PontoService().obterStatusPlantao().then((map) {
-      if (map)
-        pontoAtivo = true;
-      //SessionController().setPonto(true);
-      else
-        pontoAtivo = false;
-      //SessionController().setPonto(false);
+      if (map) {
+        SessionController().setPonto(true);
+        Globals.sessionController.pontoAtivo = true;
+      } else {
+        SessionController().setPonto(false);
+        Globals.sessionController.pontoAtivo = false;
+      }
+
       loading = false;
     });
   }
