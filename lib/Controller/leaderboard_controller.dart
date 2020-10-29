@@ -25,7 +25,7 @@ abstract class _LeaderBoardControllerBase with Store {
   @action
   setMembrosEj() async {
     await PlantaoAmigoService().mostrarAmigos().then((list) {
-      list.sort((a, b) => a.total_semana.compareTo(b.total_semana));
+      list.sort((a, b) => b.total_semana.compareTo(a.total_semana));
       membrosEj.value = list;
     });
   }
@@ -46,26 +46,14 @@ abstract class _LeaderBoardControllerBase with Store {
       case 0:
         membrosEjOutput.value
             .sort((a, b) => b.total_semana.compareTo(a.total_semana));
-        membrosEjOutput.value.forEach((element) {
-          print(element.nome);
-          print(element.total_semana);
-        });
         break;
       case 1:
         membrosEjOutput.value
-            .sort((a, b) => a.total_mes.compareTo(b.total_mes));
-        membrosEjOutput.value.forEach((element) {
-          print(element.nome);
-          print(element.total_mes);
-        });
+            .sort((a, b) => b.total_mes.compareTo(a.total_mes));
         break;
       case 2:
         membrosEjOutput.value
-            .sort((a, b) => a.total_ano.compareTo(b.total_ano));
-        membrosEjOutput.value.forEach((element) {
-          print(element.nome);
-          print(element.total_ano);
-        });
+            .sort((a, b) => b.total_ano.compareTo(a.total_ano));
         break;
     }
   }

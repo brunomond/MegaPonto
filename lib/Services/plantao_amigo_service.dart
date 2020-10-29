@@ -34,6 +34,8 @@ class PlantaoAmigoService {
       listFuncionario.add(user);
     });
 
+
+
     return listFuncionario;
   }
 
