@@ -54,7 +54,7 @@ class MembrosCrud extends StatelessWidget {
           Text(crud)
         ]),
       ),
-      onTap: () => Navigator.of(context).pushNamed('editar_perfil'),
+      onTap: () => Navigator.of(context).pushNamed('/adm_perfil'),
     );
   }
 }
