@@ -1,5 +1,4 @@
 import 'dart:convert';
-import 'dart:io';
 import 'package:http/http.dart' as http;
 import 'package:megaponto_oficial/Model/usuario.dart';
 import 'package:megaponto_oficial/Resources/Globals.dart';
@@ -33,8 +32,6 @@ class PlantaoAmigoService {
       user.online = amigo['online'] != null;
       listFuncionario.add(user);
     });
-
-
 
     return listFuncionario;
   }
