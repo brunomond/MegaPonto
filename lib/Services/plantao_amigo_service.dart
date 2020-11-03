@@ -1,5 +1,4 @@
 import 'dart:convert';
-import 'dart:io';
 import 'package:http/http.dart' as http;
 import 'package:megaponto_oficial/Model/usuario.dart';
 import 'package:megaponto_oficial/Resources/Globals.dart';
@@ -16,7 +15,7 @@ class PlantaoAmigoService {
 
   Future<List> mostrarAmigos() async {
     http.Response response =
-        await http.get(URL_GET_AMIGO, headers: Globals.headers);
+        await http.get(URL_GET_AMIGO, headers: Globals.tokenHeader);
 
     if (response.statusCode == 400) return new List<Usuario>();
 
@@ -43,13 +42,13 @@ class PlantaoAmigoService {
     Map<String, dynamic> body = {'amigo': id};
 
     await http.post(URL_POST_INICIA_AMIGO,
-        body: jsonEncode(body), headers: Globals.headers);
+        body: jsonEncode(body), headers: Globals.tokenHeader);
   }
 
   Future<void> fecharAmigo(int id) async {
     Map<String, dynamic> body = {'amigo': id};
 
     await http.put(URL_PUT_FECHA_AMIGO,
-        body: jsonEncode(body), headers: Globals.headers);
+        body: jsonEncode(body), headers: Globals.tokenHeader);
   }
 }

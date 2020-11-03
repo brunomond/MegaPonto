@@ -17,7 +17,7 @@ class EstadoSalaService {
     Map<String, dynamic> body = {'status': estadoSalaEnum.value};
 
     http.Response response = await http.put(URL_PUT_SALA_CAFE,
-        body: jsonEncode(body), headers: Globals.headers);
+        body: jsonEncode(body), headers: Globals.tokenHeader);
 
     if (response.statusCode == 400) return EstadoSalaEnum.ERRO;
 
@@ -30,7 +30,7 @@ class EstadoSalaService {
     Map<String, dynamic> body = {'cafe': true};
 
     http.Response response = await http.put(URL_PUT_SALA_CAFE,
-        body: jsonEncode(body), headers: Globals.headers);
+        body: jsonEncode(body), headers: Globals.tokenHeader);
 
     if (response.statusCode == 400) return "Erro";
 
@@ -41,7 +41,7 @@ class EstadoSalaService {
 
   Future<Map> getSalaCafe() async {
     http.Response response =
-        await http.get(URL_GET_SALA_CAFE, headers: Globals.headers);
+        await http.get(URL_GET_SALA_CAFE, headers: Globals.tokenHeader);
 
     if (response.statusCode == 400) return Map();
 
