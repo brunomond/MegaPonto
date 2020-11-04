@@ -9,7 +9,9 @@ class Usuario {
   String rga;
   String imgUrl;
   String token;
+  String apelido;
   String player_id;
+  String telefone;
   bool online;
   int total_semana;
   int total_mes;

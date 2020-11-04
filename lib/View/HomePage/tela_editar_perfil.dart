@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:megaponto_oficial/Controller/perfil_controller.dart';
 import 'package:megaponto_oficial/Resources/Globals.dart';
 import 'package:megaponto_oficial/View/Utils/GradientAppBar.dart';
 import 'package:megaponto_oficial/View/Utils/StdTextInput.dart';
@@ -12,6 +13,8 @@ class EditarPerfil extends StatefulWidget {
 class _EditarPerfilState extends State<EditarPerfil> {
   bool isPasswordVisible = false;
   bool isConfirmPasswordVisible = false;
+
+  PerfilController perfilController = PerfilController();
 
   @override
   void initState() {
@@ -70,11 +73,15 @@ class _EditarPerfilState extends State<EditarPerfil> {
                     padding: EdgeInsets.fromLTRB(8.0, 16, 8, 8),
                     hintText: 'Nome Completo',
                     prefixIcon: Icons.person,
+                    initualValue: perfilController.nome,
+                    onChanged: perfilController.setNome,
                   ),
                   StdTextInput(
                     keyboardType: TextInputType.emailAddress,
                     hintText: 'E-mail',
                     prefixIcon: Icons.email,
+                    initualValue: perfilController.email,
+                    onChanged: perfilController.setEmail,
                   ),
                   StdTextInput(
                       hintText: 'Senha',
@@ -100,6 +107,8 @@ class _EditarPerfilState extends State<EditarPerfil> {
                   StdTextInput(
                     hintText: 'Apelido',
                     prefixIcon: Icons.person_pin,
+                    initualValue: perfilController.apelido,
+                    onChanged: perfilController.setApelido,
                   ),
                   StdTextInput(
                     keyboardType: TextInputType.phone,
@@ -107,6 +116,8 @@ class _EditarPerfilState extends State<EditarPerfil> {
                     prefixIcon: Icons.phone,
                     isPhone: true,
                     done: true,
+                    initualValue: perfilController.telefone,
+                    onChanged: perfilController.setTelefone,
                   ),
                   StdButton(
                     padding: EdgeInsets.only(top: 24),

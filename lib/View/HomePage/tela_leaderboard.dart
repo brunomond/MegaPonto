@@ -33,7 +33,7 @@ class _LeaderBoardState extends State<LeaderBoard> {
             child: Container(
               child: Column(
                 children: [
-                  _buildExample2(),
+                  _pageViewIndicator(),
                   Expanded(
                     child: PageView.builder(
                       controller: pageController,
@@ -62,13 +62,12 @@ class _LeaderBoardState extends State<LeaderBoard> {
           return Rank(
             lista: lista,
             index: index,
-            onTap: () {},
             rank: rank,
           );
         });
   }
 
-  PageViewIndicator _buildExample2() {
+  PageViewIndicator _pageViewIndicator() {
     return PageViewIndicator(
         pageIndexNotifier: pageIndexNotifier,
         length: length,

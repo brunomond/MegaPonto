@@ -5,12 +5,7 @@ class Rank extends StatelessWidget {
   final List lista;
   final int index;
   final int rank;
-  final Function onTap;
-  Rank(
-      {@required this.lista,
-      @required this.index,
-      @required this.onTap,
-      @required this.rank});
+  Rank({@required this.lista, @required this.index, @required this.rank});
   @override
   Widget build(BuildContext context) {
     return Card(

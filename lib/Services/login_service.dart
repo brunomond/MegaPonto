@@ -39,7 +39,6 @@ class LoginService {
     var permission = await Permission.notification.status;
 
     if (!permission.isGranted) {
-      await Permission.notification.request();
       openAppSettings();
     }
 

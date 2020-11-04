@@ -20,6 +20,7 @@ class StdTextInput extends StatelessWidget {
   final Function(String) onChanged;
   final bool enabled;
   final TextEditingController controller;
+  final String initualValue;
 
   StdTextInput(
       {this.keyboardType,
@@ -33,9 +34,10 @@ class StdTextInput extends StatelessWidget {
       this.iconsPadding,
       this.validator,
       this.onSaved,
-      this.done = false, 
+      this.done = false,
       this.onChanged,
       this.enabled = true,
+      this.initualValue,
       this.controller});
 
   final phoneMask = new MaskTextInputFormatter(
@@ -47,11 +49,16 @@ class StdTextInput extends StatelessWidget {
       padding: padding ?? EdgeInsets.all(8),
       child: TextFormField(
         controller: controller,
+        initialValue: initualValue,
         textAlignVertical: TextAlignVertical.center,
         cursorColor: Globals.theme.primaryColor,
         keyboardType: keyboardType ?? TextInputType.text,
-        textInputAction: textInputAction ?? !done ? TextInputAction.next : TextInputAction.done,
-        onEditingComplete: () => !done ? FocusScope.of(context).nextFocus() : FocusScope.of(context).unfocus(),
+        textInputAction: textInputAction ?? !done
+            ? TextInputAction.next
+            : TextInputAction.done,
+        onEditingComplete: () => !done
+            ? FocusScope.of(context).nextFocus()
+            : FocusScope.of(context).unfocus(),
         decoration: InputDecoration(
           hintText: null,
           labelText: hintText != null && hintText.isNotEmpty ? hintText : null,

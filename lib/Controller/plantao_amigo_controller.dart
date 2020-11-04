@@ -30,6 +30,8 @@ abstract class _PlantaoAmigoControllerBase with Store {
   @action
   setMembrosEj() async {
     await PlantaoAmigoService().mostrarAmigos().then((list) {
+      list.add(Globals.sessionController.loggedUser);
+      list.sort((a, b) => a.nome.toLowerCase().compareTo(b.nome.toLowerCase()));
       membrosEj.value = list;
     });
   }
