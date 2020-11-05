@@ -20,7 +20,7 @@ class LoginService {
     Map<String, dynamic> body = {'email': email, 'senha': senha};
 
     http.Response response = await http.post(URL_LOGIN,
-        body: jsonEncode(body), headers: Globals.headers);
+        body: jsonEncode(body), headers: Globals.noAuthToken);
 
     if (response.statusCode == 401) {
       Scaffold.of(context).showSnackBar(
@@ -48,7 +48,7 @@ class LoginService {
             '.json?token=' +
             Globals.sessionController.loggedUser.token,
         body: jsonEncode(body),
-        headers: Globals.headers);
+        headers: Globals.noAuthToken);
 
     SharedPreferences prefs = await SharedPreferences.getInstance();
     prefs.setString('player_id', status.subscriptionStatus.userId);

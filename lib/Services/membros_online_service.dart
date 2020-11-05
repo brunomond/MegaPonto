@@ -10,11 +10,11 @@ const String URL_LIST_MEMBROS_ONLINE =
 class MembrosOnlineService {
   Future<List<Usuario>> listarMembrosOnline() async {
     http.Response response =
-        await http.get(URL_LIST_MEMBROS_ONLINE, headers: Globals.headers);
+        await http.get(URL_LIST_MEMBROS_ONLINE, headers: Globals.tokenHeader);
 
     if (response.statusCode == 400) return new List<Usuario>();
 
-    List parsedJson = json.decode(response.body);
+   List parsedJson = json.decode(response.body);
 
     List<Usuario> listaUser = new List<Usuario>();
 

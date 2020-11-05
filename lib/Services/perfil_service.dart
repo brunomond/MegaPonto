@@ -9,7 +9,7 @@ const String URL_INFO_PLANTAO =
 class PerfilService {
   Future<Map> pegarInfoPlantao() async {
     http.Response response =
-        await http.get(URL_INFO_PLANTAO, headers: Globals.headers);
+        await http.get(URL_INFO_PLANTAO, headers: Globals.tokenHeader);
 
     if (response.statusCode != 200)
       return {'total_semana': 0, 'total_mes': 0, 'total_ano': 0};
