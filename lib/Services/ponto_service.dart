@@ -1,6 +1,4 @@
 import 'dart:convert';
-import 'dart:io';
-
 import 'package:http/http.dart' as http;
 import 'package:megaponto_oficial/Resources/Globals.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -17,7 +15,7 @@ const String URL_INFO_PLANTAO =
 class PontoService {
   Future<bool> iniciarPlantao() async {
     http.Response response =
-        await http.post(URL_INICIAR_PLANTAO, headers: Globals.headers);
+        await http.post(URL_INICIAR_PLANTAO, headers: Globals.tokenHeader);
 
     SharedPreferences prefs = await SharedPreferences.getInstance();
 
@@ -29,7 +27,7 @@ class PontoService {
 
   Future<Map> fecharPlantao() async {
     http.Response response =
-        await http.put(URL_FECHAR_PLANTAO, headers: Globals.headers);
+        await http.put(URL_FECHAR_PLANTAO, headers: Globals.tokenHeader);
 
     SharedPreferences prefs = await SharedPreferences.getInstance();
     if (response.statusCode == 400) return Map();
@@ -40,7 +38,7 @@ class PontoService {
 
   Future<bool> obterStatusPlantao() async {
     http.Response response =
-        await http.get(URL_INFO_PLANTAO, headers: Globals.headers);
+        await http.get(URL_INFO_PLANTAO, headers: Globals.tokenHeader);
     SharedPreferences prefs = await SharedPreferences.getInstance();
     prefs.setBool('pontoAtivo', response.statusCode == 200);
 

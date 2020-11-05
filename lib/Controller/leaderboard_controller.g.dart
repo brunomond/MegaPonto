@@ -48,6 +48,14 @@ mixin _$LeaderBoardController on _LeaderBoardControllerBase, Store {
     return _$fetchDataAsyncAction.run(() => super.fetchData());
   }
 
+  final _$alterarListAsyncAction =
+      AsyncAction('_LeaderBoardControllerBase.alterarList');
+
+  @override
+  Future alterarList(int index) {
+    return _$alterarListAsyncAction.run(() => super.alterarList(index));
+  }
+
   @override
   String toString() {
     return '''
