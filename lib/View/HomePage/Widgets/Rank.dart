@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:megaponto_oficial/Resources/presets/custom_icons_icons.dart';
+import 'package:megaponto_oficial/View/Utils/FormatDuration.dart';
 
 class Rank extends StatelessWidget {
   final List lista;
@@ -38,11 +39,14 @@ class Rank extends StatelessWidget {
                     children: [
                       Text(lista[index].nome),
                       (rank == 0)
-                          ? Text(lista[index].total_semana.toString())
+                          ? Text(formatDurationLeaderboard(
+                              Duration(seconds: lista[index].total_semana)))
                           : (rank == 1)
-                              ? Text(lista[index].total_mes.toString())
+                              ? Text(formatDurationLeaderboard(
+                                  Duration(seconds: lista[index].total_mes)))
                               : (rank == 2)
-                                  ? Text(lista[index].total_ano.toString())
+                                  ? Text(formatDurationLeaderboard(Duration(
+                                      seconds: lista[index].total_ano)))
                                   : Container(),
                     ],
                   ),
