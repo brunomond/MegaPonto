@@ -17,15 +17,10 @@ class Globals {
       MegaPonto.mainState.currentContext,
       listen: false);
   static String userId;
-<<<<<<< HEAD
-  static final Map<String, String> headers = {
-=======
-  static String token = sessionController.loggedUser.token;
   static final Map<String, String> noAuthToken = {
-        HttpHeaders.contentTypeHeader: 'application/json'
+    HttpHeaders.contentTypeHeader: 'application/json'
   };
   static final Map<String, String> tokenHeader = {
->>>>>>> origin/bruno
     HttpHeaders.contentTypeHeader: 'application/json',
     HttpHeaders.authorizationHeader:
         "Bearer ${sessionController.loggedUser.token}"

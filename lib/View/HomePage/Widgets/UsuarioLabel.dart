@@ -41,7 +41,7 @@ class _UsuarioLabelState extends State<UsuarioLabel> {
               ),
             ),
             Text(
-              '${user.nome} ${user.sobrenome}',
+              '${user.nome}',
               style: Globals.textTheme.bodyText1,
             ),
             Text(

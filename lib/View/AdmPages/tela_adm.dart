@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:megaponto_oficial/View/Utils/GradientAppBar.dart';
-import 'package:megaponto_oficial/View/HomePage/Widgets/BottomApp.dart';
 
 //telas
 import 'package:megaponto_oficial/View/AdmPages/tela_edit_funcionario.dart';

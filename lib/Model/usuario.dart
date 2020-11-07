@@ -1,7 +1,6 @@
 class Usuario {
   int id;
   String nome;
-  String sobrenome;
   String email;
   String nascimento;
   String celular;
@@ -11,7 +10,6 @@ class Usuario {
   String token;
   String apelido;
   String player_id;
-  String telefone;
   bool online;
   int total_semana;
   int total_mes;
@@ -23,7 +21,7 @@ class Usuario {
       Map map, int horasMensais, int horasAnual, int horasSemanais) {
     this.id = map['id'];
     this.nome = map['nome'];
-    this.sobrenome = map['sobrenome'];
+    this.apelido = map['sobrenome'];
     this.email = map['email'];
     this.nascimento = map['nascimento'];
     this.celular = map['celular'];
@@ -40,7 +38,7 @@ class Usuario {
   Usuario.fromJson(Map<String, dynamic> json)
       : this.id = json['id'],
         this.nome = json['nome'],
-        this.sobrenome = json['sobrenome'],
+        this.apelido = json['sobrenome'],
         this.email = json['email'],
         this.nascimento = json['nascimento'],
         this.celular = json['celular'],
@@ -57,7 +55,7 @@ class Usuario {
     Map<String, dynamic> map = {
       'id': this.id,
       'nome': this.nome,
-      'sobrenome': this.sobrenome,
+      'sobrenome': this.apelido,
       'email': this.email,
       'nascimento': this.nascimento,
       //new DateFormat('dd/MM/yyyy', 'pt-BR').format(this.nascimento),

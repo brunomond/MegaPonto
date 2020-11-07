@@ -1,4 +1,3 @@
-import 'package:megaponto_oficial/Controller/session_controller.dart';
 import 'package:megaponto_oficial/Resources/Globals.dart';
 import 'package:megaponto_oficial/Services/perfil_service.dart';
 import 'package:mobx/mobx.dart';
@@ -32,7 +31,10 @@ abstract class _PerfilControllerBase with Store {
   String apelido = "";
 
   @observable
-  String telefone = "";
+  String celular = "";
+
+  @observable
+  int id = 0;
 
   @action
   void setNome(String value) => nome = value;
@@ -47,14 +49,15 @@ abstract class _PerfilControllerBase with Store {
   void setApelido(String value) => apelido = value;
 
   @action
-  void setTelefone(String value) => telefone = value;
+  void setCelular(String value) => celular = value;
 
   @action
   carregarInfo() {
     nome = Globals.sessionController.loggedUser.nome;
     email = Globals.sessionController.loggedUser.email;
     apelido = Globals.sessionController.loggedUser.apelido;
-    telefone = Globals.sessionController.loggedUser.telefone;
+    celular = Globals.sessionController.loggedUser.celular;
+    id = Globals.sessionController.loggedUser.id;
   }
 
   @action
@@ -63,6 +66,15 @@ abstract class _PerfilControllerBase with Store {
       tempoSemana = json['total_semana'];
       tempoMes = json['total_mes'];
       tempoAno = json['total_ano'];
+    });
+  }
+
+  @action
+  alterarUser(int id) async {
+    await PerfilService()
+        .alterarDadosUser(nome, email, apelido, celular, id)
+        .then((confirmacao) {
+      if (confirmacao) print("ok");
     });
   }
 
