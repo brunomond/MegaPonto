@@ -23,6 +23,7 @@ class StdTextInput extends StatelessWidget {
   final TextEditingController controller;
   final String initualValue;
   final FocusNode focusNode;
+  final String erroTexto;
 
   StdTextInput(
       {this.keyboardType,
@@ -42,7 +43,8 @@ class StdTextInput extends StatelessWidget {
       this.enabled = true,
       this.initualValue,
       this.controller,
-      this.focusNode});
+      this.focusNode,
+      this.erroTexto});
 
   final phoneMask = new MaskTextInputFormatter(
       mask: '(##) #####-####', filter: {'#': RegExp(r'[0-9]')});
@@ -67,6 +69,7 @@ class StdTextInput extends StatelessWidget {
             ? FocusScope.of(context).nextFocus()
             : FocusScope.of(context).unfocus(),
         decoration: InputDecoration(
+          errorText: erroTexto,
           hintText: null,
           labelText: hintText != null && hintText.isNotEmpty ? hintText : null,
           prefixIcon: prefixIcon != null

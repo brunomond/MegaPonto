@@ -84,6 +84,13 @@ abstract class _PerfilControllerBase with Store {
     });
   }
 
+  @computed
+  bool get senha2Valida => confirmacaoSenha != null && confirmacaoSenha == senha;
+  String get confirmacaoErrada{
+    if(confirmacaoSenha == null || senha2Valida)  return null;
+    else return 'Senhas não coincidem';
+  }
+
   @action
   editarPerfil() {}
   @action

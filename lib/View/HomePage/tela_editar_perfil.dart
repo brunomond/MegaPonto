@@ -101,6 +101,7 @@ class _EditarPerfilState extends State<EditarPerfil> {
                         )),
                     StdTextInput(
                       hintText: 'Confirmar Senha',
+                      erroTexto: perfilController.confirmacaoErrada,
                       prefixIcon: Icons.vpn_key,
                       obscureText: !isConfirmPasswordVisible,
                       onChanged: perfilController.setConfirmacaoSenha,
