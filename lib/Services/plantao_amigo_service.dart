@@ -28,8 +28,9 @@ class PlantaoAmigoService {
           amigo['usuario'],
           (amigo['total_mes'] == null) ? 0 : amigo['total_mes'],
           (amigo['total_ano'] == null) ? 0 : amigo['total_ano'],
-          (amigo['total_semana'] == null) ? 0 : amigo['total_semana']);
-      user.online = amigo['online'] != null;
+          (amigo['total_semana'] == null) ? 0 : amigo['total_semana'], 0);
+      user.online = amigo['online'];
+      user.usuarioId = amigo['usuario_id'];
       listFuncionario.add(user);
     });
 
@@ -43,10 +44,14 @@ class PlantaoAmigoService {
         body: jsonEncode(body), headers: Globals.tokenHeader);
   }
 
-  Future<void> fecharAmigo(int id) async {
+  Future<int> fecharAmigo(int id) async {
     Map<String, dynamic> body = {'amigo': id};
 
-    await http.put(URL_PUT_FECHA_AMIGO,
+    http.Response response = await http.put(URL_PUT_FECHA_AMIGO,
         body: jsonEncode(body), headers: Globals.tokenHeader);
+
+    Map parsedJson = json.decode(response.body);
+    
+    return parsedJson["tempo_online"];
   }
 }

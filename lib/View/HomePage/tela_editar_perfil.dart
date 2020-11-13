@@ -14,6 +14,7 @@ class EditarPerfil extends StatefulWidget {
 class _EditarPerfilState extends State<EditarPerfil> {
   bool isPasswordVisible = false;
   bool isConfirmPasswordVisible = false;
+  var focusNode = new FocusNode();
 
   PerfilController perfilController = PerfilController();
 
@@ -91,6 +92,7 @@ class _EditarPerfilState extends State<EditarPerfil> {
                         hintText: 'Senha',
                         prefixIcon: Icons.vpn_key,
                         obscureText: !isPasswordVisible,
+                        onChanged: perfilController.setSenha,
                         suffixIcon: IconButton(
                           icon: Icon(isPasswordVisible
                               ? Icons.visibility
@@ -101,6 +103,8 @@ class _EditarPerfilState extends State<EditarPerfil> {
                       hintText: 'Confirmar Senha',
                       prefixIcon: Icons.vpn_key,
                       obscureText: !isConfirmPasswordVisible,
+                      onChanged: perfilController.setConfirmacaoSenha,
+                      focusNode:  focusNode,
                       suffixIcon: IconButton(
                         icon: Icon(isConfirmPasswordVisible
                             ? Icons.visibility
@@ -127,8 +131,13 @@ class _EditarPerfilState extends State<EditarPerfil> {
                       padding: EdgeInsets.only(top: 24),
                       label: 'Confirmar',
                       onPressed: () async {
-                        await perfilController.alterarUser(perfilController.id);
-                        Navigator.of(context).pop();
+                        if(perfilController.senha == perfilController.confirmacaoSenha){
+                          await perfilController.alterarUser(perfilController.id);
+                          Navigator.of(context).pop();
+                        }
+                        else {
+                          focusNode.requestFocus();
+                        }
                       },
                     )
                   ],

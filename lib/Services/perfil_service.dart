@@ -22,13 +22,25 @@ class PerfilService {
   }
 
   Future<bool> alterarDadosUser(
-      String nome, String email, String apelido, String celular, int id) async {
-    Map<String, dynamic> body = {
-      'nome': nome,
-      'email': email,
-      'sobrenome': apelido,
-      'celular': celular
-    };
+      String nome, String email,String senha, String apelido, String celular, int id) async {
+        Map<String, dynamic> body;
+        if(senha != null || senha != ""){
+            body = {
+            'nome': nome,
+            'email': email,
+            'sobrenome': apelido,
+            'celular': celular, 
+            'senha' : senha
+          };
+        }else {
+           body = {
+            'nome': nome,
+            'email': email,
+            'sobrenome': apelido,
+            'celular': celular
+          };
+        }
+     
 
     http.Response response = await http.put(
         URL_PUT_USUARIO + id.toString() + '.json',

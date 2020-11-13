@@ -9,6 +9,7 @@ class Usuario {
   String imgUrl;
   String token;
   String apelido;
+  int usuarioId;
   String player_id;
   bool online;
   int total_semana;
@@ -18,7 +19,7 @@ class Usuario {
   Usuario();
 
   Usuario.fromMap(
-      Map map, int horasMensais, int horasAnual, int horasSemanais) {
+      Map map, int horasMensais, int horasAnual, int horasSemanais, int id) {
     this.id = map['id'];
     this.nome = map['nome'];
     this.apelido = map['sobrenome'];
@@ -30,6 +31,7 @@ class Usuario {
     this.imgUrl = map['imagem'];
     this.token = map['token'];
     this.player_id = map['player_id'];
+    this.usuarioId = id;
     this.total_semana = horasSemanais;
     this.total_mes = horasMensais;
     this.total_ano = horasAnual;
@@ -42,6 +44,7 @@ class Usuario {
         this.email = json['email'],
         this.nascimento = json['nascimento'],
         this.celular = json['celular'],
+        this.usuarioId = json['usuario_id'],
         this.cpf = (json['cpf'].toString().length > 14) ? json['cpf'] : null,
         this.rga = json['rga'],
         this.imgUrl = json['imagem'],

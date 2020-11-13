@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:megaponto_oficial/Model/usuario.dart';
 import 'package:megaponto_oficial/Resources/Globals.dart';
 import 'package:megaponto_oficial/Services/plantao_amigo_service.dart';
+import 'package:megaponto_oficial/View/Utils/FormatDuration.dart';
 import 'package:megaponto_oficial/View/Utils/Loading.dart';
 import 'package:megaponto_oficial/View/Utils/StdDialog.dart';
 import 'package:mobx/mobx.dart';
@@ -74,21 +76,20 @@ abstract class _PlantaoAmigoControllerBase with Store {
     var nomeUser = Globals.sessionController.loggedUser.nome;
 
     if (user.online) {
-      await PlantaoAmigoService().fecharAmigo(user.id);
+      int tempoPlantao = await PlantaoAmigoService().fecharAmigo(user.usuarioId);
+      Duration tempoPlantaoDuration = new Duration(seconds: tempoPlantao);
 
       OneSignal.shared.postNotification(OSCreateNotification(
           playerIds: [user.player_id],
-          heading: "Plantão encerrado",
-          //acrescentar duracao do plantao
-          content: "Seu plantão foi encerrado pelo $nomeUser",
+          heading: "Plantão encerrado, duração de:  ${formatDurationLeaderboard(tempoPlantaoDuration)}",
+          content: "$nomeUser encerrou seu plantão",
           androidLargeIcon: 'ic_onesignal_large_icon_default_sala_ponto'));
-    } else {
-      await PlantaoAmigoService().iniciarAmigo(user.id);
+    } else { 
+      await PlantaoAmigoService().iniciarAmigo(user.usuarioId);
 
       OneSignal.shared.postNotification(OSCreateNotification(
           playerIds: [user.player_id],
-          heading: "Plantão iniciado",
-          //acrescentar hora de inicio
+          heading: "'Plantão iniciado às ${DateFormat.Hm().format(DateTime.now())}!'",
           content: "Seu plantão foi iniciado pelo $nomeUser",
           androidLargeIcon: 'ic_onesignal_large_icon_default_sala_ponto'));
     }

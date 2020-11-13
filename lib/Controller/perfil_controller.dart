@@ -25,7 +25,10 @@ abstract class _PerfilControllerBase with Store {
   String email = "";
 
   @observable
-  String password = "";
+  String senha = "";
+
+  @observable
+  String confirmacaoSenha = "";
 
   @observable
   String apelido = "";
@@ -43,7 +46,10 @@ abstract class _PerfilControllerBase with Store {
   void setEmail(String value) => email = value;
 
   @action
-  void setPassword(String value) => nome = value;
+  void setSenha(String value) => senha = value;
+
+  @action
+  void setConfirmacaoSenha(String value) => confirmacaoSenha = value;
 
   @action
   void setApelido(String value) => apelido = value;
@@ -72,7 +78,7 @@ abstract class _PerfilControllerBase with Store {
   @action
   alterarUser(int id) async {
     await PerfilService()
-        .alterarDadosUser(nome, email, apelido, celular, id)
+        .alterarDadosUser(nome, email, senha, apelido, celular, id)
         .then((confirmacao) {
       if (confirmacao) print("ok");
     });
