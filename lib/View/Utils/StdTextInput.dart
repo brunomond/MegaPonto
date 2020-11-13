@@ -49,7 +49,8 @@ class StdTextInput extends StatelessWidget {
   final phoneMask = new MaskTextInputFormatter(
       mask: '(##) #####-####', filter: {'#': RegExp(r'[0-9]')});
 
-  final timeMask = new MaskTextInputFormatter(mask: '##:##:##', filter: {'#': RegExp(r'[0-9]')});
+  final timeMask = new MaskTextInputFormatter(
+      mask: '##:##:##', filter: {'#': RegExp(r'[0-9]')});
 
   @override
   Widget build(BuildContext context) {
@@ -81,7 +82,11 @@ class StdTextInput extends StatelessWidget {
           suffixIcon: suffixIcon,
         ).applyDefaults(Globals.inputTheme),
         obscureText: obscureText ?? false,
-        inputFormatters: isPhone ? [phoneMask] : isTime ? [timeMask] : null,
+        inputFormatters: isPhone
+            ? [phoneMask]
+            : isTime
+                ? [timeMask]
+                : null,
         validator: validator,
         onSaved: onSaved,
         onChanged: onChanged,

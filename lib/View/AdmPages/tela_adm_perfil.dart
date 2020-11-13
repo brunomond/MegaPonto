@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:intl/number_symbols_data.dart';
 import 'package:megaponto_oficial/Resources/Globals.dart';
 import 'package:megaponto_oficial/View/Utils/GradientAppBar.dart';
 import 'package:megaponto_oficial/View/Utils/StdTextInput.dart';
@@ -201,6 +202,11 @@ class _AdmEditarPerfilState extends State<AdmEditarPerfil> {
   }
 
   Widget horasPerfil() {
-    return StdTextInput();
+    return StdTextInput(
+      prefixIcon: Icons.access_time,
+      keyboardType: TextInputType.number,
+      isTime: true,
+      hintText: 'HH:MM:SS',
+    );
   }
 }
