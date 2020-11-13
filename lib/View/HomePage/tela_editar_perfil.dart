@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:megaponto_oficial/Controller/perfil_controller.dart';
 import 'package:megaponto_oficial/Resources/Globals.dart';
 import 'package:megaponto_oficial/View/Utils/GradientAppBar.dart';
+import 'package:megaponto_oficial/View/Utils/StdSnackBar.dart';
 import 'package:megaponto_oficial/View/Utils/StdTextInput.dart';
 import 'package:megaponto_oficial/View/Utils/StdButton.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
@@ -37,10 +38,7 @@ class _EditarPerfilState extends State<EditarPerfil> {
                   Icons.done,
                   color: Colors.white,
                 ),
-                onPressed: () async {
-                  await perfilController.alterarUser(perfilController.id);
-                  Navigator.of(context).pop();
-                }),
+                onPressed: () => salvar()),
 //        SizedBox(width: 8)
           ],
         ),
@@ -105,7 +103,7 @@ class _EditarPerfilState extends State<EditarPerfil> {
                       prefixIcon: Icons.vpn_key,
                       obscureText: !isConfirmPasswordVisible,
                       onChanged: perfilController.setConfirmacaoSenha,
-                      focusNode:  focusNode,
+                      focusNode: focusNode,
                       suffixIcon: IconButton(
                         icon: Icon(isConfirmPasswordVisible
                             ? Icons.visibility
@@ -131,15 +129,7 @@ class _EditarPerfilState extends State<EditarPerfil> {
                     StdButton(
                       padding: EdgeInsets.only(top: 24),
                       label: 'Confirmar',
-                      onPressed: () async {
-                        if(perfilController.senha == perfilController.confirmacaoSenha){
-                          await perfilController.alterarUser(perfilController.id);
-                          Navigator.of(context).pop();
-                        }
-                        else {
-                          focusNode.requestFocus();
-                        }
-                      },
+                      onPressed: () => salvar()
                     )
                   ],
                 ),
@@ -187,5 +177,21 @@ class _EditarPerfilState extends State<EditarPerfil> {
     senha
         ? setState(() => isPasswordVisible = !isPasswordVisible)
         : setState(() => isConfirmPasswordVisible = !isConfirmPasswordVisible);
+  }
+
+  void salvar() async {
+    {
+      if (perfilController.senha == perfilController.confirmacaoSenha) {
+        bool confirmacao = await perfilController.alterarUser(perfilController.id);
+        if (confirmacao) {
+
+          //Trocar snackbar por flash
+          print("ok");
+        }
+        Navigator.of(context).pop();
+      } else {
+        focusNode.requestFocus();
+      }
+    }
   }
 }

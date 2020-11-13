@@ -24,7 +24,7 @@ class PerfilService {
   Future<bool> alterarDadosUser(
       String nome, String email,String senha, String apelido, String celular, int id) async {
         Map<String, dynamic> body;
-        if(senha != null || senha != ""){
+        if(senha != ""){
             body = {
             'nome': nome,
             'email': email,
@@ -47,7 +47,9 @@ class PerfilService {
         headers: Globals.tokenHeader,
         body: jsonEncode(body));
 
-    if (response.statusCode != 200)
+    Map parsedJson = json.decode(response.body);
+
+    if (parsedJson["message"] == "Erro ao atualizar usuario" || response.statusCode != 200)
       return false;
     else {
       Globals.sessionController.loggedUser.apelido = apelido;
