@@ -78,9 +78,20 @@ abstract class _PerfilControllerBase with Store {
   @action
   // ignore: missing_return
   Future<bool> alterarUser(int id) async{
-    bool confirmar; 
+    bool confirmar;
+    String sobrenome; 
+    int value = nome.indexOf(' ');
+    if(value != -1){
+      value = value + 1;
+      sobrenome = nome.substring(value,  nome.length);
+      nome = nome.substring(0,  nome.indexOf(' '));
+    }
+    else{
+      sobrenome = "";
+    }
+    
     await PerfilService()
-        .alterarDadosUser(nome, email, senha, apelido, celular, id)
+        .alterarDadosUser(nome, sobrenome, email, senha, apelido, celular, id)
         .then((confirmacao) {
           confirmar = confirmacao;
     });

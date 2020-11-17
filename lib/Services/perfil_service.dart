@@ -21,26 +21,46 @@ class PerfilService {
     return parsedJson;
   }
 
-  Future<bool> alterarDadosUser(
-      String nome, String email,String senha, String apelido, String celular, int id) async {
-        Map<String, dynamic> body;
-        if(senha != ""){
-            body = {
-            'nome': nome,
-            'email': email,
-            'sobrenome': apelido,
-            'celular': celular, 
-            'senha' : senha
-          };
-        }else {
-           body = {
-            'nome': nome,
-            'email': email,
-            'sobrenome': apelido,
-            'celular': celular
-          };
-        }
-     
+  Future<bool> alterarDadosUser(String nome, String sobrenome, String email,
+      String senha, String apelido, String celular, int id) async {
+    Map<String, dynamic> body;
+    if (senha != "") {
+      if (sobrenome != "") {
+        body = {
+          'nome': nome,
+          'email': email,
+          'sobrenome': sobrenome,
+          'apelido': apelido,
+          'celular': celular,
+          'senha': senha
+        };
+      } else {
+        body = {
+          'nome': nome,
+          'email': email,
+          'apelido': apelido,
+          'celular': celular,
+          'senha': senha
+        };
+      }
+    } else {
+      if (sobrenome != "") {
+        body = {
+          'nome': nome,
+          'email': email,
+          'sobrenome': sobrenome,
+          'apelido': apelido,
+          'celular': celular,
+        };
+      } else {
+        body = {
+          'nome': nome,
+          'email': email,
+          'apelido': apelido,
+          'celular': celular,
+        };
+      }
+    }
 
     http.Response response = await http.put(
         URL_PUT_USUARIO + id.toString() + '.json',
@@ -49,7 +69,8 @@ class PerfilService {
 
     Map parsedJson = json.decode(response.body);
 
-    if (parsedJson["message"] == "Erro ao atualizar usuario" || response.statusCode != 200)
+    if (parsedJson["message"] == "Erro ao atualizar usuario" ||
+        response.statusCode != 200)
       return false;
     else {
       Globals.sessionController.loggedUser.apelido = apelido;

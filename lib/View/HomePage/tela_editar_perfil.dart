@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:megaponto_oficial/Controller/perfil_controller.dart';
 import 'package:megaponto_oficial/Resources/Globals.dart';
 import 'package:megaponto_oficial/View/Utils/GradientAppBar.dart';
-import 'package:megaponto_oficial/View/Utils/StdSnackBar.dart';
 import 'package:megaponto_oficial/View/Utils/StdTextInput.dart';
 import 'package:megaponto_oficial/View/Utils/StdButton.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
@@ -39,7 +38,7 @@ class _EditarPerfilState extends State<EditarPerfil> {
                   color: Colors.white,
                 ),
                 onPressed: () => salvar()),
-//        SizedBox(width: 8)
+          SizedBox(width: 8)
           ],
         ),
         body: LayoutBuilder(builder:
@@ -127,10 +126,9 @@ class _EditarPerfilState extends State<EditarPerfil> {
                       onChanged: perfilController.setCelular,
                     ),
                     StdButton(
-                      padding: EdgeInsets.only(top: 24),
-                      label: 'Confirmar',
-                      onPressed: () => salvar()
-                    )
+                        padding: EdgeInsets.only(top: 24),
+                        label: 'Confirmar',
+                        onPressed: () => salvar())
                   ],
                 ),
               ),
@@ -182,16 +180,40 @@ class _EditarPerfilState extends State<EditarPerfil> {
   void salvar() async {
     {
       if (perfilController.senha == perfilController.confirmacaoSenha) {
-        bool confirmacao = await perfilController.alterarUser(perfilController.id);
+        bool confirmacao =
+            await perfilController.alterarUser(perfilController.id);
         if (confirmacao) {
-
-          //Trocar snackbar por flash
-          print("ok");
+          await showAlertDialog1(context, confirmacao);
         }
-        Navigator.of(context).pop();
       } else {
         focusNode.requestFocus();
       }
     }
+  }
+
+  showAlertDialog1(BuildContext context, bool confirm) {
+    // configura o button
+    Widget okButton = FlatButton(
+      child: Text("OK"),
+      onPressed: () {
+        Navigator.of(context).pop();
+        Navigator.pushNamed(context, '/home');
+      },
+    );
+    // configura o  AlertDialog
+    AlertDialog alerta = AlertDialog(
+      title: (confirm)? Text("Sucesso") : Text("Erro"),
+      content:  (confirm)? Text("Usuário editado com sucesso") : Text("Ocorreu um erro ao editar o usuário"),
+      actions: [
+        okButton,
+      ],
+    );
+    // exibe o dialog
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return alerta;
+      },
+    );
   }
 }
