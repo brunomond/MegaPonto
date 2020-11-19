@@ -14,6 +14,8 @@ class StdTextInput extends StatelessWidget {
   final IconButton suffixIcon;
   final bool isPhone;
   final bool isTime;
+  final bool isDate;
+  final bool isCpf;
   final EdgeInsets iconsPadding;
   final FormFieldValidator<String> validator;
   final FormFieldSetter<String> onSaved;
@@ -21,6 +23,9 @@ class StdTextInput extends StatelessWidget {
   final Function(String) onChanged;
   final bool enabled;
   final TextEditingController controller;
+  final String initualValue;
+  final FocusNode focusNode;
+  final String erroTexto;
 
   StdTextInput(
       {this.keyboardType,
@@ -32,13 +37,18 @@ class StdTextInput extends StatelessWidget {
       this.suffixIcon,
       this.isPhone = false,
       this.isTime = false,
+      this.isDate = false,
+      this.isCpf = false,
       this.iconsPadding,
       this.validator,
       this.onSaved,
       this.done = false,
       this.onChanged,
       this.enabled = true,
-      this.controller});
+      this.initualValue,
+      this.controller,
+      this.focusNode,
+      this.erroTexto});
 
   final phoneMask = new MaskTextInputFormatter(
       mask: '(##) #####-####', filter: {'#': RegExp(r'[0-9]')});
@@ -46,12 +56,19 @@ class StdTextInput extends StatelessWidget {
   final timeMask = new MaskTextInputFormatter(
       mask: '##:##:##', filter: {'#': RegExp(r'[0-9]')});
 
+  final dateMask = new MaskTextInputFormatter(
+      mask: '##/##/####', filter: {'#': RegExp(r'[0-9]')});
+ 
+  final cpfMask = new MaskTextInputFormatter(
+      mask: '###.###.###-##', filter: {'#': RegExp(r'[0-9]')});
   @override
   Widget build(BuildContext context) {
     return Padding(
       padding: padding ?? EdgeInsets.all(8),
       child: TextFormField(
         controller: controller,
+        initialValue: initualValue,
+        focusNode: focusNode,
         textAlignVertical: TextAlignVertical.center,
         cursorColor: Globals.theme.primaryColor,
         keyboardType: keyboardType ?? TextInputType.text,
@@ -62,6 +79,7 @@ class StdTextInput extends StatelessWidget {
             ? FocusScope.of(context).nextFocus()
             : FocusScope.of(context).unfocus(),
         decoration: InputDecoration(
+          errorText: erroTexto,
           hintText: null,
           labelText: hintText != null && hintText.isNotEmpty ? hintText : null,
           prefixIcon: prefixIcon != null
@@ -77,7 +95,11 @@ class StdTextInput extends StatelessWidget {
             ? [phoneMask]
             : isTime
                 ? [timeMask]
-                : null,
+                : isDate
+                  ? [dateMask]
+                  : isCpf
+                    ? [cpfMask]
+                    : null,
         validator: validator,
         onSaved: onSaved,
         onChanged: onChanged,

@@ -17,9 +17,8 @@ class Globals {
       MegaPonto.mainState.currentContext,
       listen: false);
   static String userId;
-  static String token = sessionController.loggedUser.token;
   static final Map<String, String> noAuthToken = {
-        HttpHeaders.contentTypeHeader: 'application/json'
+    HttpHeaders.contentTypeHeader: 'application/json'
   };
   static final Map<String, String> tokenHeader = {
     HttpHeaders.contentTypeHeader: 'application/json',

@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:megaponto_oficial/Controller/perfil_controller.dart';
 import 'package:megaponto_oficial/Resources/Globals.dart';
 import 'package:megaponto_oficial/View/Utils/GradientAppBar.dart';
 import 'package:megaponto_oficial/View/Utils/StdTextInput.dart';
 import 'package:megaponto_oficial/View/Utils/StdButton.dart';
+import 'package:flutter_mobx/flutter_mobx.dart';
 
 class EditarPerfil extends StatefulWidget {
   @override
@@ -12,6 +14,9 @@ class EditarPerfil extends StatefulWidget {
 class _EditarPerfilState extends State<EditarPerfil> {
   bool isPasswordVisible = false;
   bool isConfirmPasswordVisible = false;
+  var focusNode = new FocusNode();
+
+  PerfilController perfilController = PerfilController();
 
   @override
   void initState() {
@@ -22,104 +27,116 @@ class _EditarPerfilState extends State<EditarPerfil> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: GradientAppBar(
-        text: 'Editar Perfil',
-        actions: <Widget>[
-          IconButton(
-            icon: Icon(
-              Icons.done,
-              color: Colors.white,
-            ),
-            onPressed: () => Navigator.of(context).pop(),
-          ),
-//        SizedBox(width: 8)
-        ],
-      ),
-      body: LayoutBuilder(
-          builder: (BuildContext context, BoxConstraints viewportConstraints) {
-        return SingleChildScrollView(
-          child: Form(
-            child: Padding(
-              padding: const EdgeInsets.all(16.0),
-              child: Column(
-                children: <Widget>[
-                  Padding(
-                    padding: const EdgeInsets.only(top: 16.0),
-                    child: SizedBox(
-                        width: 128,
-                        height: 128,
-                        child: CircleAvatar(
-                          radius: 50,
-                          backgroundImage:
-                              AssetImage('images/abott@adorable.png'),
-                        )),
-                  ),
-                  GestureDetector(
-                    onTap: () {
-                      alterarFotoPopUp(context);
-                    },
-                    child: Text(
-                      "Alterar foto de perfil",
-                      style: Globals.textTheme.headline6.copyWith(
-                          color: Globals.theme.primaryColor,
-                          fontStyle: FontStyle.normal),
+    return Observer(builder: (_) {
+      return Scaffold(
+        appBar: GradientAppBar(
+          text: 'Editar Perfil',
+          actions: <Widget>[
+            IconButton(
+                icon: Icon(
+                  Icons.done,
+                  color: Colors.white,
+                ),
+                onPressed: () => salvar()),
+          SizedBox(width: 8)
+          ],
+        ),
+        body: LayoutBuilder(builder:
+            (BuildContext context, BoxConstraints viewportConstraints) {
+          return SingleChildScrollView(
+            child: Form(
+              child: Padding(
+                padding: const EdgeInsets.all(16.0),
+                child: Column(
+                  children: <Widget>[
+                    Padding(
+                      padding: const EdgeInsets.only(top: 16.0),
+                      child: SizedBox(
+                          width: 128,
+                          height: 128,
+                          child: CircleAvatar(
+                            radius: 50,
+                            backgroundImage:
+                                AssetImage('images/abott@adorable.png'),
+                          )),
                     ),
-                  ),
-                  StdTextInput(
-                    padding: EdgeInsets.fromLTRB(8.0, 16, 8, 8),
-                    hintText: 'Nome Completo',
-                    prefixIcon: Icons.person,
-                  ),
-                  StdTextInput(
-                    keyboardType: TextInputType.emailAddress,
-                    hintText: 'E-mail',
-                    prefixIcon: Icons.email,
-                  ),
-                  StdTextInput(
-                      hintText: 'Senha',
+                    GestureDetector(
+                      onTap: () {
+                        alterarFotoPopUp(context);
+                      },
+                      child: Text(
+                        "Alterar foto de perfil",
+                        style: Globals.textTheme.headline6.copyWith(
+                            color: Globals.theme.primaryColor,
+                            fontStyle: FontStyle.normal),
+                      ),
+                    ),
+                    StdTextInput(
+                      padding: EdgeInsets.fromLTRB(8.0, 16, 8, 8),
+                      hintText: 'Nome Completo',
+                      prefixIcon: Icons.person,
+                      initualValue: perfilController.nome,
+                      onChanged: perfilController.setNome,
+                    ),
+                    StdTextInput(
+                      keyboardType: TextInputType.emailAddress,
+                      hintText: 'E-mail',
+                      prefixIcon: Icons.email,
+                      initualValue: perfilController.email,
+                      onChanged: perfilController.setEmail,
+                    ),
+                    StdTextInput(
+                        hintText: 'Senha',
+                        prefixIcon: Icons.vpn_key,
+                        obscureText: !isPasswordVisible,
+                        onChanged: perfilController.setSenha,
+                        suffixIcon: IconButton(
+                          icon: Icon(isPasswordVisible
+                              ? Icons.visibility
+                              : Icons.visibility_off),
+                          onPressed: () => _trocarVisibilidadeSenha(true),
+                        )),
+                    StdTextInput(
+                      hintText: 'Confirmar Senha',
+                      erroTexto: perfilController.confirmacaoErrada,
                       prefixIcon: Icons.vpn_key,
-                      obscureText: !isPasswordVisible,
+                      obscureText: !isConfirmPasswordVisible,
+                      onChanged: perfilController.setConfirmacaoSenha,
+                      focusNode: focusNode,
                       suffixIcon: IconButton(
-                        icon: Icon(isPasswordVisible
+                        icon: Icon(isConfirmPasswordVisible
                             ? Icons.visibility
                             : Icons.visibility_off),
-                        onPressed: () => _trocarVisibilidadeSenha(true),
-                      )),
-                  StdTextInput(
-                    hintText: 'Confirmar Senha',
-                    prefixIcon: Icons.vpn_key,
-                    obscureText: !isConfirmPasswordVisible,
-                    suffixIcon: IconButton(
-                      icon: Icon(isConfirmPasswordVisible
-                          ? Icons.visibility
-                          : Icons.visibility_off),
-                      onPressed: () => _trocarVisibilidadeSenha(false),
+                        onPressed: () => _trocarVisibilidadeSenha(false),
+                      ),
                     ),
-                  ),
-                  StdTextInput(
-                    hintText: 'Apelido',
-                    prefixIcon: Icons.person_pin,
-                  ),
-                  StdTextInput(
-                    keyboardType: TextInputType.phone,
-                    hintText: 'Tel: (xx) xxxxx-xxxx',
-                    prefixIcon: Icons.phone,
-                    isPhone: true,
-                    done: true,
-                  ),
-                  StdButton(
-                    padding: EdgeInsets.only(top: 24),
-                    label: 'Confirmar',
-                    onPressed: () => null,
-                  )
-                ],
+                    StdTextInput(
+                      hintText: 'Apelido',
+                      prefixIcon: Icons.person_pin,
+                      initualValue: perfilController.apelido,
+                      onChanged: perfilController.setApelido,
+                    ),
+                    StdTextInput(
+                      keyboardType: TextInputType.phone,
+                      hintText: 'Tel: (xx) xxxxx-xxxx',
+                      prefixIcon: Icons.phone,
+                      isPhone: true,
+                      done: true,
+                      initualValue: perfilController.celular,
+                      onChanged: perfilController.setCelular,
+                    ),
+                    StdButton(
+                        padding: EdgeInsets.only(top: 24),
+                        label: 'Confirmar',
+                        onPressed: () => salvar())
+                  ],
+                ),
               ),
             ),
-          ),
-        );
-      }),
-    );
+          );
+        }),
+      );
+    });
   }
 
   alterarFotoPopUp(BuildContext context) {
@@ -158,5 +175,45 @@ class _EditarPerfilState extends State<EditarPerfil> {
     senha
         ? setState(() => isPasswordVisible = !isPasswordVisible)
         : setState(() => isConfirmPasswordVisible = !isConfirmPasswordVisible);
+  }
+
+  void salvar() async {
+    {
+      if (perfilController.senha == perfilController.confirmacaoSenha) {
+        bool confirmacao =
+            await perfilController.alterarUser(perfilController.id);
+        if (confirmacao) {
+          await showAlertDialog1(context, confirmacao);
+        }
+      } else {
+        focusNode.requestFocus();
+      }
+    }
+  }
+
+  showAlertDialog1(BuildContext context, bool confirm) {
+    // configura o button
+    Widget okButton = FlatButton(
+      child: Text("OK"),
+      onPressed: () {
+        Navigator.of(context).pop();
+        Navigator.pushNamed(context, '/home');
+      },
+    );
+    // configura o  AlertDialog
+    AlertDialog alerta = AlertDialog(
+      title: (confirm)? Text("Sucesso") : Text("Erro"),
+      content:  (confirm)? Text("Usuário editado com sucesso") : Text("Ocorreu um erro ao editar o usuário"),
+      actions: [
+        okButton,
+      ],
+    );
+    // exibe o dialog
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return alerta;
+      },
+    );
   }
 }

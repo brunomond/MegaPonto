@@ -6,6 +6,7 @@ import 'package:megaponto_oficial/Resources/Globals.dart';
 import 'package:megaponto_oficial/View/Utils/ErrorSnackBar.dart';
 import 'package:onesignal_flutter/onesignal_flutter.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:permission_handler/permission_handler.dart';
 
 const String URL_LOGIN = 'https://paineljunior.com.br/api/login.json';
 const String URL_PLAYERID = 'https://paineljunior.com.br/api/usuarios/put/';
@@ -35,6 +36,12 @@ class LoginService {
   }
 
   void enviarPlayerId() async {
+    var permission = await Permission.notification.status;
+
+    if (!permission.isGranted) {
+      openAppSettings();
+    }
+
     OneSignal.shared.init('50e5b17c-989a-4fe5-84ab-e10c6871e889');
     OneSignal.shared
         .setInFocusDisplayType(OSNotificationDisplayType.notification);

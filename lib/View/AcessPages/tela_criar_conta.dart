@@ -1,15 +1,21 @@
 import 'package:flutter/material.dart';
+import 'package:megaponto_oficial/Controller/user_controller.dart';
 import 'package:megaponto_oficial/Resources/Globals.dart';
 import 'package:megaponto_oficial/View/Utils/GradientAppBar.dart';
 import 'package:megaponto_oficial/View/Utils/StdButton.dart';
 import 'package:megaponto_oficial/View/Utils/StdTextInput.dart';
 
 class CriarConta extends StatefulWidget {
+    
+  final int ejId;
+  CriarConta({this.ejId});
+
   @override
   _CriarContaState createState() => _CriarContaState();
 }
 
 class _CriarContaState extends State<CriarConta> {
+  UserController controller = UserController();
   bool isPasswordVisible = false;
   bool isConfirmPasswordVisible = false;
 
@@ -17,6 +23,7 @@ class _CriarContaState extends State<CriarConta> {
   void initState() {
     isPasswordVisible = false;
     isConfirmPasswordVisible = false;
+    controller.user.empresas_juniore_id = widget.ejId;
     super.initState();
   }
 
@@ -57,18 +64,26 @@ class _CriarContaState extends State<CriarConta> {
                 child: Column(children: <Widget>[
               StdTextInput(
                 padding: EdgeInsets.fromLTRB(8.0, 16, 8, 8),
-                hintText: 'Nome Completo',
+                hintText: 'Nome',
                 prefixIcon: Icons.person,
+                onChanged: (value) => controller.user.nome = value,
+              ),
+              StdTextInput(
+                hintText: 'Sobrenome',
+                prefixIcon: Icons.person,
+                onChanged: (value) => controller.user.sobrenome = value,
               ),
               StdTextInput(
                 keyboardType: TextInputType.emailAddress,
                 hintText: 'E-mail',
                 prefixIcon: Icons.email,
+                onChanged: (value) => controller.user.email = value,
               ),
               StdTextInput(
                   hintText: 'Senha',
                   prefixIcon: Icons.vpn_key,
                   obscureText: !isPasswordVisible,
+                  onChanged: controller.setPassword,
                   suffixIcon: IconButton(
                     icon: Icon(isPasswordVisible
                         ? Icons.visibility
@@ -89,12 +104,27 @@ class _CriarContaState extends State<CriarConta> {
               StdTextInput(
                 hintText: 'Apelido',
                 prefixIcon: Icons.person_pin,
+                onChanged: (value) => controller.user.apelido = value,
+              ),
+              StdTextInput(
+                keyboardType: TextInputType.number,
+                hintText: 'CPF',
+                prefixIcon: Icons.fingerprint,
+                isCpf: true
               ),
               StdTextInput(
                 keyboardType: TextInputType.phone,
                 hintText: 'Tel: (xx) xxxxx-xxxx',
                 prefixIcon: Icons.phone,
-                isPhone: true,
+                onChanged: (value) => controller.user.celular = value,
+                isPhone: true
+              ),
+              StdTextInput(
+                keyboardType: TextInputType.number,
+                hintText: 'Data de nascimento',
+                prefixIcon: Icons.calendar_today,
+                onChanged: (value) => controller.user.nascimento = value,
+                isDate: true,
                 done: true,
               ),
               StdButton(

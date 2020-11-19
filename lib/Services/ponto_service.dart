@@ -40,13 +40,12 @@ class PontoService {
     http.Response response =
         await http.get(URL_INFO_PLANTAO, headers: Globals.tokenHeader);
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    prefs.setBool('pontoAtivo', response.statusCode == 200);
 
-    return prefs.get('pontoAtivo');
+    Map parsedJson = json.decode(response.body);
+    
+    prefs.setBool('pontoAtivo', parsedJson['ligado']);
+
+    return parsedJson['ligado'];
   }
 
-  String obterUrlComToken(String url) {
-    String urlToken = url + Globals.sessionController.loggedUser.token;
-    return urlToken;
-  }
 }
