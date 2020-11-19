@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:intl/number_symbols_data.dart';
 import 'package:megaponto_oficial/Resources/Globals.dart';
 import 'package:megaponto_oficial/View/Utils/GradientAppBar.dart';
 import 'package:megaponto_oficial/View/Utils/StdTextInput.dart';
@@ -43,69 +44,23 @@ class _AdmEditarPerfilState extends State<AdmEditarPerfil> {
               padding: const EdgeInsets.all(16.0),
               child: Column(
                 children: <Widget>[
-                  Padding(
-                    padding: const EdgeInsets.only(top: 16.0),
-                    child: SizedBox(
-                        width: 128,
-                        height: 128,
-                        child: CircleAvatar(
-                          radius: 50,
-                          backgroundImage:
-                              AssetImage('images/abott@adorable.png'),
-                        )),
-                  ),
-                  GestureDetector(
-                    onTap: () {
-                      alterarFotoPopUp(context);
-                    },
-                    child: Text(
-                      "Alterar foto de perfil",
-                      style: Globals.textTheme.headline6.copyWith(
-                          color: Globals.theme.primaryColor,
-                          fontStyle: FontStyle.normal),
-                    ),
-                  ),
-                  StdTextInput(
-                    padding: EdgeInsets.fromLTRB(8.0, 16, 8, 8),
-                    hintText: 'Nome Completo',
-                    prefixIcon: Icons.person,
-                  ),
-                  StdTextInput(
-                    keyboardType: TextInputType.emailAddress,
-                    hintText: 'E-mail',
-                    prefixIcon: Icons.email,
-                  ),
-                  StdTextInput(
-                      hintText: 'Senha',
-                      prefixIcon: Icons.vpn_key,
-                      obscureText: !isPasswordVisible,
-                      suffixIcon: IconButton(
-                        icon: Icon(isPasswordVisible
-                            ? Icons.visibility
-                            : Icons.visibility_off),
-                        onPressed: () => _trocarVisibilidadeSenha(true),
-                      )),
-                  StdTextInput(
-                    hintText: 'Confirmar Senha',
-                    prefixIcon: Icons.vpn_key,
-                    obscureText: !isConfirmPasswordVisible,
-                    suffixIcon: IconButton(
-                      icon: Icon(isConfirmPasswordVisible
-                          ? Icons.visibility
-                          : Icons.visibility_off),
-                      onPressed: () => _trocarVisibilidadeSenha(false),
-                    ),
-                  ),
-                  StdTextInput(
-                    hintText: 'Apelido',
-                    prefixIcon: Icons.person_pin,
-                  ),
+                  imagemPerfil(),
+                  nomePerfil(),
+                  emailPerfil(),
+                  senhaPerfil(),
                   StdTextInput(
                     keyboardType: TextInputType.phone,
                     hintText: 'Tel: (xx) xxxxx-xxxx',
                     prefixIcon: Icons.phone,
                     isPhone: true,
                     done: true,
+                  ),
+                  horasPerfil(),
+                  Row(
+                    children: [
+                      Checkbox(value: false, onChanged: null),
+                      Text('Administrador'),
+                    ],
                   ),
                   StdButton(
                     padding: EdgeInsets.only(top: 24),
@@ -157,5 +112,101 @@ class _AdmEditarPerfilState extends State<AdmEditarPerfil> {
     senha
         ? setState(() => isPasswordVisible = !isPasswordVisible)
         : setState(() => isConfirmPasswordVisible = !isConfirmPasswordVisible);
+  }
+
+  Widget imagemPerfil() {
+    return Column(
+      children: [
+        Padding(
+          padding: const EdgeInsets.only(top: 16.0),
+          child: SizedBox(
+              width: 128,
+              height: 128,
+              child: CircleAvatar(
+                radius: 50,
+                backgroundImage: AssetImage('images/abott@adorable.png'),
+              )),
+        ),
+        GestureDetector(
+          onTap: () {
+            alterarFotoPopUp(context);
+          },
+          child: Text(
+            "Alterar foto de perfil",
+            style: Globals.textTheme.headline6.copyWith(
+                color: Globals.theme.primaryColor, fontStyle: FontStyle.normal),
+          ),
+        ),
+      ],
+    );
+  }
+
+  Widget nomePerfil() {
+    return Column(
+      children: [
+        StdTextInput(
+          padding: EdgeInsets.fromLTRB(8.0, 16, 8, 8),
+          hintText: 'Nome Completo',
+          prefixIcon: Icons.person,
+        ),
+        StdTextInput(
+          hintText: 'Apelido',
+          prefixIcon: Icons.person_pin,
+        ),
+      ],
+    );
+  }
+
+  Widget emailPerfil() {
+    return Column(
+      children: [
+        StdTextInput(
+          keyboardType: TextInputType.emailAddress,
+          hintText: 'E-mail',
+          prefixIcon: Icons.email,
+        ),
+        StdTextInput(
+          keyboardType: TextInputType.emailAddress,
+          hintText: 'Confirmar E-mail',
+          prefixIcon: Icons.email,
+        ),
+      ],
+    );
+  }
+
+  Widget senhaPerfil() {
+    return Column(
+      children: [
+        StdTextInput(
+            hintText: 'Senha',
+            prefixIcon: Icons.vpn_key,
+            obscureText: !isPasswordVisible,
+            suffixIcon: IconButton(
+              icon: Icon(
+                  isPasswordVisible ? Icons.visibility : Icons.visibility_off),
+              onPressed: () => _trocarVisibilidadeSenha(true),
+            )),
+        StdTextInput(
+          hintText: 'Confirmar Senha',
+          prefixIcon: Icons.vpn_key,
+          obscureText: !isConfirmPasswordVisible,
+          suffixIcon: IconButton(
+            icon: Icon(isConfirmPasswordVisible
+                ? Icons.visibility
+                : Icons.visibility_off),
+            onPressed: () => _trocarVisibilidadeSenha(false),
+          ),
+        ),
+      ],
+    );
+  }
+
+  Widget horasPerfil() {
+    return StdTextInput(
+      prefixIcon: Icons.access_time,
+      keyboardType: TextInputType.number,
+      isTime: true,
+      hintText: 'HH:MM:SS',
+    );
   }
 }
