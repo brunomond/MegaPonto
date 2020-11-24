@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:intl/number_symbols_data.dart';
+import 'package:megaponto_oficial/Controller/perfil_controller.dart';
+import 'package:megaponto_oficial/Model/usuario.dart';
 import 'package:megaponto_oficial/Resources/Globals.dart';
+import 'package:megaponto_oficial/View/Utils/FormatDuration.dart';
 import 'package:megaponto_oficial/View/Utils/GradientAppBar.dart';
 import 'package:megaponto_oficial/View/Utils/StdTextInput.dart';
 import 'package:megaponto_oficial/View/Utils/StdButton.dart';
@@ -8,14 +11,23 @@ import 'package:megaponto_oficial/View/Utils/StdButton.dart';
 class AdmEditarPerfil extends StatefulWidget {
   @override
   _AdmEditarPerfilState createState() => _AdmEditarPerfilState();
+
+  final Usuario user;
+
+  AdmEditarPerfil({this.user});
 }
 
 class _AdmEditarPerfilState extends State<AdmEditarPerfil> {
   bool isPasswordVisible = false;
   bool isConfirmPasswordVisible = false;
 
+  Usuario usuario = Usuario();
+
   @override
   void initState() {
+    setState(() {
+      usuario = widget.user;
+    });
     isPasswordVisible = false;
     isConfirmPasswordVisible = false;
     super.initState();
@@ -45,17 +57,19 @@ class _AdmEditarPerfilState extends State<AdmEditarPerfil> {
               child: Column(
                 children: <Widget>[
                   imagemPerfil(),
-                  nomePerfil(),
-                  emailPerfil(),
+                  nomePerfil(usuario.nome),
+                  emailPerfil(usuario.email),
                   senhaPerfil(),
                   StdTextInput(
                     keyboardType: TextInputType.phone,
                     hintText: 'Tel: (xx) xxxxx-xxxx',
                     prefixIcon: Icons.phone,
+                    initualValue: usuario.celular,
                     isPhone: true,
                     done: true,
+                    onSaved: (value) => setState(() => usuario.celular = value),
                   ),
-                  horasPerfil(),
+                  horasPerfil(usuario.total_mes),
                   Row(
                     children: [
                       Checkbox(value: false, onChanged: null),
@@ -141,12 +155,13 @@ class _AdmEditarPerfilState extends State<AdmEditarPerfil> {
     );
   }
 
-  Widget nomePerfil() {
+  Widget nomePerfil(String nome) {
     return Column(
       children: [
         StdTextInput(
           padding: EdgeInsets.fromLTRB(8.0, 16, 8, 8),
           hintText: 'Nome Completo',
+          initualValue: nome,
           prefixIcon: Icons.person,
         ),
         StdTextInput(
@@ -157,12 +172,13 @@ class _AdmEditarPerfilState extends State<AdmEditarPerfil> {
     );
   }
 
-  Widget emailPerfil() {
+  Widget emailPerfil(String email) {
     return Column(
       children: [
         StdTextInput(
           keyboardType: TextInputType.emailAddress,
           hintText: 'E-mail',
+          initualValue: email,
           prefixIcon: Icons.email,
         ),
         StdTextInput(
@@ -201,12 +217,13 @@ class _AdmEditarPerfilState extends State<AdmEditarPerfil> {
     );
   }
 
-  Widget horasPerfil() {
+  Widget horasPerfil(int horas) {
     return StdTextInput(
       prefixIcon: Icons.access_time,
       keyboardType: TextInputType.number,
       isTime: true,
       hintText: 'HH:MM:SS',
+      initualValue: formatDuration(Duration(seconds: horas)),
     );
   }
 }

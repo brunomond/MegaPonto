@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:megaponto_oficial/Model/usuario.dart';
 import 'package:megaponto_oficial/Services/admin_service.dart';
+import 'package:megaponto_oficial/View/AdmPages/tela_adm_perfil.dart';
 
 class MembrosCrud extends StatelessWidget {
-  final List lista;
+  final List<Usuario> lista;
   final int index;
   MembrosCrud({@required this.lista, @required this.index});
 
@@ -45,7 +47,7 @@ class MembrosCrud extends StatelessWidget {
                             ]
                           )
                         ),
-                        onTap: () => Navigator.of(context).pushNamed('/adm_perfil')
+                        onTap: () => Navigator.push(context, MaterialPageRoute(builder: (context) => AdmEditarPerfil(user: lista[index])))
                       ),
                       GestureDetector(
                         behavior: HitTestBehavior.opaque,
@@ -70,7 +72,10 @@ class MembrosCrud extends StatelessWidget {
     await AdminService()
         .deletarMembro(lista[index].usuarioId)
         .then((confirmacao) {
-          if(confirmacao == true) Navigator.of(context).pop();
+          if(confirmacao == true) {
+            lista.remove(lista[index]);
+            Navigator.of(context).pop();
+          }
     });
   }
 }
