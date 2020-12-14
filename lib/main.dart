@@ -7,7 +7,9 @@ import 'package:megaponto_oficial/View/AdmPages/tela_adm_perfil.dart';
 import 'package:megaponto_oficial/View/AdmPages/tela_edit_funcionario.dart';
 import 'package:megaponto_oficial/View/AdmPages/tela_editar_aplicativo.dart';
 import 'package:megaponto_oficial/View/AdmPages/tela_nomenclatura.dart';
+import 'package:megaponto_oficial/View/HomePage/tela_criar_noticia.dart';
 import 'package:megaponto_oficial/View/HomePage/tela_editar_perfil.dart';
+import 'package:megaponto_oficial/View/HomePage/tela_feed.dart';
 import 'package:provider/provider.dart';
 
 //Telas
@@ -55,6 +57,8 @@ class MegaPonto extends StatelessWidget {
           '/chave_acesso': (context) => Access.withItem(itemIndex: 1),
           '/esqueceu_senha': (context) => Access.withItem(itemIndex: 2),
           '/criar_conta': (context) => CriarConta(),
+          '/feed': (context) => Feed(),
+          '/criar_noticia': (context) => CriarNoticia(),
           '/editar_perfil': (context) => EditarPerfil()
         },
         theme: ThemeData(
