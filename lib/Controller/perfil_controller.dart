@@ -123,5 +123,8 @@ abstract class _PerfilControllerBase with Store {
     apelido = user.apelido;
     celular = user.celular;
     id = user.usuarioId;
+    tempoSemana = user.total_semana;
+    tempoMes = user.total_mes;
+    tempoAno = user.total_ano;
   }
 }

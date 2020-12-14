@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:megaponto_oficial/Controller/perfil_controller.dart';
 import 'package:megaponto_oficial/Resources/Globals.dart';
+import 'package:megaponto_oficial/View/Utils/FormatDuration.dart';
+import 'package:megaponto_oficial/View/Utils/TranformaTempo.dart';
 
 class TempoPerfil extends StatefulWidget {
   @override
@@ -10,6 +12,12 @@ class TempoPerfil extends StatefulWidget {
 
 class _TempoPerfilState extends State<TempoPerfil> {
   PerfilController controller = PerfilController();
+
+  @override
+  void initState() {
+    controller.carregaTempo();
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -37,14 +45,14 @@ class _TempoPerfilState extends State<TempoPerfil> {
   Widget _tempoSMA(int horasAcumuladas, String sma) {
     return SizedBox(
         height: Globals.windowSize.height * 0.2,
-        width: Globals.windowSize.width * 0.2,
+        width: Globals.windowSize.width * 0.23,
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
           mainAxisAlignment: MainAxisAlignment.end,
           mainAxisSize: MainAxisSize.max,
           children: <Widget>[
             Text(
-              horasAcumuladas.toString(),
+              TransformaTempo(horasAcumuladas).toString(),
               maxLines: 2,
               textAlign: TextAlign.center,
               style: TextStyle(fontSize: 20),
