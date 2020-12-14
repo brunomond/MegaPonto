@@ -14,6 +14,8 @@ class StdTextInput extends StatelessWidget {
   final IconButton suffixIcon;
   final bool isPhone;
   final bool isTime;
+  final bool isDate;
+  final bool isCpf;
   final EdgeInsets iconsPadding;
   final FormFieldValidator<String> validator;
   final FormFieldSetter<String> onSaved;
@@ -35,6 +37,8 @@ class StdTextInput extends StatelessWidget {
       this.suffixIcon,
       this.isPhone = false,
       this.isTime = false,
+      this.isDate = false,
+      this.isCpf = false,
       this.iconsPadding,
       this.validator,
       this.onSaved,
@@ -52,6 +56,11 @@ class StdTextInput extends StatelessWidget {
   final timeMask = new MaskTextInputFormatter(
       mask: '##:##:##', filter: {'#': RegExp(r'[0-9]')});
 
+  final dateMask = new MaskTextInputFormatter(
+      mask: '##/##/####', filter: {'#': RegExp(r'[0-9]')});
+ 
+  final cpfMask = new MaskTextInputFormatter(
+      mask: '###.###.###-##', filter: {'#': RegExp(r'[0-9]')});
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -86,7 +95,11 @@ class StdTextInput extends StatelessWidget {
             ? [phoneMask]
             : isTime
                 ? [timeMask]
-                : null,
+                : isDate
+                  ? [dateMask]
+                  : isCpf
+                    ? [cpfMask]
+                    : null,
         validator: validator,
         onSaved: onSaved,
         onChanged: onChanged,

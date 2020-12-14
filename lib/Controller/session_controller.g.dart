@@ -39,6 +39,13 @@ mixin _$SessionController on _SessionControllerBase, Store {
     });
   }
 
+  final _$logoutAsyncAction = AsyncAction('_SessionControllerBase.logout');
+
+  @override
+  Future logout(BuildContext context) {
+    return _$logoutAsyncAction.run(() => super.logout(context));
+  }
+
   final _$_SessionControllerBaseActionController =
       ActionController(name: '_SessionControllerBase');
 

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:megaponto_oficial/Services/admin_service.dart';
 
 class MembrosCrud extends StatelessWidget {
   final List lista;
@@ -33,28 +34,43 @@ class MembrosCrud extends StatelessWidget {
                   Text(lista[index].nome),
                   Column(
                     children: [
-                      gestureCRUD(context, 'editar'),
-                      gestureCRUD(context, 'deletar'),
+                      GestureDetector(
+                        behavior: HitTestBehavior.opaque,
+                        child: Padding(
+                          padding: EdgeInsets.fromLTRB(15, 15, 15, 15),
+                          child: Row(
+                            children: [
+                              Icon(Icons.edit),
+                              Text('editar')
+                            ]
+                          )
+                        ),
+                        onTap: () => Navigator.of(context).pushNamed('/adm_perfil')
+                      ),
+                      GestureDetector(
+                        behavior: HitTestBehavior.opaque,
+                        child: Padding(
+                          padding: EdgeInsets.fromLTRB(15, 15, 15, 15),
+                          child: Row(
+                            children: [
+                            Icon(Icons.delete, color: Colors.red),
+                            Text('deletar')
+                            ]
+                          ),
+                        ),
+                      onTap: () => exclui(context)
+                      ),
                     ],
                   ),
                 ],
               ),
             )));
   }
-
-  Widget gestureCRUD(BuildContext context, String crud) {
-    return GestureDetector(
-      behavior: HitTestBehavior.opaque,
-      child: Padding(
-        padding: EdgeInsets.fromLTRB(15, 15, 15, 15),
-        child: Row(children: [
-          crud == 'editar'
-              ? Icon(Icons.edit)
-              : Icon(Icons.delete, color: Colors.red),
-          Text(crud)
-        ]),
-      ),
-      onTap: () => Navigator.of(context).pushNamed('/adm_perfil'),
-    );
+  void exclui(BuildContext context) async {
+    await AdminService()
+        .deletarMembro(lista[index].usuarioId)
+        .then((confirmacao) {
+          if(confirmacao == true) Navigator.of(context).pop();
+    });
   }
 }

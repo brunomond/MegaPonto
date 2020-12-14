@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:megaponto_oficial/Controller/ponto_controller.dart';
+import 'package:megaponto_oficial/Resources/Globals.dart';
 import 'package:megaponto_oficial/View//HomePage/Widgets/BottomApp.dart';
 import 'package:megaponto_oficial/View/HomePage/tela_leaderboard.dart';
 import 'package:megaponto_oficial/View/Utils/ConstPopupMenu.dart';
@@ -74,9 +76,7 @@ class _HomeState extends State<Home> {
 
   void _logOut() async {
     await SharedPreferences.getInstance().then((prefs) {
-      prefs.remove(prefs.getString('loginAuth'));
-      prefs.remove('loginAuth');
-      Navigator.pushNamedAndRemoveUntil(context, '/login', (route) => false);
+      Globals.sessionController.logout(context);
     });
   }
 

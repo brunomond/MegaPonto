@@ -7,10 +7,13 @@ const String URL_CADASTRAR_USUARIO = '${Globals.BASE_URL}/usuarios/post.json';
 
 class UserService {
 
-    Future<bool> cadastro(Usuario user) async {
+    Future<bool> cadastro(Usuario user, String pass) async {
+
+      Map<String, dynamic> body = user.toMap();
+      body['senha'] = pass;
 
       http.Response response = 
-      await http.post(URL_CADASTRAR_USUARIO, body: user.toMap(), headers: Globals.noAuthToken);
+      await http.post(URL_CADASTRAR_USUARIO, body: body, headers: Globals.noAuthToken);
 
       return (response.statusCode == 200);
     }
