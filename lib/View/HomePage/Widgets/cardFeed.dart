@@ -8,7 +8,7 @@ class CardFeed extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-        padding: EdgeInsets.fromLTRB(20, 5, 20, 0),
+        padding: EdgeInsets.fromLTRB(20, 5, 20, 5),
         child: GestureDetector(
           child: Card(
             shape: RoundedRectangleBorder(
@@ -18,6 +18,7 @@ class CardFeed extends StatelessWidget {
             child: Padding(
               padding: EdgeInsets.fromLTRB(20, 10, 20, 2),
               child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Row(
                     children: [
@@ -39,13 +40,12 @@ class CardFeed extends StatelessWidget {
                             Padding(
                               padding: EdgeInsets.fromLTRB(0, 2, 0, 3),
                               child: Text(
-                                "Morty Smith",
+                                (lista[index].nomeUsuario != null && lista[index].nomeUsuario != '') ? lista[index].nomeUsuario : 'Não tem nome',
                                 style: TextStyle(
                                     fontSize: 20, fontWeight: FontWeight.bold),
                               ),
                             ),
-                            Text(
-                              "04 de Fevereiro às 16:34",
+                            Text(lista[index].created,
                               style: TextStyle(fontSize: 14),
                             )
                           ],
@@ -56,9 +56,7 @@ class CardFeed extends StatelessWidget {
                   Padding(
                     padding: EdgeInsets.only(top: 10),
                     child: Text(
-                      "Lorem ipsum dolor sit amet, consectetur adipiscing elit,"
-                      " sed do eiusmod tempor incididunt ut labore et dolore"
-                      " magna aliqua. Ut enim ad minim veniam, quis nostrud ",
+                      lista[index].conteudo,
                       style: TextStyle(fontSize: 13),
                     ),
                   ),

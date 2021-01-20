@@ -39,6 +39,9 @@ class _HomeState extends State<Home> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      floatingActionButton: _selectedItem == 0 ? FloatingActionButton(onPressed: (){
+        Navigator.pushNamed(context, '/criar_noticia');
+      }) : null,
       appBar: _selectedItem != 2
           ? GradientAppBar(
               actions: _selectedItem == 4
