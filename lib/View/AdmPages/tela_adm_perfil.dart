@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:intl/number_symbols_data.dart';
+import 'package:megaponto_oficial/Controller/perfil_controller.dart';
+import 'package:megaponto_oficial/Model/usuario.dart';
 import 'package:megaponto_oficial/Resources/Globals.dart';
+import 'package:megaponto_oficial/View/Utils/FormatDuration.dart';
 import 'package:megaponto_oficial/View/Utils/GradientAppBar.dart';
 import 'package:megaponto_oficial/View/Utils/StdTextInput.dart';
 import 'package:megaponto_oficial/View/Utils/StdButton.dart';
@@ -8,14 +12,26 @@ import 'package:megaponto_oficial/View/Utils/StdButton.dart';
 class AdmEditarPerfil extends StatefulWidget {
   @override
   _AdmEditarPerfilState createState() => _AdmEditarPerfilState();
+
+  final Usuario user;
+
+  AdmEditarPerfil({this.user});
 }
 
 class _AdmEditarPerfilState extends State<AdmEditarPerfil> {
   bool isPasswordVisible = false;
   bool isConfirmPasswordVisible = false;
 
+  var focusNode = new FocusNode();
+
+  PerfilController admperfil;
+
+  Usuario usuario = Usuario();
+
   @override
   void initState() {
+    usuario = widget.user;
+    admperfil = PerfilController(user: usuario);
     isPasswordVisible = false;
     isConfirmPasswordVisible = false;
     super.initState();
@@ -32,45 +48,50 @@ class _AdmEditarPerfilState extends State<AdmEditarPerfil> {
               Icons.done,
               color: Colors.white,
             ),
-            onPressed: () => Navigator.of(context).pop(),
+            onPressed: () => salvar(),
           ),
         ],
       ),
       body: LayoutBuilder(
           builder: (BuildContext context, BoxConstraints viewportConstraints) {
         return SingleChildScrollView(
-          child: Form(
-            child: Padding(
-              padding: const EdgeInsets.all(16.0),
-              child: Column(
-                children: <Widget>[
-                  imagemPerfil(),
-                  nomePerfil(),
-                  emailPerfil(),
-                  senhaPerfil(),
-                  StdTextInput(
-                    keyboardType: TextInputType.phone,
-                    hintText: 'Tel: (xx) xxxxx-xxxx',
-                    prefixIcon: Icons.phone,
-                    isPhone: true,
-                    done: true,
-                  ),
-                  horasPerfil(),
-                  Row(
-                    children: [
-                      Checkbox(value: false, onChanged: null),
-                      Text('Administrador'),
-                    ],
-                  ),
-                  StdButton(
-                    padding: EdgeInsets.only(top: 24),
-                    label: 'Confirmar',
-                    onPressed: () => null,
-                  )
-                ],
+          child: Observer(builder: (_) {
+            return Form(
+              child: Padding(
+                padding: const EdgeInsets.all(16.0),
+                child: Column(
+                  children: <Widget>[
+                    imagemPerfil(),
+                    nomePerfil(admperfil.nome),
+                    emailPerfil(admperfil.email),
+                    senhaPerfil(),
+                    StdTextInput(
+                      keyboardType: TextInputType.phone,
+                      hintText: 'Tel: (xx) xxxxx-xxxx',
+                      prefixIcon: Icons.phone,
+                      initualValue: admperfil.celular,
+                      isPhone: true,
+                      done: true,
+                      onSaved: (value) =>
+                          setState(() => admperfil.celular = value),
+                    ),
+                    horasPerfil(admperfil.tempoMes),
+                    Row(
+                      children: [
+                        Checkbox(value: false, onChanged: null),
+                        Text('Administrador'),
+                      ],
+                    ),
+                    StdButton(
+                      padding: EdgeInsets.only(top: 24),
+                      label: 'Confirmar',
+                      onPressed: () => salvar(),
+                    )
+                  ],
+                ),
               ),
-            ),
-          ),
+            );
+          }),
         );
       }),
     );
@@ -141,12 +162,14 @@ class _AdmEditarPerfilState extends State<AdmEditarPerfil> {
     );
   }
 
-  Widget nomePerfil() {
+  Widget nomePerfil(String nome) {
     return Column(
       children: [
         StdTextInput(
           padding: EdgeInsets.fromLTRB(8.0, 16, 8, 8),
           hintText: 'Nome Completo',
+          initualValue: nome,
+          onChanged: admperfil.setNome,
           prefixIcon: Icons.person,
         ),
         StdTextInput(
@@ -157,12 +180,14 @@ class _AdmEditarPerfilState extends State<AdmEditarPerfil> {
     );
   }
 
-  Widget emailPerfil() {
+  Widget emailPerfil(String email) {
     return Column(
       children: [
         StdTextInput(
           keyboardType: TextInputType.emailAddress,
           hintText: 'E-mail',
+          initualValue: email,
+          onChanged: admperfil.setEmail,
           prefixIcon: Icons.email,
         ),
         StdTextInput(
@@ -181,6 +206,7 @@ class _AdmEditarPerfilState extends State<AdmEditarPerfil> {
             hintText: 'Senha',
             prefixIcon: Icons.vpn_key,
             obscureText: !isPasswordVisible,
+            onChanged: admperfil.setSenha,
             suffixIcon: IconButton(
               icon: Icon(
                   isPasswordVisible ? Icons.visibility : Icons.visibility_off),
@@ -190,6 +216,9 @@ class _AdmEditarPerfilState extends State<AdmEditarPerfil> {
           hintText: 'Confirmar Senha',
           prefixIcon: Icons.vpn_key,
           obscureText: !isConfirmPasswordVisible,
+          erroTexto: admperfil.confirmacaoErrada,
+          focusNode: focusNode,
+          onChanged: admperfil.setConfirmacaoSenha,
           suffixIcon: IconButton(
             icon: Icon(isConfirmPasswordVisible
                 ? Icons.visibility
@@ -201,12 +230,27 @@ class _AdmEditarPerfilState extends State<AdmEditarPerfil> {
     );
   }
 
-  Widget horasPerfil() {
+  Widget horasPerfil(int horas) {
     return StdTextInput(
       prefixIcon: Icons.access_time,
       keyboardType: TextInputType.number,
       isTime: true,
       hintText: 'HH:MM:SS',
+      initualValue: formatDuration(Duration(seconds: horas)),
     );
+  }
+
+  void salvar() async {
+    {
+      if (admperfil.senha == admperfil.confirmacaoSenha) {
+        bool confirmacao =
+            await admperfil.alterarUser(admperfil.id);
+        if (confirmacao) {
+          //await showAlertDialog1(context, confirmacao);
+        }
+      } else {
+        focusNode.requestFocus();
+      }
+    }
   }
 }

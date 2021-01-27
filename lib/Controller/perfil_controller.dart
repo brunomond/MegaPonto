@@ -1,3 +1,4 @@
+import 'package:megaponto_oficial/Model/usuario.dart';
 import 'package:megaponto_oficial/Resources/Globals.dart';
 import 'package:megaponto_oficial/Services/perfil_service.dart';
 import 'package:mobx/mobx.dart';
@@ -6,9 +7,13 @@ part 'perfil_controller.g.dart';
 class PerfilController = _PerfilControllerBase with _$PerfilController;
 
 abstract class _PerfilControllerBase with Store {
-  _PerfilControllerBase() {
-    carregarInfo();
+  _PerfilControllerBase({Usuario user}) {
+    if (user != null)
+      infomaDados(user);
+    else
+      carregarInfo();
   }
+
   @observable
   int tempoSemana = 0;
 
@@ -77,36 +82,46 @@ abstract class _PerfilControllerBase with Store {
 
   @action
   // ignore: missing_return
-  Future<bool> alterarUser(int id) async{
+  Future<bool> alterarUser(int id) async {
     bool confirmar;
-    String sobrenome; 
+    String sobrenome;
     int value = nome.indexOf(' ');
-    if(value != -1){
+    if (value != -1) {
       value = value + 1;
-      sobrenome = nome.substring(value,  nome.length);
-      nome = nome.substring(0,  nome.indexOf(' '));
-    }
-    else{
+      sobrenome = nome.substring(value, nome.length);
+      nome = nome.substring(0, nome.indexOf(' '));
+    } else {
       sobrenome = "";
     }
-    
+
     await PerfilService()
         .alterarDadosUser(nome, sobrenome, email, senha, apelido, celular, id)
         .then((confirmacao) {
-          confirmar = confirmacao;
+      confirmar = confirmacao;
     });
     return confirmar;
   }
 
   @computed
-  bool get senha2Valida => confirmacaoSenha != null && confirmacaoSenha == senha;
-  String get confirmacaoErrada{
-    if(confirmacaoSenha == null || senha2Valida)  return null;
-    else return 'Senhas não coincidem';
+  bool get senha2Valida =>
+      confirmacaoSenha != null && confirmacaoSenha == senha;
+  String get confirmacaoErrada {
+    if (confirmacaoSenha == null || senha2Valida)
+      return null;
+    else
+      return 'Senhas não coincidem';
   }
 
   @action
   editarPerfil() {}
   @action
   obterDadosUser() {}
+
+  void infomaDados(Usuario user) {
+    nome = user.nome;
+    email = user.email;
+    apelido = user.apelido;
+    celular = user.celular;
+    id = user.usuarioId;
+  }
 }
