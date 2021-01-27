@@ -10,6 +10,7 @@ import 'package:megaponto_oficial/View/AdmPages/tela_nomenclatura.dart';
 import 'package:megaponto_oficial/View/HomePage/tela_criar_noticia.dart';
 import 'package:megaponto_oficial/View/HomePage/tela_editar_perfil.dart';
 import 'package:megaponto_oficial/View/HomePage/tela_feed.dart';
+import 'package:megaponto_oficial/View/HomePage/tela_noticia_expandida.dart';
 import 'package:provider/provider.dart';
 
 //Telas
@@ -59,7 +60,8 @@ class MegaPonto extends StatelessWidget {
           '/criar_conta': (context) => CriarConta(),
           '/feed': (context) => Feed(),
           '/criar_noticia': (context) => CriarNoticia(),
-          '/editar_perfil': (context) => EditarPerfil()
+          '/editar_perfil': (context) => EditarPerfil(),
+          '/noticia_expandida': (context) => NoticiaExpandida(),
         },
         theme: ThemeData(
             primaryColor: Color.fromRGBO(140, 32, 55, 1),

@@ -19,8 +19,9 @@ class _AdmEditState extends State<AdmEdit> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: [
-            admOutlineBottom('Funcionário', '/adm_funcio'),
-            admOutlineBottom('Aplicativo', '/adm_app'),
+            admOutlineBottom('Editar Funcionário', '/adm_funcio'),
+            admOutlineBottom('Editar Aplicativo', '/adm_app'),
+            admOutlineBottom('Nova Notícia', '/criar_noticia'),
           ],
         ),
       ),
@@ -29,12 +30,12 @@ class _AdmEditState extends State<AdmEdit> {
 
   Widget admOutlineBottom(String editavel, String page) {
     return Container(
-      height: MediaQuery.of(context).size.height * 0.36,
+      height: MediaQuery.of(context).size.height * 0.2,
       width: MediaQuery.of(context).size.width * 0.8,
       child: OutlineButton(
         onPressed: () => Navigator.pushNamed(context, '$page'),
         child: Text(
-          'Editar $editavel',
+          editavel,
           style: TextStyle(fontSize: 28, color: Colors.black),
         ),
       ),

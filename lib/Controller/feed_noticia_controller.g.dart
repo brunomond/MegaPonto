@@ -9,18 +9,49 @@ part of 'feed_noticia_controller.dart';
 // ignore_for_file: non_constant_identifier_names, unnecessary_brace_in_string_interps, unnecessary_lambdas, prefer_expression_function_bodies, lines_longer_than_80_chars, avoid_as, avoid_annotating_with_dynamic
 
 mixin _$FeedNoticiaController on _FeedNoticiaControllerBase, Store {
-  final _$noticiaAtom = Atom(name: '_FeedNoticiaControllerBase.noticia');
+  final _$conteudoAtom = Atom(name: '_FeedNoticiaControllerBase.conteudo');
 
   @override
-  String get noticia {
-    _$noticiaAtom.reportRead();
-    return super.noticia;
+  String get conteudo {
+    _$conteudoAtom.reportRead();
+    return super.conteudo;
   }
 
   @override
-  set noticia(String value) {
-    _$noticiaAtom.reportWrite(value, super.noticia, () {
-      super.noticia = value;
+  set conteudo(String value) {
+    _$conteudoAtom.reportWrite(value, super.conteudo, () {
+      super.conteudo = value;
+    });
+  }
+
+  final _$tituloAtom = Atom(name: '_FeedNoticiaControllerBase.titulo');
+
+  @override
+  String get titulo {
+    _$tituloAtom.reportRead();
+    return super.titulo;
+  }
+
+  @override
+  set titulo(String value) {
+    _$tituloAtom.reportWrite(value, super.titulo, () {
+      super.titulo = value;
+    });
+  }
+
+  final _$nomeCriadorAtom =
+      Atom(name: '_FeedNoticiaControllerBase.nomeCriador');
+
+  @override
+  String get nomeCriador {
+    _$nomeCriadorAtom.reportRead();
+    return super.nomeCriador;
+  }
+
+  @override
+  set nomeCriador(String value) {
+    _$nomeCriadorAtom.reportWrite(value, super.nomeCriador, () {
+      super.nomeCriador = value;
     });
   }
 
@@ -39,9 +70,33 @@ mixin _$FeedNoticiaController on _FeedNoticiaControllerBase, Store {
   }
 
   @override
+  void setTitulo(String value) {
+    final _$actionInfo = _$_FeedNoticiaControllerBaseActionController
+        .startAction(name: '_FeedNoticiaControllerBase.setTitulo');
+    try {
+      return super.setTitulo(value);
+    } finally {
+      _$_FeedNoticiaControllerBaseActionController.endAction(_$actionInfo);
+    }
+  }
+
+  @override
+  void setCriador(String value) {
+    final _$actionInfo = _$_FeedNoticiaControllerBaseActionController
+        .startAction(name: '_FeedNoticiaControllerBase.setCriador');
+    try {
+      return super.setCriador(value);
+    } finally {
+      _$_FeedNoticiaControllerBaseActionController.endAction(_$actionInfo);
+    }
+  }
+
+  @override
   String toString() {
     return '''
-noticia: ${noticia}
+conteudo: ${conteudo},
+titulo: ${titulo},
+nomeCriador: ${nomeCriador}
     ''';
   }
 }

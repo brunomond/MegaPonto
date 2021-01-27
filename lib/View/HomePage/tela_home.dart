@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:megaponto_oficial/Controller/ponto_controller.dart';
 import 'package:megaponto_oficial/Resources/Globals.dart';
 import 'package:megaponto_oficial/View//HomePage/Widgets/BottomApp.dart';
 import 'package:megaponto_oficial/View/HomePage/tela_leaderboard.dart';
@@ -39,9 +38,6 @@ class _HomeState extends State<Home> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      floatingActionButton: _selectedItem == 0 ? FloatingActionButton(onPressed: (){
-        Navigator.pushNamed(context, '/criar_noticia');
-      }) : null,
       appBar: _selectedItem != 2
           ? GradientAppBar(
               actions: _selectedItem == 4

@@ -1,15 +1,23 @@
 import 'package:flutter/material.dart';
+import 'package:megaponto_oficial/Controller/feed_noticia_controller.dart';
+import 'package:megaponto_oficial/View/HomePage/tela_noticia_expandida.dart';
 
 class CardFeed extends StatelessWidget {
   final List lista;
   final int index;
-  CardFeed({@required this.lista, @required this.index});
+  final FeedNoticiaController controller;
+  CardFeed(
+      {@required this.lista, @required this.index, @required this.controller});
 
   @override
   Widget build(BuildContext context) {
     return Padding(
         padding: EdgeInsets.fromLTRB(20, 5, 20, 5),
         child: GestureDetector(
+          onTap: () {
+            controller.setTitulo(lista[index].titulo);
+            Navigator.pushNamed(context, '/noticia_expandida');
+          },
           child: Card(
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(30.0),
@@ -40,12 +48,16 @@ class CardFeed extends StatelessWidget {
                             Padding(
                               padding: EdgeInsets.fromLTRB(0, 2, 0, 3),
                               child: Text(
-                                (lista[index].nomeUsuario != null && lista[index].nomeUsuario != '') ? lista[index].nomeUsuario : 'Não tem nome',
+                                (lista[index].nomeUsuario != null &&
+                                        lista[index].nomeUsuario != '')
+                                    ? lista[index].nomeUsuario
+                                    : 'Não tem nome',
                                 style: TextStyle(
                                     fontSize: 20, fontWeight: FontWeight.bold),
                               ),
                             ),
-                            Text(lista[index].created,
+                            Text(
+                              lista[index].created,
                               style: TextStyle(fontSize: 14),
                             )
                           ],

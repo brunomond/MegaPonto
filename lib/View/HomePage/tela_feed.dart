@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_mobx/flutter_mobx.dart';
+import 'package:megaponto_oficial/Controller/feed_noticia_controller.dart';
 import 'package:megaponto_oficial/Model/noticia.dart';
 import 'package:megaponto_oficial/View/HomePage/Widgets/cardFeed.dart';
-import 'package:megaponto_oficial/Services/feed_service.dart';
 
 class Feed extends StatefulWidget {
   @override
@@ -9,26 +10,20 @@ class Feed extends StatefulWidget {
 }
 
 class _FeedState extends State<Feed> {
-
-  List<Noticia> noticias = List();
-  _FeedState() {
-    obterNoticia();
-  }
+  FeedNoticiaController feedController = FeedNoticiaController();
 
   @override
   Widget build(BuildContext context) {
-    return ListView.builder(
-      itemBuilder: (context, index) {
-        return CardFeed(lista: noticias, index: index);
-      },
-      itemCount: noticias.length,
-    );
-  }
+    return Observer(builder: (_) {
+      List<Noticia> noticias = feedController.noticiasEjOutput.data;
 
-  void obterNoticia() async{
-    List<Noticia> noticias2 = await FeedService().obterNoticias();
-    setState(() {
-      noticias = noticias2;
+      return ListView.builder(
+        itemBuilder: (context, index) {
+          return CardFeed(
+              lista: noticias, index: index, controller: feedController);
+        },
+        itemCount: noticias.length,
+      );
     });
   }
 }
