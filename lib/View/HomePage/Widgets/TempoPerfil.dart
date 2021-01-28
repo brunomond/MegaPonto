@@ -46,25 +46,28 @@ class _TempoPerfilState extends State<TempoPerfil> {
     return SizedBox(
         height: Globals.windowSize.height * 0.2,
         width: Globals.windowSize.width * 0.23,
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.center,
-          mainAxisAlignment: MainAxisAlignment.end,
-          mainAxisSize: MainAxisSize.max,
-          children: <Widget>[
-            Text(
-              TransformaTempo(horasAcumuladas).toString(),
-              maxLines: 2,
-              textAlign: TextAlign.center,
-              style: TextStyle(fontSize: 20),
-            ),
-            Text(
-              sma,
-              maxLines: 1,
-              textAlign: TextAlign.center,
-              overflow: TextOverflow.ellipsis,
-              style: TextStyle(fontSize: 16),
-            ),
-          ],
-        ));
+        child: Container(
+                  child: Column(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            mainAxisAlignment: MainAxisAlignment.end,
+            mainAxisSize: MainAxisSize.max,
+            children: <Widget>[
+              Text(
+                TransformaTempo(horasAcumuladas).toString(),
+                maxLines: 2,
+                textAlign: TextAlign.center,
+                style: TextStyle(fontSize: 20),
+              ),
+              Text(
+                sma,
+                maxLines: 1,
+                textAlign: TextAlign.center,
+                overflow: TextOverflow.ellipsis,
+                style: TextStyle(fontSize: 16),
+              ),
+            ],
+          ),
+        ),
+      );
   }
 }

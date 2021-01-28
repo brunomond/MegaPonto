@@ -64,7 +64,8 @@ class _ColorAppState extends State<ColorApp> {
             ),
             onTap: () => showDialog(
               context: context,
-              child: AlertDialog(
+              builder: (context){
+                return AlertDialog(
                 title: const Text('Escolha a cor primária'),
                 content: SingleChildScrollView(
                   child: ColorPicker(
@@ -78,12 +79,13 @@ class _ColorAppState extends State<ColorApp> {
                   FlatButton(
                     child: const Text('Feito!'),
                     onPressed: () {
-                      setState(() => currentFirstColor = pickerFirstColor);
+                      _trocaCor(pickerFirstColor);
                       Navigator.of(context).pop();
                     },
                   ),
                 ],
-              ),
+              );
+              },
             ),
           ), //fim cor primária
           Divider(
@@ -109,8 +111,9 @@ class _ColorAppState extends State<ColorApp> {
                 ],
               ),
               onTap: () => showDialog(
-                    context: context,
-                    child: AlertDialog(
+                context: context,
+                builder: (context){
+                  return AlertDialog(
                       title: const Text('Escolha a cor secundária'),
                       content: SingleChildScrollView(
                         child: ColorPicker(
@@ -124,16 +127,18 @@ class _ColorAppState extends State<ColorApp> {
                         FlatButton(
                           child: const Text('Feito!'),
                           onPressed: () {
-                            setState(
-                                () => currentSecondColor = pickerSecondColor);
+                            _trocaCor(pickerSecondColor);
                             Navigator.of(context).pop();
                           },
                         ),
                       ],
-                    ),
+                    );},
                   )), //fim cor secondária
         ],
       ),
     );
+  }
+  void _trocaCor(Color cor){
+    setState(() => currentSecondColor = cor);
   }
 }

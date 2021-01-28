@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:intl/number_symbols_data.dart';
 import 'package:megaponto_oficial/Controller/perfil_controller.dart';
 import 'package:megaponto_oficial/Model/usuario.dart';
@@ -72,8 +73,7 @@ class _AdmEditarPerfilState extends State<AdmEditarPerfil> {
                       initualValue: admperfil.celular,
                       isPhone: true,
                       done: true,
-                      onSaved: (value) =>
-                          setState(() => admperfil.celular = value),
+                      onSaved: (value) => _celular(value),
                     ),
                     horasPerfil(admperfil.tempoMes),
                     Row(
@@ -112,13 +112,13 @@ class _AdmEditarPerfilState extends State<AdmEditarPerfil> {
                 mainAxisSize: MainAxisSize.min,
                 children: <Widget>[
                   Divider(),
-                  FlatButton(
-                      onPressed: null,
+                  TextButton(
+                      onPressed: (){adicionaImagem();},
                       child: Text(
                         "Nova foto de Perfil",
                         style: TextStyle(color: Colors.white),
                       )),
-                  FlatButton(
+                  TextButton(
                       onPressed: null,
                       child: Text(
                         "Remover foto de Perfil",
@@ -129,10 +129,18 @@ class _AdmEditarPerfilState extends State<AdmEditarPerfil> {
         });
   }
 
+  Future<void> adicionaImagem() async{
+    final ImagePicker picker = ImagePicker();
+  }
+
   void _trocarVisibilidadeSenha(bool senha) {
     senha
         ? setState(() => isPasswordVisible = !isPasswordVisible)
         : setState(() => isConfirmPasswordVisible = !isConfirmPasswordVisible);
+  }
+
+  void _celular(String value) {
+    setState(() => admperfil.celular = value);
   }
 
   Widget imagemPerfil() {
@@ -243,8 +251,7 @@ class _AdmEditarPerfilState extends State<AdmEditarPerfil> {
   void salvar() async {
     {
       if (admperfil.senha == admperfil.confirmacaoSenha) {
-        bool confirmacao =
-            await admperfil.alterarUser(admperfil.id);
+        bool confirmacao = await admperfil.alterarUser(admperfil.id);
         if (confirmacao) {
           //await showAlertDialog1(context, confirmacao);
         }

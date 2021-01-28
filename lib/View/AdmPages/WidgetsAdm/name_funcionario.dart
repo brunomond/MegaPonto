@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:megaponto_oficial/View/AdmPages/tela_nomenclatura.dart';
 
 class NameFuncionario extends StatelessWidget {
   @override
@@ -8,11 +9,11 @@ class NameFuncionario extends StatelessWidget {
         children: [
           OutlineButton(
               onPressed: () =>
-                  Navigator.pushNamed(context, '/adm_nomenclatura'),
+                  Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) => EditarNomenclatura())),
               child: Text('Editar Cargos')),
           OutlineButton(
               onPressed: () =>
-                  Navigator.pushNamed(context, '/adm_nomenclatura'),
+                  Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) => EditarNomenclatura())),
               child: Text('Editar Patentes'))
         ],
       ),
